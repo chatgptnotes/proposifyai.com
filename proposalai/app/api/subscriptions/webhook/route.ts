@@ -91,6 +91,24 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
   }
 
   // Update subscription in database
+  // Cast subscription to any to access timestamp properties
+  const sub = subscription as any;
+  const currentPeriodStart = sub.current_period_start
+    ? new Date(sub.current_period_start * 1000).toISOString()
+    : null;
+  const currentPeriodEnd = sub.current_period_end
+    ? new Date(sub.current_period_end * 1000).toISOString()
+    : null;
+  const canceledAt = sub.canceled_at
+    ? new Date(sub.canceled_at * 1000).toISOString()
+    : null;
+  const trialStart = sub.trial_start
+    ? new Date(sub.trial_start * 1000).toISOString()
+    : null;
+  const trialEnd = sub.trial_end
+    ? new Date(sub.trial_end * 1000).toISOString()
+    : null;
+
   await supabaseAdmin.from('subscriptions').upsert({
     user_id: userId,
     stripe_customer_id: customerId,
@@ -98,18 +116,12 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
     stripe_price_id: priceId,
     tier,
     status: subscription.status,
-    current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-    current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
-    cancel_at_period_end: subscription.cancel_at_period_end,
-    canceled_at: subscription.canceled_at
-      ? new Date(subscription.canceled_at * 1000).toISOString()
-      : null,
-    trial_start: subscription.trial_start
-      ? new Date(subscription.trial_start * 1000).toISOString()
-      : null,
-    trial_end: subscription.trial_end
-      ? new Date(subscription.trial_end * 1000).toISOString()
-      : null,
+    current_period_start: currentPeriodStart,
+    current_period_end: currentPeriodEnd,
+    cancel_at_period_end: sub.cancel_at_period_end || false,
+    canceled_at: canceledAt,
+    trial_start: trialStart,
+    trial_end: trialEnd,
   });
 
   // Update user profile tier
@@ -148,8 +160,9 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
 // Handle successful payment
 async function handleInvoicePaid(invoice: Stripe.Invoice) {
-  const customerId = invoice.customer as string;
-  const subscriptionId = invoice.subscription as string;
+  const inv = invoice as any;
+  const customerId = inv.customer as string;
+  const subscriptionId = inv.subscription as string;
 
   // Get user ID
   const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
@@ -168,23 +181,26 @@ async function handleInvoicePaid(invoice: Stripe.Invoice) {
   await supabaseAdmin.from('payment_history').insert({
     user_id: userId,
     subscription_id: subscription?.id,
-    stripe_invoice_id: invoice.id,
-    stripe_payment_intent_id: invoice.payment_intent as string,
-    amount: invoice.amount_paid / 100, // Convert cents to dollars
-    currency: invoice.currency.toUpperCase(),
+    stripe_invoice_id: inv.id,
+    stripe_payment_intent_id: inv.payment_intent as string,
+    amount: inv.amount_paid / 100, // Convert cents to dollars
+    currency: inv.currency.toUpperCase(),
     status: 'succeeded',
-    description: invoice.description || 'Subscription payment',
-    invoice_url: invoice.hosted_invoice_url,
-    invoice_pdf: invoice.invoice_pdf,
-    paid_at: new Date(invoice.status_transitions.paid_at! * 1000).toISOString(),
+    description: inv.description || 'Subscription payment',
+    invoice_url: inv.hosted_invoice_url,
+    invoice_pdf: inv.invoice_pdf,
+    paid_at: inv.status_transitions?.paid_at
+      ? new Date(inv.status_transitions.paid_at * 1000).toISOString()
+      : new Date().toISOString(),
   });
 
-  console.log(`Payment recorded for user ${userId}: $${invoice.amount_paid / 100}`);
+  console.log(`Payment recorded for user ${userId}: $${inv.amount_paid / 100}`);
 }
 
 // Handle payment failure
 async function handlePaymentFailed(invoice: Stripe.Invoice) {
-  const customerId = invoice.customer as string;
+  const inv = invoice as any;
+  const customerId = inv.customer as string;
 
   // Get user ID
   const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
