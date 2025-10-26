@@ -18,6 +18,33 @@ export const metadata: Metadata = {
   authors: [{ name: "Bettroi", url: "https://proposifyai.com" }],
   creator: "Bettroi",
   publisher: "Proposify AI",
+  applicationName: "Proposify AI",
+  manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Proposify AI",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/safari-pinned-tab.svg',
+        color: '#3b82f6',
+      },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
@@ -57,6 +84,10 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "verification_token_here",
+  },
+  other: {
+    'msapplication-TileColor': '#3b82f6',
+    'msapplication-config': '/browserconfig.xml',
   },
 };
 
