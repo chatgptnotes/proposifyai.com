@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none">
+  <!-- Red background rectangle -->
+  <rect x="0" y="0" width="200" height="100" fill="#DC2626"/>
+
+  <!-- White text "Dr." -->
+  <text x="25" y="70"
+        font-family="Georgia, serif"
+        font-size="48"
+        font-weight="normal"
+        fill="white">
+    Dr.
+  </text>
+
+  <!-- White text "M" -->
+  <text x="120" y="70"
+        font-family="Georgia, serif"
+        font-size="52"
+        font-weight="normal"
+        fill="white">
+    M
+  </text>
+
+  <!-- White border frame -->
+  <rect x="2" y="2" width="196" height="96"
+        fill="none"
+        stroke="white"
+        stroke-width="3"/>
+</svg>

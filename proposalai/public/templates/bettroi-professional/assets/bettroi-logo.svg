@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Background -->
+  <rect x="10" y="10" width="180" height="180" rx="20" fill="#DC2626"/>
+
+  <!-- Stylized "B" with ROI arrow concept -->
+  <g transform="translate(100, 100)">
+    <!-- Letter B base -->
+    <path d="M-40 -50 L-40 50 M-40 -50 L0 -50 Q20 -50 20 -30 Q20 -10 0 -10 L-40 -10 M-40 -10 L5 -10 Q25 -10 25 10 Q25 30 5 30 L-40 30 M-40 50 L0 50"
+          stroke="white"
+          stroke-width="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"/>
+
+    <!-- ROI Growth Arrow -->
+    <g transform="translate(35, -20)">
+      <!-- Arrow line going up -->
+      <path d="M0 20 L15 5 L30 -10"
+            stroke="#FFD700"
+            stroke-width="6"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- Arrow head -->
+      <path d="M25 -10 L30 -10 L30 -5"
+            stroke="#FFD700"
+            stroke-width="6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"/>
+
+      <!-- Growth dots -->
+      <circle cx="5" cy="15" r="3" fill="#FFD700"/>
+      <circle cx="15" cy="5" r="3" fill="#FFD700"/>
+      <circle cx="25" cy="-5" r="3" fill="#FFD700"/>
+    </g>
+  </g>
+
+  <!-- Company name -->
+  <text x="100" y="170"
+        font-family="Arial, sans-serif"
+        font-size="20"
+        font-weight="bold"
+        text-anchor="middle"
+        fill="white">
+    BETTROI
+  </text>
+</svg>

@@ -1,0 +1,445 @@
+"use client";
+
+import Link from "next/link";
+import { useState, useMemo, useEffect } from "react";
+import toast from "react-hot-toast";
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import SearchIcon from '@mui/icons-material/Search';
+import SortIcon from '@mui/icons-material/Sort';
+import { ProposalListSkeleton } from "@/components/ProposalCardSkeleton";
+import Navigation from "@/components/Navigation";
+import Breadcrumbs from "@/components/Breadcrumbs";
+
+export default function ProposalsPage() {
+  const [filter, setFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"date" | "name" | "value">("date");
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const proposals = useMemo(() => [
+    {
+      id: 1,
+      title: "Website Redesign - Acme Corp",
+      client: "Acme Corporation",
+      value: 50000,
+      status: "opened",
+      lastViewed: "2 hours ago",
+      createdAt: "Jan 15, 2025",
+    },
+    {
+      id: 2,
+      title: "Mobile App Development - TechStart",
+      client: "TechStart Inc",
+      value: 120000,
+      status: "signed",
+      lastViewed: "1 day ago",
+      createdAt: "Jan 12, 2025",
+    },
+    {
+      id: 3,
+      title: "Marketing Campaign - GrowthCo",
+      client: "GrowthCo",
+      value: 35000,
+      status: "draft",
+      lastViewed: "3 days ago",
+      createdAt: "Jan 10, 2025",
+    },
+    {
+      id: 4,
+      title: "Consulting Services - Enterprise LLC",
+      client: "Enterprise LLC",
+      value: 80000,
+      status: "sent",
+      lastViewed: "5 days ago",
+      createdAt: "Jan 8, 2025",
+    },
+    {
+      id: 5,
+      title: "Cloud Migration - DataCorp",
+      client: "DataCorp",
+      value: 95000,
+      status: "opened",
+      lastViewed: "1 week ago",
+      createdAt: "Jan 5, 2025",
+    },
+  ], []);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "draft":
+        return "bg-gray-100 text-gray-700 border border-gray-300";
+      case "sent":
+        return "bg-blue-100 text-blue-700 border border-blue-300";
+      case "opened":
+        return "bg-yellow-100 text-yellow-700 border border-yellow-300";
+      case "signed":
+        return "bg-green-100 text-green-700 border border-green-300";
+      default:
+        return "bg-gray-100 text-gray-700 border border-gray-300";
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "draft":
+        return "📝";
+      case "sent":
+        return "📤";
+      case "opened":
+        return "👀";
+      case "signed":
+        return "✅";
+      default:
+        return "📄";
+    }
+  };
+
+  const toggleFavorite = (id: number) => {
+    setFavorites(prev =>
+      prev.includes(id) ? prev.filter(fav => fav !== id) : [...prev, id]
+    );
+    toast.success(favorites.includes(id) ? "Removed from favorites" : "Added to favorites");
+  };
+
+  const copyProposalId = (id: number, title: string) => {
+    navigator.clipboard.writeText(`#${id} - ${title}`);
+    toast.success("Proposal ID copied to clipboard!");
+  };
+
+  const filteredAndSortedProposals = useMemo(() => {
+    let result = proposals;
+
+    // Filter by status
+    if (filter !== "all") {
+      result = result.filter((p) => p.status === filter);
+    }
+
+    // Filter by search query
+    if (searchQuery) {
+      result = result.filter((p) =>
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.client.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Sort
+    result = [...result].sort((a, b) => {
+      switch (sortBy) {
+        case "name":
+          return a.title.localeCompare(b.title);
+        case "value":
+          return b.value - a.value;
+        case "date":
+        default:
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    });
+
+    // Favorites first
+    return result.sort((a, b) => {
+      const aFav = favorites.includes(a.id);
+      const bFav = favorites.includes(b.id);
+      if (aFav && !bFav) return -1;
+      if (!aFav && bFav) return 1;
+      return 0;
+    });
+  }, [proposals, filter, searchQuery, sortBy, favorites]);
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <Navigation />
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumbs */}
+        <Breadcrumbs />
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Proposals</h1>
+            <p className="text-gray-600 mt-2">
+              Manage and track all your proposals • {proposals.length} total
+              {favorites.length > 0 && ` • ${favorites.length} favorited`}
+            </p>
+          </div>
+          <Link
+            href="/proposals/new"
+            className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition shadow-md hover:shadow-lg hover:scale-105 transform"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            New Proposal
+          </Link>
+        </div>
+
+        {/* Search and Sort */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="flex-1 relative">
+            <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search proposals by title or client..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          <div className="relative">
+            <SortIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as "date" | "name" | "value")}
+              className="pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none appearance-none bg-white cursor-pointer font-medium"
+            >
+              <option value="date">Sort by Date</option>
+              <option value="name">Sort by Name</option>
+              <option value="value">Sort by Value</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Filters */}
+        <div className="flex items-center space-x-4 mb-6">
+          <button
+            onClick={() => setFilter("all")}
+            className={`px-4 py-2 rounded-lg font-medium transition ${
+              filter === "all"
+                ? "bg-primary-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+            }`}
+          >
+            All ({proposals.length})
+          </button>
+          <button
+            onClick={() => setFilter("draft")}
+            className={`px-4 py-2 rounded-lg font-medium transition ${
+              filter === "draft"
+                ? "bg-primary-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+            }`}
+          >
+            Draft ({proposals.filter((p) => p.status === "draft").length})
+          </button>
+          <button
+            onClick={() => setFilter("sent")}
+            className={`px-4 py-2 rounded-lg font-medium transition ${
+              filter === "sent"
+                ? "bg-primary-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+            }`}
+          >
+            Sent ({proposals.filter((p) => p.status === "sent").length})
+          </button>
+          <button
+            onClick={() => setFilter("opened")}
+            className={`px-4 py-2 rounded-lg font-medium transition ${
+              filter === "opened"
+                ? "bg-primary-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+            }`}
+          >
+            Opened ({proposals.filter((p) => p.status === "opened").length})
+          </button>
+          <button
+            onClick={() => setFilter("signed")}
+            className={`px-4 py-2 rounded-lg font-medium transition ${
+              filter === "signed"
+                ? "bg-primary-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+            }`}
+          >
+            Signed ({proposals.filter((p) => p.status === "signed").length})
+          </button>
+        </div>
+
+        {/* Proposals List */}
+        {isLoading ? (
+          <ProposalListSkeleton count={5} />
+        ) : (
+          <div className="bg-white rounded-xl shadow-md border border-gray-100">
+            <div className="divide-y divide-gray-200">
+              {filteredAndSortedProposals.map((proposal) => (
+              <div
+                key={proposal.id}
+                className="px-6 py-5 hover:bg-gray-50 transition group relative"
+              >
+                {/* Favorite Star Badge */}
+                {favorites.includes(proposal.id) && (
+                  <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                    <StarIcon sx={{ fontSize: 12 }} />
+                    Favorite
+                  </div>
+                )}
+
+                <Link href={`/proposals/${proposal.id}`} className="block">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleFavorite(proposal.id);
+                          }}
+                          className="flex-shrink-0 text-gray-400 hover:text-yellow-500 transition"
+                          title={favorites.includes(proposal.id) ? "Remove from favorites" : "Add to favorites"}
+                        >
+                          {favorites.includes(proposal.id) ? (
+                            <StarIcon className="text-yellow-500" />
+                          ) : (
+                            <StarBorderIcon />
+                          )}
+                        </button>
+                        <h3 className="text-lg font-semibold text-gray-900 truncate">{proposal.title}</h3>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${getStatusColor(
+                            proposal.status
+                          )}`}
+                        >
+                          <span>{getStatusIcon(proposal.status)}</span>
+                          {proposal.status.charAt(0).toUpperCase() + proposal.status.slice(1)}
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            copyProposalId(proposal.id, proposal.title);
+                          }}
+                          className="flex-shrink-0 p-1 text-gray-400 hover:text-primary-600 transition"
+                          title="Copy proposal ID"
+                        >
+                          <ContentCopyIcon sx={{ fontSize: 16 }} />
+                        </button>
+                      </div>
+                      <div className="flex items-center space-x-6 text-sm text-gray-600">
+                        <span className="flex items-center gap-1">
+                          <span className="font-medium">Client:</span> {proposal.client}
+                        </span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          <span className="font-medium">Created:</span> {proposal.createdAt}
+                        </span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          <span className="font-medium">Last viewed:</span> {proposal.lastViewed}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-6">
+                      <div className="text-right">
+                        <p className="text-xs text-gray-500 mb-1">Proposal Value</p>
+                        <p className="text-2xl font-bold text-primary-600">
+                          ${(proposal.value / 1000).toFixed(0)}K
+                        </p>
+                      </div>
+                      <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href = `/proposals/${proposal.id}`;
+                          }}
+                          className="p-2 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition"
+                          title="Edit proposal"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (confirm(`Are you sure you want to delete "${proposal.title}"?`)) {
+                              toast.success("Proposal deleted (demo)");
+                            }
+                          }}
+                          className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition"
+                          title="Delete proposal"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <svg
+                        className="w-5 h-5 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Empty State (if no proposals) */}
+        {!isLoading && filteredAndSortedProposals.length === 0 && (
+          <div className="bg-white rounded-xl shadow-md p-12 text-center border border-gray-100">
+            <svg
+              className="w-16 h-16 text-gray-400 mx-auto mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">No proposals found</h3>
+            <p className="text-gray-600 mb-6">
+              {filter === "all"
+                ? "Get started by creating your first proposal"
+                : `No proposals with status "${filter}"`}
+            </p>
+            <Link
+              href="/proposals/new"
+              className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Create First Proposal
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

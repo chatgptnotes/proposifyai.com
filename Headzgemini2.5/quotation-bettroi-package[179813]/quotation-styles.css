@@ -1,0 +1,630 @@
+/* Quotation Stylesheet - Bettroi Red Branding */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f5f5f5;
+}
+
+.quotation-container {
+    max-width: 210mm;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* Header / Letterhead */
+.letterhead {
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    color: white;
+    padding: 30px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.letterhead::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.company-logo {
+    width: 100px;
+    height: 50px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.company-info h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.company-info .tagline {
+    font-size: 14px;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+.quotation-meta {
+    text-align: right;
+}
+
+.meta-item {
+    margin-bottom: 8px;
+}
+
+.meta-item .label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-right: 8px;
+}
+
+.meta-item .value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Client Details */
+.client-details {
+    padding: 40px;
+    background: #fafafa;
+    border-bottom: 3px solid #DC2626;
+}
+
+.section-header h2 {
+    color: #DC2626;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.client-info {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.client-logo-img {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border: 2px solid #DC2626;
+    border-radius: 12px;
+    padding: 10px;
+    display: block;
+    object-fit: contain;
+}
+
+.client-address h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.client-address p {
+    color: #666;
+    margin-bottom: 4px;
+}
+
+/* Section Titles */
+.section-title {
+    color: #DC2626;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #DC2626;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Executive Summary */
+.executive-summary {
+    padding: 40px;
+}
+
+.summary-content h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.summary-content p {
+    color: #555;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* Scope of Work */
+.scope-of-work {
+    padding: 0 40px 40px 40px;
+}
+
+.platform-section {
+    margin-bottom: 30px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-left: 4px solid #DC2626;
+    border-radius: 0 8px 8px 0;
+}
+
+.platform-section h3 {
+    color: #DC2626;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.feature-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.feature-list li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: #555;
+}
+
+.feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #DC2626;
+    font-weight: bold;
+}
+
+/* Key Features Grid */
+.key-features {
+    padding: 0 40px 40px 40px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.feature-item {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(220,38,38,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(220,38,38,0.2);
+}
+
+.feature-icon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.feature-icon.material-icons {
+    color: #DC2626;
+    font-size: 48px;
+}
+
+.feature-item h4 {
+    color: #DC2626;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.feature-item p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Pricing Table */
+.pricing {
+    padding: 0 40px 40px 40px;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.pricing-table thead {
+    background: #DC2626;
+    color: white;
+}
+
+.pricing-table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.pricing-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.pricing-table tbody tr:hover {
+    background: #fafafa;
+}
+
+.amount {
+    text-align: right;
+    font-weight: 600;
+    color: #DC2626;
+}
+
+.total-row {
+    background: #f5f5f5;
+    font-size: 18px;
+}
+
+.total-row td {
+    padding: 20px 15px;
+    border-top: 2px solid #DC2626;
+    border-bottom: none;
+}
+
+.amount.total {
+    font-size: 22px;
+    color: #DC2626;
+}
+
+/* Exclusions */
+.exclusions {
+    background: #FEF2F2;
+    border: 1px solid #FCA5A5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.exclusions h3 {
+    color: #991B1B;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.exclusions ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.exclusions li {
+    padding: 5px 0;
+    padding-left: 20px;
+    position: relative;
+    color: #7F1D1D;
+}
+
+.exclusions li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: #DC2626;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.exclusions li strong {
+    color: #991B1B;
+    font-weight: 600;
+}
+
+.important-note {
+    background: #FEF2F2;
+    border: 2px solid #DC2626;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.important-note p {
+    color: #7F1D1D;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.important-note strong {
+    color: #DC2626;
+    font-size: 16px;
+}
+
+/* Optional Add-ons */
+.optional-addons {
+    padding: 0 40px 40px 40px;
+}
+
+.addon-features {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.addon-features li {
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.addon-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #22C55E;
+    font-weight: bold;
+}
+
+.addon-note {
+    background: #F0FDF4;
+    border: 1px solid #86EFAC;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.addon-note p {
+    color: #166534;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.addon-note strong {
+    color: #14532D;
+}
+
+/* Timeline */
+.timeline {
+    padding: 0 40px 40px 40px;
+}
+
+.timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.timeline-table thead {
+    background: #333;
+    color: white;
+}
+
+.timeline-table th,
+.timeline-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.timeline-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+.timeline-note {
+    background: #F0FDF4;
+    border: 1px solid #86EFAC;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.timeline-note p {
+    color: #166534;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.timeline-note strong {
+    color: #14532D;
+    font-size: 15px;
+}
+
+/* Terms & Conditions */
+.terms {
+    padding: 0 40px 40px 40px;
+}
+
+.terms-content ol {
+    padding-left: 20px;
+}
+
+.terms-content li {
+    margin-bottom: 12px;
+    color: #555;
+    line-height: 1.7;
+}
+
+.terms-content li strong {
+    color: #333;
+}
+
+/* Acceptance Section */
+.acceptance {
+    padding: 0 40px 40px 40px;
+}
+
+.signature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 30px;
+}
+
+.signature-block h4 {
+    color: #DC2626;
+    margin-bottom: 40px;
+}
+
+.signature-line {
+    border-bottom: 2px solid #333;
+    margin-bottom: 10px;
+}
+
+.signature-block p {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/* Footer */
+.quotation-footer {
+    background: #1F2937;
+    color: white;
+    padding: 40px;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.footer-company h3 {
+    color: #DC2626;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-company p,
+.footer-contact p,
+.footer-legal p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.footer-contact strong,
+.footer-legal strong {
+    color: #DC2626;
+}
+
+.confidential {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #4B5563;
+    font-style: italic;
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+.footer-bar {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #4B5563;
+    color: #DC2626;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+    }
+
+    .quotation-container {
+        box-shadow: none;
+    }
+
+    .letterhead {
+        background: #DC2626 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .feature-item:hover {
+        transform: none;
+    }
+
+    @page {
+        margin: 0;
+        size: A4;
+    }
+
+    section {
+        page-break-inside: avoid;
+    }
+
+    .timeline,
+    .pricing {
+        page-break-before: auto;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .quotation-meta {
+        text-align: left;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .signature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .letterhead,
+    .client-details,
+    .executive-summary,
+    .scope-of-work,
+    .pricing,
+    .timeline,
+    .terms,
+    .acceptance {
+        padding: 20px;
+    }
+}

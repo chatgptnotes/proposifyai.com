@@ -1,0 +1,51 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - link "P Proposify AI" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]: P
+        - generic [ref=e8]: Proposify AI
+      - heading "Welcome back" [level=1] [ref=e9]
+      - paragraph [ref=e10]: Sign in to your account to continue
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: Email address
+          - textbox "Email address" [ref=e15]:
+            - /placeholder: you@example.com
+            - text: test@example.com
+        - generic [ref=e16]:
+          - generic [ref=e17]:
+            - generic [ref=e18]: Password
+            - link "Forgot password?" [ref=e19] [cursor=pointer]:
+              - /url: /forgot-password
+          - textbox "Password" [ref=e20]:
+            - /placeholder: ••••••••
+            - text: testpassword123
+        - generic [ref=e21]:
+          - checkbox "Remember me for 30 days" [ref=e22]
+          - generic [ref=e23]: Remember me for 30 days
+        - paragraph [ref=e25]: Invalid login credentials
+        - button "Sign in" [ref=e26] [cursor=pointer]
+      - generic [ref=e31]: Or continue with
+      - generic [ref=e32]:
+        - button "Google" [ref=e33] [cursor=pointer]:
+          - img [ref=e34]
+          - generic [ref=e39]: Google
+        - button "GitHub" [ref=e40] [cursor=pointer]:
+          - img [ref=e41]
+          - generic [ref=e43]: GitHub
+    - paragraph [ref=e44]:
+      - text: Don't have an account?
+      - link "Sign up for free" [ref=e45] [cursor=pointer]:
+        - /url: /signup
+  - button "Keyboard Shortcuts (Press ?)" [ref=e46] [cursor=pointer]:
+    - img [ref=e47]
+  - generic:
+    - generic:
+      - paragraph: ProposifyAI v2.5.0 • Released 2025-10-26
+  - alert [ref=e49]
+```

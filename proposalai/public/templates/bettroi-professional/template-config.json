@@ -1,0 +1,166 @@
+{
+  "id": "bettroi-professional",
+  "name": "Bettroi Professional Proposal",
+  "description": "Professional software development proposal template with red branding, used for DRMHOPE Software quotations",
+  "category": "Software Development",
+  "version": "1.0",
+  "created": "2025-10-25",
+  "brand": {
+    "primaryColor": "#DC2626",
+    "secondaryColor": "#B91C1C",
+    "accentColor": "#991B1B"
+  },
+  "sections": [
+    {
+      "id": "header",
+      "name": "Header/Letterhead",
+      "required": true,
+      "fields": [
+        "companyLogo",
+        "companyName",
+        "tagline",
+        "quotationNumber",
+        "date",
+        "validUntil"
+      ]
+    },
+    {
+      "id": "clientDetails",
+      "name": "Client Details",
+      "required": true,
+      "fields": [
+        "clientLogo",
+        "clientName",
+        "clientDescription",
+        "clientLocation",
+        "clientEmail"
+      ]
+    },
+    {
+      "id": "executiveSummary",
+      "name": "Project Overview",
+      "required": true,
+      "fields": [
+        "projectTitle",
+        "projectDescription"
+      ]
+    },
+    {
+      "id": "scopeOfWork",
+      "name": "Scope of Work",
+      "required": true,
+      "subsections": [
+        {
+          "name": "Platform Sections",
+          "repeatable": true,
+          "fields": [
+            "platformName",
+            "features"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "keyFeatures",
+      "name": "Key Features",
+      "required": false,
+      "gridLayout": true,
+      "items": [
+        {
+          "icon": "palette",
+          "title": "Feature Title",
+          "description": "Feature Description"
+        }
+      ]
+    },
+    {
+      "id": "pricing",
+      "name": "Investment Breakdown",
+      "required": true,
+      "table": true,
+      "fields": [
+        "deliverable",
+        "description",
+        "amount"
+      ]
+    },
+    {
+      "id": "exclusions",
+      "name": "Exclusions",
+      "required": false,
+      "fields": [
+        "exclusionsList",
+        "importantNote"
+      ]
+    },
+    {
+      "id": "optionalAddons",
+      "name": "Optional Add-ons",
+      "required": false,
+      "table": true,
+      "fields": [
+        "service",
+        "description",
+        "pricing"
+      ]
+    },
+    {
+      "id": "timeline",
+      "name": "Development Timeline",
+      "required": true,
+      "table": true,
+      "fields": [
+        "phase",
+        "deliverables",
+        "duration"
+      ]
+    },
+    {
+      "id": "terms",
+      "name": "Terms & Conditions",
+      "required": true,
+      "orderedList": true
+    },
+    {
+      "id": "acceptance",
+      "name": "Acceptance/Signatures",
+      "required": true,
+      "fields": [
+        "companySignature",
+        "clientSignature"
+      ]
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "required": true,
+      "fields": [
+        "companyAddress",
+        "contactDetails",
+        "taglineFooter"
+      ]
+    }
+  ],
+  "sampleData": {
+    "companyName": "DRMHOPE SOFTWARE",
+    "tagline": "Accelerating Digital Innovation",
+    "quotationNumber": "DRM-2025-Q-{AUTO}",
+    "validityDays": 30,
+    "paymentTerms": "40% advance, 30% on milestone completion, 30% on final delivery",
+    "supportPeriod": "3 months of bug fixing support post-launch included",
+    "revisions": "Up to 3 rounds of revisions included in each phase"
+  },
+  "features": [
+    "Professional letterhead design",
+    "Client branding integration",
+    "Detailed scope of work breakdown",
+    "Visual key features grid",
+    "Comprehensive pricing tables",
+    "Optional add-ons section",
+    "Development timeline visualization",
+    "Terms and conditions",
+    "Digital signature section",
+    "Print-ready PDF export",
+    "Responsive mobile layout"
+  ]
+}
