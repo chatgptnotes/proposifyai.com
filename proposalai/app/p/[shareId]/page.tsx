@@ -243,7 +243,7 @@ export default function PublicProposalPage() {
             <div className="flex items-center space-x-3">
               <FileText className="w-8 h-8 text-primary-600" />
               <div>
-                <h1 className="text-xl font-bold text-gray-900">ProposalAI</h1>
+                <h1 className="text-xl font-bold text-gray-900">Proposify AI</h1>
                 <p className="text-sm text-gray-600">Professional Proposals</p>
               </div>
             </div>

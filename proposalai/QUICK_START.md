@@ -1,4 +1,4 @@
-# 🚀 ProposalAI - Quick Start Guide
+# 🚀 Proposify AI - Quick Start Guide
 
 ## ⚡ Immediate Action Required
 
@@ -14,13 +14,13 @@
 ### 2. Configure Email Service (10 minutes)
 ```
 1. Sign up: https://resend.com
-2. Add domain: proposalai.app or proposifyai.com
+2. Add domain: proposifyai.com or proposifyai.com
 3. Get API key from: https://resend.com/api-keys
 4. Add to Vercel: https://vercel.com/chatgptnotes-6366s-projects/proposifyai/settings/environment-variables
 
    RESEND_API_KEY=re_your_key_here
-   EMAIL_FROM=ProposalAI <proposals@proposalai.app>
-   EMAIL_REPLY_TO=support@proposalai.app
+   EMAIL_FROM=Proposify AI <proposals@proposifyai.com>
+   EMAIL_REPLY_TO=support@proposifyai.com
    NEXT_PUBLIC_APP_URL=https://proposifyai.com
 
 5. Redeploy: vercel --prod
@@ -73,8 +73,8 @@
 ```bash
 # Email (Resend)
 RESEND_API_KEY=re_...
-EMAIL_FROM=ProposalAI <proposals@proposalai.app>
-EMAIL_REPLY_TO=support@proposalai.app
+EMAIL_FROM=Proposify AI <proposals@proposifyai.com>
+EMAIL_REPLY_TO=support@proposifyai.com
 
 # App
 NEXT_PUBLIC_APP_URL=https://proposifyai.com
@@ -100,7 +100,7 @@ NEXT_PUBLIC_APP_URL=https://proposifyai.com
 ## 📞 Need Help?
 
 **Full Documentation:** See PHASE1_COMPLETE.md
-**Support Email:** support@proposalai.app
+**Support Email:** support@proposifyai.com
 **GitHub Issues:** https://github.com/chatgptnotes/proposifyai.com/issues
 
 ---

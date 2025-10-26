@@ -102,7 +102,7 @@ export async function POST(
       recipientName,
       proposalTitle: proposal.title,
       proposalUrl,
-      senderName: proposal.profiles.full_name || 'A ProposalAI user',
+      senderName: proposal.profiles.full_name || 'A Proposify AI user',
       customMessage,
       expiresAt: proposal.expires_at,
     });

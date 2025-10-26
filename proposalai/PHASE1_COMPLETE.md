@@ -1,4 +1,4 @@
-# 🎉 Phase 1 Complete - ProposalAI MVP
+# 🎉 Phase 1 Complete - Proposify AI MVP
 
 **Deployment Date:** October 26, 2025
 **Version:** 2.8.0
@@ -119,7 +119,7 @@ supabase db push
 
 **Step 2: Add and Verify Domain**
 1. In Resend dashboard, go to Domains
-2. Add your domain: `proposalai.app` or `proposifyai.com`
+2. Add your domain: `proposifyai.com` or `proposifyai.com`
 3. Add the provided DNS records to your domain registrar
 4. Wait for verification (can take a few minutes to hours)
 
@@ -133,8 +133,8 @@ supabase db push
 2. Add these variables:
    ```
    RESEND_API_KEY=re_your_api_key_here
-   EMAIL_FROM=ProposalAI <proposals@proposalai.app>
-   EMAIL_REPLY_TO=support@proposalai.app
+   EMAIL_FROM=Proposify AI <proposals@proposifyai.com>
+   EMAIL_REPLY_TO=support@proposifyai.com
    NEXT_PUBLIC_APP_URL=https://proposifyai.com
    ```
 3. Redeploy after adding variables
@@ -410,7 +410,7 @@ proposalai/
 
 **Support Channels:**
 - GitHub Issues: https://github.com/chatgptnotes/proposifyai.com/issues
-- Email: support@proposalai.app
+- Email: support@proposifyai.com
 
 **Monitoring:**
 - Vercel Dashboard: https://vercel.com/chatgptnotes-6366s-projects/proposifyai
@@ -459,7 +459,7 @@ proposalai/
 
 ## 🎉 Congratulations!
 
-Phase 1 of ProposalAI is complete! You now have a fully functional proposal management system with:
+Phase 1 of Proposify AI is complete! You now have a fully functional proposal management system with:
 - Professional proposal sharing
 - Email delivery and tracking
 - Comprehensive analytics

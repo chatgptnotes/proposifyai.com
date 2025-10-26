@@ -9,8 +9,8 @@ export const resend = new Resend(resendApiKey);
 
 // Email configuration
 export const EMAIL_CONFIG = {
-  from: process.env.EMAIL_FROM || 'ProposalAI <proposals@proposalai.app>',
-  replyTo: process.env.EMAIL_REPLY_TO || 'support@proposalai.app',
+  from: process.env.EMAIL_FROM || 'Proposify AI <proposals@proposifyai.com>',
+  replyTo: process.env.EMAIL_REPLY_TO || 'support@proposifyai.com',
 };
 
 // Email templates
@@ -40,7 +40,7 @@ export const emailTemplates = {
           <!-- Header -->
           <tr>
             <td style="padding: 40px 40px 0; text-align: center;">
-              <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #111827;">ProposalAI</h1>
+              <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #111827;">Proposify AI</h1>
               <p style="margin: 8px 0 0; font-size: 14px; color: #6b7280;">Professional Proposals</p>
             </td>
           </tr>
@@ -88,8 +88,8 @@ export const emailTemplates = {
           <tr>
             <td style="padding: 24px 40px; background-color: #f9fafb; border-top: 1px solid #e5e7eb; border-radius: 0 0 8px 8px;">
               <p style="margin: 0; font-size: 12px; color: #6b7280; text-align: center;">
-                Sent via ProposalAI - Professional Proposal Management<br>
-                <a href="https://proposalai.app" style="color: #3b82f6; text-decoration: none;">proposalai.app</a>
+                Sent via Proposify AI - Professional Proposal Management<br>
+                <a href="https://proposifyai.com" style="color: #3b82f6; text-decoration: none;">proposifyai.com</a>
               </p>
             </td>
           </tr>
@@ -116,8 +116,8 @@ View your proposal here:
 ${data.proposalUrl}
 
 ---
-Sent via ProposalAI - Professional Proposal Management
-https://proposalai.app
+Sent via Proposify AI - Professional Proposal Management
+https://proposifyai.com
     `,
   }),
 
@@ -189,8 +189,8 @@ https://proposalai.app
           <tr>
             <td style="padding: 24px 40px; background-color: #f9fafb; border-top: 1px solid #e5e7eb; border-radius: 0 0 8px 8px;">
               <p style="margin: 0; font-size: 12px; color: #6b7280; text-align: center;">
-                Sent via ProposalAI - Professional Proposal Management<br>
-                <a href="https://proposalai.app" style="color: #3b82f6; text-decoration: none;">proposalai.app</a>
+                Sent via Proposify AI - Professional Proposal Management<br>
+                <a href="https://proposifyai.com" style="color: #3b82f6; text-decoration: none;">proposifyai.com</a>
               </p>
             </td>
           </tr>
@@ -218,8 +218,8 @@ ${data.proposalUrl}
 Next steps: Reach out to your client to finalize the details and begin the project.
 
 ---
-Sent via ProposalAI - Professional Proposal Management
-https://proposalai.app
+Sent via Proposify AI - Professional Proposal Management
+https://proposifyai.com
     `,
   }),
 
@@ -248,7 +248,7 @@ https://proposalai.app
           <!-- Header -->
           <tr>
             <td style="padding: 40px 40px 0; text-align: center;">
-              <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #111827;">ProposalAI</h1>
+              <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #111827;">Proposify AI</h1>
               <p style="margin: 8px 0 0; font-size: 14px; color: #6b7280;">Proposal Update</p>
             </td>
           </tr>
@@ -298,8 +298,8 @@ https://proposalai.app
           <tr>
             <td style="padding: 24px 40px; background-color: #f9fafb; border-top: 1px solid #e5e7eb; border-radius: 0 0 8px 8px;">
               <p style="margin: 0; font-size: 12px; color: #6b7280; text-align: center;">
-                Sent via ProposalAI - Professional Proposal Management<br>
-                <a href="https://proposalai.app" style="color: #3b82f6; text-decoration: none;">proposalai.app</a>
+                Sent via Proposify AI - Professional Proposal Management<br>
+                <a href="https://proposifyai.com" style="color: #3b82f6; text-decoration: none;">proposifyai.com</a>
               </p>
             </td>
           </tr>
@@ -329,8 +329,8 @@ ${data.proposalUrl}
 Don't be discouraged! Consider reaching out to understand their concerns and potentially revise your proposal.
 
 ---
-Sent via ProposalAI - Professional Proposal Management
-https://proposalai.app
+Sent via Proposify AI - Professional Proposal Management
+https://proposifyai.com
     `,
   }),
 };

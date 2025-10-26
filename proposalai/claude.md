@@ -1,7 +1,7 @@
 # Claude Code - Autonomous Development Mode
 
 ## MISSION
-Build and ship ProposalAI/ProposifyAI - an AI-powered proposal generation platform with comprehensive customization, formatting, and content management features.
+Build and ship Proposify AI (proposifyai.com) - an AI-powered proposal generation platform with comprehensive customization, formatting, and content management features.
 
 ## TECH STACK & TARGETS
 - **Frontend**: Next.js 14 (App Router), React 18, TypeScript
