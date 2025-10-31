@@ -123,6 +123,69 @@ export default function FormattingTab({
             </div>
           </div>
 
+          {/* Logo & Branding Section */}
+          <div className="border-b border-gray-200 pb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <PaletteIcon className="text-primary-600" />
+              Logo & Branding Defaults
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Set default logo preferences that will be applied to all new proposals. These can be customized per-proposal in the editor.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Default Logo Position
+                </label>
+                <select
+                  value={formattingPrefs.default_logo_position || 'top-center'}
+                  onChange={(e) => setFormattingPrefs({ ...formattingPrefs, default_logo_position: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="top-center">Top Center</option>
+                  <option value="top-left">Top Left</option>
+                  <option value="top-right">Top Right</option>
+                  <option value="next-to-title">Next to Title</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Default Logo Size
+                </label>
+                <select
+                  value={formattingPrefs.default_logo_size || 'medium'}
+                  onChange={(e) => setFormattingPrefs({ ...formattingPrefs, default_logo_size: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="small">Small (60px)</option>
+                  <option value="medium">Medium (100px)</option>
+                  <option value="large">Large (150px)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Default Logo Layout
+                </label>
+                <select
+                  value={formattingPrefs.default_logo_layout || 'side-by-side'}
+                  onChange={(e) => setFormattingPrefs({ ...formattingPrefs, default_logo_layout: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="side-by-side">Side by Side</option>
+                  <option value="stacked">Stacked (Vertical)</option>
+                  <option value="opposite-sides">Opposite Sides</option>
+                </select>
+              </div>
+            </div>
+            <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Tip:</strong> Upload your company and client logos in the <strong>Saved Content</strong> tab, then insert them from the Quick Insert panel when editing proposals. Logo defaults will apply automatically.
+              </p>
+            </div>
+          </div>
+
           {/* Colors Section */}
           <div className="border-b border-gray-200 pb-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">

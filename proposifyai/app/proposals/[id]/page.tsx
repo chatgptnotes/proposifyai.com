@@ -157,23 +157,56 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     fetchSavedContent();
   }, []);
 
-  // Fetch letterhead from user profile
+  // Fetch default customization settings from user profile
   useEffect(() => {
-    async function fetchLetterhead() {
+    async function fetchUserDefaults() {
       try {
         const response = await fetch('/api/user/profile');
         if (response.ok) {
           const data = await response.json();
-          if (data.data?.letterhead_image) {
-            setLetterheadImage(data.data.letterhead_image);
+          const profile = data.data;
+          const preferences = profile?.preferences || {};
+
+          // Apply letterhead
+          if (profile?.letterhead_image) {
+            setLetterheadImage(profile.letterhead_image);
+          }
+
+          // Apply default customization settings from profile preferences
+          // These will be used as defaults if proposal doesn't have saved customization
+          if (preferences.default_primary_color) {
+            setPrimaryColor(preferences.default_primary_color);
+          }
+          if (preferences.default_company_logo) {
+            setCompanyLogo(preferences.default_company_logo);
+          }
+          if (preferences.default_logo_position) {
+            setLogoPosition(preferences.default_logo_position);
+          }
+          if (preferences.default_logo_size) {
+            setLogoSize(preferences.default_logo_size);
+          }
+          if (preferences.default_logo_layout) {
+            setLogoLayout(preferences.default_logo_layout);
+          }
+
+          // Apply font preferences
+          if (preferences.default_font_family) {
+            setFontFamily(preferences.default_font_family);
+          }
+          if (preferences.default_font_size) {
+            setFontSize(preferences.default_font_size);
+          }
+          if (preferences.default_line_height) {
+            setLineHeight(preferences.default_line_height);
           }
         }
       } catch (error) {
-        console.error("Error fetching letterhead:", error);
+        console.error("Error fetching user defaults:", error);
       }
     }
 
-    fetchLetterhead();
+    fetchUserDefaults();
   }, []);
 
   // Regenerate HTML when logo settings or letterhead change
