@@ -208,6 +208,14 @@ export default function SettingsPage() {
         });
 
         setCompanyWebsite(preferences.website || '');
+
+        // Load letterhead data if available
+        if (preferences.letterhead) {
+          setLetterhead(preferences.letterhead);
+        }
+        if (preferences.letterhead_data) {
+          setLetterheadData(preferences.letterhead_data);
+        }
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -244,6 +252,7 @@ export default function SettingsPage() {
       setSaving(true);
       setError(null);
 
+      // Save formatting preferences
       const response = await fetch('/api/formatting-preferences', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -256,7 +265,23 @@ export default function SettingsPage() {
         throw new Error(data.error || 'Failed to save formatting preferences');
       }
 
-      alert('Formatting preferences saved successfully!');
+      // Also save letterhead and company website to profile preferences
+      const profileResponse = await fetch('/api/user/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          letterhead: letterhead,
+          letterhead_data: letterheadData,
+          website: companyWebsite
+        })
+      });
+
+      if (!profileResponse.ok) {
+        const profileData = await profileResponse.json();
+        console.error('Failed to save letterhead data:', profileData);
+      }
+
+      alert('Branding settings saved successfully!');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       alert('Error: ' + (err instanceof Error ? err.message : 'An error occurred'));
