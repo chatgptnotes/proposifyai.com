@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'DRMHOPE SOFTWARE - Letterhead',
-  description: 'Professional letterhead for DRMHOPE SOFTWARE - Empowering businesses with intelligent AI agents',
-};
+import Image from 'next/image';
 
 export default function Letterhead() {
   const currentDate = new Date().toLocaleDateString('en-US', {
