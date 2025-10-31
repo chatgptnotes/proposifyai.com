@@ -210,6 +210,10 @@ function NewProposalContent() {
                     key={template.id}
                     type="button"
                     onClick={() => setFormData({ ...formData, template: template.id })}
+                    onDoubleClick={() => {
+                      setFormData({ ...formData, template: template.id });
+                      setStep(2);
+                    }}
                     className={`p-6 rounded-xl border-2 transition text-left ${
                       formData.template === template.id
                         ? "border-primary-600 bg-primary-50"
