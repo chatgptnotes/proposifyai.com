@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const validCategories = ['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'image'];
+    const validCategories = ['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'client_logo', 'company_logo'];
     if (!validCategories.includes(category)) {
       return NextResponse.json(
         { error: `Invalid category. Must be one of: ${validCategories.join(', ')}` },

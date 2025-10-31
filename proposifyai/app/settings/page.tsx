@@ -335,7 +335,17 @@ export default function SettingsPage() {
         body: JSON.stringify(newContent)
       });
 
-      const data = await response.json();
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type');
+      let data;
+
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        // Handle non-JSON responses (like "Request Entity Too Large")
+        const text = await response.text();
+        data = { error: text || 'Server returned non-JSON response' };
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to save content');
