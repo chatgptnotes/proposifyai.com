@@ -96,9 +96,9 @@ export default function NotificationsDropdown() {
         className="relative p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
         title="Notifications"
       >
-        <NotificationsIcon />
+        <NotificationsIcon sx={{ fontSize: 28 }} />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-xs font-bold text-white bg-red-500 rounded-full">
+          <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[20px] h-[20px] px-1.5 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white dark:border-gray-900 shadow-lg">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
