@@ -65,6 +65,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
   const [fontSize, setFontSize] = useState(12);
   const [lineHeight, setLineHeight] = useState(1.9);
   const [useCustomFormatting, setUseCustomFormatting] = useState(false);
+  const [letterheadImage, setLetterheadImage] = useState("");
 
   // AI Tools State
   const [showGenerateModal, setShowGenerateModal] = useState(false);
@@ -119,7 +120,8 @@ export default function EditProposalPage({ params }: { params: { id: string } })
             clientLogo: metadata.clientLogo || '',
             logoPosition: metadata.logoPosition || 'top-center',
             logoSize: metadata.logoSize || 'medium',
-            logoLayout: metadata.logoLayout || 'side-by-side'
+            logoLayout: metadata.logoLayout || 'side-by-side',
+            letterhead: letterheadImage
           });
           setContent(html);
         }
@@ -155,7 +157,26 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     fetchSavedContent();
   }, []);
 
-  // Regenerate HTML when logo settings change
+  // Fetch letterhead from user profile
+  useEffect(() => {
+    async function fetchLetterhead() {
+      try {
+        const response = await fetch('/api/user/profile');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.data?.letterhead_image) {
+            setLetterheadImage(data.data.letterhead_image);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching letterhead:", error);
+      }
+    }
+
+    fetchLetterhead();
+  }, []);
+
+  // Regenerate HTML when logo settings or letterhead change
   useEffect(() => {
     if (proposal && !editMode) {
       const proposalContent = proposal.content || {};
@@ -164,14 +185,15 @@ export default function EditProposalPage({ params }: { params: { id: string } })
         clientLogo,
         logoPosition,
         logoSize,
-        logoLayout
+        logoLayout,
+        letterhead: letterheadImage
       });
       setContent(html);
     }
     // generateProposalHTML is defined in the same component and doesn't change, safe to omit
     // proposal and editMode are intentionally omitted to only trigger on logo settings changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logoPosition, logoSize, logoLayout, companyLogo, clientLogo]);
+  }, [logoPosition, logoSize, logoLayout, companyLogo, clientLogo, letterheadImage]);
 
   // Helper function to generate logo HTML based on settings
   function generateLogoHTML(
@@ -246,16 +268,30 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     logoPosition?: string;
     logoSize?: string;
     logoLayout?: string;
+    letterhead?: string;
   }) {
     const {
       companyLogo: companyLogoUrl = '',
       clientLogo: clientLogoUrl = '',
       logoPosition: position = 'top-center',
       logoSize: size = 'medium',
-      logoLayout: layout = 'side-by-side'
+      logoLayout: layout = 'side-by-side',
+      letterhead: letterheadUrl = ''
     } = logoSettings || {};
 
-    let html = `<div class="proposal-content">`;
+    // Add letterhead background styling with professional overlay
+    const backgroundStyle = letterheadUrl
+      ? `background-image: url('${letterheadUrl}'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative;`
+      : '';
+
+    let html = `<div class="proposal-content" style="${backgroundStyle} min-height: 100vh;">`;
+
+    // Add semi-transparent overlay for better text readability
+    if (letterheadUrl) {
+      html += `<div style="background: rgba(255, 255, 255, 0.95); padding: 3rem 2rem; min-height: 100vh;">`;
+    } else {
+      html += `<div style="padding: 3rem 2rem;">`;
+    }
 
     // Header with logos
     html += `<div class="proposal-header" style="text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid #e5e7eb;">`;
@@ -336,7 +372,9 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     html += `<p style="color: #9ca3af; font-size: 0.875rem;">Please review this proposal and let us know if you have any questions.</p>`;
     html += `</div>`;
 
-    html += `</div>`;
+    // Close overlay div and main container
+    html += `</div>`; // Close padding/overlay div
+    html += `</div>`; // Close main proposal-content div
     return html;
   }
 
@@ -687,6 +725,19 @@ export default function EditProposalPage({ params }: { params: { id: string } })
   };
 
   const handleInsertSavedContent = async (contentItem: any) => {
+    // Handle logo insertion differently
+    if (contentItem.category === 'client_logo') {
+      setClientLogo(contentItem.content);
+      toast.success(`Client logo set: ${contentItem.title}`);
+      return;
+    }
+
+    if (contentItem.category === 'company_logo') {
+      setCompanyLogo(contentItem.content);
+      toast.success(`Company logo set: ${contentItem.title}`);
+      return;
+    }
+
     if (!editableRef.current || !editMode) {
       toast.error("Please enable Edit Mode to insert content");
       return;
@@ -753,6 +804,10 @@ export default function EditProposalPage({ params }: { params: { id: string } })
         return <PaymentIcon sx={{ fontSize: 14 }} />;
       case 'standard_clause':
         return <GavelIcon sx={{ fontSize: 14 }} />;
+      case 'client_logo':
+        return <GroupIcon sx={{ fontSize: 14 }} />;
+      case 'company_logo':
+        return <BusinessIcon sx={{ fontSize: 14 }} />;
       case 'image':
         return <ImageIcon sx={{ fontSize: 14 }} />;
       default:
