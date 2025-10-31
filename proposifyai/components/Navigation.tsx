@@ -11,15 +11,55 @@ interface NavigationProps {
   glassmorphism?: boolean;
 }
 
+interface ProfileData {
+  full_name?: string;
+  email?: string;
+}
+
 export default function Navigation({ glassmorphism = false }: NavigationProps) {
   const pathname = usePathname();
   const [proposalCount, setProposalCount] = useState(0);
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+
+  // Fetch user profile
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
 
   // In a real app, this would fetch from your API/database
   useEffect(() => {
     // Simulate fetching proposal count
     setProposalCount(24);
   }, []);
+
+  const fetchProfileData = async () => {
+    try {
+      const response = await fetch('/api/user/profile');
+      const data = await response.json();
+
+      if (response.ok && data.data) {
+        setProfileData(data.data);
+      }
+    } catch (err) {
+      console.error('Error fetching profile:', err);
+    }
+  };
+
+  const getUserInitials = () => {
+    if (!profileData?.full_name) {
+      // Fallback to email initials if no name
+      if (profileData?.email) {
+        return profileData.email.substring(0, 2).toUpperCase();
+      }
+      return "U"; // Ultimate fallback
+    }
+
+    const names = profileData.full_name.trim().split(' ');
+    if (names.length === 1) {
+      return names[0].substring(0, 2).toUpperCase();
+    }
+    return (names[0][0] + names[names.length - 1][0]).toUpperCase();
+  };
 
   const navClass = glassmorphism
     ? "sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-white/20 shadow-lg"
@@ -98,14 +138,16 @@ export default function Navigation({ glassmorphism = false }: NavigationProps) {
             <DarkModeToggle />
             <NotificationsDropdown />
             <div className="flex items-center space-x-2">
-              <motion.div
-                className="w-10 h-10 bg-gradient-to-br from-primary-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                title="User profile"
-              >
-                <span className="text-white font-semibold text-sm">JD</span>
-              </motion.div>
+              <Link href="/settings">
+                <motion.div
+                  className="w-10 h-10 bg-gradient-to-br from-primary-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  title={profileData?.full_name || "User profile"}
+                >
+                  <span className="text-white font-semibold text-sm">{getUserInitials()}</span>
+                </motion.div>
+              </Link>
             </div>
           </div>
         </div>

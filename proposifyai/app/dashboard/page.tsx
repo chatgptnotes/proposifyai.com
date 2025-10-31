@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -10,11 +11,59 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import PendingIcon from '@mui/icons-material/Pending';
+import SettingsIcon from '@mui/icons-material/Settings';
+import WarningIcon from '@mui/icons-material/Warning';
+import CloseIcon from '@mui/icons-material/Close';
 import Navigation from '@/components/Navigation';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import RecentActivityFeed from '@/components/RecentActivityFeed';
 
+interface ProfileData {
+  full_name?: string;
+  email?: string;
+  company_name?: string;
+  avatar_url?: string;
+  preferences?: any;
+}
+
 export default function DashboardPage() {
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [showSettingsBanner, setShowSettingsBanner] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch user profile on mount
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
+
+  const fetchProfileData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/user/profile');
+      const data = await response.json();
+
+      if (response.ok && data.data) {
+        setProfileData(data.data);
+
+        // Check if essential settings are configured
+        const hasEssentialSettings =
+          data.data.full_name &&
+          data.data.company_name &&
+          data.data.preferences?.website;
+
+        setShowSettingsBanner(!hasEssentialSettings);
+      }
+    } catch (err) {
+      console.error('Error fetching profile:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getUserDisplayName = () => {
+    if (!profileData?.full_name) return "there";
+    return profileData.full_name.split(' ')[0]; // Return first name
+  };
   // Sample data - will be replaced with real data from Supabase
   const stats = [
     {
@@ -138,10 +187,59 @@ export default function DashboardPage() {
         {/* Breadcrumbs */}
         <Breadcrumbs />
 
+        {/* Settings Configuration Banner */}
+        {showSettingsBanner && !loading && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 backdrop-blur-lg bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl shadow-xl overflow-hidden"
+          >
+            <div className="p-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start space-x-4 flex-1">
+                  <div className="p-3 bg-amber-500 rounded-xl">
+                    <WarningIcon className="text-white" sx={{ fontSize: 32 }} />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-amber-900 mb-2">
+                      Complete Your Settings First!
+                    </h3>
+                    <p className="text-amber-800 mb-4">
+                      Before creating proposals, please configure your profile and company settings.
+                      This ensures all your proposals have accurate information and branding.
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <Link href="/settings">
+                        <motion.button
+                          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <SettingsIcon className="mr-2" />
+                          Configure Settings Now
+                        </motion.button>
+                      </Link>
+                      <span className="text-sm text-amber-700">
+                        Takes less than 2 minutes
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowSettingsBanner(false)}
+                  className="p-2 text-amber-600 hover:text-amber-800 hover:bg-amber-100 rounded-lg transition"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {/* Header with gradient */}
         <motion.div className="mb-8" variants={itemVariants}>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-primary-800 to-purple-800 bg-clip-text text-transparent">
-            Welcome back, John!
+            Welcome back, {loading ? "..." : getUserDisplayName()}!
           </h1>
           <p className="text-gray-600 mt-2 text-lg">Here&apos;s what&apos;s happening with your proposals today</p>
         </motion.div>

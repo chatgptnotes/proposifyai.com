@@ -497,7 +497,11 @@ export default function SettingsPage() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-medium text-sm">JD</span>
+                  <span className="text-white font-medium text-sm">
+                    {profileData.full_name
+                      ? profileData.full_name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+                      : profileData.email?.substring(0, 2).toUpperCase() || "U"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -595,7 +599,11 @@ export default function SettingsPage() {
                 <div className="space-y-6">
                   <div className="flex items-center space-x-6">
                     <div className="w-24 h-24 bg-primary-600 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-3xl">JD</span>
+                      <span className="text-white font-bold text-3xl">
+                        {profileData.full_name
+                          ? profileData.full_name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+                          : profileData.email?.substring(0, 2).toUpperCase() || "U"}
+                      </span>
                     </div>
                     <div>
                       <button className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition mr-2">
