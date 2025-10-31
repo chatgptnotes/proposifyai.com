@@ -28,7 +28,7 @@ interface SavedContent {
   id?: string;
   title: string;
   content: string;
-  category: 'bank_details' | 'company_info' | 'payment_terms' | 'standard_clause' | 'image';
+  category: 'bank_details' | 'company_info' | 'payment_terms' | 'standard_clause' | 'client_logo' | 'company_logo';
 }
 
 interface FormattingPreferences {
@@ -1152,20 +1152,61 @@ export default function SettingsPage() {
                             <option value="company_info">Company Information</option>
                             <option value="payment_terms">Payment Terms</option>
                             <option value="standard_clause">Standard Clauses</option>
-                            <option value="image">Images/Logos</option>
+                            <option value="client_logo">Client Logos</option>
+                            <option value="company_logo">Company Logos</option>
                           </select>
                         </div>
 
-                        <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-2">Content</label>
-                          <textarea
-                            value={newContent.content}
-                            onChange={(e) => setNewContent({ ...newContent, content: e.target.value })}
-                            placeholder="Enter your content here..."
-                            rows={8}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 resize-y"
-                          />
-                        </div>
+                        {/* Image Upload for Logos */}
+                        {(newContent.category === 'client_logo' || newContent.category === 'company_logo') ? (
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                              Upload {newContent.category === 'client_logo' ? 'Client' : 'Company'} Logo
+                            </label>
+                            <div className="space-y-4">
+                              <input
+                                type="file"
+                                id="logo-upload"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => {
+                                      setNewContent({ ...newContent, content: reader.result as string });
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
+                              />
+                              {newContent.content && (
+                                <div className="mt-4">
+                                  <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                                  <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={newContent.content}
+                                      alt="Logo preview"
+                                      className="max-w-xs max-h-48 object-contain mx-auto"
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Content</label>
+                            <textarea
+                              value={newContent.content}
+                              onChange={(e) => setNewContent({ ...newContent, content: e.target.value })}
+                              placeholder="Enter your content here..."
+                              rows={8}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 resize-y"
+                            />
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex gap-3 mt-6">
@@ -1204,20 +1245,22 @@ export default function SettingsPage() {
                 {/* Content Categories */}
                 {!loading && (
                   <div className="space-y-6">
-                    {['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'image'].map((category) => {
+                    {['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'client_logo', 'company_logo'].map((category) => {
                     const categoryIcons = {
                       bank_details: AccountBalanceIcon,
                       company_info: BusinessIcon,
                       payment_terms: CreditCardIcon,
                       standard_clause: DescriptionIcon,
-                      image: ImageIcon
+                      client_logo: ImageIcon,
+                      company_logo: ImageIcon
                     };
                     const categoryNames = {
                       bank_details: 'Bank Details',
                       company_info: 'Company Information',
                       payment_terms: 'Payment Terms',
                       standard_clause: 'Standard Clauses',
-                      image: 'Images & Logos'
+                      client_logo: 'Client Logos',
+                      company_logo: 'Company Logos'
                     };
                     const Icon = categoryIcons[category as keyof typeof categoryIcons];
                     const items = savedContent.filter(item => item.category === category);
@@ -1241,10 +1284,27 @@ export default function SettingsPage() {
                                 key={item.id}
                                 className="flex items-start justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
                               >
-                                <div className="flex-1">
-                                  <h4 className="font-medium text-gray-900 text-sm">{item.title}</h4>
-                                  <p className="text-xs text-gray-600 mt-1 line-clamp-2">{item.content}</p>
-                                </div>
+                                {(item.category === 'client_logo' || item.category === 'company_logo') ? (
+                                  <div className="flex items-center gap-3 flex-1">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={item.content}
+                                      alt={item.title}
+                                      className="w-16 h-16 object-contain bg-white border border-gray-200 rounded p-1"
+                                    />
+                                    <div className="flex-1">
+                                      <h4 className="font-medium text-gray-900 text-sm">{item.title}</h4>
+                                      <p className="text-xs text-gray-500 mt-1">
+                                        {item.category === 'client_logo' ? 'Client Logo' : 'Company Logo'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="flex-1">
+                                    <h4 className="font-medium text-gray-900 text-sm">{item.title}</h4>
+                                    <p className="text-xs text-gray-600 mt-1 line-clamp-2">{item.content}</p>
+                                  </div>
+                                )}
                                 <div className="flex gap-2 ml-4">
                                   <button
                                     onClick={() => {
@@ -1287,7 +1347,8 @@ export default function SettingsPage() {
                       <li>• Company address and contact information</li>
                       <li>• Standard payment terms (Net 30, deposits, etc.)</li>
                       <li>• Legal clauses and terms & conditions</li>
-                      <li>• Company logos and frequently used images</li>
+                      <li>• Client logos - Upload and store your clients' branding</li>
+                      <li>• Company logos - Upload your own company logos and branding assets</li>
                     </ul>
                   </div>
                 )}
