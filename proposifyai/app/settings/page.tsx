@@ -1131,12 +1131,20 @@ export default function SettingsPage() {
 
                       <div className="space-y-4">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Title {(newContent.category === 'client_logo' || newContent.category === 'company_logo') && (
+                              <span className="text-xs text-gray-500 font-normal">(auto-filled from filename, you can edit)</span>
+                            )}
+                          </label>
                           <input
                             type="text"
                             value={newContent.title}
                             onChange={(e) => setNewContent({ ...newContent, title: e.target.value })}
-                            placeholder="e.g., Primary Bank Account, Company Address"
+                            placeholder={
+                              (newContent.category === 'client_logo' || newContent.category === 'company_logo')
+                                ? "e.g., Nike Logo, Client ABC Logo"
+                                : "e.g., Primary Bank Account, Company Address"
+                            }
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                           />
                         </div>
@@ -1171,9 +1179,16 @@ export default function SettingsPage() {
                                 onChange={(e) => {
                                   const file = e.target.files?.[0];
                                   if (file) {
+                                    // Extract filename without extension for the title
+                                    const fileName = file.name.replace(/\.[^/.]+$/, '');
+
                                     const reader = new FileReader();
                                     reader.onloadend = () => {
-                                      setNewContent({ ...newContent, content: reader.result as string });
+                                      setNewContent({
+                                        ...newContent,
+                                        content: reader.result as string,
+                                        title: newContent.title || fileName // Auto-fill title if empty
+                                      });
                                     };
                                     reader.readAsDataURL(file);
                                   }
