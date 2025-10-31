@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createClient } from '@/lib/supabase/client';
 import LinkIcon from '@mui/icons-material/Link';
@@ -100,7 +100,16 @@ interface ProfileData {
 
 export default function SettingsPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("profile");
+
+  // Handle URL query parameter for tab
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
   const [saving, setSaving] = useState(false);
   const [savedContent, setSavedContent] = useState<SavedContent[]>([]);
   const [showAddContent, setShowAddContent] = useState(false);
