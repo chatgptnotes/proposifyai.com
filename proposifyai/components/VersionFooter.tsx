@@ -1,8 +1,10 @@
 'use client';
 
+import packageJson from '../package.json';
+
 export default function VersionFooter() {
-  const version = 'v2.7.0';
-  const date = '2025-10-26';
+  const version = `v${packageJson.version}`;
+  const date = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-gray-50 to-transparent pointer-events-none z-50">
