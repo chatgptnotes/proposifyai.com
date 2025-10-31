@@ -11,12 +11,10 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import PendingIcon from '@mui/icons-material/Pending';
-import SettingsIcon from '@mui/icons-material/Settings';
-import WarningIcon from '@mui/icons-material/Warning';
-import CloseIcon from '@mui/icons-material/Close';
 import Navigation from '@/components/Navigation';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import RecentActivityFeed from '@/components/RecentActivityFeed';
+import SettingsConfigModal from '@/components/SettingsConfigModal';
 
 interface ProfileData {
   full_name?: string;
@@ -28,7 +26,7 @@ interface ProfileData {
 
 export default function DashboardPage() {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
-  const [showSettingsBanner, setShowSettingsBanner] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Fetch user profile on mount
@@ -51,7 +49,7 @@ export default function DashboardPage() {
           data.data.company_name &&
           data.data.preferences?.website;
 
-        setShowSettingsBanner(!hasEssentialSettings);
+        setShowSettingsModal(!hasEssentialSettings);
       }
     } catch (err) {
       console.error('Error fetching profile:', err);
@@ -187,54 +185,11 @@ export default function DashboardPage() {
         {/* Breadcrumbs */}
         <Breadcrumbs />
 
-        {/* Settings Configuration Banner */}
-        {showSettingsBanner && !loading && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 backdrop-blur-lg bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl shadow-xl overflow-hidden"
-          >
-            <div className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start space-x-4 flex-1">
-                  <div className="p-3 bg-amber-500 rounded-xl">
-                    <WarningIcon className="text-white" sx={{ fontSize: 32 }} />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-amber-900 mb-2">
-                      Complete Your Settings First!
-                    </h3>
-                    <p className="text-amber-800 mb-4">
-                      Before creating proposals, please configure your profile and company settings.
-                      This ensures all your proposals have accurate information and branding.
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <Link href="/settings">
-                        <motion.button
-                          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <SettingsIcon className="mr-2" />
-                          Configure Settings Now
-                        </motion.button>
-                      </Link>
-                      <span className="text-sm text-amber-700">
-                        Takes less than 2 minutes
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setShowSettingsBanner(false)}
-                  className="p-2 text-amber-600 hover:text-amber-800 hover:bg-amber-100 rounded-lg transition"
-                >
-                  <CloseIcon />
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
+        {/* Settings Configuration Modal */}
+        <SettingsConfigModal
+          showModal={showSettingsModal && !loading}
+          onClose={() => setShowSettingsModal(false)}
+        />
 
         {/* Header with gradient */}
         <motion.div className="mb-8" variants={itemVariants}>
