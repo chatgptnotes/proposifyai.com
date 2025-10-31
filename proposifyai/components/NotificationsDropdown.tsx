@@ -93,20 +93,25 @@ export default function NotificationsDropdown() {
       {/* Notification Bell */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        className="relative"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         title="Notifications"
       >
-        <NotificationsIcon
-          className="text-gray-700 dark:text-gray-300"
-          sx={{ fontSize: 26 }}
-        />
+        {/* Icon Circle Background */}
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+          <NotificationsIcon
+            className="text-white"
+            sx={{ fontSize: 24 }}
+          />
+        </div>
+
+        {/* Notification Badge */}
         {unreadCount > 0 && (
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute top-0 right-0 flex items-center justify-center min-w-[20px] h-[20px] px-1.5 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white dark:border-gray-900 shadow-lg"
+            className="absolute -top-1 -right-1 flex items-center justify-center min-w-[20px] h-[20px] px-1.5 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white dark:border-gray-900 shadow-lg"
           >
             {unreadCount > 9 ? '9+' : unreadCount}
           </motion.span>
