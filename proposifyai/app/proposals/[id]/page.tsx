@@ -66,6 +66,20 @@ export default function EditProposalPage({ params }: { params: { id: string } })
   const [lineHeight, setLineHeight] = useState(1.9);
   const [useCustomFormatting, setUseCustomFormatting] = useState(false);
 
+  // AI Tools State
+  const [showGenerateModal, setShowGenerateModal] = useState(false);
+  const [showResearchModal, setShowResearchModal] = useState(false);
+  const [showPricingModal, setShowPricingModal] = useState(false);
+  const [showChartModal, setShowChartModal] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [generatePrompt, setGeneratePrompt] = useState("");
+  const [researchTopic, setResearchTopic] = useState("");
+  const [pricingContext, setPricingContext] = useState("");
+  const [chartData, setChartData] = useState("");
+  const [chartType, setChartType] = useState<"bar" | "line" | "pie">("bar");
+  const [imagePrompt, setImagePrompt] = useState("");
+  const [aiToolProcessing, setAiToolProcessing] = useState(false);
+
   // Fetch proposal data on mount
   useEffect(() => {
     async function fetchProposal() {
@@ -746,6 +760,316 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     }
   };
 
+  // AI Tool Handlers
+  const handleGenerateContent = async () => {
+    if (!generatePrompt.trim()) {
+      toast.error("Please enter a prompt");
+      return;
+    }
+
+    setAiToolProcessing(true);
+    try {
+      const response = await fetch("/api/ai/generate-content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: generatePrompt,
+          proposalContext: {
+            title: proposal?.title,
+            clientName: proposal?.client_name,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const generatedContent = data.data.content;
+
+        // Insert generated content
+        if (editMode && editableRef.current) {
+          const selection = window.getSelection();
+          let range: Range;
+
+          if (selection && selection.rangeCount > 0) {
+            range = selection.getRangeAt(0);
+          } else {
+            range = document.createRange();
+            range.selectNodeContents(editableRef.current);
+            range.collapse(false);
+          }
+
+          const contentNode = document.createElement('div');
+          contentNode.innerHTML = generatedContent;
+          contentNode.style.marginTop = '1rem';
+          contentNode.style.marginBottom = '1rem';
+
+          range.deleteContents();
+          range.insertNode(contentNode);
+
+          toast.success("Content generated successfully!");
+          setShowGenerateModal(false);
+          setGeneratePrompt("");
+        } else {
+          toast.error("Please enable Edit Mode to insert content");
+        }
+      } else {
+        toast.error("Failed to generate content");
+      }
+    } catch (error) {
+      console.error("Generate error:", error);
+      toast.error("Error generating content");
+    } finally {
+      setAiToolProcessing(false);
+    }
+  };
+
+  const handleResearchTopic = async () => {
+    if (!researchTopic.trim()) {
+      toast.error("Please enter a research topic");
+      return;
+    }
+
+    setAiToolProcessing(true);
+    try {
+      const response = await fetch("/api/ai/scrape-website", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: researchTopic,
+          type: "research",
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const researchContent = data.data.content;
+
+        // Insert research content
+        if (editMode && editableRef.current) {
+          const selection = window.getSelection();
+          let range: Range;
+
+          if (selection && selection.rangeCount > 0) {
+            range = selection.getRangeAt(0);
+          } else {
+            range = document.createRange();
+            range.selectNodeContents(editableRef.current);
+            range.collapse(false);
+          }
+
+          const contentNode = document.createElement('div');
+          contentNode.innerHTML = `<div style="background: #f0f9ff; padding: 1rem; border-left: 4px solid #3b82f6; margin: 1rem 0;"><h3 style="color: #1e40af; margin-bottom: 0.5rem;">Research: ${researchTopic}</h3><div>${researchContent}</div></div>`;
+
+          range.deleteContents();
+          range.insertNode(contentNode);
+
+          toast.success("Research completed!");
+          setShowResearchModal(false);
+          setResearchTopic("");
+        } else {
+          toast.error("Please enable Edit Mode to insert content");
+        }
+      } else {
+        toast.error("Failed to complete research");
+      }
+    } catch (error) {
+      console.error("Research error:", error);
+      toast.error("Error performing research");
+    } finally {
+      setAiToolProcessing(false);
+    }
+  };
+
+  const handleGeneratePricing = async () => {
+    if (!pricingContext.trim()) {
+      toast.error("Please describe what you're pricing");
+      return;
+    }
+
+    setAiToolProcessing(true);
+    try {
+      const response = await fetch("/api/ai/generate-content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: `Generate a detailed pricing breakdown for: ${pricingContext}. Include itemized costs, subtotals, and a total. Format as an HTML table with professional styling.`,
+          proposalContext: {
+            title: proposal?.title,
+            clientName: proposal?.client_name,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const pricingTable = data.data.content;
+
+        // Insert pricing table
+        if (editMode && editableRef.current) {
+          const selection = window.getSelection();
+          let range: Range;
+
+          if (selection && selection.rangeCount > 0) {
+            range = selection.getRangeAt(0);
+          } else {
+            range = document.createRange();
+            range.selectNodeContents(editableRef.current);
+            range.collapse(false);
+          }
+
+          const contentNode = document.createElement('div');
+          contentNode.innerHTML = pricingTable;
+          contentNode.style.marginTop = '1.5rem';
+          contentNode.style.marginBottom = '1.5rem';
+
+          range.deleteContents();
+          range.insertNode(contentNode);
+
+          toast.success("Pricing table generated!");
+          setShowPricingModal(false);
+          setPricingContext("");
+        } else {
+          toast.error("Please enable Edit Mode to insert content");
+        }
+      } else {
+        toast.error("Failed to generate pricing");
+      }
+    } catch (error) {
+      console.error("Pricing error:", error);
+      toast.error("Error generating pricing");
+    } finally {
+      setAiToolProcessing(false);
+    }
+  };
+
+  const handleGenerateChart = async () => {
+    if (!chartData.trim()) {
+      toast.error("Please enter chart data");
+      return;
+    }
+
+    setAiToolProcessing(true);
+    try {
+      // Parse chart data (expecting format like "Item1: 10, Item2: 20, Item3: 30")
+      const dataPoints = chartData.split(',').map(item => {
+        const [label, value] = item.split(':').map(s => s.trim());
+        return { label, value: parseFloat(value) || 0 };
+      });
+
+      // Generate simple ASCII/HTML chart
+      let chartHTML = `<div style="background: white; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; margin: 1rem 0;">`;
+      chartHTML += `<h3 style="color: #111827; margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600;">Chart: ${chartType.charAt(0).toUpperCase() + chartType.slice(1)}</h3>`;
+
+      if (chartType === 'bar') {
+        const maxValue = Math.max(...dataPoints.map(d => d.value));
+        chartHTML += `<div style="display: flex; flex-direction: column; gap: 0.75rem;">`;
+        dataPoints.forEach(point => {
+          const width = (point.value / maxValue) * 100;
+          chartHTML += `
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="min-width: 100px; font-size: 0.875rem; color: #6b7280;">${point.label}</div>
+              <div style="flex: 1; background: #f3f4f6; border-radius: 4px; height: 28px; position: relative;">
+                <div style="background: linear-gradient(90deg, #3b82f6, #2563eb); height: 100%; width: ${width}%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px;">
+                  <span style="color: white; font-weight: 600; font-size: 0.875rem;">${point.value}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        chartHTML += `</div>`;
+      } else if (chartType === 'line') {
+        chartHTML += `<div style="display: flex; align-items: flex-end; gap: 1rem; height: 200px; border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem;">`;
+        const maxValue = Math.max(...dataPoints.map(d => d.value));
+        dataPoints.forEach((point, index) => {
+          const height = (point.value / maxValue) * 180;
+          chartHTML += `
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+              <div style="background: linear-gradient(180deg, #3b82f6, #2563eb); width: 100%; height: ${height}px; border-radius: 4px 4px 0 0; position: relative;">
+                <span style="position: absolute; top: -24px; left: 50%; transform: translateX(-50%); font-weight: 600; color: #1f2937; font-size: 0.875rem;">${point.value}</span>
+              </div>
+              <span style="font-size: 0.75rem; color: #6b7280; text-align: center;">${point.label}</span>
+            </div>
+          `;
+        });
+        chartHTML += `</div>`;
+      } else if (chartType === 'pie') {
+        const total = dataPoints.reduce((sum, d) => sum + d.value, 0);
+        chartHTML += `<div style="display: flex; gap: 2rem; align-items: center;">`;
+        chartHTML += `<div style="width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(`;
+
+        let currentAngle = 0;
+        const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+        dataPoints.forEach((point, index) => {
+          const percentage = (point.value / total) * 100;
+          const angle = (percentage / 100) * 360;
+          chartHTML += `${colors[index % colors.length]} ${currentAngle}deg ${currentAngle + angle}deg, `;
+          currentAngle += angle;
+        });
+        chartHTML = chartHTML.slice(0, -2); // Remove last comma
+        chartHTML += `); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"></div>`;
+
+        chartHTML += `<div style="flex: 1;">`;
+        dataPoints.forEach((point, index) => {
+          const percentage = ((point.value / total) * 100).toFixed(1);
+          chartHTML += `
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <div style="width: 16px; height: 16px; border-radius: 2px; background: ${colors[index % colors.length]};"></div>
+              <span style="font-size: 0.875rem; color: #4b5563;">${point.label}: <strong>${point.value}</strong> (${percentage}%)</span>
+            </div>
+          `;
+        });
+        chartHTML += `</div></div>`;
+      }
+
+      chartHTML += `</div>`;
+
+      // Insert chart
+      if (editMode && editableRef.current) {
+        const selection = window.getSelection();
+        let range: Range;
+
+        if (selection && selection.rangeCount > 0) {
+          range = selection.getRangeAt(0);
+        } else {
+          range = document.createRange();
+          range.selectNodeContents(editableRef.current);
+          range.collapse(false);
+        }
+
+        const contentNode = document.createElement('div');
+        contentNode.innerHTML = chartHTML;
+
+        range.deleteContents();
+        range.insertNode(contentNode);
+
+        toast.success("Chart generated!");
+        setShowChartModal(false);
+        setChartData("");
+      } else {
+        toast.error("Please enable Edit Mode to insert content");
+      }
+    } catch (error) {
+      console.error("Chart error:", error);
+      toast.error("Error generating chart. Please check your data format.");
+    } finally {
+      setAiToolProcessing(false);
+    }
+  };
+
+  const handleGenerateImage = async () => {
+    if (!imagePrompt.trim()) {
+      toast.error("Please enter an image description");
+      return;
+    }
+
+    toast("Image generation feature coming soon! For now, you can upload images via the Customize panel.", {
+      duration: 5000,
+      icon: "ℹ️",
+    });
+    setShowImageModal(false);
+    setImagePrompt("");
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -879,19 +1203,34 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                   AI Tools
                 </h3>
                 <div className="space-y-2">
-                  <button className="w-full px-2 py-1.5 text-xs bg-primary-50 text-primary-700 font-medium rounded hover:bg-primary-100 transition text-left flex items-center gap-1">
+                  <button
+                    onClick={() => setShowGenerateModal(true)}
+                    className="w-full px-2 py-1.5 text-xs bg-primary-50 text-primary-700 font-medium rounded hover:bg-primary-100 transition text-left flex items-center gap-1"
+                  >
                     <AutoAwesomeIcon sx={{ fontSize: 14 }} /> Generate
                   </button>
-                  <button className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1">
+                  <button
+                    onClick={() => setShowResearchModal(true)}
+                    className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1"
+                  >
                     <SearchIcon sx={{ fontSize: 14 }} /> Research
                   </button>
-                  <button className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1">
+                  <button
+                    onClick={() => setShowPricingModal(true)}
+                    className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1"
+                  >
                     <AttachMoneyIcon sx={{ fontSize: 14 }} /> Pricing
                   </button>
-                  <button className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1">
+                  <button
+                    onClick={() => setShowChartModal(true)}
+                    className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1"
+                  >
                     <BarChartIcon sx={{ fontSize: 14 }} /> Chart
                   </button>
-                  <button className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1">
+                  <button
+                    onClick={() => setShowImageModal(true)}
+                    className="w-full px-2 py-1.5 text-xs bg-gray-50 text-gray-700 font-medium rounded hover:bg-gray-100 transition text-left flex items-center gap-1"
+                  >
                     <ImageIcon sx={{ fontSize: 14 }} /> Image
                   </button>
                 </div>
@@ -1608,6 +1947,356 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                   Send Email
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Generate Content Modal */}
+      {showGenerateModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-primary-600 to-primary-700">
+              <div className="flex items-center gap-3">
+                <AutoAwesomeIcon className="text-white" sx={{ fontSize: 28 }} />
+                <h2 className="text-xl font-bold text-white">AI Content Generator</h2>
+              </div>
+              <button
+                onClick={() => setShowGenerateModal(false)}
+                className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition"
+              >
+                <CloseIcon />
+              </button>
+            </div>
+            <div className="p-6">
+              <p className="text-sm text-gray-600 mb-4">
+                Describe what content you want to generate. Be specific about the topic, tone, and length.
+              </p>
+              <textarea
+                value={generatePrompt}
+                onChange={(e) => setGeneratePrompt(e.target.value)}
+                placeholder="Example: Write a professional executive summary about implementing a new CRM system for a mid-sized retail company..."
+                rows={6}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-y"
+              />
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4">
+                <p className="text-xs text-blue-800">
+                  💡 <strong>Tip:</strong> Enable Edit Mode before generating to insert content directly into your proposal.
+                </p>
+              </div>
+            </div>
+            <div className="p-6 border-t border-gray-200 bg-gray-50 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setShowGenerateModal(false)}
+                className="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGenerateContent}
+                disabled={aiToolProcessing || !generatePrompt.trim()}
+                className="px-6 py-2 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition disabled:opacity-50 flex items-center gap-2"
+              >
+                {aiToolProcessing ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <AutoAwesomeIcon fontSize="small" />
+                    Generate Content
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Research Modal */}
+      {showResearchModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700">
+              <div className="flex items-center gap-3">
+                <SearchIcon className="text-white" sx={{ fontSize: 28 }} />
+                <h2 className="text-xl font-bold text-white">AI Research Assistant</h2>
+              </div>
+              <button
+                onClick={() => setShowResearchModal(false)}
+                className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition"
+              >
+                <CloseIcon />
+              </button>
+            </div>
+            <div className="p-6">
+              <p className="text-sm text-gray-600 mb-4">
+                Enter a topic or question to research. AI will gather relevant information and insights.
+              </p>
+              <input
+                type="text"
+                value={researchTopic}
+                onChange={(e) => setResearchTopic(e.target.value)}
+                placeholder="Example: Latest trends in cloud computing security"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              />
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4">
+                <p className="text-xs text-blue-800">
+                  🔍 <strong>Note:</strong> Research results will be formatted with sources and key findings.
+                </p>
+              </div>
+            </div>
+            <div className="p-6 border-t border-gray-200 bg-gray-50 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setShowResearchModal(false)}
+                className="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleResearchTopic}
+                disabled={aiToolProcessing || !researchTopic.trim()}
+                className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition disabled:opacity-50 flex items-center gap-2"
+              >
+                {aiToolProcessing ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Researching...
+                  </>
+                ) : (
+                  <>
+                    <SearchIcon fontSize="small" />
+                    Start Research
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Pricing Modal */}
+      {showPricingModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-green-600 to-green-700">
+              <div className="flex items-center gap-3">
+                <AttachMoneyIcon className="text-white" sx={{ fontSize: 28 }} />
+                <h2 className="text-xl font-bold text-white">AI Pricing Generator</h2>
+              </div>
+              <button
+                onClick={() => setShowPricingModal(false)}
+                className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition"
+              >
+                <CloseIcon />
+              </button>
+            </div>
+            <div className="p-6">
+              <p className="text-sm text-gray-600 mb-4">
+                Describe the service or product you want to price. AI will generate a detailed pricing breakdown.
+              </p>
+              <textarea
+                value={pricingContext}
+                onChange={(e) => setPricingContext(e.target.value)}
+                placeholder="Example: Website redesign project including UI/UX design, frontend development, backend integration, and 3 months of support"
+                rows={5}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none resize-y"
+              />
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-4">
+                <p className="text-xs text-green-800">
+                  💰 <strong>Tip:</strong> Include project scope, timeline, and any specific requirements for better pricing estimates.
+                </p>
+              </div>
+            </div>
+            <div className="p-6 border-t border-gray-200 bg-gray-50 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setShowPricingModal(false)}
+                className="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGeneratePricing}
+                disabled={aiToolProcessing || !pricingContext.trim()}
+                className="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition disabled:opacity-50 flex items-center gap-2"
+              >
+                {aiToolProcessing ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <AttachMoneyIcon fontSize="small" />
+                    Generate Pricing
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Chart Modal */}
+      {showChartModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-purple-600 to-purple-700">
+              <div className="flex items-center gap-3">
+                <BarChartIcon className="text-white" sx={{ fontSize: 28 }} />
+                <h2 className="text-xl font-bold text-white">Chart Generator</h2>
+              </div>
+              <button
+                onClick={() => setShowChartModal(false)}
+                className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition"
+              >
+                <CloseIcon />
+              </button>
+            </div>
+            <div className="p-6">
+              <p className="text-sm text-gray-600 mb-4">
+                Enter your data in the format: <code className="bg-gray-100 px-2 py-1 rounded text-xs">Label1: Value1, Label2: Value2, Label3: Value3</code>
+              </p>
+
+              <div className="mb-4">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Chart Type</label>
+                <div className="flex gap-3">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="chartType"
+                      value="bar"
+                      checked={chartType === 'bar'}
+                      onChange={(e) => setChartType(e.target.value as any)}
+                      className="w-4 h-4 text-purple-600"
+                    />
+                    <span className="text-sm text-gray-700">Bar Chart</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="chartType"
+                      value="line"
+                      checked={chartType === 'line'}
+                      onChange={(e) => setChartType(e.target.value as any)}
+                      className="w-4 h-4 text-purple-600"
+                    />
+                    <span className="text-sm text-gray-700">Line Chart</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="chartType"
+                      value="pie"
+                      checked={chartType === 'pie'}
+                      onChange={(e) => setChartType(e.target.value as any)}
+                      className="w-4 h-4 text-purple-600"
+                    />
+                    <span className="text-sm text-gray-700">Pie Chart</span>
+                  </label>
+                </div>
+              </div>
+
+              <textarea
+                value={chartData}
+                onChange={(e) => setChartData(e.target.value)}
+                placeholder="Example: Q1: 15000, Q2: 23000, Q3: 31000, Q4: 28000"
+                rows={4}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none resize-y font-mono text-sm"
+              />
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mt-4">
+                <p className="text-xs text-purple-800">
+                  📊 <strong>Tip:</strong> Use descriptive labels and numeric values. Charts will be styled professionally.
+                </p>
+              </div>
+            </div>
+            <div className="p-6 border-t border-gray-200 bg-gray-50 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setShowChartModal(false)}
+                className="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGenerateChart}
+                disabled={aiToolProcessing || !chartData.trim()}
+                className="px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition disabled:opacity-50 flex items-center gap-2"
+              >
+                {aiToolProcessing ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <BarChartIcon fontSize="small" />
+                    Generate Chart
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Modal */}
+      {showImageModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-pink-600 to-pink-700">
+              <div className="flex items-center gap-3">
+                <ImageIcon className="text-white" sx={{ fontSize: 28 }} />
+                <h2 className="text-xl font-bold text-white">AI Image Generator</h2>
+              </div>
+              <button
+                onClick={() => setShowImageModal(false)}
+                className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition"
+              >
+                <CloseIcon />
+              </button>
+            </div>
+            <div className="p-6">
+              <p className="text-sm text-gray-600 mb-4">
+                Describe the image you want to generate. Be specific about style, colors, and composition.
+              </p>
+              <textarea
+                value={imagePrompt}
+                onChange={(e) => setImagePrompt(e.target.value)}
+                placeholder="Example: A modern office workspace with large windows, natural lighting, and collaborative team members working on laptops..."
+                rows={5}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none resize-y"
+              />
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mt-4">
+                <p className="text-xs text-yellow-800">
+                  🎨 <strong>Coming Soon:</strong> AI image generation will be available in a future update. For now, you can upload images via the Customize panel.
+                </p>
+              </div>
+            </div>
+            <div className="p-6 border-t border-gray-200 bg-gray-50 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setShowImageModal(false)}
+                className="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGenerateImage}
+                disabled={aiToolProcessing || !imagePrompt.trim()}
+                className="px-6 py-2 bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 transition disabled:opacity-50 flex items-center gap-2"
+              >
+                {aiToolProcessing ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <ImageIcon fontSize="small" />
+                    Generate Image
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>

@@ -38,42 +38,38 @@ export async function POST(request: NextRequest) {
     const openai = getOpenAIClient();
     const startTime = Date.now();
 
-    // Use GPT-4 Vision to analyze the letterhead
+    // Use GPT-4o with vision to analyze the letterhead
     const response = await openai.chat.completions.create({
-      model: 'gpt-4-vision-preview',
+      model: 'gpt-4o',
       messages: [
-        {
-          role: 'system',
-          content: 'You are a professional graphic design analyst. Analyze letterheads and extract brand information accurately.'
-        },
         {
           role: 'user',
           content: [
             {
               type: 'text',
-              text: `Analyze this company letterhead and extract the following information in JSON format:
+              text: `You are a professional graphic design analyst. Analyze this company letterhead and extract the following information in JSON format:
 
-1. Primary brand color (hex code)
-2. Secondary brand color (hex code)
-3. Logo position (top-left, top-center, top-right)
-4. Logo dimensions estimate (small, medium, large)
-5. Safe text margins (top, bottom, left, right in mm)
-6. Header height (in mm)
-7. Footer presence (yes/no)
-8. Font style recommendations (serif/sans-serif/modern)
-9. Any other design suggestions
+1. Primary brand color (hex code) - the dominant color used
+2. Secondary brand color (hex code) - complementary or accent color
+3. Text color (hex code) - main text color
+4. Logo position (describe where the logo is positioned, e.g., "top-left", "top-center", "top-right")
+5. Logo dimensions (describe size, e.g., "120x120px" or "small", "medium", "large")
+6. Safe text flow regions (describe safe areas for text placement)
+7. Margins (estimate in mm: top, bottom, left, right)
+8. Spacing recommendations
+9. Font style suggestions (based on visual analysis)
 
-Return ONLY a JSON object with these fields:
+Return ONLY a valid JSON object with these exact fields:
 {
   "primaryColor": "#hexcode",
   "secondaryColor": "#hexcode",
-  "logoPosition": "position",
-  "logoSize": "size",
-  "margins": { "top": 0, "bottom": 0, "left": 0, "right": 0 },
-  "headerHeight": 0,
-  "hasFooter": false,
-  "fontStyle": "style",
-  "suggestions": "design suggestions as a string"
+  "textColor": "#hexcode",
+  "logoPosition": "position description",
+  "logoDimensions": "dimension description",
+  "safeTextRegions": "description of safe text areas",
+  "margins": { "top": 20, "bottom": 20, "left": 20, "right": 20 },
+  "spacing": "spacing recommendations",
+  "fontSuggestions": "font style suggestions"
 }`
             },
             {
@@ -85,7 +81,7 @@ Return ONLY a JSON object with these fields:
           ]
         }
       ],
-      max_tokens: 1000,
+      max_tokens: 1500,
       temperature: 0.3
     });
 
@@ -113,10 +109,10 @@ Return ONLY a JSON object with these fields:
       interaction_type: 'design',
       input_data: { imageSize: image.length },
       output_data: analysis,
-      ai_model: 'gpt-4-vision-preview',
+      ai_model: 'gpt-4o',
       tokens_used: tokensUsed,
       latency_ms: latency,
-      cost: (tokensUsed / 1000) * 0.04, // Vision pricing
+      cost: (tokensUsed / 1000) * 0.005, // GPT-4o pricing
       success: true,
     });
 
@@ -125,7 +121,7 @@ Return ONLY a JSON object with these fields:
       analysis,
       metadata: {
         tokensUsed,
-        model: 'gpt-4-vision-preview',
+        model: 'gpt-4o',
         latencyMs: latency,
       }
     });

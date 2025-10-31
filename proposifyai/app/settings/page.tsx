@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { createClient } from '@/lib/supabase/client';
 import LinkIcon from '@mui/icons-material/Link';
 import CloudIcon from '@mui/icons-material/Cloud';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
@@ -10,6 +12,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import LogoutIcon from '@mui/icons-material/Logout';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import BusinessIcon from '@mui/icons-material/Business';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -96,6 +99,7 @@ interface ProfileData {
 }
 
 export default function SettingsPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("profile");
   const [saving, setSaving] = useState(false);
   const [savedContent, setSavedContent] = useState<SavedContent[]>([]);
@@ -110,6 +114,7 @@ export default function SettingsPage() {
   const [error, setError] = useState<string | null>(null);
   const [letterhead, setLetterhead] = useState<string | null>(null);
   const [analyzingLetterhead, setAnalyzingLetterhead] = useState(false);
+  const [letterheadData, setLetterheadData] = useState<any>(null);
   const [companyWebsite, setCompanyWebsite] = useState('');
   const [profileData, setProfileData] = useState<ProfileData>({});
   const [formattingPrefs, setFormattingPrefs] = useState<FormattingPreferences>({
@@ -361,6 +366,9 @@ export default function SettingsPage() {
         const data = await response.json();
 
         if (response.ok && data.analysis) {
+          // Store the full extracted data
+          setLetterheadData(data.analysis);
+
           // Auto-populate formatting preferences
           if (data.analysis.primaryColor) {
             setFormattingPrefs(prev => ({ ...prev, primary_color: data.analysis.primaryColor }));
@@ -368,8 +376,19 @@ export default function SettingsPage() {
           if (data.analysis.secondaryColor) {
             setFormattingPrefs(prev => ({ ...prev, secondary_color: data.analysis.secondaryColor }));
           }
-          if (data.analysis.suggestions) {
-            alert(`Letterhead analyzed! Suggestions:\n${data.analysis.suggestions}`);
+          if (data.analysis.textColor) {
+            setFormattingPrefs(prev => ({ ...prev, text_color: data.analysis.textColor }));
+          }
+
+          // Update margins if provided
+          if (data.analysis.margins) {
+            setFormattingPrefs(prev => ({
+              ...prev,
+              page_margin_top: data.analysis.margins.top || prev.page_margin_top,
+              page_margin_bottom: data.analysis.margins.bottom || prev.page_margin_bottom,
+              page_margin_left: data.analysis.margins.left || prev.page_margin_left,
+              page_margin_right: data.analysis.margins.right || prev.page_margin_right
+            }));
           }
         }
       } catch (err) {
@@ -379,6 +398,21 @@ export default function SettingsPage() {
       }
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleDeleteLetterhead = () => {
+    if (confirm('Are you sure you want to delete the letterhead? This will remove all extracted brand data.')) {
+      setLetterhead(null);
+      setLetterheadData(null);
+    }
+  };
+
+  const handleLogout = async () => {
+    if (confirm('Are you sure you want to log out?')) {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      router.push('/login');
+    }
   };
 
   const handleSave = async (tabType: 'profile' | 'company') => {
@@ -591,13 +625,22 @@ export default function SettingsPage() {
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => handleSave('profile')}
-                    disabled={saving}
-                    className="px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition disabled:opacity-50"
-                  >
-                    {saving ? "Saving..." : "Save Changes"}
-                  </button>
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={() => handleSave('profile')}
+                      disabled={saving}
+                      className="px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition disabled:opacity-50"
+                    >
+                      {saving ? "Saving..." : "Save Changes"}
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition"
+                    >
+                      <LogoutIcon fontSize="small" />
+                      Logout
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -697,7 +740,7 @@ export default function SettingsPage() {
                         </div>
                       </div>
                       <div className="flex-1 space-y-4">
-                        <div>
+                        <div className="flex items-center gap-3">
                           <input
                             type="file"
                             id="letterhead-upload"
@@ -711,23 +754,110 @@ export default function SettingsPage() {
                           >
                             {letterhead ? 'Change Letterhead' : 'Upload Letterhead'}
                           </label>
+                          {letterhead && (
+                            <button
+                              onClick={handleDeleteLetterhead}
+                              className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition"
+                            >
+                              <DeleteIcon fontSize="small" />
+                              Delete Letterhead
+                            </button>
+                          )}
                           {analyzingLetterhead && (
                             <span className="ml-4 text-sm text-gray-600">Analyzing with AI...</span>
                           )}
                         </div>
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                          <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
-                            <PaletteIcon fontSize="small" />
-                            AI Will Auto-Extract:
-                          </h4>
-                          <ul className="text-sm text-blue-800 space-y-1">
-                            <li>• Primary and secondary brand colors</li>
-                            <li>• Logo position and dimensions</li>
-                            <li>• Safe text flow regions</li>
-                            <li>• Margin and spacing recommendations</li>
-                            <li>• Font style suggestions</li>
-                          </ul>
-                        </div>
+
+                        {!letterheadData ? (
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                              <PaletteIcon fontSize="small" />
+                              AI Will Auto-Extract:
+                            </h4>
+                            <ul className="text-sm text-blue-800 space-y-1">
+                              <li>• Primary and secondary brand colors</li>
+                              <li>• Logo position and dimensions</li>
+                              <li>• Safe text flow regions</li>
+                              <li>• Margins and spacing</li>
+                              <li>• Font style suggestions</li>
+                            </ul>
+                          </div>
+                        ) : (
+                          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 className="font-semibold text-green-900 mb-3 flex items-center gap-2">
+                              <CheckBoxIcon fontSize="small" />
+                              Extracted Information:
+                            </h4>
+                            <div className="space-y-3 text-sm">
+                              {letterheadData.primaryColor && (
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-green-800 w-32">Primary Color:</span>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-6 h-6 rounded border border-gray-300" style={{ backgroundColor: letterheadData.primaryColor }}></div>
+                                    <span className="text-green-700">{letterheadData.primaryColor}</span>
+                                  </div>
+                                </div>
+                              )}
+                              {letterheadData.secondaryColor && (
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-green-800 w-32">Secondary Color:</span>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-6 h-6 rounded border border-gray-300" style={{ backgroundColor: letterheadData.secondaryColor }}></div>
+                                    <span className="text-green-700">{letterheadData.secondaryColor}</span>
+                                  </div>
+                                </div>
+                              )}
+                              {letterheadData.textColor && (
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-green-800 w-32">Text Color:</span>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-6 h-6 rounded border border-gray-300" style={{ backgroundColor: letterheadData.textColor }}></div>
+                                    <span className="text-green-700">{letterheadData.textColor}</span>
+                                  </div>
+                                </div>
+                              )}
+                              {letterheadData.logoPosition && (
+                                <div className="flex items-start gap-2">
+                                  <span className="font-medium text-green-800 w-32">Logo Position:</span>
+                                  <span className="text-green-700">{letterheadData.logoPosition}</span>
+                                </div>
+                              )}
+                              {letterheadData.logoDimensions && (
+                                <div className="flex items-start gap-2">
+                                  <span className="font-medium text-green-800 w-32">Logo Dimensions:</span>
+                                  <span className="text-green-700">{letterheadData.logoDimensions}</span>
+                                </div>
+                              )}
+                              {letterheadData.safeTextRegions && (
+                                <div className="flex items-start gap-2">
+                                  <span className="font-medium text-green-800 w-32">Safe Text Regions:</span>
+                                  <span className="text-green-700">{letterheadData.safeTextRegions}</span>
+                                </div>
+                              )}
+                              {letterheadData.margins && (
+                                <div className="flex items-start gap-2">
+                                  <span className="font-medium text-green-800 w-32">Margins:</span>
+                                  <span className="text-green-700">
+                                    Top: {letterheadData.margins.top}mm, Bottom: {letterheadData.margins.bottom}mm,
+                                    Left: {letterheadData.margins.left}mm, Right: {letterheadData.margins.right}mm
+                                  </span>
+                                </div>
+                              )}
+                              {letterheadData.fontSuggestions && (
+                                <div className="flex items-start gap-2">
+                                  <span className="font-medium text-green-800 w-32">Font Suggestions:</span>
+                                  <span className="text-green-700">{letterheadData.fontSuggestions}</span>
+                                </div>
+                              )}
+                              {letterheadData.spacing && (
+                                <div className="flex items-start gap-2">
+                                  <span className="font-medium text-green-800 w-32">Spacing:</span>
+                                  <span className="text-green-700">{letterheadData.spacing}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

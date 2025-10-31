@@ -4,6 +4,7 @@ import VersionFooter from "@/components/VersionFooter";
 import KeyboardShortcutsModal from "@/components/KeyboardShortcutsModal";
 import CommandPalette from "@/components/CommandPalette";
 import QuickActionsMenu from "@/components/QuickActionsMenu";
+import SkipLinks from "@/components/SkipLinks";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from '@vercel/analytics/react';
 
@@ -99,6 +100,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        <SkipLinks />
         <Toaster
           position="top-right"
           toastOptions={{
@@ -125,11 +127,15 @@ export default function RootLayout({
             },
           }}
         />
-        {children}
+        <main id="main-content" role="main">
+          {children}
+        </main>
         <CommandPalette />
         <KeyboardShortcutsModal />
         <QuickActionsMenu />
-        <VersionFooter />
+        <footer id="footer" role="contentinfo">
+          <VersionFooter />
+        </footer>
         <Analytics />
       </body>
     </html>
