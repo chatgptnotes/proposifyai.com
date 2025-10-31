@@ -1347,7 +1347,7 @@ export default function SettingsPage() {
                       <li>• Company address and contact information</li>
                       <li>• Standard payment terms (Net 30, deposits, etc.)</li>
                       <li>• Legal clauses and terms & conditions</li>
-                      <li>• Client logos - Upload and store your clients' branding</li>
+                      <li>• Client logos - Upload and store your clients&apos; branding</li>
                       <li>• Company logos - Upload your own company logos and branding assets</li>
                     </ul>
                   </div>
