@@ -37,12 +37,12 @@ interface SkipLinksProps {
 
 export function SkipLinks({ links = DEFAULT_SKIP_LINKS }: SkipLinksProps) {
   return (
-    <div className="skip-links">
+    <div className="sr-only focus-within:not-sr-only">
       {links.map((link) => (
         <Link
           key={link.id}
           href={link.href}
-          className="skip-link"
+          className="absolute left-0 top-0 z-[9999] -translate-y-full bg-primary-600 px-4 py-3 text-white font-semibold rounded-br-lg shadow-lg transition-transform focus:translate-y-0 focus:outline focus:outline-4 focus:outline-yellow-400 focus:outline-offset-2"
           onClick={(e) => {
             e.preventDefault()
             const target = document.querySelector(link.href)
@@ -56,33 +56,6 @@ export function SkipLinks({ links = DEFAULT_SKIP_LINKS }: SkipLinksProps) {
           {link.label}
         </Link>
       ))}
-
-      <style jsx>{`
-        .skip-links {
-          position: relative;
-          z-index: 9999;
-        }
-
-        .skip-link {
-          position: absolute;
-          top: -100px;
-          left: 0;
-          padding: 12px 16px;
-          background: #3b82f6;
-          color: white;
-          font-weight: 600;
-          text-decoration: none;
-          border-radius: 0 0 8px 0;
-          transition: top 0.2s;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .skip-link:focus {
-          top: 0;
-          outline: 3px solid #fbbf24;
-          outline-offset: 2px;
-        }
-      `}</style>
     </div>
   )
 }
