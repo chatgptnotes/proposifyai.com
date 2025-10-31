@@ -1,0 +1,8 @@
+# Mac system files
+.DS_Store
+
+# IDE workspace files
+*.code-workspace
+
+# Subdirectories
+Headzgemini2.5/
