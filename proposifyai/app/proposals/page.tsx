@@ -391,17 +391,17 @@ export default function ProposalsPage() {
                         {formatCurrency(proposal.total_value)}
                       </p>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center gap-2 ml-4">
                       <button
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
                           window.location.href = `/proposals/${proposal.id}`;
                         }}
-                        className="p-2.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:scale-105 border border-transparent hover:border-blue-200"
+                        className="flex items-center justify-center w-9 h-9 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-sm"
                         title="Edit proposal"
                       >
-                        <EditIcon sx={{ fontSize: 20 }} />
+                        <EditIcon sx={{ fontSize: 18 }} />
                       </button>
                       <button
                         onClick={(e) => {
@@ -409,10 +409,10 @@ export default function ProposalsPage() {
                           e.stopPropagation();
                           deleteProposal(proposal.id, proposal.title);
                         }}
-                        className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover:scale-105 border border-transparent hover:border-red-200"
+                        className="flex items-center justify-center w-9 h-9 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all duration-200 hover:scale-105 shadow-sm"
                         title="Delete proposal"
                       >
-                        <DeleteIcon sx={{ fontSize: 20 }} />
+                        <DeleteIcon sx={{ fontSize: 18 }} />
                       </button>
                     </div>
                     <Link href={`/proposals/${proposal.id}`}>
