@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createClient } from '@/lib/supabase/client';
 import LinkIcon from '@mui/icons-material/Link';
 import CloudIcon from '@mui/icons-material/Cloud';
@@ -119,6 +119,7 @@ export default function SettingsPage() {
     content: '',
     category: 'bank_details'
   });
+  const titleInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [letterhead, setLetterhead] = useState<string | null>(null);
@@ -188,6 +189,16 @@ export default function SettingsPage() {
       fetchFormattingPreferences();
     }
   }, [activeTab]);
+
+  // Auto-focus title field when modal opens
+  useEffect(() => {
+    if (showAddContent && titleInputRef.current) {
+      // Small delay to ensure modal is rendered
+      setTimeout(() => {
+        titleInputRef.current?.focus();
+      }, 100);
+    }
+  }, [showAddContent]);
 
   const fetchProfileData = async () => {
     try {
@@ -1147,6 +1158,7 @@ export default function SettingsPage() {
                             )}
                           </label>
                           <input
+                            ref={titleInputRef}
                             type="text"
                             value={newContent.title}
                             onChange={(e) => setNewContent({ ...newContent, title: e.target.value })}
@@ -1292,7 +1304,15 @@ export default function SettingsPage() {
 
                     return (
                       <div key={category} className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex items-center gap-2 mb-3">
+                        <div
+                          className="flex items-center gap-2 mb-3 cursor-pointer hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition"
+                          onDoubleClick={() => {
+                            setShowAddContent(true);
+                            setEditingContent(null);
+                            setNewContent({ title: '', content: '', category: category as any });
+                          }}
+                          title="Double-click to add new content in this category"
+                        >
                           <Icon className="text-primary-600" fontSize="small" />
                           <h3 className="font-semibold text-gray-900">
                             {categoryNames[category as keyof typeof categoryNames]}
