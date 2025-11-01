@@ -84,6 +84,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Log content size for debugging
+    const contentSize = content.length;
+    console.log(`Saving content - Category: ${category}, Title: ${title}, Size: ${(contentSize / 1024).toFixed(1)}KB`);
+
     const { data, error } = await supabase
       .from('saved_content')
       .insert({
@@ -99,8 +103,18 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('Error creating saved content:', error);
+      console.error('Error details:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
       return NextResponse.json(
-        { error: 'Failed to create saved content' },
+        {
+          error: 'Failed to create saved content',
+          details: error.message,
+          hint: error.hint
+        },
         { status: 500 }
       );
     }

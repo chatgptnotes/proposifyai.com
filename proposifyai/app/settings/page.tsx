@@ -127,6 +127,59 @@ export default function SettingsPage() {
   const [letterheadData, setLetterheadData] = useState<any>(null);
   const [companyWebsite, setCompanyWebsite] = useState('');
   const [profileData, setProfileData] = useState<ProfileData>({});
+
+  // Image compression helper
+  const compressImage = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          // Max dimensions for logos
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 800;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height = height * (MAX_WIDTH / width);
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width = width * (MAX_HEIGHT / height);
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          // Convert to base64 with quality reduction if needed
+          let quality = 0.9;
+          let result = canvas.toDataURL('image/jpeg', quality);
+
+          // If still too large, reduce quality further
+          while (result.length > 500000 && quality > 0.5) {
+            quality -= 0.1;
+            result = canvas.toDataURL('image/jpeg', quality);
+          }
+
+          resolve(result);
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
   const [formattingPrefs, setFormattingPrefs] = useState<FormattingPreferences>({
     font_family: 'Arial, Helvetica, sans-serif',
     font_size_base: 12,
@@ -1198,28 +1251,47 @@ export default function SettingsPage() {
                                 type="file"
                                 id="logo-upload"
                                 accept="image/*"
-                                onChange={(e) => {
+                                onChange={async (e) => {
                                   const file = e.target.files?.[0];
                                   if (file) {
-                                    // Extract filename without extension for the title
-                                    const fileName = file.name.replace(/\.[^/.]+$/, '');
+                                    try {
+                                      // Extract filename without extension for the title
+                                      const fileName = file.name.replace(/\.[^/.]+$/, '');
 
-                                    const reader = new FileReader();
-                                    reader.onloadend = () => {
+                                      // Show loading state
                                       setNewContent({
                                         ...newContent,
-                                        content: reader.result as string,
-                                        title: newContent.title || fileName // Auto-fill title if empty
+                                        title: newContent.title || fileName,
+                                        content: '' // Clear content while processing
                                       });
-                                    };
-                                    reader.readAsDataURL(file);
+
+                                      // Compress the image
+                                      const compressedImage = await compressImage(file);
+
+                                      setNewContent({
+                                        ...newContent,
+                                        content: compressedImage,
+                                        title: newContent.title || fileName
+                                      });
+                                    } catch (error) {
+                                      console.error('Error processing image:', error);
+                                      alert('Failed to process image. Please try a different file.');
+                                    }
                                   }
                                 }}
                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
                               />
                               {newContent.content && (
                                 <div className="mt-4">
-                                  <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                                  <div className="flex items-center justify-between mb-2">
+                                    <p className="text-sm text-gray-600">Preview:</p>
+                                    <p className="text-xs text-gray-500">
+                                      Size: {(newContent.content.length / 1024).toFixed(1)} KB
+                                      {newContent.content.length > 500000 && (
+                                        <span className="text-orange-600 ml-1">(Large - may take longer to save)</span>
+                                      )}
+                                    </p>
+                                  </div>
                                   <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
