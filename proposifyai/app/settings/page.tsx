@@ -28,7 +28,7 @@ interface SavedContent {
   id?: string;
   title: string;
   content: string;
-  category: 'bank_details' | 'company_info' | 'payment_terms' | 'standard_clause' | 'client_logo' | 'company_logo';
+  category: 'bank_details' | 'company_info' | 'payment_terms' | 'standard_clause' | 'image';
 }
 
 interface FormattingPreferences {
@@ -1205,7 +1205,7 @@ export default function SettingsPage() {
                       <div className="space-y-4">
                         <div>
                           <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            Title {(newContent.category === 'client_logo' || newContent.category === 'company_logo') && (
+                            Title {newContent.category === 'image' && (
                               <span className="text-xs text-gray-500 font-normal">(auto-filled from filename, you can edit)</span>
                             )}
                           </label>
@@ -1215,8 +1215,8 @@ export default function SettingsPage() {
                             value={newContent.title}
                             onChange={(e) => setNewContent({ ...newContent, title: e.target.value })}
                             placeholder={
-                              (newContent.category === 'client_logo' || newContent.category === 'company_logo')
-                                ? "e.g., Nike Logo, Client ABC Logo"
+                              newContent.category === 'image'
+                                ? "e.g., Company Logo, Client ABC Logo, Product Image"
                                 : "e.g., Primary Bank Account, Company Address"
                             }
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
@@ -1234,16 +1234,15 @@ export default function SettingsPage() {
                             <option value="company_info">Company Information</option>
                             <option value="payment_terms">Payment Terms</option>
                             <option value="standard_clause">Standard Clauses</option>
-                            <option value="client_logo">Client Logos</option>
-                            <option value="company_logo">Company Logos</option>
+                            <option value="image">Images & Logos</option>
                           </select>
                         </div>
 
-                        {/* Image Upload for Logos */}
-                        {(newContent.category === 'client_logo' || newContent.category === 'company_logo') ? (
+                        {/* Image Upload for Images */}
+                        {newContent.category === 'image' ? (
                           <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
-                              Upload {newContent.category === 'client_logo' ? 'Client' : 'Company'} Logo
+                              Upload Image or Logo
                             </label>
                             <div className="space-y-4">
                               <input
@@ -1353,22 +1352,20 @@ export default function SettingsPage() {
                 {/* Content Categories */}
                 {!loading && (
                   <div className="space-y-6">
-                    {['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'client_logo', 'company_logo'].map((category) => {
+                    {['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'image'].map((category) => {
                     const categoryIcons = {
                       bank_details: AccountBalanceIcon,
                       company_info: BusinessIcon,
                       payment_terms: CreditCardIcon,
                       standard_clause: DescriptionIcon,
-                      client_logo: ImageIcon,
-                      company_logo: ImageIcon
+                      image: ImageIcon
                     };
                     const categoryNames = {
                       bank_details: 'Bank Details',
                       company_info: 'Company Information',
                       payment_terms: 'Payment Terms',
                       standard_clause: 'Standard Clauses',
-                      client_logo: 'Client Logos',
-                      company_logo: 'Company Logos'
+                      image: 'Images & Logos'
                     };
                     const Icon = categoryIcons[category as keyof typeof categoryIcons];
                     const items = savedContent.filter(item => item.category === category);
@@ -1400,7 +1397,7 @@ export default function SettingsPage() {
                                 key={item.id}
                                 className="flex items-start justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
                               >
-                                {(item.category === 'client_logo' || item.category === 'company_logo') ? (
+                                {item.category === 'image' ? (
                                   <div className="flex items-center gap-3 flex-1">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
@@ -1411,7 +1408,7 @@ export default function SettingsPage() {
                                     <div className="flex-1">
                                       <h4 className="font-medium text-gray-900 text-sm">{item.title}</h4>
                                       <p className="text-xs text-gray-500 mt-1">
-                                        {item.category === 'client_logo' ? 'Client Logo' : 'Company Logo'}
+                                        Image
                                       </p>
                                     </div>
                                   </div>
