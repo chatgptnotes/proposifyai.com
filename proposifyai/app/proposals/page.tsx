@@ -398,10 +398,10 @@ export default function ProposalsPage() {
                           e.stopPropagation();
                           window.location.href = `/proposals/${proposal.id}`;
                         }}
-                        className="flex items-center justify-center w-9 h-9 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-sm"
+                        className="flex items-center justify-center w-9 h-9 bg-blue-600 rounded-md hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-md"
                         title="Edit proposal"
                       >
-                        <EditIcon sx={{ fontSize: 18 }} />
+                        <EditIcon sx={{ fontSize: 18, color: '#ffffff' }} />
                       </button>
                       <button
                         onClick={(e) => {
@@ -409,10 +409,10 @@ export default function ProposalsPage() {
                           e.stopPropagation();
                           deleteProposal(proposal.id, proposal.title);
                         }}
-                        className="flex items-center justify-center w-9 h-9 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all duration-200 hover:scale-105 shadow-sm"
+                        className="flex items-center justify-center w-9 h-9 bg-red-600 rounded-md hover:bg-red-700 transition-all duration-200 hover:scale-105 shadow-md"
                         title="Delete proposal"
                       >
-                        <DeleteIcon sx={{ fontSize: 18 }} />
+                        <DeleteIcon sx={{ fontSize: 18, color: '#ffffff' }} />
                       </button>
                     </div>
                     <Link href={`/proposals/${proposal.id}`}>
