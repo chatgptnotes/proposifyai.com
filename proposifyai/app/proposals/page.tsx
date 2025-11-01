@@ -391,13 +391,13 @@ export default function ProposalsPage() {
                           {formatCurrency(proposal.total_value)}
                         </p>
                       </div>
-                      <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition">
+                      <div className="flex items-center space-x-2 transition">
                         <button
                           onClick={(e) => {
                             e.preventDefault();
                             window.location.href = `/proposals/${proposal.id}`;
                           }}
-                          className="p-2 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition"
+                          className="p-2 text-blue-600 hover:text-primary-700 rounded-lg hover:bg-primary-50 transition transform hover:scale-110"
                           title="Edit proposal"
                         >
                           <EditIcon sx={{ fontSize: 20 }} />
@@ -407,7 +407,7 @@ export default function ProposalsPage() {
                             e.preventDefault();
                             deleteProposal(proposal.id, proposal.title);
                           }}
-                          className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition"
+                          className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50 transition transform hover:scale-110"
                           title="Delete proposal"
                         >
                           <DeleteIcon sx={{ fontSize: 20 }} />
