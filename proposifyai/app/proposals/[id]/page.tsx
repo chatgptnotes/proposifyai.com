@@ -29,6 +29,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import GavelIcon from '@mui/icons-material/Gavel';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArticleIcon from '@mui/icons-material/Article';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { exportToWordModern } from '@/utils/exportToWord';
 
 export default function EditProposalPage({ params }: { params: { id: string } }) {
@@ -41,6 +42,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
   const [editMode, setEditMode] = useState(false);
   const [content, setContent] = useState("");
   const [showCustomization, setShowCustomization] = useState(false);
+  const [activeSidebarTab, setActiveSidebarTab] = useState<'tools' | 'customize'>('tools');
   const [primaryColor, setPrimaryColor] = useState("#DC2626");
   const [companyLogo, setCompanyLogo] = useState("");
   const [clientLogo, setClientLogo] = useState("");
@@ -66,6 +68,14 @@ export default function EditProposalPage({ params }: { params: { id: string } })
   const [lineHeight, setLineHeight] = useState(1.9);
   const [useCustomFormatting, setUseCustomFormatting] = useState(false);
   const [letterheadImage, setLetterheadImage] = useState("");
+  const [letterheadData, setLetterheadData] = useState<any>(null);
+
+  // Header and Footer Letterhead customization
+  const [headerLetterheadEnabled, setHeaderLetterheadEnabled] = useState(false);
+  const [footerLetterheadEnabled, setFooterLetterheadEnabled] = useState(false);
+
+  // Header and Footer customization data from profile
+  const [headerFooterData, setHeaderFooterData] = useState<any>(null);
 
   // AI Tools State
   const [showGenerateModal, setShowGenerateModal] = useState(false);
@@ -107,6 +117,10 @@ export default function EditProposalPage({ params }: { params: { id: string } })
             if (metadata.lineHeight) setLineHeight(metadata.lineHeight);
           }
 
+          // Load header/footer letterhead customization
+          if (metadata.headerLetterheadEnabled !== undefined) setHeaderLetterheadEnabled(metadata.headerLetterheadEnabled);
+          if (metadata.footerLetterheadEnabled !== undefined) setFooterLetterheadEnabled(metadata.footerLetterheadEnabled);
+
           // Initialize email fields
           const proposal = data.data.proposal;
           setEmailTo(proposal.client_email || '');
@@ -121,7 +135,10 @@ export default function EditProposalPage({ params }: { params: { id: string } })
             logoPosition: metadata.logoPosition || 'top-center',
             logoSize: metadata.logoSize || 'medium',
             logoLayout: metadata.logoLayout || 'side-by-side',
-            letterhead: letterheadImage
+            letterhead: letterheadImage,
+            headerLetterheadEnabled: metadata.headerLetterheadEnabled || false,
+            footerLetterheadEnabled: metadata.footerLetterheadEnabled || false,
+            headerFooter: headerFooterData
           });
           setContent(html);
         }
@@ -136,6 +153,22 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     // generateProposalHTML is defined in the same component and doesn't change, safe to omit
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
+
+  // Fetch user's header/footer customization
+  useEffect(() => {
+    async function fetchHeaderFooter() {
+      try {
+        const response = await fetch('/api/user/profile');
+        if (response.ok) {
+          const data = await response.json();
+          setHeaderFooterData(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching header/footer data:', error);
+      }
+    }
+    fetchHeaderFooter();
+  }, []);
 
   // Fetch saved content for Quick Insert
   useEffect(() => {
@@ -157,6 +190,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     fetchSavedContent();
   }, []);
 
+
   // Fetch default customization settings from user profile
   useEffect(() => {
     async function fetchUserDefaults() {
@@ -168,8 +202,13 @@ export default function EditProposalPage({ params }: { params: { id: string } })
           const preferences = profile?.preferences || {};
 
           // Apply letterhead
-          if (profile?.letterhead_image) {
-            setLetterheadImage(profile.letterhead_image);
+          if (preferences.letterhead) {
+            setLetterheadImage(preferences.letterhead);
+          }
+
+          // Load letterhead extracted data
+          if (preferences.letterhead_data) {
+            setLetterheadData(preferences.letterhead_data);
           }
 
           // Apply default customization settings from profile preferences
@@ -209,7 +248,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     fetchUserDefaults();
   }, []);
 
-  // Regenerate HTML when logo settings or letterhead change
+  // Regenerate HTML when logo settings, letterhead, or header/footer settings change
   useEffect(() => {
     if (proposal && !editMode) {
       const proposalContent = proposal.content || {};
@@ -219,14 +258,17 @@ export default function EditProposalPage({ params }: { params: { id: string } })
         logoPosition,
         logoSize,
         logoLayout,
-        letterhead: letterheadImage
+        letterhead: letterheadImage,
+        headerLetterheadEnabled,
+        footerLetterheadEnabled,
+        headerFooter: headerFooterData
       });
       setContent(html);
     }
     // generateProposalHTML is defined in the same component and doesn't change, safe to omit
-    // proposal and editMode are intentionally omitted to only trigger on logo settings changes
+    // proposal and editMode are intentionally omitted to only trigger on settings changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logoPosition, logoSize, logoLayout, companyLogo, clientLogo, letterheadImage]);
+  }, [logoPosition, logoSize, logoLayout, companyLogo, clientLogo, letterheadImage, headerLetterheadEnabled, footerLetterheadEnabled, headerFooterData]);
 
   // Helper function to generate logo HTML based on settings
   function generateLogoHTML(
@@ -294,14 +336,18 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     return logoHTML;
   }
 
+
   // Generate HTML from proposal content
-  function generateProposalHTML(proposal: any, content: any, logoSettings?: {
+  function generateProposalHTML(proposal: any, content: any, settings?: {
     companyLogo?: string;
     clientLogo?: string;
     logoPosition?: string;
     logoSize?: string;
     logoLayout?: string;
     letterhead?: string;
+    headerLetterheadEnabled?: boolean;
+    footerLetterheadEnabled?: boolean;
+    headerFooter?: any;
   }) {
     const {
       companyLogo: companyLogoUrl = '',
@@ -309,60 +355,129 @@ export default function EditProposalPage({ params }: { params: { id: string } })
       logoPosition: position = 'top-center',
       logoSize: size = 'medium',
       logoLayout: layout = 'side-by-side',
-      letterhead: letterheadUrl = ''
-    } = logoSettings || {};
+      letterhead: letterheadUrl = '',
+      headerLetterheadEnabled = false,
+      footerLetterheadEnabled = false,
+      headerFooter = null
+    } = settings || {};
 
-    // Add letterhead background styling with professional overlay
-    const backgroundStyle = letterheadUrl
-      ? `background-image: url('${letterheadUrl}'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative;`
-      : '';
+    let html = `<div class="proposal-content" style="min-height: 100vh;">`;
 
-    let html = `<div class="proposal-content" style="${backgroundStyle} min-height: 100vh;">`;
+    // Custom Header (if header/footer data is available)
+    if (headerFooter && (headerFooter.header_company_name || headerFooter.header_logo)) {
+      const headerBgColor = headerFooter.header_bg_color || '#DC2626';
+      const headerTextColor = headerFooter.header_text_color || '#FFFFFF';
+      const headerLayout = headerFooter.header_layout || 'horizontal';
+      const headerShowContact = headerFooter.header_show_contact !== false;
 
-    // Add semi-transparent overlay for better text readability
-    if (letterheadUrl) {
-      html += `<div style="background: rgba(255, 255, 255, 0.95); padding: 3rem 2rem; min-height: 100vh;">`;
-    } else {
-      html += `<div style="padding: 3rem 2rem;">`;
-    }
+      html += `<div class="custom-header" style="background-color: ${headerBgColor}; color: ${headerTextColor}; padding: 2rem;">`;
+      html += `<div style="max-width: 1400px; margin: 0 auto;">`;
+      html += `<div style="display: flex; align-items: center; ${headerLayout === 'vertical' ? 'flex-direction: column; text-align: center;' : 'justify-content: space-between;'} gap: 1.5rem;">`;
 
-    // Header with logos
-    html += `<div class="proposal-header" style="text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid #e5e7eb;">`;
-
-    // Add logos at top if not next-to-title
-    if (position !== 'next-to-title') {
-      html += generateLogoHTML(companyLogoUrl, clientLogoUrl, position, size, layout);
-    }
-
-    // Title section
-    if (position === 'next-to-title' && (companyLogoUrl || clientLogoUrl)) {
-      const sizeMap = { small: '40px', medium: '60px', large: '80px' };
-      const maxHeight = sizeMap[size as keyof typeof sizeMap] || '60px';
-
-      html += `<div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">`;
-      if (companyLogoUrl) {
-        html += `<img src="${companyLogoUrl}" alt="Company Logo" style="max-height: ${maxHeight}; max-width: 150px;" />`;
+      // Logo and Company Info
+      html += `<div style="display: flex; align-items: center; gap: 1rem; ${headerLayout === 'vertical' ? 'flex-direction: column;' : ''}">`;
+      if (headerFooter.header_logo) {
+        html += `<img src="${headerFooter.header_logo}" alt="Company Logo" style="height: 64px; width: auto; object-fit: contain;" />`;
       }
-      html += `<h1 style="font-size: 2.5rem; font-weight: bold; color: #111827; margin: 0;">${proposal.title}</h1>`;
-      if (clientLogoUrl) {
-        html += `<img src="${clientLogoUrl}" alt="Client Logo" style="max-height: ${maxHeight}; max-width: 150px;" />`;
+      html += `<div style="${headerLayout === 'vertical' ? 'text-align: center;' : ''}">`;
+      if (headerFooter.header_company_name) {
+        html += `<h1 style="font-size: 1.5rem; font-weight: bold; margin: 0;">${headerFooter.header_company_name}</h1>`;
+      }
+      if (headerFooter.header_tagline) {
+        html += `<p style="font-size: 0.875rem; opacity: 0.9; margin: 0.25rem 0 0 0;">${headerFooter.header_tagline}</p>`;
       }
       html += `</div>`;
-    } else {
-      html += `<h1 style="font-size: 2.5rem; font-weight: bold; color: #111827; margin-bottom: 0.5rem;">${proposal.title}</h1>`;
+      if (headerFooter.header_show_client_logo && headerFooter.header_client_logo) {
+        html += `<img src="${headerFooter.header_client_logo}" alt="Client Logo" style="height: 64px; width: auto; object-fit: contain;" />`;
+      }
+      html += `</div>`;
+
+      // Quotation Details and Contact Information
+      html += `<div style="font-size: 0.875rem; ${headerLayout === 'vertical' ? 'text-align: center;' : 'text-align: right;'}">`;
+
+      // Quotation Number and Dates
+      const quotationNo = `DRM-${new Date().getFullYear()}-Q-${proposal.id.substring(0, 4).toUpperCase()}`;
+      const createdDate = new Date(proposal.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const validUntil = proposal.expires_at
+        ? new Date(proposal.expires_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      html += `<p style="margin: 0.25rem 0; font-weight: 600;">Quotation No: ${quotationNo}</p>`;
+      html += `<p style="margin: 0.25rem 0;">Date: ${createdDate}</p>`;
+      html += `<p style="margin: 0.25rem 0;">Valid Until: ${validUntil}</p>`;
+
+      if (headerShowContact) {
+        html += `<div style="margin-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 0.75rem;">`;
+        if (headerFooter.header_contact_phone) {
+          html += `<p style="margin: 0.25rem 0;">📞 ${headerFooter.header_contact_phone}</p>`;
+        }
+        if (headerFooter.header_contact_email) {
+          html += `<p style="margin: 0.25rem 0;">✉️ ${headerFooter.header_contact_email}</p>`;
+        }
+        if (headerFooter.header_contact_website) {
+          html += `<p style="margin: 0.25rem 0;">🌐 ${headerFooter.header_contact_website}</p>`;
+        }
+        if (headerFooter.header_contact_address) {
+          html += `<p style="margin: 0.25rem 0;">📍 ${headerFooter.header_contact_address}</p>`;
+        }
+        html += `</div>`;
+      }
+      html += `</div>`;
+
+      html += `</div>`;
+      html += `</div>`;
+      html += `</div>`;
     }
 
-    html += `<h2 style="font-size: 1.5rem; color: #6b7280; margin-bottom: 1rem;">For ${proposal.client_name}</h2>`;
-    if (proposal.client_company) {
-      html += `<p style="color: #9ca3af;">${proposal.client_company}</p>`;
+    html += `<div style="padding: 0 2rem 3rem 2rem;">`;
+
+    // Header letterhead image (if enabled and no custom header)
+    if (headerLetterheadEnabled && letterheadUrl && !headerFooter) {
+      html += `<div class="letterhead-header" style="margin-bottom: 2rem;">`;
+      html += `<img src="${letterheadUrl}" alt="Company Letterhead" style="width: 100%; height: auto; display: block; max-height: 400px; object-fit: contain;" />`;
+      html += `</div>`;
     }
-    html += `<p style="color: #9ca3af; font-size: 0.875rem; margin-top: 1rem;">${new Date(proposal.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>`;
+
+    // Client Information Section - moved to top
+    html += `<div style="margin: 2rem 0; padding: 1.5rem; background: #ffffff; border-radius: 8px;">`;
+    html += `<h2 style="font-size: 1.25rem; font-weight: bold; color: #DC2626; margin-bottom: 1.5rem; letter-spacing: 0.05em;">QUOTATION FOR</h2>`;
+
+    // Client info container with logo
+    html += `<div style="display: flex; gap: 2rem; align-items: flex-start;">`;
+
+    // Client logo (from Customize sidebar or header customization)
+    const displayClientLogo = clientLogoUrl || (headerFooter && headerFooter.header_show_client_logo && headerFooter.header_client_logo);
+    if (displayClientLogo) {
+      html += `<div style="flex-shrink: 0;">`;
+      html += `<img src="${displayClientLogo}" alt="Client Logo" style="width: 120px; height: 120px; object-fit: contain; border: 2px solid #DC2626; border-radius: 8px; padding: 0.5rem;" />`;
+      html += `</div>`;
+    }
+
+    // Client details
+    html += `<div style="flex: 1;">`;
+    if (proposal.client_company) {
+      html += `<h3 style="font-size: 1.75rem; font-weight: bold; color: #111827; margin: 0 0 0.5rem 0;">${proposal.client_company.toUpperCase()}</h3>`;
+    }
+    // Client description from metadata
+    if (proposal.metadata && proposal.metadata.client_description) {
+      html += `<p style="font-size: 1rem; color: #6B7280; margin: 0.25rem 0;">${proposal.metadata.client_description}</p>`;
+    }
+    if (proposal.client_name) {
+      html += `<p style="font-size: 1rem; color: #6B7280; margin: 0.25rem 0;">${proposal.client_name}</p>`;
+    }
+    if (proposal.client_email) {
+      html += `<p style="font-size: 1rem; color: #6B7280; margin: 0.5rem 0 0 0;">Email: ${proposal.client_email}</p>`;
+    }
     html += `</div>`;
+    html += `</div>`;
+    html += `</div>`;
+
+    html += `<p style="color: #9ca3af; font-size: 0.875rem; margin-top: 1rem;">${new Date(proposal.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>`;
 
     // Executive Summary
     if (content.executive_summary) {
       html += `<div class="section" style="margin-bottom: 3rem;">`;
-      html += `<h2 style="font-size: 1.875rem; font-weight: bold; color: #111827; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #3b82f6;">Project Overview</h2>`;
+      html += `<h2 style="font-size: 1.5rem; font-weight: bold; color: #DC2626; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid #DC2626; text-transform: uppercase; letter-spacing: 0.05em;">PROJECT OVERVIEW</h2>`;
       html += `<div style="line-height: 1.75; color: #374151;">${content.executive_summary}</div>`;
       html += `</div>`;
     }
@@ -370,7 +485,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     // Scope of Work
     if (content.scope_of_work) {
       html += `<div class="section" style="margin-bottom: 3rem;">`;
-      html += `<h2 style="font-size: 1.875rem; font-weight: bold; color: #111827; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #3b82f6;">Scope of Work</h2>`;
+      html += `<h2 style="font-size: 1.5rem; font-weight: bold; color: #DC2626; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid #DC2626; text-transform: uppercase; letter-spacing: 0.05em;">SCOPE OF WORK</h2>`;
       html += `<div style="line-height: 1.75; color: #374151;">${content.scope_of_work}</div>`;
       html += `</div>`;
     }
@@ -378,7 +493,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     // Pricing
     if (content.pricing_breakdown) {
       html += `<div class="section" style="margin-bottom: 3rem;">`;
-      html += `<h2 style="font-size: 1.875rem; font-weight: bold; color: #111827; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #3b82f6;">Investment Breakdown</h2>`;
+      html += `<h2 style="font-size: 1.5rem; font-weight: bold; color: #DC2626; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid #DC2626; text-transform: uppercase; letter-spacing: 0.05em;">INVESTMENT BREAKDOWN</h2>`;
       html += `<div style="line-height: 1.75; color: #374151;">${content.pricing_breakdown}</div>`;
       html += `</div>`;
     }
@@ -386,7 +501,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     // Timeline
     if (content.timeline) {
       html += `<div class="section" style="margin-bottom: 3rem;">`;
-      html += `<h2 style="font-size: 1.875rem; font-weight: bold; color: #111827; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #3b82f6;">Development Timeline</h2>`;
+      html += `<h2 style="font-size: 1.5rem; font-weight: bold; color: #DC2626; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid #DC2626; text-transform: uppercase; letter-spacing: 0.05em;">DEVELOPMENT TIMELINE</h2>`;
       html += `<div style="line-height: 1.75; color: #374151;">${content.timeline}</div>`;
       html += `</div>`;
     }
@@ -394,19 +509,38 @@ export default function EditProposalPage({ params }: { params: { id: string } })
     // Terms & Conditions
     if (content.terms) {
       html += `<div class="section" style="margin-bottom: 3rem;">`;
-      html += `<h2 style="font-size: 1.875rem; font-weight: bold; color: #111827; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #3b82f6;">Terms & Conditions</h2>`;
+      html += `<h2 style="font-size: 1.5rem; font-weight: bold; color: #DC2626; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid #DC2626; text-transform: uppercase; letter-spacing: 0.05em;">TERMS & CONDITIONS</h2>`;
       html += `<div style="line-height: 1.75; color: #374151;">${content.terms}</div>`;
       html += `</div>`;
     }
 
-    // Footer
-    html += `<div class="proposal-footer" style="text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">`;
-    html += `<p style="color: #6b7280; margin-bottom: 1rem;">We look forward to partnering with you on this exciting project.</p>`;
-    html += `<p style="color: #9ca3af; font-size: 0.875rem;">Please review this proposal and let us know if you have any questions.</p>`;
-    html += `</div>`;
+    // Footer letterhead image (if enabled and no custom footer)
+    if (footerLetterheadEnabled && letterheadUrl && !headerFooter) {
+      html += `<div class="letterhead-footer" style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">`;
+      html += `<img src="${letterheadUrl}" alt="Company Letterhead" style="width: 100%; height: auto; display: block; max-height: 400px; object-fit: contain;" />`;
+      html += `</div>`;
+    }
 
-    // Close overlay div and main container
+    // Close padding div
     html += `</div>`; // Close padding/overlay div
+
+    // Custom Footer (if header/footer data is available)
+    if (headerFooter && headerFooter.footer_text) {
+      const footerBgColor = headerFooter.footer_bg_color || '#1F2937';
+      const footerTextColor = headerFooter.footer_text_color || '#FFFFFF';
+      const footerFontSize = headerFooter.footer_font_size || 12;
+      const footerAlignment = headerFooter.footer_alignment || 'center';
+      const footerShowBorder = headerFooter.footer_show_border !== false;
+      const footerBorderColor = headerFooter.footer_border_color || '#DC2626';
+
+      html += `<div class="custom-footer" style="background-color: ${footerBgColor}; color: ${footerTextColor}; ${footerShowBorder ? `border-top: 4px solid ${footerBorderColor};` : ''} padding: 1.5rem 2rem;">`;
+      html += `<div style="max-width: 1400px; margin: 0 auto;">`;
+      html += `<p style="margin: 0; font-size: ${footerFontSize}px; text-align: ${footerAlignment}; font-weight: 500;">${headerFooter.footer_text}</p>`;
+      html += `</div>`;
+      html += `</div>`;
+    }
+
+    // Close main container
     html += `</div>`; // Close main proposal-content div
     return html;
   }
@@ -441,6 +575,9 @@ export default function EditProposalPage({ params }: { params: { id: string } })
               fontSize,
               lineHeight,
             }),
+            // Header/footer letterhead customization
+            headerLetterheadEnabled,
+            footerLetterheadEnabled,
             lastEdited: new Date().toISOString()
           }
         }),
@@ -597,7 +734,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
 
       // Create a clean temporary container for PDF generation
       const tempContainer = document.createElement('div');
-      tempContainer.style.cssText = 'position: absolute; left: -9999px; top: 0; width: 210mm; padding: 20px; background: white;';
+      tempContainer.style.cssText = 'position: absolute; left: -9999px; top: 0; width: 210mm; background: white;';
       tempContainer.innerHTML = `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">${content}</div>`;
       document.body.appendChild(tempContainer);
 
@@ -758,7 +895,24 @@ export default function EditProposalPage({ params }: { params: { id: string } })
   };
 
   const handleInsertSavedContent = async (contentItem: any) => {
-    // Handle logo insertion differently
+    // Handle logo insertion - check for image category with logo subcategories
+    if (contentItem.category === 'image') {
+      const subcategory = contentItem.metadata?.subcategory;
+
+      if (subcategory === 'client_logo') {
+        setClientLogo(contentItem.content);
+        toast.success(`Client logo set: ${contentItem.title}`);
+        return;
+      }
+
+      if (subcategory === 'company_logo') {
+        setCompanyLogo(contentItem.content);
+        toast.success(`Company logo set: ${contentItem.title}`);
+        return;
+      }
+    }
+
+    // Legacy support for old category format
     if (contentItem.category === 'client_logo') {
       setClientLogo(contentItem.content);
       toast.success(`Client logo set: ${contentItem.title}`);
@@ -1281,16 +1435,41 @@ export default function EditProposalPage({ params }: { params: { id: string } })
 
       {/* Editor */}
       <div className="w-full px-4 py-8 bg-gray-100 min-h-screen">
-        <div className="flex gap-6 max-w-[1400px] mx-auto">
-          {/* Sidebar - AI Tools */}
+        <div className="flex gap-6 max-w-[1600px] mx-auto">
+          {/* Combined Sidebar - AI Tools & Customize */}
           {!sidebarCollapsed && (
-            <div className="w-56 flex-shrink-0">
-              <div className="bg-white rounded-lg shadow-md p-3 border border-gray-100 sticky top-8">
-                <h3 className="font-bold text-gray-900 mb-3 flex items-center text-sm">
-                  <FlashOnIcon className="text-primary-600 mr-1" fontSize="small" />
-                  AI Tools
-                </h3>
-                <div className="space-y-2">
+            <div className="w-[480px] flex-shrink-0">
+              <div className="bg-white rounded-lg shadow-md p-5 border border-gray-100 sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+                {/* Tab Headers */}
+                <div className="flex border-b border-gray-200 gap-4 mb-6">
+                  <button
+                    onClick={() => setActiveSidebarTab('tools')}
+                    className={`pb-3 px-3 text-sm font-semibold transition border-b-2 rounded-t-lg ${
+                      activeSidebarTab === 'tools'
+                        ? 'text-primary-600 border-primary-600'
+                        : 'text-gray-600 hover:text-gray-900 border-transparent'
+                    }`}
+                  >
+                    <FlashOnIcon sx={{ fontSize: 16 }} className="inline mr-2" />
+                    AI Tools
+                  </button>
+                  <button
+                    onClick={() => setActiveSidebarTab('customize')}
+                    className={`pb-3 px-3 text-sm font-semibold transition border-b-2 rounded-t-lg ${
+                      activeSidebarTab === 'customize'
+                        ? 'text-primary-600 border-primary-600'
+                        : 'text-gray-600 hover:text-gray-900 border-transparent'
+                    }`}
+                  >
+                    <PaletteIcon sx={{ fontSize: 16 }} className="inline mr-2" />
+                    Customize
+                  </button>
+                </div>
+
+                {/* AI Tools Tab Content */}
+                {activeSidebarTab === 'tools' && (
+                  <div>
+                    <div className="space-y-2">
                   <button
                     onClick={() => setShowGenerateModal(true)}
                     className="w-full px-2 py-1.5 text-xs bg-primary-50 text-primary-700 font-medium rounded hover:bg-primary-100 transition text-left flex items-center gap-1"
@@ -1379,64 +1558,80 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                     </div>
                   )}
                 </div>
-              </div>
-            </div>
-          )}
+                  </div>
+              )}
 
-          {/* Main Editor */}
-          <div className="flex-1 max-w-[210mm] mx-auto">
-            {/* Customization Panel */}
-            {showCustomization && (
-              <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 mb-4">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                    <PaletteIcon className="text-primary-600" />
-                    Customize Proposal
-                  </h3>
-                  <button
-                    onClick={() => setShowCustomization(false)}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <CloseIcon fontSize="small" />
-                  </button>
-                </div>
-
+              {/* Customize Tab Content */}
+              {activeSidebarTab === 'customize' && (
+                <div className="space-y-4">
                 {/* Logo Upload Section */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <div className="mb-6 pb-6 border-b-2 border-gray-200">
+                  <h4 className="font-semibold text-gray-900 mb-5 flex items-center gap-3 text-base">
                     <ImageIcon fontSize="small" className="text-primary-600" />
                     Logo Upload
                   </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Company Logo Upload */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Company Logo
                     </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-primary-500 transition">
-                      {companyLogo ? (
-                        <div className="relative">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={companyLogo} alt="Company Logo" className="max-h-20 mx-auto mb-2" />
-                          <button
-                            onClick={() => setCompanyLogo('')}
-                            className="text-xs text-red-600 hover:text-red-700"
-                          >
-                            Remove
-                          </button>
+
+                    {/* Selected Logo Preview */}
+                    {companyLogo && (
+                      <div className="border-2 border-green-500 rounded-lg p-4 text-center mb-3 bg-green-50">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={companyLogo} alt="Company Logo" className="max-h-20 mx-auto mb-2" />
+                        <button
+                          onClick={() => setCompanyLogo('')}
+                          className="text-xs text-red-600 hover:text-red-700 font-medium"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Logo Gallery - Saved Logos */}
+                    {savedContent.filter(item => item.category === 'image' && item.metadata?.subcategory === 'company_logo').length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-sm font-semibold text-gray-700 mb-3">Select from saved:</p>
+                        <div className="grid grid-cols-2 gap-3">
+                          {savedContent
+                            .filter(item => item.category === 'image' && item.metadata?.subcategory === 'company_logo')
+                            .map(item => (
+                              <button
+                                key={item.id}
+                                onClick={() => {
+                                  setCompanyLogo(item.content);
+                                  toast.success(`Company logo set: ${item.title}`);
+                                }}
+                                className={`border-2 rounded-xl p-3 hover:border-primary-500 hover:shadow-md transition-all duration-200 ${
+                                  companyLogo === item.content ? 'border-primary-600 bg-primary-50 shadow-sm' : 'border-gray-300 bg-white'
+                                }`}
+                                title={item.title}
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={item.content} alt={item.title} className="w-full h-24 object-contain mb-2" />
+                                <p className="text-xs text-gray-700 font-medium line-clamp-2">{item.title}</p>
+                              </button>
+                            ))}
                         </div>
-                      ) : (
-                        <label className="cursor-pointer">
-                          <UploadIcon className="mx-auto text-gray-400 mb-2" />
-                          <span className="text-sm text-gray-600">Upload Logo</span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleLogoUpload('company', e)}
-                            className="hidden"
-                          />
-                        </label>
-                      )}
+                      </div>
+                    )}
+
+                    {/* Upload New Logo */}
+                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-primary-500 hover:bg-primary-50 transition-all duration-200 bg-gray-50">
+                      <label className="cursor-pointer flex flex-col items-center">
+                        <UploadIcon sx={{ fontSize: 32 }} className="mx-auto text-gray-400 mb-2" />
+                        <span className="text-sm font-medium text-gray-700">Upload New Logo</span>
+                        <span className="text-xs text-gray-500 mt-1">Click to browse</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleLogoUpload('company', e)}
+                          className="hidden"
+                        />
+                      </label>
                     </div>
                   </div>
 
@@ -1445,43 +1640,75 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Client Logo
                     </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-primary-500 transition">
-                      {clientLogo ? (
-                        <div className="relative">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={clientLogo} alt="Client Logo" className="max-h-20 mx-auto mb-2" />
-                          <button
-                            onClick={() => setClientLogo('')}
-                            className="text-xs text-red-600 hover:text-red-700"
-                          >
-                            Remove
-                          </button>
+
+                    {/* Selected Logo Preview */}
+                    {clientLogo && (
+                      <div className="border-2 border-green-500 rounded-lg p-4 text-center mb-3 bg-green-50">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={clientLogo} alt="Client Logo" className="max-h-20 mx-auto mb-2" />
+                        <button
+                          onClick={() => setClientLogo('')}
+                          className="text-xs text-red-600 hover:text-red-700 font-medium"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Logo Gallery - Saved Logos */}
+                    {savedContent.filter(item => item.category === 'image' && item.metadata?.subcategory === 'client_logo').length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-sm font-semibold text-gray-700 mb-3">Select from saved:</p>
+                        <div className="grid grid-cols-2 gap-3">
+                          {savedContent
+                            .filter(item => item.category === 'image' && item.metadata?.subcategory === 'client_logo')
+                            .map(item => (
+                              <button
+                                key={item.id}
+                                onClick={() => {
+                                  setClientLogo(item.content);
+                                  toast.success(`Client logo set: ${item.title}`);
+                                }}
+                                className={`border-2 rounded-xl p-3 hover:border-primary-500 hover:shadow-md transition-all duration-200 ${
+                                  clientLogo === item.content ? 'border-primary-600 bg-primary-50 shadow-sm' : 'border-gray-300 bg-white'
+                                }`}
+                                title={item.title}
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={item.content} alt={item.title} className="w-full h-24 object-contain mb-2" />
+                                <p className="text-xs text-gray-700 font-medium line-clamp-2">{item.title}</p>
+                              </button>
+                            ))}
                         </div>
-                      ) : (
-                        <label className="cursor-pointer">
-                          <UploadIcon className="mx-auto text-gray-400 mb-2" />
-                          <span className="text-sm text-gray-600">Upload Logo</span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleLogoUpload('client', e)}
-                            className="hidden"
-                          />
-                        </label>
-                      )}
+                      </div>
+                    )}
+
+                    {/* Upload New Logo */}
+                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-primary-500 hover:bg-primary-50 transition-all duration-200 bg-gray-50">
+                      <label className="cursor-pointer flex flex-col items-center">
+                        <UploadIcon sx={{ fontSize: 32 }} className="mx-auto text-gray-400 mb-2" />
+                        <span className="text-sm font-medium text-gray-700">Upload New Logo</span>
+                        <span className="text-xs text-gray-500 mt-1">Click to browse</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleLogoUpload('client', e)}
+                          className="hidden"
+                        />
+                      </label>
                     </div>
                   </div>
                 </div>
                 </div>
 
                 {/* Logo Customization Options */}
-                <div className="mb-6 pb-6 border-b border-gray-200">
-                  <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <div className="mb-6 pb-6 border-b-2 border-gray-200">
+                  <h4 className="font-semibold text-gray-900 mb-5 flex items-center gap-3 text-base">
                     <ImageIcon fontSize="small" className="text-primary-600" />
                     Logo Display Settings
                   </h4>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Logo Position */}
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-3">
@@ -1622,27 +1849,27 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                 </div>
 
                 {/* Color Picker Section */}
-                <div className="pb-6 border-b border-gray-200">
-                  <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <div className="pb-6 border-b-2 border-gray-200">
+                  <h4 className="font-semibold text-gray-900 mb-5 flex items-center gap-3 text-base">
                     <PaletteIcon fontSize="small" className="text-primary-600" />
                     Color Theme
                   </h4>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-900 mb-3">
                       Primary Color
                     </label>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <input
                         type="color"
                         value={primaryColor}
                         onChange={(e) => handleColorChange(e.target.value)}
-                        className="w-full h-12 rounded-lg cursor-pointer border border-gray-300"
+                        className="w-full h-14 rounded-lg cursor-pointer border-2 border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition"
                       />
                       <input
                         type="text"
                         value={primaryColor}
                         onChange={(e) => handleColorChange(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-sm font-mono focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition"
                         placeholder="#DC2626"
                       />
                       <div className="flex gap-2">
@@ -1671,10 +1898,121 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                   </div>
                 </div>
 
+                {/* Company Letterhead & Brand Guidelines - Vertical Layout */}
+                {(letterheadImage || letterheadData) && (
+                  <div className="pb-6 border-b-2 border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-5 flex items-center gap-3 text-base">
+                      <ImageIcon fontSize="small" className="text-primary-600" />
+                      Company Letterhead & Brand Guidelines
+                    </h4>
+                    <div className="space-y-6">
+                      {/* Letterhead Image */}
+                      {letterheadImage && (
+                        <div className="border-2 border-gray-200 rounded-xl p-6 bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-shadow duration-300">
+                          <p className="text-sm font-semibold text-gray-700 mb-3">Letterhead Preview</p>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={letterheadImage}
+                            alt="Company Letterhead"
+                            className="max-w-full max-h-80 object-contain rounded-lg shadow-sm"
+                          />
+                        </div>
+                      )}
+
+                      {/* Brand Guidelines */}
+                      {letterheadData && (
+                        <div className="bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-xl p-5 shadow-md">
+                          <p className="text-sm font-bold text-emerald-900 mb-4 flex items-center gap-2">
+                            <PaletteIcon sx={{ fontSize: 18 }} className="text-emerald-600" />
+                            AI Extracted Guidelines
+                          </p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {letterheadData.primaryColor && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Primary Color</p>
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 rounded-lg border-2 border-gray-300 shadow-sm" style={{ backgroundColor: letterheadData.primaryColor }}></div>
+                                  <span className="text-sm text-emerald-700 font-semibold font-mono">{letterheadData.primaryColor}</span>
+                                </div>
+                              </div>
+                            )}
+                            {letterheadData.secondaryColor && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Secondary Color</p>
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 rounded-lg border-2 border-gray-300 shadow-sm" style={{ backgroundColor: letterheadData.secondaryColor }}></div>
+                                  <span className="text-sm text-emerald-700 font-semibold font-mono">{letterheadData.secondaryColor}</span>
+                                </div>
+                              </div>
+                            )}
+                            {letterheadData.textColor && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Text Color</p>
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 rounded-lg border-2 border-gray-300 shadow-sm" style={{ backgroundColor: letterheadData.textColor }}></div>
+                                  <span className="text-sm text-emerald-700 font-semibold font-mono">{letterheadData.textColor}</span>
+                                </div>
+                              </div>
+                            )}
+                            {letterheadData.logoPosition && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Logo Position</p>
+                                <p className="text-sm text-emerald-700 font-medium">{letterheadData.logoPosition}</p>
+                              </div>
+                            )}
+                            {letterheadData.logoDimensions && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Logo Dimensions</p>
+                                <p className="text-sm text-emerald-700 font-medium">{letterheadData.logoDimensions}</p>
+                              </div>
+                            )}
+                            {letterheadData.safeTextRegions && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Safe Text Regions</p>
+                                <p className="text-sm text-emerald-700 font-medium">{letterheadData.safeTextRegions}</p>
+                              </div>
+                            )}
+                            {letterheadData.margins && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Margins</p>
+                                <p className="text-sm text-emerald-700 font-medium">
+                                  Top: {letterheadData.margins.top}mm, Bottom: {letterheadData.margins.bottom}mm,
+                                  Left: {letterheadData.margins.left}mm, Right: {letterheadData.margins.right}mm
+                                </p>
+                              </div>
+                            )}
+                            {letterheadData.fontSuggestions && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Font Suggestions</p>
+                                <p className="text-sm text-emerald-700 font-medium">{letterheadData.fontSuggestions}</p>
+                              </div>
+                            )}
+                            {letterheadData.spacing && (
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-emerald-300">
+                                <p className="text-xs font-bold text-emerald-800 mb-2">Spacing</p>
+                                <p className="text-sm text-emerald-700 font-medium">{letterheadData.spacing}</p>
+                              </div>
+                            )}
+                          </div>
+                          <div className="mt-5 pt-4 border-t-2 border-emerald-300">
+                            <p className="text-xs text-emerald-700 italic flex items-start gap-2">
+                              <CheckBoxIcon sx={{ fontSize: 16 }} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                              <span>
+                                These guidelines were automatically extracted from your company letterhead using AI.
+                                Go to <span className="font-semibold">Settings → Branding</span> to update.
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 {/* Formatting Preferences Section */}
                 <div className="pt-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-semibold text-gray-800 flex items-center gap-2">
+                  <div className="flex items-center justify-between mb-5">
+                    <h4 className="font-semibold text-gray-900 flex items-center gap-3 text-base">
                       <DescriptionIcon fontSize="small" className="text-primary-600" />
                       Text Formatting
                     </h4>
@@ -1683,23 +2021,23 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                         type="checkbox"
                         checked={useCustomFormatting}
                         onChange={(e) => setUseCustomFormatting(e.target.checked)}
-                        className="w-4 h-4 text-primary-600 rounded"
+                        className="w-4 h-4 text-primary-600 rounded focus:ring-2 focus:ring-primary-100"
                       />
-                      <span className="text-sm text-gray-700">Custom</span>
+                      <span className="text-sm font-medium text-gray-700">Custom</span>
                     </label>
                   </div>
 
                   {useCustomFormatting && (
-                    <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
+                    <div className="space-y-5 bg-gray-50 p-5 rounded-lg border border-gray-200">
                       {/* Font Family */}
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-900 mb-3">
                           Font Family
                         </label>
                         <select
                           value={fontFamily}
                           onChange={(e) => setFontFamily(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition"
                         >
                           <option value="Arial, Helvetica, sans-serif">Arial</option>
                           <option value="'Times New Roman', Times, serif">Times New Roman</option>
@@ -1713,7 +2051,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
 
                       {/* Font Size */}
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-900 mb-3">
                           Base Font Size: {fontSize}pt
                         </label>
                         <input
@@ -1722,9 +2060,9 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                           max="16"
                           value={fontSize}
                           onChange={(e) => setFontSize(Number(e.target.value))}
-                          className="w-full"
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
                         />
-                        <div className="flex justify-between text-xs text-gray-500">
+                        <div className="flex justify-between text-xs text-gray-500 mt-2">
                           <span>10pt</span>
                           <span>16pt</span>
                         </div>
@@ -1732,7 +2070,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
 
                       {/* Line Height */}
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-900 mb-3">
                           Line Height: {lineHeight}
                         </label>
                         <input
@@ -1742,9 +2080,9 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                           step="0.1"
                           value={lineHeight}
                           onChange={(e) => setLineHeight(Number(e.target.value))}
-                          className="w-full"
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
                         />
-                        <div className="flex justify-between text-xs text-gray-500">
+                        <div className="flex justify-between text-xs text-gray-500 mt-2">
                           <span>Tight (1.2)</span>
                           <span>Loose (2.5)</span>
                         </div>
@@ -1762,9 +2100,67 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                     </p>
                   )}
                 </div>
-              </div>
-            )}
 
+                {/* Header Letterhead Section */}
+                <div className="pt-6 border-t-2 border-gray-200">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-semibold text-gray-900 flex items-center gap-3 text-base">
+                      <ImageIcon fontSize="small" className="text-primary-600" />
+                      Header Letterhead
+                    </h4>
+                  </div>
+                  <div className="bg-blue-50 p-5 rounded-lg border border-blue-200">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={headerLetterheadEnabled}
+                        onChange={(e) => setHeaderLetterheadEnabled(e.target.checked)}
+                        className="w-4 h-4 text-primary-600 rounded focus:ring-2 focus:ring-primary-100"
+                      />
+                      <span className="text-sm font-medium text-gray-700">Show letterhead image in header</span>
+                    </label>
+                    {!letterheadImage && (
+                      <p className="text-xs text-gray-500 mt-2 ml-6">
+                        Upload letterhead in Settings → Company Letterhead to use this feature
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Footer Letterhead Section */}
+                <div className="pt-6 border-t-2 border-gray-200">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-semibold text-gray-900 flex items-center gap-3 text-base">
+                      <ImageIcon fontSize="small" className="text-primary-600" />
+                      Footer Letterhead
+                    </h4>
+                  </div>
+                  <div className="bg-green-50 p-5 rounded-lg border border-green-200">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={footerLetterheadEnabled}
+                        onChange={(e) => setFooterLetterheadEnabled(e.target.checked)}
+                        className="w-4 h-4 text-primary-600 rounded focus:ring-2 focus:ring-primary-100"
+                      />
+                      <span className="text-sm font-medium text-gray-700">Show letterhead image in footer</span>
+                    </label>
+                    {!letterheadImage && (
+                      <p className="text-xs text-gray-500 mt-2 ml-6">
+                        Upload letterhead in Settings → Company Letterhead to use this feature
+                      </p>
+                    )}
+                  </div>
+                </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Main Content - Proposal Preview */}
+        <div className="flex-1">
+          <div className="max-w-[260mm] mx-auto">
             {/* Sidebar Toggle & Section Controls */}
             <div className="flex items-center justify-between mb-4">
               <button
@@ -1788,9 +2184,9 @@ export default function EditProposalPage({ params }: { params: { id: string } })
               )}
             </div>
 
-            <div className="bg-white shadow-xl border border-gray-200 overflow-hidden" style={{ minHeight: '297mm' }}>
+            <div className="bg-white shadow-xl overflow-hidden" style={{ minHeight: '297mm' }}>
               {/* Content Display */}
-              <div className="p-12 prose prose-lg max-w-none proposal-content-wrapper">
+              <div className="p-0 prose prose-lg max-w-none proposal-content-wrapper">
                 {editMode ? (
                   <div className="space-y-3">
                     {/* Edit Mode Instructions */}
@@ -1843,6 +2239,7 @@ export default function EditProposalPage({ params }: { params: { id: string } })
                   <div dangerouslySetInnerHTML={{ __html: content }} />
                 )}
               </div>
+            </div>
             </div>
           </div>
         </div>

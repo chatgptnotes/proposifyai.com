@@ -9,6 +9,44 @@ import { FileText, Calendar, Building2, User, CheckCircle, XCircle, Download, Ey
 import PricingTable from '@/components/PricingTable';
 import { PricingTable as PricingTableType } from '@/types/pricing';
 
+// Helper function to adjust color brightness
+function adjustBrightness(color: string, percent: number): string {
+  const num = parseInt(color.replace('#', ''), 16);
+  const amt = Math.round(2.55 * percent);
+  const R = (num >> 16) + amt;
+  const G = (num >> 8 & 0x00FF) + amt;
+  const B = (num & 0x0000FF) + amt;
+  return '#' + (
+    0x1000000 +
+    (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+    (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+    (B < 255 ? (B < 1 ? 0 : B) : 255)
+  ).toString(16).slice(1);
+}
+
+interface HeaderFooterData {
+  header_logo?: string;
+  header_client_logo?: string;
+  header_show_client_logo?: boolean;
+  header_company_name?: string;
+  header_tagline?: string;
+  header_bg_color?: string;
+  header_text_color?: string;
+  header_layout?: 'horizontal' | 'vertical';
+  header_show_contact?: boolean;
+  header_contact_phone?: string;
+  header_contact_email?: string;
+  header_contact_website?: string;
+  header_contact_address?: string;
+  footer_text?: string;
+  footer_bg_color?: string;
+  footer_text_color?: string;
+  footer_font_size?: number;
+  footer_alignment?: 'left' | 'center' | 'right';
+  footer_show_border?: boolean;
+  footer_border_color?: string;
+}
+
 interface PublicProposal {
   id: string;
   title: string;
@@ -21,6 +59,7 @@ interface PublicProposal {
   expires_at?: string;
   accepted_at?: string;
   rejected_at?: string;
+  header?: HeaderFooterData | null;
 }
 
 export default function PublicProposalPage() {
@@ -234,47 +273,198 @@ export default function PublicProposalPage() {
   const isExpired = proposal.expires_at && new Date(proposal.expires_at) < new Date();
   const canTakeAction = proposal.status !== 'accepted' && proposal.status !== 'rejected' && !isExpired;
 
+  // Header customization with fallback defaults
+  const header = proposal.header || {};
+  const headerBgColor = header.header_bg_color || '#DC2626';
+  const headerTextColor = header.header_text_color || '#FFFFFF';
+  const headerLayout = header.header_layout || 'horizontal';
+  const headerShowContact = header.header_show_contact !== false;
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <FileText className="w-8 h-8 text-primary-600" />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Proposify AI</h1>
-                <p className="text-sm text-gray-600">Professional Proposals</p>
+      {/* Custom Header */}
+      {header && (header.header_company_name || header.header_logo) ? (
+        <header
+          className="border-b-4 sticky top-0 z-10 shadow-md"
+          style={{
+            backgroundColor: headerBgColor,
+            color: headerTextColor,
+            borderBottomColor: headerTextColor === '#FFFFFF' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)'
+          }}
+        >
+          <div className="max-w-5xl mx-auto px-6 py-8 sm:px-8 lg:px-12">
+            <div className={`flex items-center ${headerLayout === 'vertical' ? 'flex-col text-center' : 'justify-between'} gap-6`}>
+              {/* Logo and Company Info */}
+              <div className={`flex items-center gap-6 ${headerLayout === 'vertical' ? 'flex-col' : ''}`}>
+                {header.header_logo && (
+                  <div className="bg-white rounded-lg p-3 shadow-lg border-4 border-white">
+                    <img
+                      src={header.header_logo}
+                      alt="Company Logo"
+                      className="h-20 w-20 object-contain"
+                    />
+                  </div>
+                )}
+                <div className={headerLayout === 'vertical' ? 'text-center' : ''}>
+                  {header.header_company_name && (
+                    <h1 className="text-3xl font-bold tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
+                      {header.header_company_name}
+                    </h1>
+                  )}
+                  {header.header_tagline && (
+                    <p className="text-sm opacity-95 mt-2 tracking-widest uppercase font-light">
+                      {header.header_tagline}
+                    </p>
+                  )}
+                  {header.header_tagline && <div className={`h-0.5 w-20 mt-3 ${headerLayout === 'vertical' ? 'mx-auto' : ''}`} style={{ backgroundColor: 'rgba(255,255,255,0.4)' }}></div>}
+                </div>
+                {header.header_show_client_logo && header.header_client_logo && (
+                  <div className="bg-white rounded-lg p-3 shadow-lg border-4 border-white">
+                    <img
+                      src={header.header_client_logo}
+                      alt="Client Logo"
+                      className="h-20 w-20 object-contain"
+                    />
+                  </div>
+                )}
               </div>
+
+              {/* Contact Information */}
+              {headerShowContact && (
+                <div className={`text-sm space-y-2 ${headerLayout === 'vertical' ? 'text-center' : 'text-right'}`}>
+                  {header.header_contact_phone && (
+                    <div className="flex items-center gap-2 justify-end">
+                      <svg className="w-4 h-4 opacity-90" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                      </svg>
+                      <span>{header.header_contact_phone}</span>
+                    </div>
+                  )}
+                  {header.header_contact_email && (
+                    <div className="flex items-center gap-2 justify-end">
+                      <svg className="w-4 h-4 opacity-90" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                      </svg>
+                      <span>{header.header_contact_email}</span>
+                    </div>
+                  )}
+                  {header.header_contact_website && (
+                    <div className="flex items-center gap-2 justify-end">
+                      <svg className="w-4 h-4 opacity-90" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+                      </svg>
+                      <span>{header.header_contact_website}</span>
+                    </div>
+                  )}
+                  {header.header_contact_address && (
+                    <div className="flex items-center gap-2 justify-end">
+                      <svg className="w-4 h-4 opacity-90" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                      <span>{header.header_contact_address}</span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Status Badge */}
-            {proposal.status === 'accepted' && (
-              <div className="flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full">
-                <CheckCircle className="w-5 h-5" />
-                <span className="font-medium">Accepted</span>
-              </div>
-            )}
-            {proposal.status === 'rejected' && (
-              <div className="flex items-center space-x-2 bg-red-100 text-red-800 px-4 py-2 rounded-full">
-                <XCircle className="w-5 h-5" />
-                <span className="font-medium">Rejected</span>
-              </div>
-            )}
-            {isExpired && (
-              <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-full font-medium">
-                Expired
-              </div>
-            )}
+            <div className="mt-6 flex justify-center">
+              {proposal.status === 'accepted' && (
+                <div className="flex items-center space-x-2 bg-green-100 text-green-800 px-5 py-2.5 rounded-full shadow-sm">
+                  <CheckCircle className="w-5 h-5" />
+                  <span className="font-semibold">Accepted</span>
+                </div>
+              )}
+              {proposal.status === 'rejected' && (
+                <div className="flex items-center space-x-2 bg-red-100 text-red-800 px-5 py-2.5 rounded-full shadow-sm">
+                  <XCircle className="w-5 h-5" />
+                  <span className="font-semibold">Rejected</span>
+                </div>
+              )}
+              {isExpired && (
+                <div className="bg-gray-100 text-gray-800 px-5 py-2.5 rounded-full font-semibold shadow-sm">
+                  Expired
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      ) : (
+        /* Default Header */
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+          <div className="max-w-5xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <FileText className="w-8 h-8 text-primary-600" />
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900">Proposify AI</h1>
+                  <p className="text-sm text-gray-600">Professional Proposals</p>
+                </div>
+              </div>
+
+              {/* Status Badge */}
+              {proposal.status === 'accepted' && (
+                <div className="flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full">
+                  <CheckCircle className="w-5 h-5" />
+                  <span className="font-medium">Accepted</span>
+                </div>
+              )}
+              {proposal.status === 'rejected' && (
+                <div className="flex items-center space-x-2 bg-red-100 text-red-800 px-4 py-2 rounded-full">
+                  <XCircle className="w-5 h-5" />
+                  <span className="font-medium">Rejected</span>
+                </div>
+              )}
+              {isExpired && (
+                <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-full font-medium">
+                  Expired
+                </div>
+              )}
+            </div>
+          </div>
+        </header>
+      )}
 
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Proposal Header */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">{proposal.title}</h1>
+
+          {/* Client Information Section - QUOTATION FOR */}
+          <div className="my-8 p-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-sm border border-gray-200">
+            <h2 className="text-xl font-bold mb-6 tracking-widest" style={{ color: headerBgColor }}>
+              QUOTATION FOR
+            </h2>
+
+            <div className="flex gap-6 items-start">
+              {/* Client Logo */}
+              {header && header.header_show_client_logo && header.header_client_logo && (
+                <div className="flex-shrink-0">
+                  <div className="bg-white rounded-lg p-4 shadow-lg border-4 border-white">
+                    <img
+                      src={header.header_client_logo}
+                      alt="Client Logo"
+                      className="w-28 h-28 object-contain"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Client Details */}
+              <div className="flex-1">
+                {proposal.client_company && (
+                  <h3 className="text-3xl font-bold text-gray-900 mb-2 tracking-wide">
+                    {proposal.client_company.toUpperCase()}
+                  </h3>
+                )}
+                {proposal.client_name && (
+                  <p className="text-lg text-gray-600 mb-1">{proposal.client_name}</p>
+                )}
+              </div>
+            </div>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="flex items-start space-x-3">
@@ -520,6 +710,54 @@ export default function PublicProposalPage() {
             </form>
           </div>
         </div>
+      )}
+
+      {/* Custom Footer */}
+      {header && header.footer_text && (
+        <footer
+          className={`mt-auto shadow-inner ${header.footer_show_border ? 'border-t-4' : ''}`}
+          style={{
+            background: header.footer_bg_color
+              ? `linear-gradient(135deg, ${header.footer_bg_color} 0%, ${adjustBrightness(header.footer_bg_color, -10)} 100%)`
+              : 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
+            color: header.footer_text_color || '#FFFFFF',
+            borderColor: header.footer_border_color || '#DC2626',
+          }}
+        >
+          <div className="max-w-5xl mx-auto px-6 py-6 sm:px-8 lg:px-12">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <p
+                className="font-medium opacity-95 leading-relaxed"
+                style={{
+                  fontSize: `${header.footer_font_size || 13}px`,
+                  textAlign: header.footer_alignment || 'center',
+                }}
+              >
+                {header.footer_text}
+              </p>
+              {(header.header_contact_phone || header.header_contact_email) && (
+                <div className="flex items-center gap-4 text-xs opacity-90">
+                  {header.header_contact_phone && (
+                    <span className="flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                      </svg>
+                      {header.header_contact_phone}
+                    </span>
+                  )}
+                  {header.header_contact_email && (
+                    <span className="flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                      </svg>
+                      {header.header_contact_email}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </footer>
       )}
     </div>
   );

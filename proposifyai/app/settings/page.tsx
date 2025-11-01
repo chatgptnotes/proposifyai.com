@@ -122,6 +122,30 @@ export default function SettingsPage() {
   const [analyzingLetterhead, setAnalyzingLetterhead] = useState(false);
   const [letterheadData, setLetterheadData] = useState<any>(null);
   const [companyWebsite, setCompanyWebsite] = useState('');
+
+  // Header customization state
+  const [headerLogo, setHeaderLogo] = useState<string>('');
+  const [headerClientLogo, setHeaderClientLogo] = useState<string>('');
+  const [headerShowClientLogo, setHeaderShowClientLogo] = useState(false);
+  const [headerCompanyName, setHeaderCompanyName] = useState('DRMHOPE SOFTWARE');
+  const [headerTagline, setHeaderTagline] = useState('Empowering businesses with intelligent AI agents');
+  const [headerBgColor, setHeaderBgColor] = useState('#DC2626');
+  const [headerTextColor, setHeaderTextColor] = useState('#FFFFFF');
+  const [headerLayout, setHeaderLayout] = useState<'horizontal' | 'vertical'>('horizontal');
+  const [headerShowContact, setHeaderShowContact] = useState(true);
+  const [headerContactPhone, setHeaderContactPhone] = useState('+91 937-3111-709');
+  const [headerContactEmail, setHeaderContactEmail] = useState('murali@drmhope.com');
+  const [headerContactWebsite, setHeaderContactWebsite] = useState('www.drmhope.com');
+  const [headerContactAddress, setHeaderContactAddress] = useState('Nagpur, Maharashtra, India');
+
+  // Footer customization state
+  const [footerText, setFooterText] = useState('DRMHOPE SOFTWARE | Empowering businesses with intelligent AI agents');
+  const [footerBgColor, setFooterBgColor] = useState('#1F2937');
+  const [footerTextColor, setFooterTextColor] = useState('#FFFFFF');
+  const [footerFontSize, setFooterFontSize] = useState(12);
+  const [footerAlignment, setFooterAlignment] = useState<'left' | 'center' | 'right'>('center');
+  const [footerShowBorder, setFooterShowBorder] = useState(true);
+  const [footerBorderColor, setFooterBorderColor] = useState('#DC2626');
   const [profileData, setProfileData] = useState<ProfileData>({});
   const [formattingPrefs, setFormattingPrefs] = useState<FormattingPreferences>({
     font_family: 'Arial, Helvetica, sans-serif',
@@ -193,6 +217,41 @@ export default function SettingsPage() {
       fetchFormattingPreferences();
     }
   }, [activeTab]);
+
+  // Fetch profile data and saved content when letterhead tab is active
+  useEffect(() => {
+    if (activeTab === 'letterhead') {
+      fetchProfileData();
+      fetchSavedContent();
+    }
+  }, [activeTab]);
+
+  // Auto-populate header logo with company logo from saved content
+  useEffect(() => {
+    console.log('Effect triggered - activeTab:', activeTab, 'savedContent length:', savedContent.length, 'current headerLogo:', headerLogo ? 'has value' : 'empty');
+
+    if (activeTab === 'letterhead' && savedContent.length > 0) {
+      console.log('Saved content items:', savedContent.map(item => ({ title: item.title, category: item.category })));
+
+      // Find company logo - look for images with "logo" in title
+      const companyLogo = savedContent.find(item =>
+        item.category === 'image' &&
+        item.title &&
+        item.title.toLowerCase().includes('logo')
+      );
+
+      console.log('Found company logo:', companyLogo ? 'YES - ' + companyLogo.title : 'NO');
+
+      if (companyLogo && companyLogo.content) {
+        if (!headerLogo || headerLogo === '') {
+          console.log('Auto-loading company logo, length:', companyLogo.content.length);
+          setHeaderLogo(companyLogo.content);
+        } else {
+          console.log('Header logo already set, not overwriting');
+        }
+      }
+    }
+  }, [savedContent, activeTab]);
 
   // Auto-focus title field when modal opens
   useEffect(() => {
@@ -292,6 +351,35 @@ export default function SettingsPage() {
         if (preferences.letterhead_data) {
           setLetterheadData(preferences.letterhead_data);
         }
+
+        // Load header customization
+        if (preferences.header_logo) {
+          console.log('Loading header logo from preferences');
+          setHeaderLogo(preferences.header_logo);
+        } else {
+          console.log('No header logo in preferences, will try to load from saved content');
+        }
+        if (preferences.header_client_logo) setHeaderClientLogo(preferences.header_client_logo);
+        if (preferences.header_show_client_logo !== undefined) setHeaderShowClientLogo(preferences.header_show_client_logo);
+        if (preferences.header_company_name) setHeaderCompanyName(preferences.header_company_name);
+        if (preferences.header_tagline) setHeaderTagline(preferences.header_tagline);
+        if (preferences.header_bg_color) setHeaderBgColor(preferences.header_bg_color);
+        if (preferences.header_text_color) setHeaderTextColor(preferences.header_text_color);
+        if (preferences.header_layout) setHeaderLayout(preferences.header_layout);
+        if (preferences.header_show_contact !== undefined) setHeaderShowContact(preferences.header_show_contact);
+        if (preferences.header_contact_phone) setHeaderContactPhone(preferences.header_contact_phone);
+        if (preferences.header_contact_email) setHeaderContactEmail(preferences.header_contact_email);
+        if (preferences.header_contact_website) setHeaderContactWebsite(preferences.header_contact_website);
+        if (preferences.header_contact_address) setHeaderContactAddress(preferences.header_contact_address);
+
+        // Load footer customization
+        if (preferences.footer_text) setFooterText(preferences.footer_text);
+        if (preferences.footer_bg_color) setFooterBgColor(preferences.footer_bg_color);
+        if (preferences.footer_text_color) setFooterTextColor(preferences.footer_text_color);
+        if (preferences.footer_font_size) setFooterFontSize(preferences.footer_font_size);
+        if (preferences.footer_alignment) setFooterAlignment(preferences.footer_alignment);
+        if (preferences.footer_show_border !== undefined) setFooterShowBorder(preferences.footer_show_border);
+        if (preferences.footer_border_color) setFooterBorderColor(preferences.footer_border_color);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -341,14 +429,34 @@ export default function SettingsPage() {
         throw new Error(data.error || 'Failed to save formatting preferences');
       }
 
-      // Also save letterhead and company website to profile preferences
+      // Also save letterhead, header/footer customization and company website to profile preferences
       const profileResponse = await fetch('/api/user/profile', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           letterhead: letterhead,
           letterhead_data: letterheadData,
-          website: companyWebsite
+          website: companyWebsite,
+          // Header customization
+          header_logo: headerLogo,
+          header_company_name: headerCompanyName,
+          header_tagline: headerTagline,
+          header_bg_color: headerBgColor,
+          header_text_color: headerTextColor,
+          header_layout: headerLayout,
+          header_show_contact: headerShowContact,
+          header_contact_phone: headerContactPhone,
+          header_contact_email: headerContactEmail,
+          header_contact_website: headerContactWebsite,
+          header_contact_address: headerContactAddress,
+          // Footer customization
+          footer_text: footerText,
+          footer_bg_color: footerBgColor,
+          footer_text_color: footerTextColor,
+          footer_font_size: footerFontSize,
+          footer_alignment: footerAlignment,
+          footer_show_border: footerShowBorder,
+          footer_border_color: footerBorderColor
         })
       });
 
@@ -672,6 +780,16 @@ export default function SettingsPage() {
                 }`}
               >
                 Billing
+              </button>
+              <button
+                onClick={() => setActiveTab("letterhead")}
+                className={`w-full px-6 py-4 text-left font-medium transition ${
+                  activeTab === "letterhead"
+                    ? "bg-primary-50 text-primary-700 border-l-4 border-primary-600"
+                    : "text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                Letterhead Customize
               </button>
             </div>
           </div>
@@ -1173,6 +1291,556 @@ export default function SettingsPage() {
                       ))}
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Letterhead Customize Tab */}
+            {activeTab === "letterhead" && (
+              <div className="bg-white rounded-xl shadow-md p-8 border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Header & Footer Customization</h2>
+
+                <div className="space-y-8">
+                  {/* Instructions */}
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-blue-900 mb-2">Customize Your Proposal Headers & Footers</h3>
+                    <p className="text-sm text-blue-800">
+                      Design professional headers and footers for all your proposals. Changes will apply to all new proposals by default.
+                    </p>
+                  </div>
+
+                  {/* HEADER CUSTOMIZATION */}
+                  <div className="border-2 border-gray-200 rounded-lg p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                      <span className="w-1 h-6 bg-primary-600 rounded"></span>
+                      Header Customization
+                    </h3>
+
+                    <div className="space-y-6">
+                      {/* Logo Upload */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                          Header Logo
+                        </label>
+                        {headerLogo ? (
+                          <div className="flex items-center gap-4">
+                            <img src={headerLogo} alt="Header Logo" className="h-16 w-16 object-contain border-2 border-gray-200 rounded-lg p-2" />
+                            <label className="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 cursor-pointer transition">
+                              Change Logo
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => setHeaderLogo(e.target?.result as string);
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                className="hidden"
+                              />
+                            </label>
+                            <button
+                              onClick={() => setHeaderLogo('')}
+                              className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="flex items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                            <div className="text-center">
+                              <ImageIcon className="text-gray-400 mx-auto mb-2" style={{ fontSize: 32 }} />
+                              <p className="text-sm text-gray-500">Click to upload logo</p>
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  const reader = new FileReader();
+                                  reader.onload = (e) => setHeaderLogo(e.target?.result as string);
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                              className="hidden"
+                            />
+                          </label>
+                        )}
+                      </div>
+
+                      {/* Client Logo */}
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <label className="block text-sm font-semibold text-gray-700">
+                            Client Logo
+                          </label>
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={headerShowClientLogo}
+                              onChange={(e) => setHeaderShowClientLogo(e.target.checked)}
+                              className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                            />
+                            <span className="text-sm text-gray-600">Show in header</span>
+                          </label>
+                        </div>
+                        {headerClientLogo ? (
+                          <div className="flex items-center gap-4">
+                            <img src={headerClientLogo} alt="Client Logo" className="h-16 w-16 object-contain border-2 border-gray-200 rounded-lg p-2" />
+                            <label className="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 cursor-pointer transition">
+                              Change Logo
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => setHeaderClientLogo(e.target?.result as string);
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                className="hidden"
+                              />
+                            </label>
+                            <button
+                              onClick={() => setHeaderClientLogo('')}
+                              className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="flex items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                            <div className="text-center">
+                              <ImageIcon className="text-gray-400 mx-auto mb-2" style={{ fontSize: 32 }} />
+                              <p className="text-sm text-gray-500">Click to upload client logo</p>
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  const reader = new FileReader();
+                                  reader.onload = (e) => setHeaderClientLogo(e.target?.result as string);
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                              className="hidden"
+                            />
+                          </label>
+                        )}
+                      </div>
+
+                      {/* Company Name */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Company Name
+                        </label>
+                        <input
+                          type="text"
+                          value={headerCompanyName}
+                          onChange={(e) => setHeaderCompanyName(e.target.value)}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="DRMHOPE SOFTWARE"
+                        />
+                      </div>
+
+                      {/* Tagline */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Tagline
+                        </label>
+                        <input
+                          type="text"
+                          value={headerTagline}
+                          onChange={(e) => setHeaderTagline(e.target.value)}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="Empowering businesses with intelligent AI agents"
+                        />
+                      </div>
+
+                      {/* Colors Row */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Background Color
+                          </label>
+                          <div className="flex gap-2">
+                            <input
+                              type="color"
+                              value={headerBgColor}
+                              onChange={(e) => setHeaderBgColor(e.target.value)}
+                              className="h-10 w-20 rounded-lg border border-gray-300 cursor-pointer"
+                            />
+                            <input
+                              type="text"
+                              value={headerBgColor}
+                              onChange={(e) => setHeaderBgColor(e.target.value)}
+                              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="#DC2626"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Text Color
+                          </label>
+                          <div className="flex gap-2">
+                            <input
+                              type="color"
+                              value={headerTextColor}
+                              onChange={(e) => setHeaderTextColor(e.target.value)}
+                              className="h-10 w-20 rounded-lg border border-gray-300 cursor-pointer"
+                            />
+                            <input
+                              type="text"
+                              value={headerTextColor}
+                              onChange={(e) => setHeaderTextColor(e.target.value)}
+                              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="#FFFFFF"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Layout */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Layout
+                        </label>
+                        <div className="flex gap-4">
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="headerLayout"
+                              checked={headerLayout === 'horizontal'}
+                              onChange={() => setHeaderLayout('horizontal')}
+                              className="w-4 h-4 text-primary-600"
+                            />
+                            <span className="text-sm text-gray-700">Horizontal</span>
+                          </label>
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="headerLayout"
+                              checked={headerLayout === 'vertical'}
+                              onChange={() => setHeaderLayout('vertical')}
+                              className="w-4 h-4 text-primary-600"
+                            />
+                            <span className="text-sm text-gray-700">Vertical</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Contact Information Toggle */}
+                      <div>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={headerShowContact}
+                            onChange={(e) => setHeaderShowContact(e.target.checked)}
+                            className="w-4 h-4 text-primary-600 rounded"
+                          />
+                          <span className="text-sm font-semibold text-gray-700">Show Contact Information</span>
+                        </label>
+                      </div>
+
+                      {/* Contact Fields */}
+                      {headerShowContact && (
+                        <div className="pl-6 border-l-4 border-primary-200 space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Phone
+                            </label>
+                            <input
+                              type="text"
+                              value={headerContactPhone}
+                              onChange={(e) => setHeaderContactPhone(e.target.value)}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="+91 937-3111-709"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Email
+                            </label>
+                            <input
+                              type="email"
+                              value={headerContactEmail}
+                              onChange={(e) => setHeaderContactEmail(e.target.value)}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="murali@drmhope.com"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Website
+                            </label>
+                            <input
+                              type="text"
+                              value={headerContactWebsite}
+                              onChange={(e) => setHeaderContactWebsite(e.target.value)}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="www.drmhope.com"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Address
+                            </label>
+                            <input
+                              type="text"
+                              value={headerContactAddress}
+                              onChange={(e) => setHeaderContactAddress(e.target.value)}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="Nagpur, Maharashtra, India"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* FOOTER CUSTOMIZATION */}
+                  <div className="border-2 border-gray-200 rounded-lg p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                      <span className="w-1 h-6 bg-primary-600 rounded"></span>
+                      Footer Customization
+                    </h3>
+
+                    <div className="space-y-6">
+                      {/* Footer Text */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Footer Text
+                        </label>
+                        <textarea
+                          value={footerText}
+                          onChange={(e) => setFooterText(e.target.value)}
+                          rows={3}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="DRMHOPE SOFTWARE | Empowering businesses with intelligent AI agents"
+                        />
+                      </div>
+
+                      {/* Colors Row */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Background Color
+                          </label>
+                          <div className="flex gap-2">
+                            <input
+                              type="color"
+                              value={footerBgColor}
+                              onChange={(e) => setFooterBgColor(e.target.value)}
+                              className="h-10 w-20 rounded-lg border border-gray-300 cursor-pointer"
+                            />
+                            <input
+                              type="text"
+                              value={footerBgColor}
+                              onChange={(e) => setFooterBgColor(e.target.value)}
+                              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="#1F2937"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Text Color
+                          </label>
+                          <div className="flex gap-2">
+                            <input
+                              type="color"
+                              value={footerTextColor}
+                              onChange={(e) => setFooterTextColor(e.target.value)}
+                              className="h-10 w-20 rounded-lg border border-gray-300 cursor-pointer"
+                            />
+                            <input
+                              type="text"
+                              value={footerTextColor}
+                              onChange={(e) => setFooterTextColor(e.target.value)}
+                              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                              placeholder="#FFFFFF"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Font Size */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Font Size: {footerFontSize}px
+                        </label>
+                        <input
+                          type="range"
+                          min="10"
+                          max="20"
+                          value={footerFontSize}
+                          onChange={(e) => setFooterFontSize(Number(e.target.value))}
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        />
+                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                          <span>10px</span>
+                          <span>15px</span>
+                          <span>20px</span>
+                        </div>
+                      </div>
+
+                      {/* Text Alignment */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Text Alignment
+                        </label>
+                        <div className="flex gap-4">
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="footerAlignment"
+                              checked={footerAlignment === 'left'}
+                              onChange={() => setFooterAlignment('left')}
+                              className="w-4 h-4 text-primary-600"
+                            />
+                            <span className="text-sm text-gray-700">Left</span>
+                          </label>
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="footerAlignment"
+                              checked={footerAlignment === 'center'}
+                              onChange={() => setFooterAlignment('center')}
+                              className="w-4 h-4 text-primary-600"
+                            />
+                            <span className="text-sm text-gray-700">Center</span>
+                          </label>
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="footerAlignment"
+                              checked={footerAlignment === 'right'}
+                              onChange={() => setFooterAlignment('right')}
+                              className="w-4 h-4 text-primary-600"
+                            />
+                            <span className="text-sm text-gray-700">Right</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Border Options */}
+                      <div>
+                        <label className="flex items-center gap-2 cursor-pointer mb-3">
+                          <input
+                            type="checkbox"
+                            checked={footerShowBorder}
+                            onChange={(e) => setFooterShowBorder(e.target.checked)}
+                            className="w-4 h-4 text-primary-600 rounded"
+                          />
+                          <span className="text-sm font-semibold text-gray-700">Show Top Border</span>
+                        </label>
+                        {footerShowBorder && (
+                          <div className="pl-6 border-l-4 border-primary-200">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Border Color
+                            </label>
+                            <div className="flex gap-2">
+                              <input
+                                type="color"
+                                value={footerBorderColor}
+                                onChange={(e) => setFooterBorderColor(e.target.value)}
+                                className="h-10 w-20 rounded-lg border border-gray-300 cursor-pointer"
+                              />
+                              <input
+                                type="text"
+                                value={footerBorderColor}
+                                onChange={(e) => setFooterBorderColor(e.target.value)}
+                                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                placeholder="#DC2626"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* PREVIEW SECTION */}
+                  <div className="border-2 border-primary-200 rounded-lg p-6 bg-gray-50">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                      <span className="w-1 h-6 bg-primary-600 rounded"></span>
+                      Live Preview
+                    </h3>
+
+                    {/* Header Preview */}
+                    <div
+                      className="mb-6 rounded-lg overflow-hidden shadow-lg"
+                      style={{
+                        backgroundColor: headerBgColor,
+                        color: headerTextColor,
+                        padding: headerLayout === 'horizontal' ? '2rem' : '2rem',
+                      }}
+                    >
+                      {headerLayout === 'horizontal' ? (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            {headerLogo && <img src={headerLogo} alt="Logo" className="h-12 w-auto" />}
+                            <div>
+                              <h3 className="font-bold text-xl">{headerCompanyName}</h3>
+                              <p className="text-sm opacity-90">{headerTagline}</p>
+                            </div>
+                          </div>
+                          {headerShowContact && (
+                            <div className="text-right text-sm">
+                              <p>{headerContactPhone}</p>
+                              <p>{headerContactEmail}</p>
+                              <p>{headerContactWebsite}</p>
+                              <p>{headerContactAddress}</p>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="text-center">
+                          {headerLogo && <img src={headerLogo} alt="Logo" className="h-16 w-auto mx-auto mb-3" />}
+                          <h3 className="font-bold text-2xl mb-1">{headerCompanyName}</h3>
+                          <p className="text-sm opacity-90 mb-3">{headerTagline}</p>
+                          {headerShowContact && (
+                            <div className="text-sm">
+                              <p>{headerContactPhone} | {headerContactEmail}</p>
+                              <p>{headerContactWebsite} | {headerContactAddress}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Footer Preview */}
+                    <div
+                      className="rounded-lg overflow-hidden shadow-lg"
+                      style={{
+                        backgroundColor: footerBgColor,
+                        color: footerTextColor,
+                        padding: '1.5rem',
+                        fontSize: `${footerFontSize}px`,
+                        textAlign: footerAlignment,
+                        borderTop: footerShowBorder ? `3px solid ${footerBorderColor}` : 'none',
+                      }}
+                    >
+                      {footerText}
+                    </div>
+                  </div>
+
+                  {/* Save Button */}
+                  <button
+                    onClick={saveFormattingPreferences}
+                    disabled={saving}
+                    className="w-full px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+                  >
+                    {saving ? 'Saving...' : 'Save Header & Footer Settings'}
+                  </button>
                 </div>
               </div>
             )}

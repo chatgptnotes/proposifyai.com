@@ -19,10 +19,34 @@ export async function GET(
     const url = new URL(request.url);
     const password = url.searchParams.get('password');
 
-    // Get proposal by share_id
+    // Get proposal by share_id with user's header/footer customization
     const { data: proposal, error } = await supabase
       .from('proposals')
-      .select('*')
+      .select(`
+        *,
+        user_profile:profiles!user_id (
+          header_logo,
+          header_client_logo,
+          header_show_client_logo,
+          header_company_name,
+          header_tagline,
+          header_bg_color,
+          header_text_color,
+          header_layout,
+          header_show_contact,
+          header_contact_phone,
+          header_contact_email,
+          header_contact_website,
+          header_contact_address,
+          footer_text,
+          footer_bg_color,
+          footer_text_color,
+          footer_font_size,
+          footer_alignment,
+          footer_show_border,
+          footer_border_color
+        )
+      `)
       .eq('share_id', shareId)
       .single();
 
@@ -70,7 +94,7 @@ export async function GET(
     // Track view analytics
     trackProposalView(request, proposal.id);
 
-    // Return proposal (without sensitive fields)
+    // Return proposal (without sensitive fields) with header/footer customization
     const publicProposal = {
       id: proposal.id,
       title: proposal.title,
@@ -83,6 +107,8 @@ export async function GET(
       expires_at: proposal.expires_at,
       accepted_at: proposal.accepted_at,
       rejected_at: proposal.rejected_at,
+      // Include header/footer customization from user's profile
+      header: proposal.user_profile?.[0] || proposal.user_profile || null,
     };
 
     return NextResponse.json(publicProposal);
