@@ -634,26 +634,6 @@ export default function SettingsPage() {
                 Branding
               </button>
               <button
-                onClick={() => setActiveTab("integrations")}
-                className={`w-full px-6 py-4 text-left font-medium transition ${
-                  activeTab === "integrations"
-                    ? "bg-primary-50 text-primary-700 border-l-4 border-primary-600"
-                    : "text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                Integrations
-              </button>
-              <button
-                onClick={() => setActiveTab("billing")}
-                className={`w-full px-6 py-4 text-left font-medium transition ${
-                  activeTab === "billing"
-                    ? "bg-primary-50 text-primary-700 border-l-4 border-primary-600"
-                    : "text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                Billing
-              </button>
-              <button
                 onClick={() => setActiveTab("saved-content")}
                 className={`w-full px-6 py-4 text-left font-medium transition ${
                   activeTab === "saved-content"
@@ -672,6 +652,26 @@ export default function SettingsPage() {
                 }`}
               >
                 Formatting
+              </button>
+              <button
+                onClick={() => setActiveTab("integrations")}
+                className={`w-full px-6 py-4 text-left font-medium transition ${
+                  activeTab === "integrations"
+                    ? "bg-primary-50 text-primary-700 border-l-4 border-primary-600"
+                    : "text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                Integrations
+              </button>
+              <button
+                onClick={() => setActiveTab("billing")}
+                className={`w-full px-6 py-4 text-left font-medium transition ${
+                  activeTab === "billing"
+                    ? "bg-primary-50 text-primary-700 border-l-4 border-primary-600"
+                    : "text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                Billing
               </button>
             </div>
           </div>
