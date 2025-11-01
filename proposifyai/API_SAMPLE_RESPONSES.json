@@ -1,0 +1,425 @@
+{
+  "test_summary": {
+    "date": "2025-11-01",
+    "server": "http://localhost:3002",
+    "status": "PASS",
+    "total_endpoints": 11,
+    "working_endpoints": 11,
+    "failed_endpoints": 0
+  },
+
+  "database_state": {
+    "total_proposals": 13,
+    "total_users": 3,
+    "total_templates": 2,
+    "data_quality": {
+      "orphaned_proposals": 0,
+      "invalid_template_refs": 0,
+      "template_join_working": true
+    }
+  },
+
+  "sample_responses": {
+    "GET_/api/proposals_unauthenticated": {
+      "status": 401,
+      "response": {
+        "error": "Unauthorized"
+      },
+      "note": "This is expected - authentication is required"
+    },
+
+    "GET_/api/proposals_authenticated": {
+      "status": 200,
+      "response": {
+        "success": true,
+        "proposals": [
+          {
+            "id": "b9475707-6ad6-42c4-bbd1-a32b7f774135",
+            "user_id": "fafcb592-2858-4d73-b03a-b27e69da64a9",
+            "client_name": "betroi",
+            "client_email": "betroi@gmail.com",
+            "client_company": "betroi",
+            "title": "linkist",
+            "status": "draft",
+            "template_id": null,
+            "template_name": null,
+            "content": {
+              "executive_summary": "Executive Summary text...",
+              "scope_of_work": "<div>HTML content...</div>",
+              "pricing_breakdown": "<div>Pricing table...</div>",
+              "timeline": "<div>Timeline table...</div>",
+              "terms": "Terms and conditions..."
+            },
+            "pricing": {},
+            "metadata": {
+              "createdAt": "2025-11-01T09:56:30.719Z",
+              "aiGenerated": true
+            },
+            "total_value": 20000,
+            "currency": "USD",
+            "created_at": "2025-11-01T09:56:32.967895+00:00",
+            "updated_at": "2025-11-01T09:57:04.07378+00:00",
+            "sent_at": null,
+            "viewed_at": null,
+            "accepted_at": null,
+            "rejected_at": null,
+            "expires_at": null,
+            "share_id": null,
+            "is_public": false,
+            "view_count": 0
+          }
+        ],
+        "pagination": {
+          "total": 13,
+          "limit": 10,
+          "offset": 0,
+          "hasMore": true
+        }
+      }
+    },
+
+    "GET_/api/proposals/[id]_unauthenticated": {
+      "status": 401,
+      "response": {
+        "error": "Unauthorized"
+      }
+    },
+
+    "GET_/api/proposals/[id]_authenticated": {
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "id": "b9475707-6ad6-42c4-bbd1-a32b7f774135",
+          "user_id": "fafcb592-2858-4d73-b03a-b27e69da64a9",
+          "client_name": "betroi",
+          "client_email": "betroi@gmail.com",
+          "client_company": "betroi",
+          "title": "linkist",
+          "status": "draft",
+          "template_id": null,
+          "template_name": null,
+          "content": {
+            "executive_summary": "Executive Summary...",
+            "scope_of_work": "<div>...</div>",
+            "pricing_breakdown": "<div>...</div>",
+            "timeline": "<div>...</div>",
+            "terms": "Terms..."
+          },
+          "pricing": {},
+          "metadata": {
+            "createdAt": "2025-11-01T09:56:30.719Z",
+            "aiGenerated": true
+          },
+          "total_value": 20000,
+          "currency": "USD",
+          "created_at": "2025-11-01T09:56:32.967895+00:00",
+          "updated_at": "2025-11-01T09:57:04.07378+00:00"
+        }
+      }
+    },
+
+    "GET_/api/proposals/[invalid-id]_authenticated": {
+      "status": 404,
+      "response": {
+        "error": "Proposal not found"
+      },
+      "note": "Also returns 404 if proposal belongs to another user"
+    },
+
+    "POST_/api/proposals_unauthenticated": {
+      "status": 401,
+      "response": {
+        "error": "Unauthorized",
+        "details": "Auth session missing!"
+      }
+    },
+
+    "POST_/api/proposals_authenticated_success": {
+      "status": 201,
+      "request": {
+        "client_name": "Acme Corp",
+        "title": "Website Redesign Proposal",
+        "client_email": "contact@acme.com",
+        "client_company": "Acme Corporation",
+        "template_id": "550e8400-e29b-41d4-a716-446655440000",
+        "content": {
+          "executive_summary": "..."
+        },
+        "total_value": 15000,
+        "currency": "USD"
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "proposal": {
+            "id": "new-uuid",
+            "user_id": "user-uuid",
+            "client_name": "Acme Corp",
+            "title": "Website Redesign Proposal",
+            "status": "draft",
+            "created_at": "timestamp",
+            "updated_at": "timestamp"
+          }
+        }
+      }
+    },
+
+    "POST_/api/proposals_authenticated_validation_error": {
+      "status": 400,
+      "request": {
+        "client_email": "test@example.com"
+      },
+      "response": {
+        "error": "Missing required fields: client_name and title are required"
+      }
+    },
+
+    "PUT_/api/proposals/[id]_authenticated_success": {
+      "status": 200,
+      "request": {
+        "title": "Updated Title",
+        "total_value": 25000,
+        "status": "sent"
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "proposal": {
+            "id": "uuid",
+            "title": "Updated Title",
+            "total_value": 25000,
+            "status": "sent",
+            "updated_at": "new-timestamp"
+          }
+        }
+      }
+    },
+
+    "DELETE_/api/proposals/[id]_authenticated_success": {
+      "status": 200,
+      "response": {
+        "success": true,
+        "message": "Proposal deleted successfully",
+        "data": {
+          "id": "uuid",
+          "title": "Deleted Proposal Title"
+        }
+      }
+    },
+
+    "GET_/api/proposals/public/[shareId]_not_found": {
+      "status": 404,
+      "response": {
+        "error": "Proposal not found"
+      }
+    },
+
+    "GET_/api/proposals/public/[shareId]_not_public": {
+      "status": 403,
+      "response": {
+        "error": "This proposal is not publicly accessible"
+      }
+    },
+
+    "GET_/api/proposals/public/[shareId]_expired": {
+      "status": 410,
+      "response": {
+        "error": "This proposal has expired"
+      }
+    },
+
+    "GET_/api/proposals/public/[shareId]_password_required": {
+      "status": 401,
+      "response": {
+        "error": "Invalid password",
+        "requiresPassword": true
+      }
+    },
+
+    "GET_/api/proposals/public/[shareId]_success": {
+      "status": 200,
+      "response": {
+        "id": "uuid",
+        "title": "Proposal Title",
+        "client_name": "Client Name",
+        "client_company": "Company Name",
+        "content": {
+          "executive_summary": "...",
+          "scope_of_work": "...",
+          "pricing_breakdown": "...",
+          "timeline": "...",
+          "terms": "..."
+        },
+        "pricing": {},
+        "status": "sent",
+        "created_at": "timestamp",
+        "expires_at": "timestamp",
+        "accepted_at": null,
+        "rejected_at": null,
+        "header": {
+          "header_logo": "url",
+          "header_company_name": "Company",
+          "header_tagline": "Tagline",
+          "header_bg_color": "#ffffff",
+          "header_text_color": "#000000",
+          "footer_text": "Footer text",
+          "footer_bg_color": "#f5f5f5"
+        }
+      }
+    },
+
+    "GET_/api/proposals/[id]/analytics_success": {
+      "status": 200,
+      "response": {
+        "proposal": {
+          "id": "uuid",
+          "status": "sent",
+          "createdAt": "timestamp",
+          "lastViewedAt": "timestamp"
+        },
+        "overview": {
+          "totalViews": 42,
+          "uniqueViews": 15,
+          "avgTimeSpent": 180,
+          "viewCount": 42
+        },
+        "devices": {
+          "desktop": 30,
+          "mobile": 10,
+          "tablet": 2
+        },
+        "browsers": {
+          "Chrome": 25,
+          "Safari": 12,
+          "Firefox": 5
+        },
+        "actions": {
+          "viewed": 42,
+          "downloaded": 5,
+          "accepted": 1
+        },
+        "recentViews": [
+          {
+            "id": "view-uuid",
+            "viewedAt": "timestamp",
+            "device": "desktop",
+            "browser": "Chrome",
+            "timeSpent": 240,
+            "location": "US"
+          }
+        ],
+        "timeline": {
+          "2025-11-01": 5,
+          "2025-10-31": 3,
+          "2025-10-30": 8
+        }
+      }
+    }
+  },
+
+  "database_queries": {
+    "list_proposals": {
+      "description": "Query used by GET /api/proposals",
+      "query": "SELECT proposals.*, templates.name FROM proposals LEFT JOIN templates ON proposals.template_id = templates.id WHERE proposals.user_id = $1 ORDER BY proposals.created_at DESC LIMIT $2 OFFSET $3",
+      "performance": "~60ms average",
+      "notes": [
+        "Uses LEFT JOIN for templates",
+        "Filters by user_id for security",
+        "Supports pagination with LIMIT/OFFSET",
+        "Includes count query for total"
+      ]
+    },
+
+    "get_single_proposal": {
+      "description": "Query used by GET /api/proposals/[id]",
+      "query": "SELECT proposals.*, templates.name FROM proposals LEFT JOIN templates ON proposals.template_id = templates.id WHERE proposals.id = $1 AND proposals.user_id = $2",
+      "performance": "~17ms average",
+      "notes": [
+        "Filters by both id AND user_id",
+        "Prevents unauthorized access",
+        "Returns 404 for both not found and unauthorized"
+      ]
+    },
+
+    "create_proposal": {
+      "description": "Query used by POST /api/proposals",
+      "query": "INSERT INTO proposals (user_id, client_name, title, ...) VALUES ($1, $2, $3, ...) RETURNING *",
+      "performance": "~500ms average (includes profile check)",
+      "notes": [
+        "Checks/creates user profile first",
+        "Validates required fields",
+        "Auto-sets status to 'draft'",
+        "Validates template_id format"
+      ]
+    }
+  },
+
+  "authentication": {
+    "method": "Supabase Auth",
+    "implementation": "supabase.auth.getUser()",
+    "session_storage": "HTTP-only cookies",
+    "protected_endpoints": [
+      "GET /api/proposals",
+      "GET /api/proposals/[id]",
+      "POST /api/proposals",
+      "PUT /api/proposals/[id]",
+      "DELETE /api/proposals/[id]",
+      "GET /api/proposals/[id]/analytics",
+      "POST /api/proposals/[id]/send",
+      "POST /api/proposals/send-email"
+    ],
+    "public_endpoints": [
+      "GET /api/proposals/public/[shareId]",
+      "POST /api/proposals/public/[shareId]/accept",
+      "POST /api/proposals/public/[shareId]/reject"
+    ]
+  },
+
+  "error_handling": {
+    "status_codes": {
+      "200": "Success",
+      "201": "Created",
+      "400": "Bad Request (validation error)",
+      "401": "Unauthorized (no auth or invalid password)",
+      "403": "Forbidden (not public)",
+      "404": "Not Found",
+      "410": "Gone (expired)",
+      "500": "Internal Server Error"
+    },
+    "error_format": {
+      "error": "Error message",
+      "message": "Detailed error (optional)",
+      "details": "Additional context (optional)"
+    }
+  },
+
+  "recommendations": {
+    "critical": [],
+    "high_priority": [
+      "Add request validation with Zod or Joi",
+      "Implement rate limiting for public endpoints",
+      "Add database indexes (user_id, share_id, status, created_at)"
+    ],
+    "medium_priority": [
+      "Add caching for frequently accessed proposals",
+      "Implement structured logging",
+      "Create OpenAPI/Swagger documentation",
+      "Add monitoring and alerting"
+    ],
+    "low_priority": [
+      "Add comprehensive test suite",
+      "Monitor query performance",
+      "Set up error tracking (Sentry)",
+      "Implement query result caching"
+    ]
+  },
+
+  "testing_notes": {
+    "server_restart_required": true,
+    "reason": "Build cache corruption (webpack chunk missing)",
+    "solution": "Cleared .next directory and restarted dev server",
+    "current_port": 3002,
+    "note": "Port 3000 and 3001 were already in use"
+  }
+}

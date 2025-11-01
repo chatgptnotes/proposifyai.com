@@ -106,6 +106,7 @@ function NewProposalContent() {
 
           const generatePromises = sections.map(async (sectionType) => {
             try {
+              console.log(`Generating ${sectionType}...`);
               const response = await fetch("/api/ai/generate-content", {
                 method: "POST",
                 headers: {
@@ -121,18 +122,30 @@ function NewProposalContent() {
               if (response.ok) {
                 const data = await response.json();
                 generatedContent[sectionType] = data.data.content;
+                console.log(`✓ Generated ${sectionType} (${data.data.content.length} chars)`);
+              } else {
+                const errorData = await response.json();
+                console.error(`✗ Failed to generate ${sectionType}:`, response.status, errorData);
+                throw new Error(`${sectionType}: ${errorData.error || errorData.message}`);
               }
             } catch (error) {
-              console.error(`Failed to generate ${sectionType}:`, error);
+              console.error(`✗ Error generating ${sectionType}:`, error);
+              throw error; // Re-throw to stop the process
             }
           });
 
           // Wait for all sections to be generated
-          await Promise.all(generatePromises);
+          try {
+            await Promise.all(generatePromises);
+          } catch (genError) {
+            console.error('Content generation failed:', genError);
+            throw new Error(`AI generation failed: ${genError instanceof Error ? genError.message : 'Unknown error'}`);
+          }
 
           // Update proposal with all generated content
           if (Object.keys(generatedContent).length > 0) {
-            await fetch(`/api/proposals/${proposalId}`, {
+            console.log('Saving generated content:', generatedContent);
+            const patchResponse = await fetch(`/api/proposals/${proposalId}`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",
@@ -141,14 +154,27 @@ function NewProposalContent() {
                 content: generatedContent,
               }),
             });
+
+            if (!patchResponse.ok) {
+              const errorData = await patchResponse.json();
+              console.error('Failed to save generated content:', errorData);
+              throw new Error(`Failed to save content: ${errorData.message || errorData.error}`);
+            }
+
+            const patchData = await patchResponse.json();
+            console.log('Content saved successfully:', patchData);
+          } else {
+            console.warn('No content was generated!');
+            throw new Error('No content was generated. Please check your OpenAI API key and try again.');
           }
         }
 
         // Redirect to the proposal editor
+        console.log('Redirecting to proposal:', proposalId);
         window.location.href = `/proposals/${proposalId}`;
       } catch (err) {
         console.error("Error creating proposal:", err);
-        setError("Failed to create proposal. Please try again.");
+        setError(err instanceof Error ? err.message : "Failed to create proposal. Please try again.");
         setLoading(false);
       }
     }
