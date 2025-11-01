@@ -127,59 +127,6 @@ export default function SettingsPage() {
   const [letterheadData, setLetterheadData] = useState<any>(null);
   const [companyWebsite, setCompanyWebsite] = useState('');
   const [profileData, setProfileData] = useState<ProfileData>({});
-
-  // Image compression helper
-  const compressImage = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          let width = img.width;
-          let height = img.height;
-
-          // Max dimensions for logos
-          const MAX_WIDTH = 800;
-          const MAX_HEIGHT = 800;
-
-          if (width > height) {
-            if (width > MAX_WIDTH) {
-              height = height * (MAX_WIDTH / width);
-              width = MAX_WIDTH;
-            }
-          } else {
-            if (height > MAX_HEIGHT) {
-              width = width * (MAX_HEIGHT / height);
-              height = MAX_HEIGHT;
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx?.drawImage(img, 0, 0, width, height);
-
-          // Convert to base64 with quality reduction if needed
-          let quality = 0.9;
-          let result = canvas.toDataURL('image/jpeg', quality);
-
-          // If still too large, reduce quality further
-          while (result.length > 500000 && quality > 0.5) {
-            quality -= 0.1;
-            result = canvas.toDataURL('image/jpeg', quality);
-          }
-
-          resolve(result);
-        };
-        img.onerror = reject;
-        img.src = e.target?.result as string;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
-
   const [formattingPrefs, setFormattingPrefs] = useState<FormattingPreferences>({
     font_family: 'Arial, Helvetica, sans-serif',
     font_size_base: 12,
@@ -252,6 +199,58 @@ export default function SettingsPage() {
       }, 100);
     }
   }, [showAddContent]);
+
+  // Image compression helper
+  const compressImage = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          // Max dimensions for logos
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 800;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height = height * (MAX_WIDTH / width);
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width = width * (MAX_HEIGHT / height);
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          // Convert to base64 with quality reduction if needed
+          let quality = 0.9;
+          let result = canvas.toDataURL('image/jpeg', quality);
+
+          // If still too large, reduce quality further
+          while (result.length > 500000 && quality > 0.5) {
+            quality -= 0.1;
+            result = canvas.toDataURL('image/jpeg', quality);
+          }
+
+          resolve(result);
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
 
   const fetchProfileData = async () => {
     try {
