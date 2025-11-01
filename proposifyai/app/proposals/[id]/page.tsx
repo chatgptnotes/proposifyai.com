@@ -98,10 +98,10 @@ export default function EditProposalPage({ params }: { params: { id: string } })
         const response = await fetch(`/api/proposals/${params.id}`);
         if (response.ok) {
           const data = await response.json();
-          setProposal(data.data.proposal);
+          setProposal(data.data);
 
           // Load customization settings from metadata
-          const metadata = data.data.proposal.metadata || {};
+          const metadata = data.data.metadata || {};
           if (metadata.primaryColor) setPrimaryColor(metadata.primaryColor);
           if (metadata.companyLogo) setCompanyLogo(metadata.companyLogo);
           if (metadata.clientLogo) setClientLogo(metadata.clientLogo);
@@ -122,14 +122,14 @@ export default function EditProposalPage({ params }: { params: { id: string } })
           if (metadata.footerLetterheadEnabled !== undefined) setFooterLetterheadEnabled(metadata.footerLetterheadEnabled);
 
           // Initialize email fields
-          const proposal = data.data.proposal;
+          const proposal = data.data;
           setEmailTo(proposal.client_email || '');
           setEmailSubject(`Proposal: ${proposal.title}`);
           setEmailBody(`Dear ${proposal.client_name},\n\nPlease find attached our proposal for ${proposal.title}.\n\nWe look forward to the opportunity to work with you on this exciting project.\n\nBest regards,\nDRMHOPE Software`);
 
           // Convert proposal content to HTML for display
-          const proposalContent = data.data.proposal.content || {};
-          const html = generateProposalHTML(data.data.proposal, proposalContent, {
+          const proposalContent = data.data.content || {};
+          const html = generateProposalHTML(data.data, proposalContent, {
             companyLogo: metadata.companyLogo || '',
             clientLogo: metadata.clientLogo || '',
             logoPosition: metadata.logoPosition || 'top-center',
