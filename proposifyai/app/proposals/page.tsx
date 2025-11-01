@@ -8,6 +8,12 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import SearchIcon from '@mui/icons-material/Search';
 import SortIcon from '@mui/icons-material/Sort';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DescriptionIcon from '@mui/icons-material/Description';
+import SendIcon from '@mui/icons-material/Send';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { ProposalListSkeleton } from "@/components/ProposalCardSkeleton";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -93,15 +99,15 @@ export default function ProposalsPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "draft":
-        return "📝";
+        return <DescriptionIcon sx={{ fontSize: 14 }} />;
       case "sent":
-        return "📤";
+        return <SendIcon sx={{ fontSize: 14 }} />;
       case "opened":
-        return "👀";
+        return <VisibilityIcon sx={{ fontSize: 14 }} />;
       case "signed":
-        return "✅";
+        return <CheckCircleIcon sx={{ fontSize: 14 }} />;
       default:
-        return "📄";
+        return <DescriptionIcon sx={{ fontSize: 14 }} />;
     }
   };
 
@@ -115,6 +121,31 @@ export default function ProposalsPage() {
   const copyProposalId = (id: string, title: string) => {
     navigator.clipboard.writeText(`#${id} - ${title}`);
     toast.success("Proposal ID copied to clipboard!");
+  };
+
+  const deleteProposal = async (id: string, title: string) => {
+    if (!confirm(`Are you sure you want to delete "${title}"?\n\nThis action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/proposals/${id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(`Proposal "${title}" deleted successfully`);
+        // Remove from local state
+        setProposals(prev => prev.filter(p => p.id !== id));
+      } else {
+        throw new Error(data.error || 'Failed to delete proposal');
+      }
+    } catch (error) {
+      console.error('Error deleting proposal:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to delete proposal');
+    }
   };
 
   const filteredAndSortedProposals = useMemo(() => {
@@ -369,33 +400,17 @@ export default function ProposalsPage() {
                           className="p-2 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition"
                           title="Edit proposal"
                         >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                            />
-                          </svg>
+                          <EditIcon sx={{ fontSize: 20 }} />
                         </button>
                         <button
                           onClick={(e) => {
                             e.preventDefault();
-                            if (confirm(`Are you sure you want to delete "${proposal.title}"?`)) {
-                              toast.success("Proposal deleted (demo)");
-                            }
+                            deleteProposal(proposal.id, proposal.title);
                           }}
                           className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition"
                           title="Delete proposal"
                         >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
-                          </svg>
+                          <DeleteIcon sx={{ fontSize: 20 }} />
                         </button>
                       </div>
                       <svg
