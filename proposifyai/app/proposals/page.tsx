@@ -12,68 +12,68 @@ import { ProposalListSkeleton } from "@/components/ProposalCardSkeleton";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
+interface Proposal {
+  id: string;
+  title: string;
+  client_name: string;
+  client_company?: string;
+  total_value: number;
+  currency: string;
+  status: string;
+  viewed_at?: string;
+  created_at: string;
+  template_name?: string;
+}
+
 export default function ProposalsPage() {
   const [filter, setFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"date" | "name" | "value">("date");
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [proposals, setProposals] = useState<Proposal[]>([]);
 
-  // Simulate loading data
+  // Fetch proposals from API
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
+    fetchProposals();
   }, []);
 
-  const proposals = useMemo(() => [
-    {
-      id: 1,
-      title: "Website Redesign - Acme Corp",
-      client: "Acme Corporation",
-      value: 50000,
-      status: "opened",
-      lastViewed: "2 hours ago",
-      createdAt: "Jan 15, 2025",
-    },
-    {
-      id: 2,
-      title: "Mobile App Development - TechStart",
-      client: "TechStart Inc",
-      value: 120000,
-      status: "signed",
-      lastViewed: "1 day ago",
-      createdAt: "Jan 12, 2025",
-    },
-    {
-      id: 3,
-      title: "Marketing Campaign - GrowthCo",
-      client: "GrowthCo",
-      value: 35000,
-      status: "draft",
-      lastViewed: "3 days ago",
-      createdAt: "Jan 10, 2025",
-    },
-    {
-      id: 4,
-      title: "Consulting Services - Enterprise LLC",
-      client: "Enterprise LLC",
-      value: 80000,
-      status: "sent",
-      lastViewed: "5 days ago",
-      createdAt: "Jan 8, 2025",
-    },
-    {
-      id: 5,
-      title: "Cloud Migration - DataCorp",
-      client: "DataCorp",
-      value: 95000,
-      status: "opened",
-      lastViewed: "1 week ago",
-      createdAt: "Jan 5, 2025",
-    },
-  ], []);
+  const fetchProposals = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/proposals?limit=100');
+      const data = await response.json();
+
+      if (response.ok && data.proposals) {
+        setProposals(data.proposals);
+      }
+    } catch (err) {
+      console.error('Error fetching proposals:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const formatCurrency = (value: number) => {
+    if (value >= 1000000) {
+      return `$${(value / 1000000).toFixed(1)}M`;
+    } else if (value >= 1000) {
+      return `$${(value / 1000).toFixed(0)}K`;
+    }
+    return `$${value.toFixed(0)}`;
+  };
+
+  const getTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    if (seconds < 60) return 'just now';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)} min ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
+    if (seconds < 604800) return `${Math.floor(seconds / 86400)} days ago`;
+    return date.toLocaleDateString();
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -105,14 +105,14 @@ export default function ProposalsPage() {
     }
   };
 
-  const toggleFavorite = (id: number) => {
+  const toggleFavorite = (id: string) => {
     setFavorites(prev =>
       prev.includes(id) ? prev.filter(fav => fav !== id) : [...prev, id]
     );
     toast.success(favorites.includes(id) ? "Removed from favorites" : "Added to favorites");
   };
 
-  const copyProposalId = (id: number, title: string) => {
+  const copyProposalId = (id: string, title: string) => {
     navigator.clipboard.writeText(`#${id} - ${title}`);
     toast.success("Proposal ID copied to clipboard!");
   };
@@ -129,7 +129,8 @@ export default function ProposalsPage() {
     if (searchQuery) {
       result = result.filter((p) =>
         p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.client.toLowerCase().includes(searchQuery.toLowerCase())
+        p.client_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.client_company && p.client_company.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     }
 
@@ -139,10 +140,10 @@ export default function ProposalsPage() {
         case "name":
           return a.title.localeCompare(b.title);
         case "value":
-          return b.value - a.value;
+          return b.total_value - a.total_value;
         case "date":
         default:
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       }
     });
 
@@ -332,15 +333,23 @@ export default function ProposalsPage() {
                       </div>
                       <div className="flex items-center space-x-6 text-sm text-gray-600">
                         <span className="flex items-center gap-1">
-                          <span className="font-medium">Client:</span> {proposal.client}
+                          <span className="font-medium">Client:</span> {proposal.client_name}{proposal.client_company ? ` - ${proposal.client_company}` : ''}
+                        </span>
+                        {proposal.template_name && (
+                          <>
+                            <span>•</span>
+                            <span className="flex items-center gap-1">
+                              <span className="font-medium">Template:</span> {proposal.template_name}
+                            </span>
+                          </>
+                        )}
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          <span className="font-medium">Created:</span> {new Date(proposal.created_at).toLocaleDateString()}
                         </span>
                         <span>•</span>
                         <span className="flex items-center gap-1">
-                          <span className="font-medium">Created:</span> {proposal.createdAt}
-                        </span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <span className="font-medium">Last viewed:</span> {proposal.lastViewed}
+                          <span className="font-medium">Last viewed:</span> {getTimeAgo(proposal.viewed_at || proposal.created_at)}
                         </span>
                       </div>
                     </div>
@@ -348,7 +357,7 @@ export default function ProposalsPage() {
                       <div className="text-right">
                         <p className="text-xs text-gray-500 mb-1">Proposal Value</p>
                         <p className="text-2xl font-bold text-primary-600">
-                          ${(proposal.value / 1000).toFixed(0)}K
+                          {formatCurrency(proposal.total_value)}
                         </p>
                       </div>
                       <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition">

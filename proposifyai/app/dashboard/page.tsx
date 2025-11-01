@@ -24,14 +24,47 @@ interface ProfileData {
   preferences?: any;
 }
 
+interface ProposalData {
+  id: string;
+  title: string;
+  client_name: string;
+  client_company?: string;
+  total_value: number;
+  currency: string;
+  status: string;
+  viewed_at?: string;
+  created_at: string;
+  template_name?: string;
+}
+
+interface DashboardStats {
+  totalProposals: number;
+  winRate: number;
+  avgDealSize: number;
+  openProposals: number;
+  totalValue: number;
+  acceptedCount: number;
+}
+
 export default function DashboardPage() {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [proposals, setProposals] = useState<ProposalData[]>([]);
+  const [stats, setStats] = useState<DashboardStats>({
+    totalProposals: 0,
+    winRate: 0,
+    avgDealSize: 0,
+    openProposals: 0,
+    totalValue: 0,
+    acceptedCount: 0,
+  });
 
-  // Fetch user profile on mount
+  // Fetch user profile and proposals on mount
   useEffect(() => {
     fetchProfileData();
+    fetchProposals();
+    fetchStats();
   }, []);
 
   const fetchProfileData = async () => {
@@ -58,78 +91,107 @@ export default function DashboardPage() {
     }
   };
 
+  const fetchProposals = async () => {
+    try {
+      const response = await fetch('/api/proposals?limit=4&sort=updated_at');
+      const data = await response.json();
+
+      if (response.ok && data.proposals) {
+        setProposals(data.proposals);
+      }
+    } catch (err) {
+      console.error('Error fetching proposals:', err);
+    }
+  };
+
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/api/proposals');
+      const data = await response.json();
+
+      if (response.ok && data.proposals) {
+        const allProposals = data.proposals;
+        const totalProposals = allProposals.length;
+        const acceptedCount = allProposals.filter((p: ProposalData) => p.status === 'accepted').length;
+        const openProposals = allProposals.filter((p: ProposalData) =>
+          p.status === 'sent' || p.status === 'viewed'
+        ).length;
+        const totalValue = allProposals.reduce((sum: number, p: ProposalData) => sum + (p.total_value || 0), 0);
+        const winRate = totalProposals > 0 ? (acceptedCount / totalProposals) * 100 : 0;
+        const avgDealSize = totalProposals > 0 ? totalValue / totalProposals : 0;
+
+        setStats({
+          totalProposals,
+          winRate,
+          avgDealSize,
+          openProposals,
+          totalValue,
+          acceptedCount,
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching stats:', err);
+    }
+  };
+
   const getUserDisplayName = () => {
     if (!profileData?.full_name) return "there";
     return profileData.full_name.split(' ')[0]; // Return first name
   };
-  // Sample data - will be replaced with real data from Supabase
-  const stats = [
+
+  const formatCurrency = (value: number) => {
+    if (value >= 1000000) {
+      return `$${(value / 1000000).toFixed(1)}M`;
+    } else if (value >= 1000) {
+      return `$${(value / 1000).toFixed(0)}K`;
+    }
+    return `$${value.toFixed(0)}`;
+  };
+
+  const getTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    if (seconds < 60) return 'just now';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)} min ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
+    if (seconds < 604800) return `${Math.floor(seconds / 86400)} days ago`;
+    return date.toLocaleDateString();
+  };
+
+  const statsDisplay = [
     {
       label: "Total Proposals",
-      value: "24",
-      change: "+12%",
+      value: stats.totalProposals.toString(),
+      change: "",
       trend: "up",
       icon: DescriptionIcon,
       color: "from-blue-500 to-blue-600"
     },
     {
       label: "Win Rate",
-      value: "42%",
-      change: "+8%",
+      value: `${stats.winRate.toFixed(0)}%`,
+      change: "",
       trend: "up",
       icon: CheckCircleIcon,
       color: "from-green-500 to-green-600"
     },
     {
       label: "Avg Deal Size",
-      value: "$45K",
-      change: "+15%",
+      value: formatCurrency(stats.avgDealSize),
+      change: "",
       trend: "up",
       icon: AutoGraphIcon,
       color: "from-purple-500 to-purple-600"
     },
     {
       label: "Open Proposals",
-      value: "8",
-      change: "-2",
-      trend: "down",
+      value: stats.openProposals.toString(),
+      change: "",
+      trend: stats.openProposals > 0 ? "up" : "down",
       icon: PendingIcon,
       color: "from-orange-500 to-orange-600"
-    },
-  ];
-
-  const recentProposals = [
-    {
-      id: 1,
-      title: "Website Redesign - Acme Corp",
-      client: "Acme Corporation",
-      value: "$50,000",
-      status: "opened",
-      lastViewed: "2 hours ago",
-    },
-    {
-      id: 2,
-      title: "Mobile App Development - TechStart",
-      client: "TechStart Inc",
-      value: "$120,000",
-      status: "signed",
-      lastViewed: "1 day ago",
-    },
-    {
-      id: 3,
-      title: "Marketing Campaign - GrowthCo",
-      client: "GrowthCo",
-      value: "$35,000",
-      status: "draft",
-      lastViewed: "3 days ago",
-    },
-    {
-      id: 4,
-      title: "Consulting Services - Enterprise LLC",
-      client: "Enterprise LLC",
-      value: "$80,000",
-      status: "sent",
-      lastViewed: "5 days ago",
     },
   ];
 
@@ -218,7 +280,7 @@ export default function DashboardPage() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
           variants={containerVariants}
         >
-          {stats.map((stat, index) => {
+          {statsDisplay.map((stat, index) => {
             const Icon = stat.icon;
             return (
               <motion.div
@@ -237,18 +299,6 @@ export default function DashboardPage() {
                   <p className="text-4xl font-bold bg-gradient-to-br from-gray-900 to-gray-700 bg-clip-text text-transparent">
                     {stat.value}
                   </p>
-                  <motion.span
-                    className={`text-sm font-bold px-3 py-1 rounded-full ${
-                      stat.trend === "up"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                  >
-                    {stat.change}
-                  </motion.span>
                 </div>
               </motion.div>
             );
@@ -277,51 +327,62 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="divide-y divide-gray-200/50">
-            {recentProposals.map((proposal, index) => (
-              <Link
-                key={proposal.id}
-                href={`/proposals/${proposal.id}`}
-              >
-                <motion.div
-                  className="block px-6 py-5 hover:bg-gradient-to-r hover:from-primary-50/50 hover:to-purple-50/50 transition-all cursor-pointer"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ x: 5 }}
+            {proposals.length === 0 ? (
+              <div className="px-6 py-12 text-center text-gray-500">
+                <DescriptionIcon className="mx-auto mb-4 text-gray-300" style={{ fontSize: 64 }} />
+                <p className="text-lg font-medium mb-2">No proposals yet</p>
+                <p className="text-sm">Create your first proposal to get started</p>
+              </div>
+            ) : (
+              proposals.map((proposal, index) => (
+                <Link
+                  key={proposal.id}
+                  href={`/proposals/${proposal.id}`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{proposal.title}</h3>
-                      <p className="text-sm text-gray-600">{proposal.client}</p>
-                    </div>
-                    <div className="flex items-center space-x-6">
-                      <div className="text-right">
-                        <p className="text-xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                          {proposal.value}
-                        </p>
-                        <p className="text-xs text-gray-500">{proposal.lastViewed}</p>
+                  <motion.div
+                    className="block px-6 py-5 hover:bg-gradient-to-r hover:from-primary-50/50 hover:to-purple-50/50 transition-all cursor-pointer"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ x: 5 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-gray-900 mb-1">{proposal.title}</h3>
+                        <p className="text-sm text-gray-600">{proposal.client_name}{proposal.client_company ? ` - ${proposal.client_company}` : ''}</p>
+                        {proposal.template_name && (
+                          <p className="text-xs text-gray-500 mt-1">Template: {proposal.template_name}</p>
+                        )}
                       </div>
-                      <motion.span
-                        className={`px-4 py-2 rounded-full text-xs font-bold shadow-lg ${getStatusColor(
-                          proposal.status
-                        )}`}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        {proposal.status.charAt(0).toUpperCase() + proposal.status.slice(1)}
-                      </motion.span>
-                      <svg
-                        className="w-5 h-5 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
+                      <div className="flex items-center space-x-6">
+                        <div className="text-right">
+                          <p className="text-xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
+                            {formatCurrency(proposal.total_value)}
+                          </p>
+                          <p className="text-xs text-gray-500">{getTimeAgo(proposal.viewed_at || proposal.created_at)}</p>
+                        </div>
+                        <motion.span
+                          className={`px-4 py-2 rounded-full text-xs font-bold shadow-lg ${getStatusColor(
+                            proposal.status
+                          )}`}
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          {proposal.status.charAt(0).toUpperCase() + proposal.status.slice(1)}
+                        </motion.span>
+                        <svg
+                          className="w-5 h-5 text-gray-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
+                  </motion.div>
+                </Link>
+              ))
+            )}
           </div>
         </motion.div>
 

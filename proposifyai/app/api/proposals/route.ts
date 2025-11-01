@@ -26,10 +26,13 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    // Build query
+    // Build query with template join
     let query = supabase
       .from('proposals')
-      .select('*', { count: 'exact' })
+      .select(`
+        *,
+        template:templates(name)
+      `, { count: 'exact' })
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
@@ -45,16 +48,21 @@ export async function GET(request: NextRequest) {
       throw error;
     }
 
+    // Format proposals to include template_name
+    const formattedProposals = (proposals || []).map((proposal: any) => ({
+      ...proposal,
+      template_name: proposal.template?.name || null,
+      template: undefined, // Remove nested template object
+    }));
+
     return NextResponse.json({
       success: true,
-      data: {
-        proposals: proposals || [],
-        pagination: {
-          total: count || 0,
-          limit,
-          offset,
-          hasMore: (count || 0) > offset + limit
-        }
+      proposals: formattedProposals,
+      pagination: {
+        total: count || 0,
+        limit,
+        offset,
+        hasMore: (count || 0) > offset + limit
       }
     });
 
