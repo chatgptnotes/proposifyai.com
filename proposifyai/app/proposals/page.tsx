@@ -50,8 +50,13 @@ export default function ProposalsPage() {
       const response = await fetch('/api/proposals?limit=100');
       const data = await response.json();
 
+      console.log('🔍 DEBUG: API Response:', { ok: response.ok, proposalCount: data.proposals?.length });
+
       if (response.ok && data.proposals) {
         setProposals(data.proposals);
+        console.log('✅ DEBUG: Proposals set in state:', data.proposals.length);
+      } else {
+        console.error('❌ DEBUG: Failed to load proposals:', data);
       }
     } catch (err) {
       console.error('Error fetching proposals:', err);
@@ -391,26 +396,30 @@ export default function ProposalsPage() {
                         {formatCurrency(proposal.total_value)}
                       </p>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2" style={{ border: '2px solid red', padding: '10px', backgroundColor: 'yellow' }}>
                       <button
                         onClick={(e) => {
+                          console.log('🔵 CLICK: Edit button clicked for', proposal.id);
                           e.preventDefault();
                           e.stopPropagation();
                           window.location.href = `/proposals/${proposal.id}`;
                         }}
                         className="p-2 text-blue-600 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition transform hover:scale-110"
                         title="Edit proposal"
+                        style={{ border: '2px solid blue', display: 'block', visibility: 'visible' }}
                       >
                         <EditIcon sx={{ fontSize: 20 }} />
                       </button>
                       <button
                         onClick={(e) => {
+                          console.log('🔴 CLICK: Delete button clicked for', proposal.id);
                           e.preventDefault();
                           e.stopPropagation();
                           deleteProposal(proposal.id, proposal.title);
                         }}
                         className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50 transition transform hover:scale-110"
                         title="Delete proposal"
+                        style={{ border: '2px solid red', display: 'block', visibility: 'visible' }}
                       >
                         <DeleteIcon sx={{ fontSize: 20 }} />
                       </button>
