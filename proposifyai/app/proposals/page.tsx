@@ -398,7 +398,7 @@ export default function ProposalsPage() {
                           e.stopPropagation();
                           window.location.href = `/proposals/${proposal.id}`;
                         }}
-                        className="p-2 text-blue-600 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition transform hover:scale-110"
+                        className="p-2.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:scale-105 border border-transparent hover:border-blue-200"
                         title="Edit proposal"
                       >
                         <EditIcon sx={{ fontSize: 20 }} />
@@ -409,7 +409,7 @@ export default function ProposalsPage() {
                           e.stopPropagation();
                           deleteProposal(proposal.id, proposal.title);
                         }}
-                        className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50 transition transform hover:scale-110"
+                        className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover:scale-105 border border-transparent hover:border-red-200"
                         title="Delete proposal"
                       >
                         <DeleteIcon sx={{ fontSize: 20 }} />
