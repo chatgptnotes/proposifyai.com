@@ -102,14 +102,6 @@ export default function SettingsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("profile");
-
-  // Handle URL query parameter for tab
-  useEffect(() => {
-    const tab = searchParams.get('tab');
-    if (tab) {
-      setActiveTab(tab);
-    }
-  }, [searchParams]);
   const [saving, setSaving] = useState(false);
   const [savedContent, setSavedContent] = useState<SavedContent[]>([]);
   const [showAddContent, setShowAddContent] = useState(false);
@@ -168,6 +160,14 @@ export default function SettingsPage() {
     list_style: 'bullet',
     table_style: 'bordered'
   });
+
+  // Handle URL query parameter for tab
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
 
   // Fetch profile data on mount
   useEffect(() => {
