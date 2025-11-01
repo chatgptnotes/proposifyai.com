@@ -324,95 +324,98 @@ export default function ProposalsPage() {
                   </div>
                 )}
 
-                <Link href={`/proposals/${proposal.id}`} className="block">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleFavorite(proposal.id);
-                          }}
-                          className="flex-shrink-0 text-gray-400 hover:text-yellow-500 transition"
-                          title={favorites.includes(proposal.id) ? "Remove from favorites" : "Add to favorites"}
-                        >
-                          {favorites.includes(proposal.id) ? (
-                            <StarIcon className="text-yellow-500" />
-                          ) : (
-                            <StarBorderIcon />
-                          )}
-                        </button>
-                        <h3 className="text-lg font-semibold text-gray-900 truncate">{proposal.title}</h3>
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${getStatusColor(
-                            proposal.status
-                          )}`}
-                        >
-                          <span>{getStatusIcon(proposal.status)}</span>
-                          {proposal.status.charAt(0).toUpperCase() + proposal.status.slice(1)}
-                        </span>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            copyProposalId(proposal.id, proposal.title);
-                          }}
-                          className="flex-shrink-0 p-1 text-gray-400 hover:text-primary-600 transition"
-                          title="Copy proposal ID"
-                        >
-                          <ContentCopyIcon sx={{ fontSize: 16 }} />
-                        </button>
-                      </div>
-                      <div className="flex items-center space-x-6 text-sm text-gray-600">
-                        <span className="flex items-center gap-1">
-                          <span className="font-medium">Client:</span> {proposal.client_name}{proposal.client_company ? ` - ${proposal.client_company}` : ''}
-                        </span>
-                        {proposal.template_name && (
-                          <>
-                            <span>•</span>
-                            <span className="flex items-center gap-1">
-                              <span className="font-medium">Template:</span> {proposal.template_name}
-                            </span>
-                          </>
+                <div className="flex items-center justify-between">
+                  <Link href={`/proposals/${proposal.id}`} className="flex-1 min-w-0 block">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleFavorite(proposal.id);
+                        }}
+                        className="flex-shrink-0 text-gray-400 hover:text-yellow-500 transition"
+                        title={favorites.includes(proposal.id) ? "Remove from favorites" : "Add to favorites"}
+                      >
+                        {favorites.includes(proposal.id) ? (
+                          <StarIcon className="text-yellow-500" />
+                        ) : (
+                          <StarBorderIcon />
                         )}
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <span className="font-medium">Created:</span> {new Date(proposal.created_at).toLocaleDateString()}
-                        </span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <span className="font-medium">Last viewed:</span> {getTimeAgo(proposal.viewed_at || proposal.created_at)}
-                        </span>
-                      </div>
+                      </button>
+                      <h3 className="text-lg font-semibold text-gray-900 truncate">{proposal.title}</h3>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${getStatusColor(
+                          proposal.status
+                        )}`}
+                      >
+                        <span>{getStatusIcon(proposal.status)}</span>
+                        {proposal.status.charAt(0).toUpperCase() + proposal.status.slice(1)}
+                      </span>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          copyProposalId(proposal.id, proposal.title);
+                        }}
+                        className="flex-shrink-0 p-1 text-gray-400 hover:text-primary-600 transition"
+                        title="Copy proposal ID"
+                      >
+                        <ContentCopyIcon sx={{ fontSize: 16 }} />
+                      </button>
                     </div>
-                    <div className="flex items-center space-x-6">
-                      <div className="text-right">
-                        <p className="text-xs text-gray-500 mb-1">Proposal Value</p>
-                        <p className="text-2xl font-bold text-primary-600">
-                          {formatCurrency(proposal.total_value)}
-                        </p>
-                      </div>
-                      <div className="flex items-center space-x-2 transition">
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = `/proposals/${proposal.id}`;
-                          }}
-                          className="p-2 text-blue-600 hover:text-primary-700 rounded-lg hover:bg-primary-50 transition transform hover:scale-110"
-                          title="Edit proposal"
-                        >
-                          <EditIcon sx={{ fontSize: 20 }} />
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            deleteProposal(proposal.id, proposal.title);
-                          }}
-                          className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50 transition transform hover:scale-110"
-                          title="Delete proposal"
-                        >
-                          <DeleteIcon sx={{ fontSize: 20 }} />
-                        </button>
-                      </div>
+                    <div className="flex items-center space-x-6 text-sm text-gray-600">
+                      <span className="flex items-center gap-1">
+                        <span className="font-medium">Client:</span> {proposal.client_name}{proposal.client_company ? ` - ${proposal.client_company}` : ''}
+                      </span>
+                      {proposal.template_name && (
+                        <>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            <span className="font-medium">Template:</span> {proposal.template_name}
+                          </span>
+                        </>
+                      )}
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <span className="font-medium">Created:</span> {new Date(proposal.created_at).toLocaleDateString()}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <span className="font-medium">Last viewed:</span> {getTimeAgo(proposal.viewed_at || proposal.created_at)}
+                      </span>
+                    </div>
+                  </Link>
+
+                  <div className="flex items-center space-x-6">
+                    <div className="text-right">
+                      <p className="text-xs text-gray-500 mb-1">Proposal Value</p>
+                      <p className="text-2xl font-bold text-primary-600">
+                        {formatCurrency(proposal.total_value)}
+                      </p>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.location.href = `/proposals/${proposal.id}`;
+                        }}
+                        className="p-2 text-blue-600 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition transform hover:scale-110"
+                        title="Edit proposal"
+                      >
+                        <EditIcon sx={{ fontSize: 20 }} />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          deleteProposal(proposal.id, proposal.title);
+                        }}
+                        className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50 transition transform hover:scale-110"
+                        title="Delete proposal"
+                      >
+                        <DeleteIcon sx={{ fontSize: 20 }} />
+                      </button>
+                    </div>
+                    <Link href={`/proposals/${proposal.id}`}>
                       <svg
                         className="w-5 h-5 text-gray-400"
                         fill="none"
@@ -421,9 +424,9 @@ export default function ProposalsPage() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
-                    </div>
+                    </Link>
                   </div>
-                </Link>
+                </div>
               </div>
               ))}
             </div>
