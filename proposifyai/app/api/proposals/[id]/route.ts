@@ -159,6 +159,79 @@ export async function PUT(
   }
 }
 
+// PATCH - Partial update proposal (for AI content updates)
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    // Verify ownership and get existing content
+    const { data: existingProposal, error: checkError } = await supabase
+      .from('proposals')
+      .select('id, content')
+      .eq('id', params.id)
+      .eq('user_id', user.id)
+      .single();
+
+    if (checkError || !existingProposal) {
+      return NextResponse.json(
+        { error: 'Proposal not found or unauthorized' },
+        { status: 404 }
+      );
+    }
+
+    // Parse update data
+    const body = await request.json();
+
+    // Merge new content with existing content (allows partial updates)
+    const updatedContent = {
+      ...(existingProposal.content || {}),
+      ...(body.content || {})
+    };
+
+    // Update proposal with merged content
+    const { data: proposal, error } = await supabase
+      .from('proposals')
+      .update({
+        content: updatedContent,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', params.id)
+      .eq('user_id', user.id)
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return NextResponse.json({
+      success: true,
+      data: { proposal }
+    });
+
+  } catch (error) {
+    console.error('Error patching proposal:', error);
+    return NextResponse.json(
+      {
+        error: 'Failed to update proposal',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}
+
 // DELETE - Delete proposal
 export async function DELETE(
   request: NextRequest,
