@@ -29,6 +29,10 @@ interface SavedContent {
   title: string;
   content: string;
   category: 'bank_details' | 'company_info' | 'payment_terms' | 'standard_clause' | 'image';
+  metadata?: {
+    subcategory?: 'company_logo' | 'client_logo' | 'general_image';
+    [key: string]: any;
+  };
 }
 
 interface FormattingPreferences {
@@ -1238,11 +1242,30 @@ export default function SettingsPage() {
                           </select>
                         </div>
 
+                        {/* Subcategory for Images */}
+                        {newContent.category === 'image' && (
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Image Type</label>
+                            <select
+                              value={newContent.metadata?.subcategory || 'company_logo'}
+                              onChange={(e) => setNewContent({
+                                ...newContent,
+                                metadata: { ...newContent.metadata, subcategory: e.target.value as any }
+                              })}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                            >
+                              <option value="company_logo">Company Logo</option>
+                              <option value="client_logo">Client Logo</option>
+                              <option value="general_image">General Image</option>
+                            </select>
+                          </div>
+                        )}
+
                         {/* Image Upload for Images */}
                         {newContent.category === 'image' ? (
                           <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
-                              Upload Image or Logo
+                              Upload {newContent.metadata?.subcategory === 'company_logo' ? 'Company Logo' : newContent.metadata?.subcategory === 'client_logo' ? 'Client Logo' : 'Image'}
                             </label>
                             <div className="space-y-4">
                               <input
@@ -1352,23 +1375,30 @@ export default function SettingsPage() {
                 {/* Content Categories */}
                 {!loading && (
                   <div className="space-y-6">
-                    {['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'image'].map((category) => {
+                    {['bank_details', 'company_info', 'payment_terms', 'standard_clause', 'company_logo', 'client_logo', 'general_image'].map((category) => {
                     const categoryIcons = {
                       bank_details: AccountBalanceIcon,
                       company_info: BusinessIcon,
                       payment_terms: CreditCardIcon,
                       standard_clause: DescriptionIcon,
-                      image: ImageIcon
+                      company_logo: ImageIcon,
+                      client_logo: ImageIcon,
+                      general_image: ImageIcon
                     };
                     const categoryNames = {
                       bank_details: 'Bank Details',
                       company_info: 'Company Information',
                       payment_terms: 'Payment Terms',
                       standard_clause: 'Standard Clauses',
-                      image: 'Images & Logos'
+                      company_logo: 'Company Logos',
+                      client_logo: 'Client Logos',
+                      general_image: 'General Images'
                     };
                     const Icon = categoryIcons[category as keyof typeof categoryIcons];
-                    const items = savedContent.filter(item => item.category === category);
+                    // Filter items based on category (for non-image) or subcategory (for images)
+                    const items = category === 'company_logo' || category === 'client_logo' || category === 'general_image'
+                      ? savedContent.filter(item => item.category === 'image' && item.metadata?.subcategory === category)
+                      : savedContent.filter(item => item.category === category);
 
                     return (
                       <div key={category} className="border border-gray-200 rounded-lg p-4">
@@ -1377,7 +1407,17 @@ export default function SettingsPage() {
                           onDoubleClick={() => {
                             setShowAddContent(true);
                             setEditingContent(null);
-                            setNewContent({ title: '', content: '', category: category as any });
+                            // Handle image subcategories
+                            if (category === 'company_logo' || category === 'client_logo' || category === 'general_image') {
+                              setNewContent({
+                                title: '',
+                                content: '',
+                                category: 'image',
+                                metadata: { subcategory: category as any }
+                              });
+                            } else {
+                              setNewContent({ title: '', content: '', category: category as any });
+                            }
                           }}
                           title="Double-click to add new content in this category"
                         >
@@ -1408,7 +1448,9 @@ export default function SettingsPage() {
                                     <div className="flex-1">
                                       <h4 className="font-medium text-gray-900 text-sm">{item.title}</h4>
                                       <p className="text-xs text-gray-500 mt-1">
-                                        Image
+                                        {item.metadata?.subcategory === 'company_logo' ? 'Company Logo' :
+                                         item.metadata?.subcategory === 'client_logo' ? 'Client Logo' :
+                                         item.metadata?.subcategory === 'general_image' ? 'General Image' : 'Image'}
                                       </p>
                                     </div>
                                   </div>
