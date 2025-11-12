@@ -1,0 +1,41 @@
+Subject: Commercial Proposal – Bettroi Ex-Integrity Platform Development (Ref: BETTROI K27)
+
+Dear Bettroi BOS Engineering Team,
+
+We are pleased to present our proposal for the Bettroi Ex-Integrity (EX-INT) platform—an enterprise-grade solution for explosion-protected asset integrity management in hazardous areas.
+
+PROPOSAL SUMMARY:
+• Investment: USD $135,441.00
+• Timeline: 6 months (2 phases)
+• Delivery: Cloud-native platform with mobile-first field operations
+
+KEY BENEFITS:
+• 30% reduction in inspection hours through risk-based scheduling
+• 98% evidence compliance with automated chain-of-custody
+• 95% offline sync success for continuous field operations
+• Full IEC 60079, ATEX/IECEx compliance support
+
+SCOPE HIGHLIGHTS:
+• Multi-tenant asset management with Ex marking validation
+• Offline Android mobile app for ATEX/IECEx devices
+• Intelligent RBI engine with ML-powered recommendations (Phase 2)
+• Bi-directional CMMS integration (SAP PM, Maximo, Infor EAM)
+• Comprehensive reporting, analytics, and audit trails
+
+The attached 12-page proposal provides complete technical details, project plan, commercials, and terms.
+
+We welcome the opportunity to discuss this further and address any questions. This quotation is valid for 30 days.
+
+To proceed, please provide signed acceptance (PO referencing SAL-QTN-2025-00038) and 30% advance payment to commence within 5 business days.
+
+Thank you for considering Bettroi as your technology partner.
+
+Best regards,
+
+Bettroi Development Team
+
+Email: bt.thomas@bettroi.com
+Phone: +971 54 714 8580
+Web: www.bettroi.com
+
+Enclosure: Bettroi_Ex-Integrity_Platform_Proposal.html (12 pages)
