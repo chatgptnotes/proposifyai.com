@@ -1,0 +1,239 @@
+{
+  "standard_sections": [
+    {
+      "id": "executive_summary",
+      "title": "Executive Summary",
+      "required": true,
+      "order": 1,
+      "description": "High-level overview of the proposal, success metrics, and key outcomes"
+    },
+    {
+      "id": "scope_of_work",
+      "title": "Scope of Work",
+      "required": true,
+      "order": 2,
+      "subsections": [
+        {
+          "id": "in_scope",
+          "title": "In-scope",
+          "required": true,
+          "description": "What is included in the project"
+        },
+        {
+          "id": "out_of_scope",
+          "title": "Out-of-scope",
+          "required": true,
+          "description": "What is explicitly excluded from the project"
+        }
+      ],
+      "description": "Clear definition of what is included and excluded from the project scope"
+    },
+    {
+      "id": "architecture",
+      "title": "Architecture and Integrations",
+      "required": false,
+      "order": 3,
+      "description": "Technical architecture, system components, and integration points"
+    },
+    {
+      "id": "deliverables",
+      "title": "Deliverables",
+      "required": true,
+      "order": 4,
+      "description": "Concrete outputs and artifacts that will be delivered"
+    },
+    {
+      "id": "technology_stack",
+      "title": "Technology Stack",
+      "required": true,
+      "order": 5,
+      "description": "Technologies, frameworks, and tools to be used"
+    },
+    {
+      "id": "performance_scale",
+      "title": "Performance & Scale",
+      "required": false,
+      "order": 6,
+      "description": "Performance targets, scalability considerations, and capacity planning"
+    },
+    {
+      "id": "project_plan",
+      "title": "Project Plan and Milestones",
+      "required": true,
+      "order": 7,
+      "description": "Timeline, phases, milestones, and delivery schedule"
+    },
+    {
+      "id": "commercials",
+      "title": "Commercials (Year-1)",
+      "required": true,
+      "order": 8,
+      "description": "Investment breakdown, payment terms, and commercial details"
+    },
+    {
+      "id": "client_responsibilities",
+      "title": "Client Responsibilities",
+      "required": true,
+      "order": 9,
+      "description": "What the client needs to provide and their obligations"
+    },
+    {
+      "id": "important_points",
+      "title": "Important Points",
+      "required": true,
+      "order": 10,
+      "description": "Critical information, clarifications, and key terms"
+    },
+    {
+      "id": "third_party_subscriptions",
+      "title": "What Third-Party Subscriptions Are Needed",
+      "required": false,
+      "order": 11,
+      "description": "External services, APIs, and subscriptions required"
+    },
+    {
+      "id": "division_of_responsibilities",
+      "title": "Division of Responsibilities",
+      "required": true,
+      "order": 12,
+      "description": "Clear breakdown of who does what (Bettroi vs Client)"
+    },
+    {
+      "id": "billing_mechanics",
+      "title": "How Billing Works (Mechanics)",
+      "required": false,
+      "order": 13,
+      "description": "Detailed explanation of billing process and mechanics"
+    },
+    {
+      "id": "cost_controls",
+      "title": "Cost Controls",
+      "required": false,
+      "order": 14,
+      "description": "Mechanisms to control and monitor costs"
+    },
+    {
+      "id": "data_security",
+      "title": "Data and Security Notes",
+      "required": true,
+      "order": 15,
+      "description": "Security measures, data handling, and privacy considerations"
+    },
+    {
+      "id": "integration_touchpoints",
+      "title": "Integration Touchpoints",
+      "required": false,
+      "order": 16,
+      "description": "APIs, endpoints, and integration interfaces"
+    },
+    {
+      "id": "billing_usage",
+      "title": "Billing & Usage",
+      "required": true,
+      "order": 17,
+      "description": "Billing policies, usage metering, and cost allocation"
+    },
+    {
+      "id": "data_access",
+      "title": "Data & Access",
+      "required": true,
+      "order": 18,
+      "description": "Data ownership, access rights, and permissions"
+    },
+    {
+      "id": "cost_control",
+      "title": "Cost Control",
+      "required": false,
+      "order": 19,
+      "description": "Budget management and cost optimization strategies"
+    },
+    {
+      "id": "acceptance_criteria",
+      "title": "Acceptance Criteria",
+      "required": true,
+      "order": 20,
+      "description": "Criteria for project completion and acceptance"
+    },
+    {
+      "id": "data_privacy_security",
+      "title": "Data Privacy & Security",
+      "required": true,
+      "order": 21,
+      "description": "Privacy policies, security standards, and compliance"
+    },
+    {
+      "id": "third_party_services_billing",
+      "title": "Third-Party Services and Billing Model",
+      "required": false,
+      "order": 22,
+      "description": "External service costs and billing relationships"
+    },
+    {
+      "id": "assumptions",
+      "title": "Assumptions",
+      "required": true,
+      "order": 23,
+      "description": "Project assumptions and dependencies"
+    },
+    {
+      "id": "change_control",
+      "title": "Change Control",
+      "required": true,
+      "order": 24,
+      "description": "Process for handling scope changes and modifications"
+    },
+    {
+      "id": "warranty_ip_terms",
+      "title": "Warranty, IP, and Terms",
+      "required": true,
+      "order": 25,
+      "description": "Warranty period, intellectual property rights, and legal terms"
+    },
+    {
+      "id": "technical_notes",
+      "title": "Technical Notes (Concise)",
+      "required": false,
+      "order": 26,
+      "description": "Additional technical details and specifications"
+    },
+    {
+      "id": "loi",
+      "title": "Service Order Confirmation – Letter of Intent (LOI)",
+      "required": true,
+      "order": 27,
+      "description": "Formal acceptance document and signature section"
+    }
+  ],
+  "templates": {
+    "scope_of_work": {
+      "in_scope_prefix": "In-scope",
+      "out_of_scope_prefix": "Out-of-scope",
+      "format": "bulleted_list"
+    },
+    "client_responsibilities": {
+      "common_items": [
+        "Sign NDA and provide necessary access within 3 business days",
+        "Approve designs within 24 hours",
+        "Activate payment gateway",
+        "Provision vendor accounts and API keys"
+      ]
+    },
+    "warranty_terms": {
+      "default_warranty": "3-month complimentary bug support post-launch",
+      "cancellation_policy": "30% deduction on cancellation after initiation",
+      "ip_transfer": "Complete source code ownership transfers on final payment",
+      "quote_validity": "Quote valid 30 days",
+      "taxes": "Taxes as applicable per law"
+    },
+    "change_control": {
+      "default_text": "Features beyond \"In-scope\" require a written change request with revised effort and schedule."
+    }
+  },
+  "notes": [
+    "Always include Executive Summary at the beginning",
+    "Scope of Work must always have both In-scope and Out-of-scope subsections",
+    "Client Responsibilities should be clear and actionable",
+    "Change Control protects both parties from scope creep",
+    "LOI section should be at the end with signature fields"
+  ]
+}

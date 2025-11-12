@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{PROPOSAL_TITLE}} - Bettroi to {{CLIENT_NAME}}</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="logo.jpg" class="logo big"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> {{REFERENCE}}<br><b>Date:</b> {{DATE}}<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="title-box">
+<div class="title">{{PROPOSAL_TITLE}}</div>
+<div class="erp">ERP REF: {{ERP_REFERENCE}}</div>
+</div>
+<div class="content">
+<h2>PREPARED FOR</h2>
+<p style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">{{CLIENT_NAME}}</p>
+<p>{{CLIENT_EMAIL}}</p>
+<p style="margin-top: 10px;">{{CLIENT_WEBSITE}}</p>
+<p style="margin-top: 30px; font-size: 14px; opacity: 0.8;">Date: <strong>{{PROPOSAL_DATE}}</strong></p>
+<div style="margin-top: 60px;">
+<div style="font-size: 18px; color: #6b7280; margin-bottom: 10px;">Total Investment</div>
+<div style="font-size: 48px; font-weight: 700; color: #003DA5;">{{TOTAL_INVESTMENT}}</div>
+<div style="font-size: 16px; color: #6b7280; margin-top: 10px;">{{PROJECT_DURATION}}</div>
+</div>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>{{DATE_SHORT}} / {{ERP_REFERENCE}}</span><b>1 | Page</b></div>
+</div>
+
+<!-- Page 2: Table of Contents -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> {{REFERENCE}}<br><b>Date:</b> {{DATE}}<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Table of Contents</h2>
+{{TABLE_OF_CONTENTS}}
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>{{DATE_SHORT}} / {{ERP_REFERENCE}}</span><b>2 | Page</b></div>
+</div>
+
+<!-- Additional Pages Template -->
+{{CONTENT_PAGES}}
+
+</body>
+</html>

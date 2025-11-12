@@ -1,0 +1,101 @@
+{
+  "name": "Bettroi Professional Proposal",
+  "version": "1.1.0",
+  "company": "BETTROI",
+  "tagline": "BETTER BUSINESS",
+  "brand_color": "#003DA5",
+  "logo": {
+    "file": "logo.jpg",
+    "width_normal": "60px",
+    "width_large": "80px"
+  },
+  "header": {
+    "show_logo": true,
+    "show_company_name": true,
+    "show_reference": true,
+    "show_date": true,
+    "show_website": true,
+    "reference_prefix": "BETTROI",
+    "website": "bettroi.com"
+  },
+  "title_box": {
+    "background": "#f8f8f8",
+    "border_color": "#003DA5",
+    "show_erp_reference": true,
+    "title_prefix": "TECHNO-COMMERCIAL PROPOSAL"
+  },
+  "footer": {
+    "left_text": "BETTROI: BETTER BUSINESS",
+    "center_format": "{{date}} / {{reference}}",
+    "right_format": "{{page_number}} | Page"
+  },
+  "page": {
+    "width": "210mm",
+    "height": "297mm",
+    "padding": "40px 50px"
+  },
+  "typography": {
+    "font_family": "Arial, sans-serif",
+    "body_size": "12px",
+    "h2_size": "16px",
+    "h3_size": "14px",
+    "line_height": "1.8"
+  },
+  "variables": {
+    "reference": "BETTROI K26",
+    "date": "12 November 2025",
+    "website": "bettroi.com",
+    "erp_prefix": "SAL-QTN"
+  },
+  "standard_sections": {
+    "use_standard_structure": true,
+    "sections_file": "standard-sections.json",
+    "mandatory_sections": [
+      "executive_summary",
+      "scope_of_work",
+      "deliverables",
+      "technology_stack",
+      "project_plan",
+      "commercials",
+      "client_responsibilities",
+      "important_points",
+      "division_of_responsibilities",
+      "data_security",
+      "billing_usage",
+      "data_access",
+      "acceptance_criteria",
+      "data_privacy_security",
+      "assumptions",
+      "change_control",
+      "warranty_ip_terms",
+      "loi"
+    ],
+    "critical_subsections": {
+      "scope_of_work": {
+        "in_scope": {
+          "required": true,
+          "description": "What IS included in the project scope"
+        },
+        "out_of_scope": {
+          "required": true,
+          "description": "What IS NOT included in the project scope"
+        }
+      }
+    },
+    "notes": [
+      "ALWAYS include In-scope and Out-of-scope under Scope of Work",
+      "These clarify boundaries and prevent scope creep",
+      "Be specific about what is excluded to manage client expectations"
+    ]
+  },
+  "signature_block": {
+    "company": {
+      "name": "BETTROI FZE",
+      "address": "A5, Techno-Hub, DTEC\nDubai Silicon Oasis\nDubai, UAE",
+      "signatory": "Biji Thomas",
+      "title": "CEO & Principal Consultant",
+      "phone": "+971 54 714 8580",
+      "email": "bt.thomas@bettroi.com"
+    }
+  }
+}
