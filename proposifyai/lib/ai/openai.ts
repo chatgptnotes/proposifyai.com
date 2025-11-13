@@ -87,6 +87,11 @@ export async function generateProposalContent(params: ContentGenerationParams): 
 
   try {
     const openai = getOpenAIClient();
+
+    console.log(`[OpenAI] Starting generation for section: ${sectionType}`);
+    console.log(`[OpenAI] System prompt length: ${systemPrompt.length} chars`);
+    console.log(`[OpenAI] User prompt length: ${userPrompt.length} chars`);
+
     const completion = await openai.chat.completions.create({
       model: 'gpt-4-turbo-preview',
       messages: [
@@ -107,15 +112,32 @@ export async function generateProposalContent(params: ContentGenerationParams): 
       'gpt-4-turbo-preview'
     );
 
+    console.log(`[OpenAI] ✓ Successfully generated ${sectionType}: ${content.length} chars, ${tokensUsed} tokens, $${cost}`);
+
     return {
       content,
       tokensUsed,
       model: 'gpt-4-turbo-preview',
       cost
     };
-  } catch (error) {
-    console.error('OpenAI content generation error:', error);
-    throw new Error(`Failed to generate content: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  } catch (error: any) {
+    console.error(`[OpenAI] ✗ Content generation error for ${sectionType}:`, {
+      message: error?.message,
+      status: error?.status,
+      type: error?.type,
+      code: error?.code,
+      error: error
+    });
+
+    // Extract more specific error information
+    let errorMessage = 'Unknown error';
+    if (error?.message) {
+      errorMessage = error.message;
+    } else if (error?.error?.message) {
+      errorMessage = error.error.message;
+    }
+
+    throw new Error(`Failed to generate content: ${errorMessage}`);
   }
 }
 
@@ -424,11 +446,11 @@ function buildSystemPrompt(
 
 4. **Revisions & Changes:** Up to 3 rounds of revisions are included in each development phase. Additional revision requests will be quoted separately based on scope and effort.
 
-5. **Post-Launch Support:** DRMHOPE Software will provide three months of bug fixing support free of charge, commencing from the date of final delivery. This support covers only bugs and errors directly related to the original project scope and does not include new features or functionality changes beyond the original scope.
+5. **Post-Launch Support:** Bettroi will provide three months of bug fixing support free of charge, commencing from the date of final delivery. This support covers only bugs and errors directly related to the original project scope and does not include new features or functionality changes beyond the original scope.
 
-6. **Intellectual Property:** Upon receipt of the final payment in full, DRMHOPE Software agrees to transfer complete ownership of the source code and all intellectual property rights associated with the completed project to the client. Until final payment is made, all intellectual property rights will remain with DRMHOPE Software.
+6. **Intellectual Property:** Upon receipt of the final payment in full, Bettroi agrees to transfer complete ownership of the source code and all intellectual property rights associated with the completed project to the client. Until final payment is made, all intellectual property rights will remain with Bettroi.
 
-7. **Confidentiality:** DRMHOPE Software will maintain strict confidentiality of all project details, client data, and any information shared during the project. We will not disclose any sensitive information to third parties without the express consent of the client.
+7. **Confidentiality:** Bettroi will maintain strict confidentiality of all project details, client data, and any information shared during the project. We will not disclose any sensitive information to third parties without the express consent of the client.
 
 8. **Change Requests:** Any additional features, functionality changes, or modifications that are not included in the original project scope will be considered as change requests and will be quoted separately as an addendum.
 
@@ -439,7 +461,7 @@ function buildSystemPrompt(
 **CRITICAL:** Format as a numbered list (1-10) with each item starting with bold title followed by colon and description.`
   };
 
-  return `You are an expert proposal writer for DRMHOPE Software following Bettroi professional quotation standards.
+  return `You are an expert proposal writer for Bettroi following professional business quotation standards.
 
 ${sectionInstructions[sectionType]}
 
@@ -466,7 +488,7 @@ function buildUserPrompt(
 ): string {
   const { name, company, industry, projectType, budget, timeline, additionalInfo } = clientContext;
 
-  let prompt = `Generate a professional, detailed ${sectionType.replace('_', ' ')} for a software development proposal following Bettroi/DRMHOPE Software standards.\n\n`;
+  let prompt = `Generate a professional, detailed ${sectionType.replace('_', ' ')} for a software development proposal following Bettroi professional standards.\n\n`;
 
   prompt += '**CLIENT INFORMATION:**\n';
   prompt += `- Client Name: ${name}\n`;

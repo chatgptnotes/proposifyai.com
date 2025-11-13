@@ -19,7 +19,7 @@ function NewProposalContent() {
   const searchParams = useSearchParams();
   const templateId = searchParams.get("template");
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1); // Start at step 1 (Details)
   const [formData, setFormData] = useState({
     title: "",
     client: "",
@@ -27,25 +27,21 @@ function NewProposalContent() {
     clientWebsite: "",
     value: "",
     additionalContext: "",
-    template: templateId || "",
+    template: "bettroi", // Always use Bettroi template
     aiGenerate: false,
   });
 
-  const templates = [
-    { id: "1", name: "DRM Hope Software Proposal", IconComponent: LocalHospitalIcon },
-    { id: "2", name: "Bettroi Integration Proposal", IconComponent: LinkIcon },
-    { id: "3", name: "Hospital Management System", IconComponent: ApartmentIcon },
-    { id: "4", name: "SaaS Subscription Proposal", IconComponent: BusinessCenterIcon },
-    { id: "5", name: "Custom Development Quote", IconComponent: ComputerIcon },
-    { id: "6", name: "Blank Template", IconComponent: DescriptionIcon },
-  ];
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [generationProgress, setGenerationProgress] = useState({
+    current: 0,
+    total: 0,
+    currentSection: "",
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (step < 3) {
+    if (step < 2) {
       setStep(step + 1);
     } else {
       // Create proposal with AI generation
@@ -95,7 +91,8 @@ function NewProposalContent() {
 
           const generatedContent: any = {};
 
-          // Generate all sections in parallel for better performance
+          // Generate sections SEQUENTIALLY to avoid rate limiting
+          // Each section takes 10-15 seconds, parallel requests cause failures
           const sections = [
             'executive_summary',
             'scope_of_work',
@@ -104,43 +101,103 @@ function NewProposalContent() {
             'terms'
           ];
 
-          const generatePromises = sections.map(async (sectionType) => {
-            try {
-              console.log(`Generating ${sectionType}...`);
-              const response = await fetch("/api/ai/generate-content", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  sectionType,
-                  clientContext,
-                  tone: "professional",
-                }),
-              });
+          console.log(`Starting sequential generation of ${sections.length} sections...`);
+          setGenerationProgress({ current: 0, total: sections.length, currentSection: "" });
 
-              if (response.ok) {
-                const data = await response.json();
-                generatedContent[sectionType] = data.data.content;
-                console.log(`✓ Generated ${sectionType} (${data.data.content.length} chars)`);
-              } else {
-                const errorData = await response.json();
-                console.error(`✗ Failed to generate ${sectionType}:`, response.status, errorData);
-                throw new Error(`${sectionType}: ${errorData.error || errorData.message}`);
+          for (let i = 0; i < sections.length; i++) {
+            const sectionType = sections[i];
+            const sectionNumber = i + 1;
+
+            setGenerationProgress({
+              current: sectionNumber,
+              total: sections.length,
+              currentSection: sectionType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+            });
+
+            // Retry logic with exponential backoff
+            let retries = 0;
+            const maxRetries = 3;
+            let success = false;
+
+            while (!success && retries <= maxRetries) {
+              try {
+                if (retries > 0) {
+                  const waitTime = Math.pow(2, retries) * 1000; // 2s, 4s, 8s
+                  console.log(`Retry ${retries}/${maxRetries} for ${sectionType} - waiting ${waitTime/1000}s...`);
+                  await new Promise(resolve => setTimeout(resolve, waitTime));
+                }
+
+                console.log(`[${sectionNumber}/${sections.length}] Generating ${sectionType}...`);
+
+                const response = await fetch("/api/ai/generate-content", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    sectionType,
+                    clientContext,
+                    tone: "professional",
+                    proposalId: proposalId,
+                  }),
+                });
+
+                if (response.ok) {
+                  const data = await response.json();
+                  generatedContent[sectionType] = data.data.content;
+                  console.log(`✓ [${sectionNumber}/${sections.length}] Generated ${sectionType} (${data.data.content.length} chars)`);
+                  success = true;
+                } else {
+                  const errorData = await response.json();
+                  console.error(`✗ [${sectionNumber}/${sections.length}] Failed to generate ${sectionType}:`, response.status, errorData);
+
+                  // Provide more specific error message
+                  let errorMsg = errorData.error || errorData.message || 'Unknown error';
+                  if (response.status === 429) {
+                    errorMsg = 'OpenAI rate limit reached';
+                    // Retry on rate limit errors
+                    if (retries < maxRetries) {
+                      retries++;
+                      continue;
+                    }
+                  } else if (response.status === 401) {
+                    errorMsg = 'OpenAI API key is invalid. Please check your configuration.';
+                    throw new Error(`${sectionType}: ${errorMsg}`);
+                  } else if (response.status === 500) {
+                    errorMsg = `Server error: ${errorMsg}`;
+                    // Retry on server errors
+                    if (retries < maxRetries) {
+                      retries++;
+                      continue;
+                    }
+                  }
+
+                  throw new Error(`${sectionType}: ${errorMsg}`);
+                }
+
+                // Add a small delay between requests to avoid rate limiting
+                if (i < sections.length - 1) {
+                  console.log('Waiting 2 seconds before next section...');
+                  await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+
+              } catch (error) {
+                if (retries < maxRetries && (error instanceof Error && (error.message.includes('rate limit') || error.message.includes('Server error')))) {
+                  retries++;
+                  console.error(`Error on attempt ${retries}:`, error);
+                  continue;
+                }
+                console.error(`✗ Error generating ${sectionType} after ${retries} retries:`, error);
+                throw new Error(`Failed to generate ${sectionType}: ${error instanceof Error ? error.message : 'Unknown error'}`);
               }
-            } catch (error) {
-              console.error(`✗ Error generating ${sectionType}:`, error);
-              throw error; // Re-throw to stop the process
             }
-          });
 
-          // Wait for all sections to be generated
-          try {
-            await Promise.all(generatePromises);
-          } catch (genError) {
-            console.error('Content generation failed:', genError);
-            throw new Error(`AI generation failed: ${genError instanceof Error ? genError.message : 'Unknown error'}`);
+            if (!success) {
+              throw new Error(`Failed to generate ${sectionType} after ${maxRetries} retries`);
+            }
           }
+
+          console.log(`✓ All ${sections.length} sections generated successfully!`);
 
           // Update proposal with all generated content
           if (Object.keys(generatedContent).length > 0) {
@@ -211,7 +268,6 @@ function NewProposalContent() {
         <div className="mb-12">
           <ProgressIndicator
             steps={[
-              { label: "Template", description: "Choose your starting point" },
               { label: "Details", description: "Client information" },
               { label: "AI Setup", description: "Configure generation" }
             ]}
@@ -220,65 +276,24 @@ function NewProposalContent() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Step 1: Choose Template */}
+          {/* Step 1: Proposal Details */}
           {step === 1 && (
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">
-                Choose a Template
+                Create New Proposal
               </h2>
-              <p className="text-gray-600 mb-8 text-center">
-                Select a template to get started or start from scratch
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {templates.map((template) => (
-                  <button
-                    key={template.id}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, template: template.id })}
-                    onDoubleClick={() => {
-                      setFormData({ ...formData, template: template.id });
-                      setStep(2);
-                    }}
-                    className={`p-6 rounded-xl border-2 transition text-left ${
-                      formData.template === template.id
-                        ? "border-primary-600 bg-primary-50"
-                        : "border-gray-200 bg-white hover:border-primary-300"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <template.IconComponent className="text-primary-600" sx={{ fontSize: 40 }} />
-                      <div>
-                        <h3 className="font-bold text-gray-900">{template.name}</h3>
-                        <p className="text-sm text-gray-600">Professional template ready to use</p>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              <div className="mt-8 flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setStep(2)}
-                  disabled={!formData.template}
-                  className="px-8 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Continue →
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 2: Proposal Details */}
-          {step === 2 && (
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">
-                Proposal Details
-              </h2>
-              <p className="text-gray-600 mb-8 text-center">
+              <p className="text-gray-600 mb-4 text-center">
                 Tell us about your client and project
               </p>
+              <div className="flex items-center justify-center mb-8">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg px-6 py-3 flex items-center space-x-3">
+                  <LinkIcon className="text-blue-600" sx={{ fontSize: 28 }} />
+                  <div>
+                    <p className="text-sm font-semibold text-blue-900">Using Bettroi Professional Template</p>
+                    <p className="text-xs text-blue-700">Industry-standard business proposal format</p>
+                  </div>
+                </div>
+              </div>
 
               <div className="bg-white rounded-xl shadow-md p-8 border border-gray-100 space-y-6">
                 <div>
@@ -379,17 +394,10 @@ function NewProposalContent() {
                 </div>
               </div>
 
-              <div className="mt-8 flex justify-between">
+              <div className="mt-8 flex justify-end">
                 <button
                   type="button"
-                  onClick={() => setStep(1)}
-                  className="px-8 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition"
-                >
-                  ← Back
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setStep(3)}
+                  onClick={() => setStep(2)}
                   className="px-8 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition"
                 >
                   Continue →
@@ -398,8 +406,8 @@ function NewProposalContent() {
             </div>
           )}
 
-          {/* Step 3: AI Setup */}
-          {step === 3 && (
+          {/* Step 2: AI Setup */}
+          {step === 2 && (
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">
                 AI-Powered Generation
@@ -463,6 +471,32 @@ function NewProposalContent() {
                 )}
               </div>
 
+              {loading && generationProgress.total > 0 && (
+                <div className="mt-6 p-6 bg-primary-50 border border-primary-200 rounded-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-semibold text-gray-900 flex items-center">
+                      <FlashOnIcon className="text-primary-600 mr-2 animate-pulse" />
+                      Generating AI Content
+                    </h4>
+                    <span className="text-sm font-medium text-primary-700">
+                      {generationProgress.current} of {generationProgress.total}
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2.5 mb-3">
+                    <div
+                      className="bg-primary-600 h-2.5 rounded-full transition-all duration-500"
+                      style={{ width: `${(generationProgress.current / generationProgress.total) * 100}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    Currently generating: <span className="font-semibold text-primary-700">{generationProgress.currentSection}</span>
+                  </p>
+                  <p className="text-xs text-gray-600 mt-2 italic">
+                    Each section takes 10-15 seconds. Please don&apos;t close this page...
+                  </p>
+                </div>
+              )}
+
               {error && (
                 <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                   <p className="text-red-700 text-sm">{error}</p>
@@ -472,7 +506,7 @@ function NewProposalContent() {
               <div className="mt-8 flex justify-between">
                 <button
                   type="button"
-                  onClick={() => setStep(2)}
+                  onClick={() => setStep(1)}
                   disabled={loading}
                   className="px-8 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
