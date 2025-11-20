@@ -197,7 +197,7 @@ CREATE OR REPLACE VIEW high_value_transactions AS
 SELECT
   p.id,
   p.title,
-  p.client_company_name,
+  p.client_name,
   p.client_trn,
   p.transaction_value_aed,
   p.requires_edd,
