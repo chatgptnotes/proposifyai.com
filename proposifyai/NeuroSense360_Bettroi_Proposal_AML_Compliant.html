@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NeuroSense360 MVP Development - Bettroi to LBW Health</title>
+<style>
+@page { size: A4; margin: 0; }
+body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+.page { width: 210mm; height: 297mm; padding: 20mm; box-sizing: border-box; page-break-after: always; position: relative; background: white; }
+.legal-header { display: flex; justify-content: space-between; padding-bottom: 20px; border-bottom: 2px solid #003DA5; margin-bottom: 25px; }
+.supplier-details { flex: 1; }
+.logo-box { display: flex; align-items: center; margin-bottom: 10px; }
+.company-name { font-size: 24px; font-weight: 700; color: #003DA5; margin-left: 15px; }
+.legal-info { font-size: 10px; line-height: 1.6; color: #333; }
+.legal-info p { margin: 3px 0; }
+.document-info { text-align: right; }
+.document-type { color: #003DA5; font-size: 16px; font-weight: 700; margin: 0 0 10px 0; background: #F0F4FF; padding: 8px 12px; border-radius: 4px; }
+.ref-details { font-size: 10px; line-height: 1.8; }
+.title-box { background: linear-gradient(135deg, #003DA5 0%, #0051D5 100%); color: white; padding: 25px; text-align: center; margin: 20px 0; border-radius: 8px; }
+.title { font-size: 28px; font-weight: 700; }
+.bill-to-section { background: #FAFAFA; border: 1px solid #E0E0E0; padding: 20px; margin: 25px 0; border-radius: 6px; }
+.bill-to-section h2 { color: #003DA5; font-size: 14px; margin: 0 0 15px 0; border-bottom: 2px solid #003DA5; padding-bottom: 8px; }
+.client-legal-box { background: white; padding: 15px; border-radius: 4px; }
+.client-legal-box p { margin: 8px 0; font-size: 12px; line-height: 1.6; }
+.client-name { font-size: 18px; font-weight: 700; color: #003DA5; margin-bottom: 12px !important; }
+.investment-summary { margin: 30px 0; background: #FAFAFA; padding: 25px; border-radius: 8px; border: 2px solid #E0E0E0; }
+.investment-summary h3 { color: #003DA5; font-size: 18px; margin: 0 0 20px 0; text-align: center; }
+.pricing-table { width: 100%; border-collapse: collapse; background: white; }
+.pricing-table td { padding: 15px; font-size: 14px; border-bottom: 1px solid #E0E0E0; }
+.pricing-table tr.total-row { background: #003DA5; color: white; font-size: 16px; }
+.pricing-table tr.total-row td { border: none; padding: 18px 15px; }
+h2 { color: #003DA5; font-size: 20px; margin: 25px 0 15px 0; border-bottom: 2px solid #003DA5; padding-bottom: 8px; }
+h3 { color: #003DA5; font-size: 16px; margin: 20px 0 10px 0; }
+p, li { line-height: 1.8; font-size: 12px; color: #333; }
+ul { margin: 10px 0; padding-left: 25px; }
+.bank-details-box { background: #F0F4FF; border: 2px solid #003DA5; padding: 20px; border-radius: 6px; margin: 15px 0; }
+.bank-details-box table { width: 100%; border: none; }
+.bank-details-box td { border: none; padding: 8px 0; font-size: 12px; }
+.compliance-box { background: #F0F4FF; border-left: 4px solid #003DA5; padding: 15px; margin: 20px 0; }
+.important-note { background: #FFF3CD; border-left: 4px solid #FFC107; padding: 15px; margin: 20px 0; }
+.warning-box { background: #FFE5E5; border-left: 4px solid #D32F2F; padding: 15px; margin: 20px 0; }
+.footer { position: absolute; bottom: 15mm; left: 20mm; right: 20mm; display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #003DA5; font-size: 10px; color: #666; }
+table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+th, td { padding: 12px; text-align: left; border: 1px solid #ddd; font-size: 12px; }
+th { background: #003DA5; color: white; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<div class="page">
+<!-- AML Compliant Legal Header -->
+<div class="legal-header">
+<div class="supplier-details">
+<div class="logo-box">
+<div class="company-name">BETTROI - FZE</div>
+</div>
+<div class="legal-info">
+<p><b>Trade License:</b> 3891</p>
+<p><b>TRN:</b> 104277403200003</p>
+<p><b>Address:</b> Building A5, FLEXDESK DSO-DDP-A5-D-FLEX-1044, Dubai Silicon Oasis, Dubai, United Arab Emirates</p>
+<p><b>Tel:</b> +971 54 714 8580 | <b>Email:</b> bt.thomas@bettroi.com</p>
+<p><b>Website:</b> bettroi.com</p>
+</div>
+</div>
+<div class="document-info">
+<h2 class="document-type">TAX INVOICE / QUOTATION</h2>
+<div class="ref-details">
+<p><b>Reference:</b> BETT-NS-2025-001</p>
+<p><b>Quotation No:</b> BTR-2025-00087</p>
+<p><b>Date:</b> 20 November 2025</p>
+<p><b>Valid Until:</b> 20 December 2025</p>
+</div>
+</div>
+</div>
+
+<div class="title-box">
+<div class="title">NeuroSense360 MVP Development</div>
+<div style="font-size: 16px; margin-top: 10px; opacity: 0.9;">Brain Health Analytics Platform</div>
+</div>
+
+<div class="content">
+<!-- Client Details Section (Bill To) -->
+<div class="bill-to-section">
+<h2>BILL TO</h2>
+<div class="client-legal-box">
+<p class="client-name">Limitless Brain Wellness (LBW)</p>
+<p><b>Trade License:</b> To Be Provided</p>
+<p><b>TRN:</b> To Be Provided</p>
+<p><b>Address:</b> Healthcare City, Dubai, United Arab Emirates</p>
+<p><b>Contact Person:</b> Dr. Murali Balasundaram</p>
+<p><b>Email:</b> info@lbwhealth.com</p>
+<p><b>Phone:</b> +971 XX XXX XXXX</p>
+</div>
+</div>
+
+<div style="margin-top: 30px;">
+<div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Project Duration</div>
+<div style="font-size: 16px; font-weight: 600; color: #003DA5;">6-8 weeks from project kickoff</div>
+</div>
+
+<!-- Investment Summary with VAT -->
+<div class="investment-summary">
+<h3>Investment Summary</h3>
+<table class="pricing-table">
+<tr>
+<td><b>Subtotal (Taxable Amount)</b></td>
+<td align="right"><b>$3,500.00</b></td>
+</tr>
+<tr>
+<td>VAT @ 5%</td>
+<td align="right">$175.00</td>
+</tr>
+<tr class="total-row">
+<td><b>TOTAL AMOUNT DUE</b></td>
+<td align="right"><b>$3,675.00</b></td>
+</tr>
+</table>
+<p style="font-size: 10px; font-style: italic; color: #666; margin-top: 10px;">
+All amounts are subject to 5% UAE VAT as per Federal Decree-Law No. 8 of 2017
+</p>
+</div>
+</div>
+
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>1 | Page</b></div>
+</div>
+
+<!-- Page 2: Project Overview -->
+<div class="page">
+<div style="padding-bottom: 15px; border-bottom: 1px solid #003DA5; margin-bottom: 20px;">
+<div style="font-weight: 700; color: #003DA5; font-size: 14px;">BETTROI - FZE</div>
+<div style="font-size: 10px; color: #666;"><b>Reference:</b> BETT-NS-2025-001 | <b>Date:</b> 20 November 2025 | <b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Project Overview</h2>
+<p>
+Development of a secure, analytics-driven web application for the <b>NeuroSense360 Brain Health Platform</b> —
+a part of Limitless Brain Wellness (LBW-Neuro) initiative.
+</p>
+<p>
+The MVP will serve three user roles: <b>Super Admin</b>, <b>Clinic Admin</b>, and <b>Patient Portal</b>.
+The platform will include clinical dashboards, EEG data management, qEEG Pro reports, NeuroSense algorithms,
+and Stripe-integrated monetization.
+</p>
+
+<h2>Scope of Work</h2>
+
+<h3>A. Landing Page</h3>
+<ul>
+<li>Informational content (videos, guides, articles on brain health)</li>
+<li>Clinic locator with enquiry form (auto-detect location)</li>
+<li>Paid brain scan purchase prompt linking to care plan page</li>
+</ul>
+
+<h3>B. Super Admin Dashboard</h3>
+<ul>
+<li>Multi-clinic control, agreements, and co-branding</li>
+<li>Revenue analytics and report tracking</li>
+<li>Notification alerts and full data access</li>
+<li>Create/edit/deactivate clinic accounts</li>
+<li>Upload EEG report PDF files per patient (manual upload)</li>
+<li>View report usage stats per clinic</li>
+<li>Grant/restrict trial access and monitor subscriptions</li>
+</ul>
+
+<h3>C. Clinic Admin Dashboard</h3>
+<ul>
+<li>Secure clinic login and authentication</li>
+<li>Patient profile creation and management (name, age, gender, notes)</li>
+<li>Upload and tracking of EEG (.edf) files (view-only)</li>
+<li>View/download patient reports (PDF)</li>
+<li>Track number of reports used</li>
+<li>Clinic-specific analytics and restricted access</li>
+<li>Automated trial/usage alerts</li>
+</ul>
+
+<h3>D. Patient Portal</h3>
+<ul>
+<li>Personal dashboard with history, care plans, and downloads</li>
+<li>NeuroSense reports and progress tracking</li>
+<li>Access to educational content and follow-up reminders</li>
+</ul>
+
+<h3>E. Algorithm Integration Layer</h3>
+<ul>
+<li><b>NeuroSense Equations</b> for parameters: Cognition, Focus, Stress, Burnout, Creativity, Emotional Regulation, Learning</li>
+<li>Scoring system with color-coded visual meters (Red-Yellow-Green)</li>
+<li>Integration of 2 proprietary algorithms into report generation workflow</li>
+</ul>
+
+<h3>F. Payments & Monetization</h3>
+<ul>
+<li>Stripe integration for "per 10 reports" clinic bundle purchases</li>
+<li>Usage analytics, alerts, and automated report unlocks</li>
+<li>Unlock new report units on successful Stripe payment</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>2 | Page</b></div>
+</div>
+
+<!-- Page 3: Technical Specifications -->
+<div class="page">
+<div style="padding-bottom: 15px; border-bottom: 1px solid #003DA5; margin-bottom: 20px;">
+<div style="font-weight: 700; color: #003DA5; font-size: 14px;">BETTROI - FZE</div>
+<div style="font-size: 10px; color: #666;"><b>Reference:</b> BETT-NS-2025-001 | <b>Date:</b> 20 November 2025 | <b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+
+<h2>Technology Stack</h2>
+<table>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>React / Next.js (Progressive Web App)</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Node.js / Supabase API</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Supabase (secured EEG/report storage with encryption)</td>
+</tr>
+<tr>
+<td>Payments</td>
+<td>Stripe Integration (PCI-DSS compliant)</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>Vercel (with SSL, CI/CD, uptime monitoring)</td>
+</tr>
+<tr>
+<td>Infrastructure</td>
+<td>Client's AWS Account (S3 for file storage)</td>
+</tr>
+</table>
+
+<h2>Development Milestones & Payment Schedule</h2>
+<table>
+<tr>
+<th>Milestone</th>
+<th>Deliverables</th>
+<th>% Payment</th>
+<th>Amount (USD)</th>
+</tr>
+<tr>
+<td>M1</td>
+<td>Super Admin setup + Clinic Onboarding</td>
+<td>25%</td>
+<td>$875.00</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>Clinic Dashboard + Patient Management + EDF Upload</td>
+<td>25%</td>
+<td>$875.00</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Algorithm & Scoring Integration</td>
+<td>25%</td>
+<td>$875.00</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>Stripe Payments + Testing + Deployment</td>
+<td>25%</td>
+<td>$875.00</td>
+</tr>
+<tr>
+<th colspan="3">Total Development Cost (excl. VAT)</th>
+<th>$3,500.00</th>
+</tr>
+<tr>
+<th colspan="3">VAT @ 5%</th>
+<th>$175.00</th>
+</tr>
+<tr style="background: #003DA5; color: white;">
+<th colspan="3">GRAND TOTAL</th>
+<th>$3,675.00</th>
+</tr>
+</table>
+
+<h2>Additional Recurring Costs</h2>
+<table>
+<tr>
+<th>Component</th>
+<th>Cost (USD/month)</th>
+<th>Notes</th>
+</tr>
+<tr>
+<td>Supabase Cloud Hosting</td>
+<td>$75/month</td>
+<td>Includes bandwidth, monitoring, backups</td>
+</tr>
+<tr>
+<td>AWS S3 Storage</td>
+<td>$25/month</td>
+<td>EEG and PDF file storage</td>
+</tr>
+<tr>
+<td>Annual Maintenance (AMC)</td>
+<td>$750/year</td>
+<td>Bug fixes, Stripe support, server audit</td>
+</tr>
+<tr>
+<td>Optional Cloud Scaling</td>
+<td>$50/month</td>
+<td>For >100 concurrent users</td>
+</tr>
+</table>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>3 | Page</b></div>
+</div>
+
+<!-- Page 4: Deliverables & Assumptions -->
+<div class="page">
+<div style="padding-bottom: 15px; border-bottom: 1px solid #003DA5; margin-bottom: 20px;">
+<div style="font-weight: 700; color: #003DA5; font-size: 14px;">BETTROI - FZE</div>
+<div style="font-size: 10px; color: #666;"><b>Reference:</b> BETT-NS-2025-001 | <b>Date:</b> 20 November 2025 | <b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+
+<h2>Core MVP Deliverables</h2>
+
+<h3>✅ Super Admin Panel</h3>
+<ul>
+<li>Admin login and authentication (JWT-based)</li>
+<li>Create/edit/deactivate clinic accounts</li>
+<li>Upload EEG report PDF files per patient (manual upload)</li>
+<li>View report usage stats per clinic</li>
+<li>Grant/restrict trial access</li>
+<li>Monitor subscriptions and payments</li>
+<li>Revenue analytics dashboard</li>
+</ul>
+
+<h3>✅ Clinic Portal</h3>
+<ul>
+<li>Secure clinic login with role-based access control</li>
+<li>Add new patients: name, age, gender, clinical notes</li>
+<li>Upload EDF reports (view-only access)</li>
+<li>View/download patient reports (PDF format)</li>
+<li>Track number of reports used vs. purchased</li>
+<li>Automated trial/usage alerts via email</li>
+</ul>
+
+<h3>✅ Patient Portal</h3>
+<ul>
+<li>Secure patient login</li>
+<li>View personal NeuroSense reports and scores</li>
+<li>Download reports in PDF format</li>
+<li>Track brain health metrics over time</li>
+<li>Access educational content on brain wellness</li>
+</ul>
+
+<h3>✅ Subscription & Payments</h3>
+<ul>
+<li>Stripe integration for "per 10 report" purchase model</li>
+<li>Automated usage alerts when approaching limits</li>
+<li>Unlock new report units on successful payment</li>
+<li>Payment history and invoice generation</li>
+</ul>
+
+<h2>Assumptions & Exclusions</h2>
+
+<div class="important-note">
+<p><b>Important: Scope Limitations</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>No EEG-to-PDF automation (manual upload by Super Admin)</li>
+<li>No Cognifit or other third-party cognitive assessment integrations</li>
+<li>No mobile app development (MVP is web-based only)</li>
+<li>No patient-facing mobile portal in MVP</li>
+<li>No graphical/visual EEG waveform generation</li>
+<li>Report creation is manual via Super Admin dashboard</li>
+<li>Stripe merchant account and credentials to be provided by client</li>
+<li>AWS account access and credentials to be provided by client</li>
+<li>Client to provide Privacy Policy, Terms & Conditions by Day 2</li>
+<li>Design approvals required within 24 hours to maintain timeline</li>
+</ul>
+</div>
+
+<h2>Client Responsibilities</h2>
+<ul>
+<li>Provide AWS account access for S3 setup</li>
+<li>Provide Stripe API credentials and merchant account setup</li>
+<li>Supply Privacy Policy and Terms & Conditions documents</li>
+<li>Provide NeuroSense algorithm specifications and parameters</li>
+<li>Review and approve designs within 24 hours of submission</li>
+<li>Provide test data (anonymized EEG files) for integration testing</li>
+<li>Participate in weekly sprint review meetings</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>4 | Page</b></div>
+</div>
+
+<!-- Page 5: Payment & Banking Details -->
+<div class="page">
+<div style="padding-bottom: 15px; border-bottom: 1px solid #003DA5; margin-bottom: 20px;">
+<div style="font-weight: 700; color: #003DA5; font-size: 14px;">BETTROI - FZE</div>
+<div style="font-size: 10px; color: #666;"><b>Reference:</b> BETT-NS-2025-001 | <b>Date:</b> 20 November 2025 | <b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Payment & Banking Details</h2>
+
+<h3>Payment Terms</h3>
+<p>Payment Terms: 40% advance upon order confirmation, 60% upon project completion and delivery.</p>
+<p>
+Payment must be made via bank transfer to the account details provided. All payments must include the invoice reference number in the payment description.
+</p>
+<p>
+For international transfers, ensure all bank charges are covered by sender (OUR charge option). Payment confirmation receipt must be emailed to bt.thomas@bettroi.com within 24 hours of transfer.
+</p>
+<p>
+Late payments will incur a charge of 2% per month (24% per annum). Work may be suspended on accounts overdue by more than 15 days.
+</p>
+
+<h3 style="margin-top: 25px;">Bank Details for Payment</h3>
+<div class="bank-details-box">
+<table style="border: none;">
+<tr>
+<td style="border: none; width: 180px;"><b>Account Name:</b></td>
+<td style="border: none;">BETTROI - FZE</td>
+</tr>
+<tr>
+<td style="border: none;"><b>Bank Name:</b></td>
+<td style="border: none;">Wio Bank</td>
+</tr>
+<tr>
+<td style="border: none;"><b>Branch:</b></td>
+<td style="border: none;">Etihad Airways Centre 5th Floor, Abu Dhabi, UAE</td>
+</tr>
+<tr>
+<td style="border: none;"><b>IBAN:</b></td>
+<td style="border: none; font-family: monospace; font-weight: 600;">AE41 0860 0000 0912 4215 965</td>
+</tr>
+<tr>
+<td style="border: none;"><b>SWIFT Code:</b></td>
+<td style="border: none; font-family: monospace; font-weight: 600;">WIOBAEADXXX</td>
+</tr>
+<tr>
+<td style="border: none;"><b>Currency:</b></td>
+<td style="border: none;">USD</td>
+</tr>
+</table>
+</div>
+
+<div class="important-note" style="background: #FFF3CD; border-left: 4px solid #FFC107; padding: 15px; margin-top: 20px;">
+<p style="margin: 0;"><b>Important Payment Instructions:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>Please include the invoice reference number (<b>BTR-2025-00087</b>) in your payment description</li>
+<li>Bank account name must match the trade license: <b>BETTROI - FZE</b></li>
+<li>Payments must be made from a business account in the client's registered company name</li>
+<li>For international transfers, ensure all bank charges are covered by the sender (OUR charge option)</li>
+<li>Payment confirmation receipt must be emailed to <b>bt.thomas@bettroi.com</b> within 24 hours</li>
+</ul>
+</div>
+
+<h3 style="margin-top: 25px;">Accepted Payment Methods</h3>
+<ul>
+<li><b>Bank Transfer:</b> Direct transfer to the above IBAN (Preferred method)</li>
+<li><b>Cheque:</b> Payable to "BETTROI - FZE" (Add 3 business days for clearance)</li>
+<li><b>Online Payment:</b> Available through client portal (processing fee may apply)</li>
+</ul>
+
+<h3 style="margin-top: 25px;">Late Payment Policy</h3>
+<p>
+Overdue invoices will incur a late payment charge of 2% per month (24% per annum).
+Work may be suspended on accounts overdue by more than 15 days. All project deliverables
+and source code will be released only upon full payment clearance.
+</p>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>5 | Page</b></div>
+</div>
+
+<!-- Page 6: AML Compliance & Legal Information -->
+<div class="page">
+<div style="padding-bottom: 15px; border-bottom: 1px solid #003DA5; margin-bottom: 20px;">
+<div style="font-weight: 700; color: #003DA5; font-size: 14px;">BETTROI - FZE</div>
+<div style="font-size: 10px; color: #666;"><b>Reference:</b> BETT-NS-2025-001 | <b>Date:</b> 20 November 2025 | <b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Compliance & Legal Information</h2>
+
+<h3>Anti-Money Laundering (AML) Compliance</h3>
+<p>
+This commercial transaction is conducted in accordance with UAE Federal Decree-Law No. 20 of 2018
+on Anti-Money Laundering and Combating the Financing of Terrorism and Illegal Organizations, as
+amended by Federal Decree-Law No. 26 of 2021.
+</p>
+
+<div class="compliance-box" style="background: #F0F4FF; border-left: 4px solid #003DA5; padding: 15px; margin: 20px 0;">
+<p><b>Client Declarations & Responsibilities:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>Client confirms that all payment funds originate from legitimate business activities</li>
+<li>Client warrants that the business activity and transaction purpose are lawful</li>
+<li>Client agrees to provide additional documentation if requested for enhanced due diligence</li>
+<li>Client acknowledges that suspicious transactions will be reported to UAE Financial Intelligence Unit (FIU)</li>
+<li>Client confirms beneficial ownership information is accurate and up-to-date</li>
+</ul>
+</div>
+
+<h3>Customer Due Diligence (CDD)</h3>
+<p>
+For transactions exceeding AED 55,000, Bettroi FZE is required to conduct Customer Due Diligence as
+per Cabinet Decision No. 10 of 2019. Client agrees to provide the following documents upon request:
+</p>
+<ul>
+<li>Valid Trade License certificate</li>
+<li>Tax Registration Number (TRN) certificate</li>
+<li>Emirates ID of authorized signatory</li>
+<li>Company bank account statement (last 3 months)</li>
+<li>Memorandum of Association or equivalent</li>
+<li>Beneficial ownership declaration form</li>
+</ul>
+
+<h3>Enhanced Due Diligence (EDD)</h3>
+<p>
+Transactions exceeding AED 100,000 require Enhanced Due Diligence. Additional documentation and
+verification procedures will be initiated as per UAE Central Bank regulations.
+</p>
+
+<h3>Document Retention & Data Privacy</h3>
+<p>
+All transaction records, proposals, invoices, and supporting documents will be securely stored for a
+minimum period of 5 years from the transaction date as required by UAE AML regulations. Data is stored
+on secure servers within the UAE and handled in accordance with UAE Data Protection Law (Federal
+Decree-Law No. 45 of 2021).
+</p>
+
+<h3>Tax Compliance</h3>
+<p>
+This TAX INVOICE / QUOTATION complies with UAE VAT regulations as per Federal Decree-Law No. 8 of 2017
+on Value Added Tax and Cabinet Decision No. 52 of 2017 on the Executive Regulations of VAT.
+</p>
+
+<div class="tax-details" style="margin: 15px 0;">
+<table>
+<tr>
+<th>Supplier Tax Details</th>
+<th>Client Tax Details</th>
+</tr>
+<tr>
+<td>
+<b>Legal Name:</b> BETTROI - FZE<br>
+<b>TRN:</b> 104277403200003<br>
+<b>Trade License:</b> 3891<br>
+<b>Tax Classification:</b> Standard Rated Supplier
+</td>
+<td>
+<b>Legal Name:</b> Limitless Brain Wellness (LBW)<br>
+<b>TRN:</b> To Be Provided<br>
+<b>Trade License:</b> To Be Provided<br>
+<b>Tax Status:</b> Standard Rated
+</td>
+</tr>
+</table>
+</div>
+
+<h3>Warranty & Liability</h3>
+<p>
+<b>Warranty Period:</b> 3 months from deployment date for software bugs and backend API issues.
+</p>
+<p>
+<b>Scope:</b> Warranty covers defects in workmanship and functionality as per agreed specifications.
+Does not cover changes to requirements, third-party service failures, or issues arising from
+client-side modifications.
+</p>
+<p>
+<b>Support:</b> Email support during UAE business hours (9 AM - 6 PM, Sunday-Thursday).
+Critical issues addressed within 24 hours, non-critical within 72 hours.
+</p>
+
+<h3>Intellectual Property</h3>
+<ul>
+<li>Source code ownership transfers to client upon full payment clearance</li>
+<li>Bettroi retains the right to use non-proprietary components in future projects</li>
+<li>Client proprietary algorithms remain exclusive property of client</li>
+<li>Bettroi may use project as portfolio reference with client approval</li>
+</ul>
+
+<h3>Governing Law & Jurisdiction</h3>
+<p>
+This agreement shall be governed by the laws of the United Arab Emirates.
+Any disputes shall be subject to the exclusive jurisdiction of the courts of Dubai.
+</p>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>6 | Page</b></div>
+</div>
+
+<!-- Page 7: Terms & Conditions -->
+<div class="page">
+<div style="padding-bottom: 15px; border-bottom: 1px solid #003DA5; margin-bottom: 20px;">
+<div style="font-weight: 700; color: #003DA5; font-size: 14px;">BETTROI - FZE</div>
+<div style="font-size: 10px; color: #666;"><b>Reference:</b> BETT-NS-2025-001 | <b>Date:</b> 20 November 2025 | <b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Terms & Conditions</h2>
+
+<h3>1. Quotation Validity</h3>
+<p>This quotation is valid for 30 days from the date of issue (20 November 2025 to 20 December 2025).</p>
+
+<h3>2. Project Timeline</h3>
+<ul>
+<li>Total development time: 6-8 weeks from project kickoff</li>
+<li>Timeline commences upon receipt of 40% advance payment and all client requirements</li>
+<li>Delays due to client approvals, feedback, or resource availability will extend timeline accordingly</li>
+<li>Force majeure events (natural disasters, government actions, etc.) may impact delivery dates</li>
+</ul>
+
+<h3>3. Payment Schedule</h3>
+<table>
+<tr>
+<th>Payment Stage</th>
+<th>Percentage</th>
+<th>Amount (USD)</th>
+<th>Trigger</th>
+</tr>
+<tr>
+<td>Advance Payment</td>
+<td>40%</td>
+<td>$1,470.00</td>
+<td>Upon order confirmation</td>
+</tr>
+<tr>
+<td>Milestone 1</td>
+<td>15%</td>
+<td>$551.25</td>
+<td>Super Admin setup complete</td>
+</tr>
+<tr>
+<td>Milestone 2</td>
+<td>15%</td>
+<td>$551.25</td>
+<td>Clinic Dashboard complete</td>
+</tr>
+<tr>
+<td>Milestone 3</td>
+<td>15%</td>
+<td>$551.25</td>
+<td>Algorithm integration complete</td>
+</tr>
+<tr>
+<td>Final Payment</td>
+<td>15%</td>
+<td>$551.25</td>
+<td>Deployment & UAT complete</td>
+</tr>
+<tr style="background: #003DA5; color: white;">
+<th colspan="2">TOTAL</th>
+<th>$3,675.00</th>
+<th>(incl. 5% VAT)</th>
+</tr>
+</table>
+
+<h3>4. Change Requests</h3>
+<ul>
+<li>Scope changes after project commencement will be evaluated separately</li>
+<li>Change requests requiring >8 hours effort will incur additional charges</li>
+<li>Rate for change requests: $75/hour + 5% VAT</li>
+<li>Timeline extensions may apply for significant scope changes</li>
+</ul>
+
+<h3>5. Testing & Acceptance</h3>
+<ul>
+<li>User Acceptance Testing (UAT) period: 5 business days</li>
+<li>Client to provide feedback within UAT period</li>
+<li>Minor bugs identified during UAT will be fixed at no additional cost</li>
+<li>Major functionality changes require change request process</li>
+</ul>
+
+<h3>6. Hosting & Infrastructure</h3>
+<ul>
+<li>Development hosting on Vercel included in project cost</li>
+<li>Production hosting on client's AWS account (client bears AWS costs)</li>
+<li>Monthly hosting estimate: $75-100/month (Supabase + AWS S3)</li>
+<li>SSL certificates, CI/CD setup, and initial configuration included</li>
+<li>Ongoing server management available through AMC</li>
+</ul>
+
+<h3>7. Post-Deployment Support</h3>
+<ul>
+<li><b>Warranty Period:</b> 3 months from deployment date</li>
+<li><b>Coverage:</b> Bug fixes, API issues, functionality defects</li>
+<li><b>Exclusions:</b> New features, UI changes, third-party service issues</li>
+<li><b>Response Time:</b> Critical issues - 24 hours, Non-critical - 72 hours</li>
+</ul>
+
+<h3>8. Annual Maintenance Contract (AMC) - Optional</h3>
+<ul>
+<li><b>Cost:</b> $750/year (includes 5% VAT)</li>
+<li><b>Includes:</b> Bug fixes, security patches, Stripe support, server monitoring</li>
+<li><b>Monthly server audit:</b> Logs review, performance tuning, cost optimization</li>
+<li><b>Backup maintenance:</b> Automated S3 backup routines</li>
+<li><b>Priority support:</b> 12-hour response time for AMC clients</li>
+</ul>
+
+<h3>9. Confidentiality</h3>
+<ul>
+<li>Both parties agree to maintain confidentiality of proprietary information</li>
+<li>Bettroi will not disclose client algorithms, business logic, or patient data</li>
+<li>Non-disclosure agreement available upon request</li>
+<li>Confidentiality obligations survive contract termination</li>
+</ul>
+
+<h3>10. Cancellation Policy</h3>
+<ul>
+<li>Client may cancel project with written notice</li>
+<li>Cancellation before work commencement: 10% deduction on advance</li>
+<li>Cancellation after commencement: Charges apply for work completed + 20% of remaining balance</li>
+<li>All completed deliverables and source code released upon settlement</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>7 | Page</b></div>
+</div>
+
+<!-- Page 8: Acceptance & Signatures -->
+<div class="page">
+<div style="padding-bottom: 15px; border-bottom: 1px solid #003DA5; margin-bottom: 20px;">
+<div style="font-weight: 700; color: #003DA5; font-size: 14px;">BETTROI - FZE</div>
+<div style="font-size: 10px; color: #666;"><b>Reference:</b> BETT-NS-2025-001 | <b>Date:</b> 20 November 2025 | <b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+
+<h2>Quotation Summary</h2>
+
+<table>
+<tr>
+<th>Item</th>
+<th>Description</th>
+<th>Amount (USD)</th>
+</tr>
+<tr>
+<td>Development Cost</td>
+<td>NeuroSense360 MVP - Full-stack development</td>
+<td>$3,500.00</td>
+</tr>
+<tr>
+<td>VAT @ 5%</td>
+<td>UAE Value Added Tax</td>
+<td>$175.00</td>
+</tr>
+<tr style="background: #F0F4FF; font-weight: 700;">
+<td colspan="2">TOTAL AMOUNT DUE</td>
+<td>$3,675.00</td>
+</tr>
+<tr>
+<td colspan="3" style="padding-top: 20px;"><b>Advance Payment Required:</b> $1,470.00 (40%)</td>
+</tr>
+</table>
+
+<div style="margin: 30px 0;">
+<h3>Next Steps</h3>
+<ol style="line-height: 2;">
+<li>Review and approve this quotation</li>
+<li>Provide Trade License and TRN certificates</li>
+<li>Share AWS account access credentials</li>
+<li>Provide Stripe API keys and merchant account details</li>
+<li>Transfer advance payment to Bettroi bank account</li>
+<li>Kickoff meeting scheduled within 2 business days of payment</li>
+</ol>
+</div>
+
+<div class="compliance-box" style="margin: 30px 0;">
+<p><b>AML Compliance Notice:</b></p>
+<p style="font-size: 11px; line-height: 1.6;">
+This commercial transaction is conducted in accordance with UAE Federal Decree-Law No. 20 of 2018 on Anti-Money Laundering
+and Combating the Financing of Terrorism. BETTROI - FZE (TRN: 104277403200003, Trade License: 3891) is a UAE-registered
+entity complying with all AML regulations. All transaction records will be retained for 5 years as required by law.
+</p>
+</div>
+
+<div style="margin-top: 50px;">
+<h3>Acceptance & Authorization</h3>
+<p>By signing below, the client accepts all terms and conditions outlined in this quotation.</p>
+
+<div style="display: flex; justify-content: space-between; margin-top: 50px;">
+<div style="width: 45%;">
+<div style="border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 10px;"></div>
+<p style="margin: 5px 0;"><b>For BETTROI - FZE</b></p>
+<p style="margin: 5px 0; font-size: 11px;">Biji Tharakan Thomas</p>
+<p style="margin: 5px 0; font-size: 11px;">Managing Director</p>
+<p style="margin: 5px 0; font-size: 11px;">Date: 20 November 2025</p>
+</div>
+
+<div style="width: 45%;">
+<div style="border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 10px;"></div>
+<p style="margin: 5px 0;"><b>For Limitless Brain Wellness</b></p>
+<p style="margin: 5px 0; font-size: 11px;">Name: _________________________</p>
+<p style="margin: 5px 0; font-size: 11px;">Title: _________________________</p>
+<p style="margin: 5px 0; font-size: 11px;">Date: _________________________</p>
+</div>
+</div>
+</div>
+
+<div style="margin-top: 50px; padding: 20px; background: #F0F4FF; border-radius: 6px;">
+<p style="text-align: center; margin: 0; font-size: 12px; color: #003DA5;"><b>Thank you for choosing Bettroi FZE</b></p>
+<p style="text-align: center; margin: 10px 0 0 0; font-size: 11px; color: #666;">
+For questions or clarifications, contact: <b>bt.thomas@bettroi.com</b> | <b>+971 54 714 8580</b>
+</p>
+</div>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>20-Nov-25 / BTR-2025-00087</span><b>8 | Page</b></div>
+</div>
+
+</body>
+</html>
