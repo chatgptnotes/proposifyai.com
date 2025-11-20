@@ -9,27 +9,82 @@
 
 <!-- Page 1: Cover -->
 <div class="page">
-<div class="header">
-<div class="logo-box"><img src="logo.jpg" class="logo big"><div class="name">BETTROI</div></div>
-<div class="ref"><b>Reference:</b> {{REFERENCE}}<br><b>Date:</b> {{DATE}}<br><b>Website:</b> bettroi.com</div>
+<!-- AML Compliant Legal Header -->
+<div class="legal-header">
+<div class="supplier-details">
+<div class="logo-box"><img src="logo.jpg" class="logo big"><div class="company-name">{{SUPPLIER_LEGAL_NAME}}</div></div>
+<div class="legal-info">
+<p><b>Trade License:</b> {{SUPPLIER_TRADE_LICENSE}}</p>
+<p><b>TRN:</b> {{SUPPLIER_TRN}}</p>
+<p><b>Address:</b> {{SUPPLIER_FULL_ADDRESS}}</p>
+<p><b>Tel:</b> {{SUPPLIER_PHONE}} | <b>Email:</b> {{SUPPLIER_EMAIL}}</p>
+<p><b>Website:</b> {{SUPPLIER_WEBSITE}}</p>
 </div>
+</div>
+<div class="document-info">
+<h2 class="document-type">{{DOCUMENT_TYPE}}</h2>
+<div class="ref-details">
+<p><b>Reference:</b> {{REFERENCE}}</p>
+<p><b>{{DOCUMENT_TYPE}} No:</b> {{ERP_REFERENCE}}</p>
+<p><b>Date:</b> {{DATE}}</p>
+<p><b>Valid Until:</b> {{VALID_UNTIL}}</p>
+</div>
+</div>
+</div>
+
 <div class="title-box">
 <div class="title">{{PROPOSAL_TITLE}}</div>
-<div class="erp">ERP REF: {{ERP_REFERENCE}}</div>
 </div>
+
 <div class="content">
-<h2>PREPARED FOR</h2>
-<p style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">{{CLIENT_NAME}}</p>
-<p>{{CLIENT_EMAIL}}</p>
-<p style="margin-top: 10px;">{{CLIENT_WEBSITE}}</p>
-<p style="margin-top: 30px; font-size: 14px; opacity: 0.8;">Date: <strong>{{PROPOSAL_DATE}}</strong></p>
-<div style="margin-top: 60px;">
-<div style="font-size: 18px; color: #6b7280; margin-bottom: 10px;">Total Investment</div>
-<div style="font-size: 48px; font-weight: 700; color: #003DA5;">{{TOTAL_INVESTMENT}}</div>
-<div style="font-size: 16px; color: #6b7280; margin-top: 10px;">{{PROJECT_DURATION}}</div>
+<!-- Client Details Section (Bill To) -->
+<div class="bill-to-section">
+<h2>BILL TO</h2>
+<div class="client-legal-box">
+<p class="client-name">{{CLIENT_NAME}}</p>
+<p><b>Trade License:</b> {{CLIENT_TRADE_LICENSE}}</p>
+<p><b>TRN:</b> {{CLIENT_TRN}}</p>
+<p><b>Address:</b> {{CLIENT_FULL_ADDRESS}}</p>
+<p><b>Contact Person:</b> {{CLIENT_CONTACT_PERSON}}</p>
+<p><b>Email:</b> {{CLIENT_EMAIL}}</p>
+<p><b>Phone:</b> {{CLIENT_PHONE}}</p>
 </div>
 </div>
-<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>{{DATE_SHORT}} / {{ERP_REFERENCE}}</span><b>1 | Page</b></div>
+
+<div style="margin-top: 30px;">
+<div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Project Duration</div>
+<div style="font-size: 16px; font-weight: 600; color: #003DA5;">{{PROJECT_DURATION}}</div>
+</div>
+
+<!-- Investment Summary with VAT -->
+<div class="investment-summary">
+<h3>Investment Summary</h3>
+<table class="pricing-table">
+<tr>
+<td><b>Subtotal (Taxable Amount)</b></td>
+<td align="right"><b>{{CURRENCY}} {{SUBTOTAL_AMOUNT}}</b></td>
+</tr>
+<tr>
+<td>VAT @ {{VAT_RATE}}%</td>
+<td align="right">{{CURRENCY}} {{VAT_AMOUNT}}</td>
+</tr>
+<tr class="total-row">
+<td><b>TOTAL AMOUNT DUE</b></td>
+<td align="right"><b>{{CURRENCY}} {{TOTAL_WITH_VAT}}</b></td>
+</tr>
+</table>
+<p style="font-size: 10px; font-style: italic; color: #666; margin-top: 10px;">
+All amounts are subject to {{VAT_RATE}}% UAE VAT as per Federal Decree-Law No. 8 of 2017
+</p>
+</div>
+</div>
+
+<div class="footer">
+<div><b>BETTROI FZE</b></div>
+<div><span>{{DATE_SHORT}} / {{ERP_REFERENCE}}</span></div>
+<div><b>Page 1</b></div>
+<div class="aml-notice">Document retention: 5 years as per UAE AML regulations</div>
+</div>
 </div>
 
 <!-- Page 2: Table of Contents -->
@@ -47,6 +102,196 @@
 
 <!-- Additional Pages Template -->
 {{CONTENT_PAGES}}
+
+<!-- Payment & Banking Details Page -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> {{REFERENCE}}<br><b>Date:</b> {{DATE}}<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Payment & Banking Details</h2>
+
+<div class="payment-section">
+<h3>Payment Terms</h3>
+<p>{{PAYMENT_TERMS}}</p>
+
+<h3 style="margin-top: 25px;">Bank Details for Payment</h3>
+<div class="bank-details-box">
+<table style="border: none;">
+<tr>
+<td style="border: none; width: 180px;"><b>Account Name:</b></td>
+<td style="border: none;">{{BANK_ACCOUNT_NAME}}</td>
+</tr>
+<tr>
+<td style="border: none;"><b>Bank Name:</b></td>
+<td style="border: none;">{{BANK_NAME}}</td>
+</tr>
+<tr>
+<td style="border: none;"><b>Branch:</b></td>
+<td style="border: none;">{{BANK_BRANCH}}</td>
+</tr>
+<tr>
+<td style="border: none;"><b>IBAN:</b></td>
+<td style="border: none; font-family: monospace; font-weight: 600;">{{BANK_IBAN}}</td>
+</tr>
+<tr>
+<td style="border: none;"><b>SWIFT Code:</b></td>
+<td style="border: none; font-family: monospace; font-weight: 600;">{{BANK_SWIFT}}</td>
+</tr>
+<tr>
+<td style="border: none;"><b>Currency:</b></td>
+<td style="border: none;">{{CURRENCY}}</td>
+</tr>
+</table>
+</div>
+
+<div class="important-note" style="background: #FFF3CD; border-left: 4px solid #FFC107; padding: 15px; margin-top: 20px;">
+<p style="margin: 0;"><b>Important Payment Instructions:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>Please include the invoice reference number ({{ERP_REFERENCE}}) in your payment description</li>
+<li>Bank account name must match the trade license: {{SUPPLIER_LEGAL_NAME}}</li>
+<li>Payments must be made from a business account in the client's registered company name</li>
+<li>For international transfers, ensure all bank charges are covered by the sender (OUR charge option)</li>
+<li>Payment confirmation receipt must be emailed to {{SUPPLIER_EMAIL}} within 24 hours</li>
+</ul>
+</div>
+
+<h3 style="margin-top: 25px;">Accepted Payment Methods</h3>
+<ul>
+<li><b>Bank Transfer:</b> Direct transfer to the above IBAN (Preferred method)</li>
+<li><b>Cheque:</b> Payable to "{{SUPPLIER_LEGAL_NAME}}" (Add 3 business days for clearance)</li>
+<li><b>Online Payment:</b> Available through client portal (processing fee may apply)</li>
+</ul>
+
+<h3 style="margin-top: 25px;">Late Payment Policy</h3>
+<p>
+Overdue invoices will incur a late payment charge of 2% per month (24% per annum).
+Work may be suspended on accounts overdue by more than 15 days. All project deliverables
+and source code will be released only upon full payment clearance.
+</p>
+
+</div>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>{{DATE_SHORT}} / {{ERP_REFERENCE}}</span><b>{{PAGE_NUMBER}} | Page</b></div>
+</div>
+
+<!-- AML Compliance & Legal Information Page -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> {{REFERENCE}}<br><b>Date:</b> {{DATE}}<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Compliance & Legal Information</h2>
+
+<h3>Anti-Money Laundering (AML) Compliance</h3>
+<p>
+This commercial transaction is conducted in accordance with UAE Federal Decree-Law No. 20 of 2018
+on Anti-Money Laundering and Combating the Financing of Terrorism and Illegal Organizations, as
+amended by Federal Decree-Law No. 26 of 2021.
+</p>
+
+<div class="compliance-box" style="background: #F0F4FF; border-left: 4px solid #003DA5; padding: 15px; margin: 20px 0;">
+<p><b>Client Declarations & Responsibilities:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>Client confirms that all payment funds originate from legitimate business activities</li>
+<li>Client warrants that the business activity and transaction purpose are lawful</li>
+<li>Client agrees to provide additional documentation if requested for enhanced due diligence</li>
+<li>Client acknowledges that suspicious transactions will be reported to UAE Financial Intelligence Unit (FIU)</li>
+<li>Client confirms beneficial ownership information is accurate and up-to-date</li>
+</ul>
+</div>
+
+<h3>Customer Due Diligence (CDD)</h3>
+<p>
+For transactions exceeding AED 55,000, Bettroi FZE is required to conduct Customer Due Diligence as
+per Cabinet Decision No. 10 of 2019. Client agrees to provide the following documents upon request:
+</p>
+<ul>
+<li>Valid Trade License certificate</li>
+<li>Tax Registration Number (TRN) certificate</li>
+<li>Emirates ID of authorized signatory</li>
+<li>Company bank account statement (last 3 months)</li>
+<li>Memorandum of Association or equivalent</li>
+<li>Beneficial ownership declaration form</li>
+</ul>
+
+<h3>Enhanced Due Diligence (EDD)</h3>
+<p>
+Transactions exceeding AED 100,000 require Enhanced Due Diligence. Additional documentation and
+verification procedures will be initiated as per UAE Central Bank regulations.
+</p>
+
+<h3>Document Retention & Data Privacy</h3>
+<p>
+All transaction records, proposals, invoices, and supporting documents will be securely stored for a
+minimum period of 5 years from the transaction date as required by UAE AML regulations. Data is stored
+on secure servers within the UAE and handled in accordance with UAE Data Protection Law (Federal
+Decree-Law No. 45 of 2021).
+</p>
+
+<h3>Tax Compliance</h3>
+<p>
+This {{DOCUMENT_TYPE}} complies with UAE VAT regulations as per Federal Decree-Law No. 8 of 2017
+on Value Added Tax and Cabinet Decision No. 52 of 2017 on the Executive Regulations of VAT.
+</p>
+
+<div class="tax-details" style="margin: 15px 0;">
+<table>
+<tr>
+<th>Supplier Tax Details</th>
+<th>Client Tax Details</th>
+</tr>
+<tr>
+<td>
+<b>Legal Name:</b> {{SUPPLIER_LEGAL_NAME}}<br>
+<b>TRN:</b> {{SUPPLIER_TRN}}<br>
+<b>Trade License:</b> {{SUPPLIER_TRADE_LICENSE}}<br>
+<b>Tax Classification:</b> Standard Rated Supplier
+</td>
+<td>
+<b>Legal Name:</b> {{CLIENT_NAME}}<br>
+<b>TRN:</b> {{CLIENT_TRN}}<br>
+<b>Trade License:</b> {{CLIENT_TRADE_LICENSE}}<br>
+<b>Tax Status:</b> {{CLIENT_TAX_STATUS}}
+</td>
+</tr>
+</table>
+</div>
+
+<h3>Import Documentation (if applicable)</h3>
+<p>
+For transactions exceeding AED 10,000 involving goods import, all invoices and supporting documents
+will be attested by the UAE Ministry of Foreign Affairs and International Cooperation (MoFAIC) as per
+trade-based money laundering prevention requirements.
+</p>
+
+<h3>Governing Law & Jurisdiction</h3>
+<p>
+This commercial agreement is governed by the laws of the United Arab Emirates. Any disputes arising
+from this agreement shall be subject to the exclusive jurisdiction of the courts of Dubai, UAE.
+</p>
+
+<div class="warning-box" style="background: #FEF2F2; border-left: 4px solid #DC2626; padding: 15px; margin-top: 20px;">
+<p style="margin: 0;"><b>Anti-Corruption Notice:</b></p>
+<p style="margin: 10px 0 0 0;">
+Both parties agree to conduct business in accordance with UAE Federal Law No. 7 of 2016 on
+Combating Bribery and Corruption. Any offer, promise, or giving of undue advantage is strictly
+prohibited and will result in immediate termination of the agreement and reporting to relevant authorities.
+</p>
+</div>
+
+</div>
+<div class="footer">
+<div><b>BETTROI FZE</b></div>
+<div><span>{{DATE_SHORT}} / {{ERP_REFERENCE}}</span></div>
+<div><b>{{PAGE_NUMBER}} | Page</b></div>
+<div class="aml-footer" style="font-size: 8px; color: #999;">
+AML Compliant | Document ID: {{ERP_REFERENCE}} | Retention Until: {{RETENTION_DATE}}
+</div>
+</div>
+</div>
 
 </body>
 </html>

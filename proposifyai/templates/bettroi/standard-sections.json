@@ -68,139 +68,153 @@
       "title": "Commercials (Year-1)",
       "required": true,
       "order": 8,
-      "description": "Investment breakdown, payment terms, and commercial details"
+      "description": "Investment breakdown, payment terms, and commercial details with VAT"
+    },
+    {
+      "id": "payment_banking",
+      "title": "Payment & Banking Details",
+      "required": true,
+      "order": 9,
+      "description": "Bank account details (IBAN, SWIFT), payment methods, and payment instructions"
     },
     {
       "id": "client_responsibilities",
       "title": "Client Responsibilities",
       "required": true,
-      "order": 9,
+      "order": 10,
       "description": "What the client needs to provide and their obligations"
     },
     {
       "id": "important_points",
       "title": "Important Points",
       "required": true,
-      "order": 10,
+      "order": 11,
       "description": "Critical information, clarifications, and key terms"
     },
     {
       "id": "third_party_subscriptions",
       "title": "What Third-Party Subscriptions Are Needed",
       "required": false,
-      "order": 11,
+      "order": 12,
       "description": "External services, APIs, and subscriptions required"
     },
     {
       "id": "division_of_responsibilities",
       "title": "Division of Responsibilities",
       "required": true,
-      "order": 12,
+      "order": 13,
       "description": "Clear breakdown of who does what (Bettroi vs Client)"
     },
     {
       "id": "billing_mechanics",
       "title": "How Billing Works (Mechanics)",
       "required": false,
-      "order": 13,
+      "order": 14,
       "description": "Detailed explanation of billing process and mechanics"
     },
     {
       "id": "cost_controls",
       "title": "Cost Controls",
       "required": false,
-      "order": 14,
+      "order": 15,
       "description": "Mechanisms to control and monitor costs"
     },
     {
       "id": "data_security",
       "title": "Data and Security Notes",
       "required": true,
-      "order": 15,
+      "order": 16,
       "description": "Security measures, data handling, and privacy considerations"
     },
     {
       "id": "integration_touchpoints",
       "title": "Integration Touchpoints",
       "required": false,
-      "order": 16,
+      "order": 17,
       "description": "APIs, endpoints, and integration interfaces"
     },
     {
       "id": "billing_usage",
       "title": "Billing & Usage",
       "required": true,
-      "order": 17,
+      "order": 18,
       "description": "Billing policies, usage metering, and cost allocation"
     },
     {
       "id": "data_access",
       "title": "Data & Access",
       "required": true,
-      "order": 18,
+      "order": 19,
       "description": "Data ownership, access rights, and permissions"
     },
     {
       "id": "cost_control",
       "title": "Cost Control",
       "required": false,
-      "order": 19,
+      "order": 20,
       "description": "Budget management and cost optimization strategies"
     },
     {
       "id": "acceptance_criteria",
       "title": "Acceptance Criteria",
       "required": true,
-      "order": 20,
+      "order": 21,
       "description": "Criteria for project completion and acceptance"
     },
     {
       "id": "data_privacy_security",
       "title": "Data Privacy & Security",
       "required": true,
-      "order": 21,
+      "order": 22,
       "description": "Privacy policies, security standards, and compliance"
     },
     {
       "id": "third_party_services_billing",
       "title": "Third-Party Services and Billing Model",
       "required": false,
-      "order": 22,
+      "order": 23,
       "description": "External service costs and billing relationships"
     },
     {
       "id": "assumptions",
       "title": "Assumptions",
       "required": true,
-      "order": 23,
+      "order": 24,
       "description": "Project assumptions and dependencies"
     },
     {
       "id": "change_control",
       "title": "Change Control",
       "required": true,
-      "order": 24,
+      "order": 25,
       "description": "Process for handling scope changes and modifications"
     },
     {
       "id": "warranty_ip_terms",
       "title": "Warranty, IP, and Terms",
       "required": true,
-      "order": 25,
+      "order": 26,
       "description": "Warranty period, intellectual property rights, and legal terms"
     },
     {
       "id": "technical_notes",
       "title": "Technical Notes (Concise)",
       "required": false,
-      "order": 26,
+      "order": 27,
       "description": "Additional technical details and specifications"
+    },
+    {
+      "id": "aml_compliance",
+      "title": "Compliance & Legal Information",
+      "required": true,
+      "order": 28,
+      "description": "AML compliance, tax compliance, document retention, and legal framework"
     },
     {
       "id": "loi",
       "title": "Service Order Confirmation – Letter of Intent (LOI)",
       "required": true,
-      "order": 27,
+      "order": 29,
       "description": "Formal acceptance document and signature section"
     }
   ],

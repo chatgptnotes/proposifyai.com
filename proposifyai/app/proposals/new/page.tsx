@@ -24,8 +24,13 @@ function NewProposalContent() {
     title: "",
     client: "",
     email: "",
+    clientTRN: "",
+    clientTradeLicense: "",
+    clientFullAddress: "",
     clientWebsite: "",
     value: "",
+    calculateVAT: true, // Default to true for UAE compliance
+    documentType: "quotation", // quotation or tax_invoice
     additionalContext: "",
     template: "bettroi", // Always use Bettroi template
     aiGenerate: false,
@@ -49,7 +54,32 @@ function NewProposalContent() {
       setError("");
 
       try {
-        // Step 1: Create the proposal in Supabase
+        // Calculate VAT if enabled
+        let subtotal = formData.value ? parseInt(formData.value) : 0;
+        let vatAmount = 0;
+        let totalWithVAT = subtotal;
+
+        if (formData.calculateVAT && subtotal > 0) {
+          const vatResponse = await fetch("/api/compliance/calculate-vat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              subtotal: subtotal,
+              vatRate: 5,
+              currency: "USD",
+            }),
+          });
+
+          if (vatResponse.ok) {
+            const vatData = await vatResponse.json();
+            vatAmount = vatData.vatAmount;
+            totalWithVAT = vatData.totalWithVAT;
+          }
+        }
+
+        // Step 1: Create the proposal in Supabase with AML compliance fields
         const proposalResponse = await fetch("/api/proposals", {
           method: "POST",
           headers: {
@@ -60,12 +90,21 @@ function NewProposalContent() {
             client_name: formData.client,
             client_email: formData.email,
             client_company: formData.client,
-            total_value: formData.value ? parseInt(formData.value) : 0,
+            client_trn: formData.clientTRN,
+            client_trade_license: formData.clientTradeLicense,
+            client_full_address: formData.clientFullAddress,
+            total_value: subtotal,
+            subtotal_amount: subtotal,
+            vat_amount: vatAmount,
+            vat_rate: formData.calculateVAT ? 5 : 0,
+            total_with_vat: totalWithVAT,
             currency: "USD",
+            document_type: formData.documentType,
             template_id: formData.template,
             metadata: {
               aiGenerated: formData.aiGenerate,
               createdAt: new Date().toISOString(),
+              vatCalculated: formData.calculateVAT,
             },
           }),
         });
@@ -336,6 +375,96 @@ function NewProposalContent() {
                     placeholder="client@company.com"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
+                </div>
+
+                {/* AML Compliance Fields */}
+                <div className="pt-4 border-t border-gray-200">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-4">
+                    <p className="text-sm font-semibold text-blue-900">🛡️ UAE AML Compliance Information</p>
+                    <p className="text-xs text-blue-700 mt-1">Required for all commercial transactions in UAE</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Client Tax Registration Number (TRN) *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.clientTRN}
+                        onChange={(e) => setFormData({ ...formData, clientTRN: e.target.value })}
+                        placeholder="100123456789012 (15 digits)"
+                        maxLength={15}
+                        pattern="\d{15}"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent font-mono"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Must be exactly 15 digits</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Client Trade License Number *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.clientTradeLicense}
+                        onChange={(e) => setFormData({ ...formData, clientTradeLicense: e.target.value })}
+                        placeholder="CN-1234567"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Client Registered Address *
+                    </label>
+                    <textarea
+                      required
+                      value={formData.clientFullAddress}
+                      onChange={(e) => setFormData({ ...formData, clientFullAddress: e.target.value })}
+                      placeholder="Building name, Street, Area, Emirate, UAE"
+                      rows={3}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-y"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Complete registered business address in UAE</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Document Type
+                      </label>
+                      <select
+                        value={formData.documentType}
+                        onChange={(e) => setFormData({ ...formData, documentType: e.target.value })}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="quotation">Quotation</option>
+                        <option value="tax_invoice">Tax Invoice</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        VAT Calculation (UAE 5%)
+                      </label>
+                      <div className="flex items-center h-12 px-4 py-3 border border-gray-300 rounded-lg bg-gray-50">
+                        <input
+                          type="checkbox"
+                          id="calculateVAT"
+                          checked={formData.calculateVAT}
+                          onChange={(e) => setFormData({ ...formData, calculateVAT: e.target.checked })}
+                          className="w-4 h-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                        />
+                        <label htmlFor="calculateVAT" className="ml-3 text-sm font-medium text-gray-700 cursor-pointer">
+                          Add 5% UAE VAT to total
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div>

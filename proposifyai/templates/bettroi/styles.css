@@ -163,3 +163,242 @@ body {
 .footer b {
   color: #333;
 }
+
+/* AML Compliance Styles */
+.legal-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #003DA5;
+}
+
+.supplier-details {
+  flex: 1;
+}
+
+.company-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #003DA5;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.legal-info {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #666;
+  margin-top: 10px;
+}
+
+.legal-info p {
+  margin: 2px 0;
+}
+
+.document-info {
+  text-align: right;
+}
+
+.document-type {
+  font-size: 20px;
+  font-weight: bold;
+  color: #003DA5;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  background: #F0F4FF;
+  border: 2px solid #003DA5;
+  display: inline-block;
+}
+
+.ref-details {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #666;
+  margin-top: 10px;
+}
+
+.ref-details p {
+  margin: 2px 0;
+}
+
+/* Bill To Section */
+.bill-to-section {
+  background: #F9FAFB;
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 4px solid #003DA5;
+}
+
+.bill-to-section h2 {
+  margin-top: 0;
+  font-size: 14px;
+  color: #003DA5;
+  border: none;
+  padding: 0;
+}
+
+.client-legal-box {
+  margin-top: 10px;
+}
+
+.client-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #003DA5;
+  margin-bottom: 10px;
+}
+
+.client-legal-box p {
+  margin: 5px 0;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Investment Summary & VAT Table */
+.investment-summary {
+  margin: 30px 0;
+  background: #FAFAFA;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.investment-summary h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #003DA5;
+  border-bottom: 2px solid #003DA5;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+  font-size: 12px;
+  background: white;
+}
+
+.pricing-table tr {
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.pricing-table td {
+  padding: 12px;
+  border: none;
+}
+
+.pricing-table tr.total-row {
+  background: #003DA5;
+  color: white;
+  font-size: 14px;
+}
+
+.pricing-table tr.total-row td {
+  border-top: 2px solid #003DA5;
+  padding: 15px 12px;
+}
+
+/* Payment & Banking Details */
+.payment-section h3 {
+  color: #003DA5;
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 5px;
+}
+
+.bank-details-box {
+  background: #F0F4FF;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #003DA5;
+  margin: 15px 0;
+}
+
+/* Compliance Boxes */
+.compliance-box {
+  background: #F0F4FF;
+  border-left: 4px solid #003DA5;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.compliance-box p {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.important-note {
+  background: #FFF3CD;
+  border-left: 4px solid #FFC107;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.warning-box {
+  background: #FEF2F2;
+  border-left: 4px solid #DC2626;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.tax-details table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+.tax-details table th {
+  background: #003DA5;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.tax-details table td {
+  padding: 15px 10px;
+  border: 1px solid #E5E7EB;
+  vertical-align: top;
+  line-height: 1.8;
+}
+
+/* AML Footer Notice */
+.aml-notice {
+  font-size: 8px;
+  color: #999;
+  font-style: italic;
+}
+
+.aml-footer {
+  font-size: 8px;
+  color: #999;
+  text-align: center;
+}
+
+/* Print Styles */
+@media print {
+  .legal-header {
+    page-break-inside: avoid;
+  }
+
+  .bill-to-section {
+    page-break-inside: avoid;
+  }
+
+  .investment-summary {
+    page-break-inside: avoid;
+  }
+
+  .compliance-box,
+  .important-note,
+  .warning-box {
+    page-break-inside: avoid;
+  }
+}
