@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effort Estimate - NeuroSense DDO Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #003DA5 0%, #0051D5 100%);
+            padding: 20px;
+        }
+
+        .document-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #003DA5 0%, #0051D5 100%);
+            color: white;
+            padding: 40px 50px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .document-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .document-meta {
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #003DA5;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #003DA5;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 25px 0 15px;
+        }
+
+        .summary-box {
+            background: #f0f4ff;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #003DA5;
+            margin-bottom: 30px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: #003DA5;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #f0fff4;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4299e1;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #003DA5;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        .total-row {
+            background: #f0fff4;
+            font-weight: 700;
+            border-top: 2px solid #10b981;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .workflow-diagram {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .risk-high {
+            background: #fee2e2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        .risk-medium {
+            background: #fef3c7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .risk-low {
+            background: #d1fae5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .timeline-box {
+            background: white;
+            border: 2px solid #003DA5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #0051D5;
+        }
+
+        .timeline-week {
+            font-weight: 700;
+            color: #003DA5;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 30px 50px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-contact a {
+            color: #90cdf4;
+            text-decoration: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .document-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <div class="header-banner">
+            <div class="logo">BETTROI</div>
+            <div class="document-title">Technical Effort Estimate</div>
+            <div class="document-meta">
+                <div><strong>Project:</strong> NeuroSense360 - DDO Integration</div>
+                <div><strong>Reference:</strong> CR-NEURO-DDO-2025001</div>
+                <div><strong>Date:</strong> 27 December 2025</div>
+                <div><strong>Prepared By:</strong> Dr. Murali B K (BK), Technical Lead</div>
+                <div><strong>Status:</strong> For Client Approval</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Executive Summary -->
+            <div class="section">
+                <h2 class="section-title">Executive Summary</h2>
+                <div class="summary-box">
+                    <div class="summary-item">
+                        <span class="summary-label">Integration Type:</span>
+                        <span class="summary-value">Doctors Digital Office (DDO) - Full SaaS Platform</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total Effort:</span>
+                        <span class="summary-value">320 person-hours (40 person-days)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Estimated Timeline:</span>
+                        <span class="summary-value">8-10 weeks (with shared resources)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Estimated Budget:</span>
+                        <span class="summary-value">₹3,00,000 INR (~$3,600 USD)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Complexity Level:</span>
+                        <span class="summary-value">High (Multi-tenant SaaS integration)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Recommendation:</span>
+                        <span class="summary-value">Proceed as Phase 2 after current milestone completion</span>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>⚠ Important Context:</strong> This is a major scope addition requiring formal change order approval as per Bettroi SOP. This estimate assumes completion of current NeuroSense360 milestone before DDO integration begins.
+                </div>
+            </div>
+
+            <!-- Current Situation -->
+            <div class="section">
+                <h2 class="section-title">Current Situation & Context</h2>
+                <p>NeuroSense360 is currently in active development under the original project scope (PO: PUR-ORD-2025-00013). The Doctors Digital Office (DDO) integration represents a significant platform enhancement that will enable:</p>
+                <ul>
+                    <li><strong>Doctor Onboarding:</strong> Multi-tenant portal for neurologists to create digital offices</li>
+                    <li><strong>Patient Booking:</strong> Online appointment scheduling with payment gateway integration</li>
+                    <li><strong>Tele-Consultation:</strong> Zoom/video integration for remote consultations</li>
+                    <li><strong>AI Documentation:</strong> Automated transcription and clinical note generation</li>
+                    <li><strong>Billing & Invoicing:</strong> Automated payment processing and receipt generation</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Impact on Current Timeline:</strong> If approved, this CR will be scheduled as a separate phase (Phase 2) beginning after successful completion and client sign-off of the current NeuroSense360 Phase 1 deliverables.
+                </div>
+            </div>
+
+            <!-- Technical Analysis -->
+            <div class="section">
+                <h2 class="section-title">Technical Analysis</h2>
+
+                <h3 class="subsection-title">1. Application Structure</h3>
+                <p><strong>What type of application do we need to make?</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Screens/Pages</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Public Pages</strong></td>
+                            <td>6 screens</td>
+                            <td>Doctor profiles, booking, payment, confirmation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Patient Portal</strong></td>
+                            <td>4 screens</td>
+                            <td>Login, appointments, intake forms, documents</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Doctor Portal</strong></td>
+                            <td>10 screens</td>
+                            <td>Onboarding, dashboard, calendar, consult workspace, billing, settings</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Admin Portal</strong></td>
+                            <td>5 screens</td>
+                            <td>Tenant management, support console, audit logs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>API Endpoints</strong></td>
+                            <td>35+ endpoints</td>
+                            <td>RESTful APIs for all operations</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td><strong>25 UI screens + 35+ API endpoints</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="subsection-title">2. Features to Display</h3>
+                <p><strong>What are the key features that we need to show?</strong></p>
+
+                <div class="success-box">
+                    <strong>Patient-Facing Features:</strong>
+                    <ul>
+                        <li>Doctor discovery and profile viewing (credentials, specialties, fees)</li>
+                        <li>Real-time availability calendar with slot booking</li>
+                        <li>Secure payment processing via doctor's payment gateway</li>
+                        <li>Booking confirmation with calendar invite (ICS) + Zoom link</li>
+                        <li>Pre-visit intake form with medical history and file uploads</li>
+                        <li>Email/SMS reminders at T-24h, T-3h, T-30m</li>
+                        <li>One-click join for tele-consultation</li>
+                        <li>Post-visit document downloads (summary, prescription, invoice)</li>
+                        <li>Satisfaction survey (NPS/CSAT)</li>
+                        <li>Follow-up booking with differential pricing</li>
+                    </ul>
+                </div>
+
+                <div class="success-box" style="margin-top: 20px;">
+                    <strong>Doctor-Facing Features:</strong>
+                    <ul>
+                        <li>Quick onboarding wizard (< 30 minutes to go live)</li>
+                        <li>Customizable profile with branding (logo, colors, letterhead)</li>
+                        <li>Availability management (hours, slots, buffers, blackout dates)</li>
+                        <li>Payment gateway integration (Stripe/Razorpay/PayTabs)</li>
+                        <li>Zoom link configuration (static or OAuth)</li>
+                        <li>Today's appointments dashboard with patient intake status</li>
+                        <li>Consult workspace with live AI transcription</li>
+                        <li>Editable clinical notes (SOAP format optional)</li>
+                        <li>One-click prescription generation on letterhead</li>
+                        <li>Automated invoice generation and email</li>
+                        <li>Coupon code management</li>
+                        <li>Follow-up pricing rules (time-based discounts)</li>
+                        <li>Analytics (conversion, no-show rate, NPS/CSAT trends, revenue)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Admin Features:</strong>
+                    <ul>
+                        <li>Tenant (doctor) onboarding and KYC verification</li>
+                        <li>Support escalation console with session context</li>
+                        <li>Audit logs (who did what, when)</li>
+                        <li>Content moderation and compliance controls</li>
+                        <li>System configuration and feature flags</li>
+                    </ul>
+                </div>
+
+                <h3 class="subsection-title">3. Database Storage Requirements</h3>
+                <p><strong>What information do we need to store in our database?</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table Name</th>
+                            <th>Purpose</th>
+                            <th>Estimated Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ddo_tenants</td>
+                            <td>Doctor organizations, branding, status</td>
+                            <td>~ 1KB/tenant</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_doctors</td>
+                            <td>Doctor profiles, credentials, fees, availability rules</td>
+                            <td>~ 5KB/doctor</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_patients</td>
+                            <td>Patient demographics, contact info, medical history</td>
+                            <td>~ 3KB/patient</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_appointments</td>
+                            <td>Bookings, slots, status, payment links</td>
+                            <td>~ 2KB/appointment</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_payments</td>
+                            <td>Payment transactions, provider responses</td>
+                            <td>~ 4KB/payment</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_uploads</td>
+                            <td>Patient files, reports, prescriptions metadata</td>
+                            <td>~ 1KB/file (metadata only)</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_transcripts</td>
+                            <td>Consultation transcripts and AI summaries</td>
+                            <td>~ 50KB/consult</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_invoices</td>
+                            <td>Generated invoices and receipts</td>
+                            <td>~ 2KB/invoice</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_surveys</td>
+                            <td>Patient feedback (NPS/CSAT)</td>
+                            <td>~ 1KB/survey</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_coupons</td>
+                            <td>Discount codes and usage tracking</td>
+                            <td>~ 500B/coupon</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_audit_logs</td>
+                            <td>All system actions for compliance</td>
+                            <td>~ 500B/action</td>
+                        </tr>
+                        <tr>
+                            <td>ddo_support_tickets</td>
+                            <td>Escalations and help requests</td>
+                            <td>~ 5KB/ticket</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Estimated Storage (1,000 doctors, 10,000 patients, 50,000 appointments/year)</strong></td>
+                            <td><strong>~ 5 GB database + 50 GB file storage</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>Integration with Existing NeuroSense Schema:</strong>
+                    <ul>
+                        <li>Link DDO patients to existing NeuroSense user accounts via email/mobile</li>
+                        <li>Share cognitive assessment results between DDO consultations and NeuroSense platform</li>
+                        <li>Unified patient record: DDO appointments + NeuroSense assessments</li>
+                        <li>Cross-reference: ddo_patients.neurosense_user_id (foreign key)</li>
+                    </ul>
+                </div>
+
+                <h3 class="subsection-title">4. DDO Platform Functionality Requirements</h3>
+                <p><strong>What functions/features do we need from the DDO platform?</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Features Required</th>
+                            <th>Technical Approach</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Multi-Tenancy</strong></td>
+                            <td>Isolated doctor portals with tenant_id on all data</td>
+                            <td>PostgreSQL Row-Level Security (RLS), per-tenant S3 prefixes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payment Gateways</strong></td>
+                            <td>Stripe, Razorpay, PayTabs, PayU (doctor's own merchant accounts)</td>
+                            <td>Provider adapter pattern, webhook verification, idempotency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Video Integration</strong></td>
+                            <td>Zoom static links (v1), OAuth scheduled meetings (v1.1)</td>
+                            <td>Zoom SDK/API, meeting URL generation, participant tracking</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Transcription</strong></td>
+                            <td>Real-time speech-to-text during consultations</td>
+                            <td>OpenAI Whisper or Azure Speech Services, consent workflow</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Clinical Notes</strong></td>
+                            <td>Generate SOAP notes from transcript</td>
+                            <td>GPT-4/Claude for summarization, editable templates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PDF Generation</strong></td>
+                            <td>Branded prescriptions, summaries, invoices</td>
+                            <td>Chromium/Puppeteer, per-tenant letterhead templates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Notifications</strong></td>
+                            <td>Email with ICS attachments, SMS/WhatsApp (optional)</td>
+                            <td>SendGrid/SES for email, Twilio for SMS, scheduled jobs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>File Storage</strong></td>
+                            <td>Secure upload/download of patient reports and prescriptions</td>
+                            <td>S3-compatible storage, signed URLs, virus scanning (ClamAV)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Availability Engine</strong></td>
+                            <td>Real-time slot calculation with conflict detection</td>
+                            <td>Redis for locking, PostgreSQL optimistic concurrency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analytics</strong></td>
+                            <td>Doctor dashboards with KPIs (conversion, NPS, revenue)</td>
+                            <td>Aggregated queries, cached reports, chart libraries</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="subsection-title">5. Overall Workflow</h3>
+                <p><strong>What will the overall workflow be?</strong></p>
+
+                <div class="workflow-diagram">
+<strong>Patient Booking Flow:</strong>
+1. Patient discovers doctor profile (public page)
+   → Views credentials, specialties, fees, reviews
+
+2. Patient selects appointment slot from real-time calendar
+   → System checks availability, reserves temporary hold (5 min)
+
+3. Patient proceeds to payment
+   → Redirect to doctor's payment gateway (Stripe/Razorpay/etc.)
+   → Patient completes payment on provider's secure page
+
+4. Payment webhook received by DDO
+   → Verify signature, validate payment
+   → Re-check slot availability (race condition protection)
+   → If available: Lock slot (atomic), create appointment
+   → If taken: Offer alternatives or 1-click refund
+
+5. Confirmation sent to patient & doctor
+   → Email with ICS calendar invite
+   → Zoom meeting link included
+   → Link to pre-visit intake form
+
+6. Pre-visit intake (T-48h to T-2h)
+   → Patient uploads reports, scans, prior prescriptions
+   → Patient updates medical history
+   → Doctor reviews intake before consultation
+
+7. Reminders sent automatically
+   → T-24h: "Appointment tomorrow with Dr. X, upload any pending reports"
+   → T-3h: "Appointment in 3 hours, join link: [Zoom URL]"
+   → T-30m: "Appointment starting soon, click to join"
+
+8. Tele-Consultation
+   → Patient & doctor join Zoom meeting
+   → Consent banner shown for recording/transcription
+   → AI transcribes conversation in real-time
+   → Doctor can see transcript during consultation
+
+9. Post-Consultation
+   → AI generates draft clinical summary (SOAP format)
+   → Doctor reviews, edits, approves
+   → Doctor generates prescription on letterhead
+   → System creates invoice automatically
+
+10. Documents sent to patient
+    → Email with attachments:
+      - Consultation summary (PDF)
+      - Prescription (PDF on doctor's letterhead)
+      - Invoice/Receipt (PDF)
+    → All documents downloadable from patient portal
+
+11. Follow-up
+    → Patient receives satisfaction survey link (NPS/CSAT)
+    → Option to book follow-up with differential pricing
+    → If within X days: Discounted follow-up rate applied
+    → Previous medical history auto-filled
+
+<strong>Doctor Onboarding Flow:</strong>
+1. Doctor signs up → Creates tenant account
+2. KYC verification (ID check, medical license)
+3. Profile setup: Bio, credentials, specialties, languages, fees
+4. Branding: Upload logo, choose colors, upload letterhead PDF
+5. Availability rules: Set hours, slot duration, buffers, max daily consults
+6. Payment gateway: Connect Stripe/Razorpay (paste API keys or OAuth)
+7. Zoom integration: Paste static meeting link or connect OAuth
+8. Policies: Set cancellation, refund, follow-up pricing rules
+9. Review & publish → Profile goes live
+10. Start accepting bookings immediately
+
+<strong>Error Handling Workflow:</strong>
+- Payment timeout → Retry with exponential backoff (3 attempts)
+- Slot conflict → Show nearest alternatives + 1-click refund option
+- Zoom link broken → Fallback to manual meeting link entry
+- AI transcription fails → Allow manual note entry
+- File upload fails → Show clear error, allow retry, support ticket option
+- "Escalate to Human" button always visible → Creates support ticket
+                </div>
+            </div>
+
+            <!-- Effort Estimate Breakdown -->
+            <div class="section">
+                <h2 class="section-title">Detailed Effort Estimate</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task Category</th>
+                            <th>Sub-Tasks</th>
+                            <th>Hours</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 1: Architecture & Setup (32 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Architecture Design</td>
+                            <td>Multi-tenant schema, RLS, data model</td>
+                            <td>16</td>
+                            <td>Tech Lead</td>
+                        </tr>
+                        <tr>
+                            <td>DevOps Setup</td>
+                            <td>Environment, CI/CD, monitoring</td>
+                            <td>12</td>
+                            <td>DevOps</td>
+                        </tr>
+                        <tr>
+                            <td>Auth & Tenancy</td>
+                            <td>Multi-tenant auth, role-based access</td>
+                            <td>4</td>
+                            <td>Backend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 2: Core Platform (88 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Tenant Management</td>
+                            <td>Onboarding wizard, KYC, settings</td>
+                            <td>20</td>
+                            <td>Full-stack Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Doctor Portal</td>
+                            <td>Profile, availability, dashboard</td>
+                            <td>28</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Availability Engine</td>
+                            <td>Slot calculation, conflict detection, locking</td>
+                            <td>24</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Public Booking Pages</td>
+                            <td>Doctor profiles, calendar, checkout</td>
+                            <td>16</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 3: Payment & Notifications (40 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Payment Gateway Integration</td>
+                            <td>Stripe, Razorpay adapters, webhooks</td>
+                            <td>24</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Email System</td>
+                            <td>Templates, ICS generation, SendGrid/SES</td>
+                            <td>12</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Reminder System</td>
+                            <td>Scheduled jobs (T-24h/3h/30m)</td>
+                            <td>4</td>
+                            <td>Backend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 4: Patient Portal (32 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Patient Auth & Profile</td>
+                            <td>OTP login, profile management</td>
+                            <td>12</td>
+                            <td>Full-stack Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Intake Forms</td>
+                            <td>Medical history, file uploads</td>
+                            <td>12</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Appointments Dashboard</td>
+                            <td>Upcoming, past, documents</td>
+                            <td>8</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 5: Consultation & AI (48 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Zoom Integration</td>
+                            <td>Static links (v1), OAuth setup (v1.1)</td>
+                            <td>12</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>AI Transcription</td>
+                            <td>Whisper/Azure Speech, real-time processing</td>
+                            <td>20</td>
+                            <td>AI Engineer</td>
+                        </tr>
+                        <tr>
+                            <td>Clinical Notes Generator</td>
+                            <td>SOAP format, GPT-4 summarization</td>
+                            <td>16</td>
+                            <td>AI Engineer</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 6: Documents & Outputs (32 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>PDF Generation</td>
+                            <td>Prescriptions, summaries, invoices</td>
+                            <td>16</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Letterhead Templates</td>
+                            <td>Per-tenant branding, dynamic data</td>
+                            <td>8</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>File Storage & Signing</td>
+                            <td>S3, signed URLs, virus scanning</td>
+                            <td>8</td>
+                            <td>DevOps</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 7: Analytics & Admin (24 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Doctor Analytics</td>
+                            <td>Dashboards, KPIs, reports</td>
+                            <td>16</td>
+                            <td>Full-stack Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Admin Console</td>
+                            <td>Tenant management, audit logs</td>
+                            <td>8</td>
+                            <td>Backend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 8: Testing & QA (32 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Unit Testing</td>
+                            <td>Backend API tests, 80% coverage</td>
+                            <td>12</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Integration Testing</td>
+                            <td>Payment flows, email delivery, AI</td>
+                            <td>12</td>
+                            <td>QA Engineer</td>
+                        </tr>
+                        <tr>
+                            <td>E2E Testing</td>
+                            <td>Full booking workflows, edge cases</td>
+                            <td>8</td>
+                            <td>QA Engineer</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Phase 9: Deployment & Documentation (20 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Staging Deployment</td>
+                            <td>Deploy, smoke tests, UAT</td>
+                            <td>8</td>
+                            <td>DevOps</td>
+                        </tr>
+                        <tr>
+                            <td>Production Deployment</td>
+                            <td>Go-live, monitoring setup</td>
+                            <td>4</td>
+                            <td>DevOps</td>
+                        </tr>
+                        <tr>
+                            <td>Documentation</td>
+                            <td>User guides, API docs, runbooks</td>
+                            <td>8</td>
+                            <td>Tech Writer</td>
+                        </tr>
+
+                        <tr style="background: #f0f4ff;">
+                            <td colspan="4"><strong>Project Management & Coordination (12 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Sprint Planning & Standups</td>
+                            <td>8 sprints × 1.5 hours each</td>
+                            <td>12</td>
+                            <td>Project Manager</td>
+                        </tr>
+
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Subtotal</strong></td>
+                            <td><strong>320 hrs</strong></td>
+                            <td><strong>40 days</strong></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Contingency Buffer (20%)</strong></td>
+                            <td><strong>64 hrs</strong></td>
+                            <td><strong>8 days</strong></td>
+                        </tr>
+                        <tr class="total-row" style="background: #003DA5; color: white;">
+                            <td colspan="2"><strong>GRAND TOTAL</strong></td>
+                            <td><strong>384 hrs</strong></td>
+                            <td><strong>48 days</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Timeline -->
+            <div class="section">
+                <h2 class="section-title">Estimated Timeline</h2>
+
+                <div class="timeline-box">
+                    <div class="timeline-item">
+                        <div class="timeline-week">Weeks 1-2: Architecture & Setup</div>
+                        <div>Environment setup, multi-tenant architecture, auth system</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-week">Weeks 3-4: Core Platform</div>
+                        <div>Doctor portal, availability engine, booking pages</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-week">Weeks 5-6: Payments & Notifications</div>
+                        <div>Payment gateways, email system, reminders, patient portal</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-week">Weeks 7-8: Consultation & AI</div>
+                        <div>Zoom integration, AI transcription, clinical notes, PDF generation</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-week">Weeks 9-10: Testing & Launch</div>
+                        <div>QA testing, bug fixes, staging deployment, UAT, production launch</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Resource Model:</strong> Shared resources across projects (4-5 week extension due to multitasking). For dedicated team, timeline compresses to 6-7 weeks.
+                </div>
+            </div>
+
+            <!-- Cost Estimate -->
+            <div class="section">
+                <h2 class="section-title">Cost Estimate</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Hours</th>
+                            <th>Rate (INR/hr)</th>
+                            <th>Amount (INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tech Lead / Architect</td>
+                            <td>16</td>
+                            <td>₹1,000</td>
+                            <td>₹16,000</td>
+                        </tr>
+                        <tr>
+                            <td>Backend Development</td>
+                            <td>140</td>
+                            <td>₹750</td>
+                            <td>₹1,05,000</td>
+                        </tr>
+                        <tr>
+                            <td>Frontend Development</td>
+                            <td>72</td>
+                            <td>₹700</td>
+                            <td>₹50,400</td>
+                        </tr>
+                        <tr>
+                            <td>AI/ML Engineering</td>
+                            <td>36</td>
+                            <td>₹850</td>
+                            <td>₹30,600</td>
+                        </tr>
+                        <tr>
+                            <td>QA Engineering</td>
+                            <td>32</td>
+                            <td>₹600</td>
+                            <td>₹19,200</td>
+                        </tr>
+                        <tr>
+                            <td>DevOps</td>
+                            <td>24</td>
+                            <td>₹750</td>
+                            <td>₹18,000</td>
+                        </tr>
+                        <tr>
+                            <td>Project Management</td>
+                            <td>12</td>
+                            <td>₹700</td>
+                            <td>₹8,400</td>
+                        </tr>
+                        <tr>
+                            <td>Technical Writing</td>
+                            <td>8</td>
+                            <td>₹500</td>
+                            <td>₹4,000</td>
+                        </tr>
+                        <tr style="background: #f7fafc; font-weight: 600;">
+                            <td colspan="2">Subtotal (320 hrs)</td>
+                            <td></td>
+                            <td>₹2,51,600</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Contingency Buffer (20% - 64 hrs)</td>
+                            <td></td>
+                            <td>₹48,400</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Total Development Cost</strong></td>
+                            <td></td>
+                            <td><strong>₹3,00,000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="subsection-title">Ongoing Costs (Monthly)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Estimated Cost/Month</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cloud Hosting (AWS/GCP)</td>
+                            <td>$200 - $500</td>
+                        </tr>
+                        <tr>
+                            <td>Database (PostgreSQL managed)</td>
+                            <td>$150 - $300</td>
+                        </tr>
+                        <tr>
+                            <td>File Storage (S3)</td>
+                            <td>$50 - $150</td>
+                        </tr>
+                        <tr>
+                            <td>Email Service (SendGrid/SES)</td>
+                            <td>$50 - $100</td>
+                        </tr>
+                        <tr>
+                            <td>AI Services (OpenAI/Azure)</td>
+                            <td>$100 - $300</td>
+                        </tr>
+                        <tr>
+                            <td>Monitoring & Logging</td>
+                            <td>$50 - $100</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Total Monthly Operational Cost</strong></td>
+                            <td><strong>$600 - $1,450</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>Note:</strong> Payment gateway fees (Stripe/Razorpay) are paid by doctors from their merchant accounts, not Bettroi. Zoom costs are doctor-specific (their own Zoom accounts).
+                </div>
+            </div>
+
+            <!-- Dependencies & Risks -->
+            <div class="section">
+                <h2 class="section-title">Dependencies & Risks</h2>
+
+                <h3 class="subsection-title">External Dependencies</h3>
+                <ul>
+                    <li>Payment gateway API access and documentation (Stripe, Razorpay, PayTabs)</li>
+                    <li>Zoom API access for OAuth integration (v1.1)</li>
+                    <li>OpenAI/Azure API access for transcription and summarization</li>
+                    <li>Email service provider (SendGrid/SES) approval and configuration</li>
+                    <li>SMS/WhatsApp provider (Twilio) for optional notifications</li>
+                </ul>
+
+                <h3 class="subsection-title">Internal Dependencies</h3>
+                <ul>
+                    <li><strong>Current NeuroSense milestone completion</strong> (prerequisite before DDO starts)</li>
+                    <li>Client sign-off on NeuroSense Phase 1 deliverables</li>
+                    <li>Resource availability (shared team across projects)</li>
+                    <li>Infrastructure access (staging, production environments)</li>
+                </ul>
+
+                <h3 class="subsection-title">Technical Risks</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk</th>
+                            <th>Probability</th>
+                            <th>Impact</th>
+                            <th>Mitigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Multi-tenant data isolation breach</td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td><span class="risk-high">High</span></td>
+                            <td>PostgreSQL RLS, extensive testing, security audit</td>
+                        </tr>
+                        <tr>
+                            <td>Payment webhook race conditions</td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td><span class="risk-high">High</span></td>
+                            <td>Redis locking, idempotency keys, comprehensive testing</td>
+                        </tr>
+                        <tr>
+                            <td>AI transcription accuracy issues</td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td>Doctor edits required before sending, manual fallback</td>
+                        </tr>
+                        <tr>
+                            <td>Zoom API rate limiting</td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td>Static links for v1, implement rate limit handling</td>
+                        </tr>
+                        <tr>
+                            <td>Email deliverability issues</td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td>DKIM/SPF/DMARC setup, warm-up sending, fallback SMS</td>
+                        </tr>
+                        <tr>
+                            <td>Scalability bottlenecks</td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td><span class="risk-high">High</span></td>
+                            <td>Cloud-native architecture, load testing, caching</td>
+                        </tr>
+                        <tr>
+                            <td>Third-party API breaking changes</td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td><span class="risk-high">High</span></td>
+                            <td>Version pinning, API monitoring, adapter pattern</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Assumptions -->
+            <div class="section">
+                <h2 class="section-title">Assumptions</h2>
+
+                <div class="info-box">
+                    <strong>Technical Assumptions:</strong>
+                    <ul>
+                        <li>NeuroSense360 Phase 1 is complete and stable before DDO integration begins</li>
+                        <li>Existing infrastructure (AWS/GCP, Supabase) can support multi-tenant architecture</li>
+                        <li>Payment gateway APIs (Stripe/Razorpay) are RESTful with comprehensive documentation</li>
+                        <li>Zoom API allows static link usage or OAuth integration for meeting scheduling</li>
+                        <li>AI transcription services (OpenAI Whisper/Azure Speech) meet accuracy requirements</li>
+                        <li>PostgreSQL RLS provides adequate tenant isolation without performance degradation</li>
+                        <li>Email service (SendGrid/SES) can handle 10,000+ transactional emails/day</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Business Assumptions:</strong>
+                    <ul>
+                        <li>Client approves this estimate and provides formal change order within 2 weeks</li>
+                        <li>Requirements are stable; no major scope changes during development</li>
+                        <li>Client provides timely feedback and approvals (SLA: 3 business days)</li>
+                        <li>Test credentials for payment gateways provided within 1 week of kickoff</li>
+                        <li>Staging environment available for UAT testing</li>
+                        <li>Go-live date flexible based on development progress</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Resource Assumptions:</strong>
+                    <ul>
+                        <li>Team members available as per timeline (shared resources model)</li>
+                        <li>No major holidays or extended absences during development period</li>
+                        <li>Standard 8-hour workdays; no expectation of overtime</li>
+                        <li>Access to necessary development tools and environments</li>
+                        <li>Knowledge transfer from current NeuroSense team available</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Exclusions -->
+            <div class="section">
+                <h2 class="section-title">Out of Scope (Exclusions)</h2>
+
+                <div class="highlight-box">
+                    <strong>The following items are NOT included in this estimate:</strong>
+                    <ul>
+                        <li>SMS/WhatsApp notifications (planned for v1.1, separate estimate)</li>
+                        <li>Zoom OAuth scheduled meetings (static links in v1, OAuth in v1.1)</li>
+                        <li>Multi-doctor clinic management with shared calendars (v2)</li>
+                        <li>Insurance claims workflows and e-prescription exchange</li>
+                        <li>EHR (Electronic Health Record) integrations</li>
+                        <li>Native mobile apps (iOS/Android) - web-responsive only in v1</li>
+                        <li>HIPAA Business Associate Agreement (BAA) compliance (if required, separate SOW)</li>
+                        <li>Pharmacy and lab integrations</li>
+                        <li>Historical data migration from existing doctor systems</li>
+                        <li>Custom reporting beyond standard KPI dashboards</li>
+                        <li>White-label reseller platform</li>
+                        <li>Dedicated 24/7 support (business hours only in v1)</li>
+                        <li>On-premise deployment option (cloud SaaS only)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="section">
+                <h2 class="section-title">Recommendations</h2>
+
+                <div class="success-box">
+                    <strong>Recommended Approach:</strong>
+                    <ol>
+                        <li><strong>Complete NeuroSense Phase 1 First:</strong> Focus on current milestone completion and client sign-off before starting DDO integration. This prevents scope overlap and ensures clear deliverable boundaries.</li>
+                        <li><strong>Phased Rollout:</strong> Launch DDO with core features (v1) in 8-10 weeks, then add advanced features (SMS, Zoom OAuth, multi-doctor) in subsequent releases (v1.1, v2).</li>
+                        <li><strong>Shared Resources Model:</strong> Use existing NeuroSense team for DDO to maintain continuity and reduce onboarding costs. Accept longer timeline (10 weeks vs. 6 weeks) for cost savings.</li>
+                        <li><strong>Risk Mitigation Priority:</strong> Focus on payment security, multi-tenant isolation, and data privacy from day 1. Allocate extra time for testing these critical areas.</li>
+                        <li><strong>Client Collaboration:</strong> Schedule weekly demos to gather feedback early and avoid late-stage surprises.</li>
+                    </ol>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Alternative: MVP Approach (Reduced Scope)</strong>
+                    <p>If budget or timeline is constrained, consider launching with minimal viable features:</p>
+                    <ul>
+                        <li>Single payment gateway (Stripe only)</li>
+                        <li>Email notifications only (no SMS/WhatsApp)</li>
+                        <li>Zoom static links only (no OAuth)</li>
+                        <li>Manual clinical notes (no AI transcription in v1)</li>
+                        <li>Basic analytics (no advanced reporting)</li>
+                    </ul>
+                    <p><strong>Reduced Estimate:</strong> 220 hours (27.5 days), $22,000 - $26,000 USD, 6-week timeline</p>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="section">
+                <h2 class="section-title">Next Steps</h2>
+
+                <h3 class="subsection-title">For Client (Dr. Sangeeth / Decision Maker):</h3>
+                <ol>
+                    <li>Review this estimate and provide feedback within 1 week</li>
+                    <li>Clarify any open questions or request additional details</li>
+                    <li>Decide: Approve full scope, request MVP approach, or defer to later phase</li>
+                    <li>Sign formal Change Request (CR) document</li>
+                    <li>Provide payment gateway test credentials (Stripe/Razorpay)</li>
+                    <li>Schedule kickoff meeting after NeuroSense Phase 1 completion</li>
+                </ol>
+
+                <h3 class="subsection-title">For Bettroi Team:</h3>
+                <ol>
+                    <li>Await client approval decision</li>
+                    <li>Upon approval, finalize detailed project plan and sprint schedule</li>
+                    <li>Allocate resources (shared team model)</li>
+                    <li>Set up development environment and multi-tenant architecture</li>
+                    <li>Kickoff meeting within 1 week of approval</li>
+                    <li>Weekly progress updates to client (Haritha coordination)</li>
+                    <li>Demo at end of each 2-week sprint</li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>Estimate Validity:</strong> This estimate is valid for 60 days from date of issue (27 Dec 2025 - 26 Feb 2026). After this period, rates and availability may change.
+                </div>
+            </div>
+
+            <!-- Approval Section -->
+            <div class="section">
+                <h2 class="section-title">Approval & Sign-Off</h2>
+
+                <table style="margin-top: 20px;">
+                    <tr>
+                        <td style="width: 50%; vertical-align: top; padding: 20px;">
+                            <strong>Client Approval:</strong><br><br>
+                            Name: _________________________________<br><br>
+                            Title: _________________________________<br><br>
+                            Signature: _________________________________<br><br>
+                            Date: _________________________________
+                        </td>
+                        <td style="width: 50%; vertical-align: top; padding: 20px;">
+                            <strong>Bettroi Approval:</strong><br><br>
+                            Name: Dr. Murali B K (BK)<br><br>
+                            Title: Technical Lead<br><br>
+                            Signature: _________________________________<br><br>
+                            Date: 27 December 2025
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <strong>Payment Terms (upon approval):</strong>
+                    <ul>
+                        <li>30% advance upon Change Request approval and project kickoff</li>
+                        <li>40% upon completion of Phase 5 (Consultation & AI features)</li>
+                        <li>30% upon final delivery, UAT completion, and production deployment</li>
+                    </ul>
+                    <p><strong>Payment Schedule:</strong></p>
+                    <ul>
+                        <li>Payment 1: ₹90,000 (30%) - Upon CR approval</li>
+                        <li>Payment 2: ₹1,20,000 (40%) - Week 7 milestone completion</li>
+                        <li>Payment 3: ₹90,000 (30%) - Production go-live</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-grid">
+                <div class="footer-contact">
+                    <div><strong>BETTROI - FZE</strong></div>
+                    <div>Building A5, DSO-DDP-A5-D-FLEX-1044</div>
+                    <div>Dubai Silicon Oasis, Dubai, UAE</div>
+                    <div>Email: <a href="mailto:bk@bettroi.com">bk@bettroi.com</a></div>
+                    <div>Tel: +971 54 714 8580</div>
+                </div>
+                <div style="text-align: right;">
+                    <div><strong>Trade License:</strong> 3891</div>
+                    <div><strong>TRN:</strong> 104277403200003</div>
+                    <div style="margin-top: 15px;"><a href="https://bettroi.com">www.bettroi.com</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

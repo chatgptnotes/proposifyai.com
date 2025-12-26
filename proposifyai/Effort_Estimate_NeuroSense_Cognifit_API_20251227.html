@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effort Estimate - NeuroSense Cognifit API Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #003DA5 0%, #0051D5 100%);
+            padding: 20px;
+        }
+
+        .document-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px 50px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .document-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .document-meta {
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #10b981;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 25px 0 15px;
+        }
+
+        .summary-box {
+            background: #f0fdf4;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #10b981;
+            margin-bottom: 30px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4299e1;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #10b981;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        .total-row {
+            background: #f0fdf4;
+            font-weight: 700;
+            border-top: 2px solid #10b981;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .workflow-diagram {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .risk-high {
+            background: #fee2e2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        .risk-medium {
+            background: #fef3c7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .risk-low {
+            background: #d1fae5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .timeline-box {
+            background: white;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #34d399;
+        }
+
+        .timeline-week {
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 30px 50px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-contact a {
+            color: #90cdf4;
+            text-decoration: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .document-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <div class="header-banner">
+            <div class="logo">BETTROI</div>
+            <div class="document-title">Technical Effort Estimate</div>
+            <div class="document-meta">
+                <div><strong>Project:</strong> NeuroSense360 - Cognifit API Integration</div>
+                <div><strong>Reference:</strong> CR-NEURO-COGNIFIT-2025002</div>
+                <div><strong>Date:</strong> 27 December 2025</div>
+                <div><strong>Prepared By:</strong> Dr. Murali B K (BK), Technical Lead</div>
+                <div><strong>Status:</strong> For Client Approval</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Executive Summary -->
+            <div class="section">
+                <h2 class="section-title">Executive Summary</h2>
+                <div class="summary-box">
+                    <div class="summary-item">
+                        <span class="summary-label">Integration Type:</span>
+                        <span class="summary-value">Cognifit Cognitive Assessment API</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total Effort:</span>
+                        <span class="summary-value">120 person-hours (15 person-days)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Estimated Timeline:</span>
+                        <span class="summary-value">3-4 weeks (with shared resources)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Estimated Budget:</span>
+                        <span class="summary-value">₹1,50,000 INR (~$1,800 USD)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Complexity Level:</span>
+                        <span class="summary-value">Medium (Third-party API integration)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Recommendation:</span>
+                        <span class="summary-value">Proceed as separate CR after current milestone</span>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>⚠ Important Context:</strong> This is a major scope addition requiring formal change order approval as per Bettroi SOP. Integration depends on Cognifit API availability, documentation quality, and access credentials.
+                </div>
+            </div>
+
+            <!-- Current Situation -->
+            <div class="section">
+                <h2 class="section-title">Current Situation & Context</h2>
+                <p>NeuroSense360 currently offers proprietary cognitive assessments developed in-house. The Cognifit API integration will enhance the platform by providing access to a comprehensive library of scientifically validated cognitive tests developed by CogniFit Inc.</p>
+
+                <div class="success-box">
+                    <strong>Business Value:</strong>
+                    <ul>
+                        <li><strong>Expanded Test Library:</strong> Access to 30+ cognitive assessments (memory, attention, executive function, etc.)</li>
+                        <li><strong>Scientific Validation:</strong> Peer-reviewed, clinically validated assessments</li>
+                        <li><strong>Personalized Training:</strong> Adaptive cognitive training programs based on assessment results</li>
+                        <li><strong>Progress Tracking:</strong> Longitudinal data showing cognitive improvement over time</li>
+                        <li><strong>Competitive Advantage:</strong> Differentiate from competitors with world-class cognitive assessments</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Impact on Current Timeline:</strong> If approved, this CR will be scheduled as a separate mini-project beginning after successful completion and client sign-off of the current NeuroSense360 milestone.
+                </div>
+            </div>
+
+            <!-- Technical Analysis -->
+            <div class="section">
+                <h2 class="section-title">Technical Analysis</h2>
+
+                <h3 class="subsection-title">1. Application Structure</h3>
+                <p><strong>What type of application do we need to make?</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Screens/Pages</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Admin Portal</strong></td>
+                            <td>3 screens</td>
+                            <td>Cognifit API configuration, credentials management, test catalog sync</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Doctor Portal</strong></td>
+                            <td>4 screens</td>
+                            <td>Assign tests to patients, view results dashboard, historical trends, reports</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Patient Portal</strong></td>
+                            <td>5 screens</td>
+                            <td>Available tests, instructions, take assessment (iframe embed), results, progress tracking</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backend APIs</strong></td>
+                            <td>12 endpoints</td>
+                            <td>Cognifit proxy layer, webhook handlers, data sync, caching</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td><strong>12 UI screens + 12 API endpoints</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="subsection-title">2. Features to Display</h3>
+                <p><strong>What are the key features that we need to show in our application?</strong></p>
+
+                <div class="success-box">
+                    <strong>Patient-Facing Features:</strong>
+                    <ul>
+                        <li>Browse available cognitive assessments from Cognifit catalog</li>
+                        <li>View test details (duration, skills measured, difficulty level)</li>
+                        <li>Read instructions and watch demo videos before starting</li>
+                        <li>Take assessment via embedded Cognifit interface (iframe or redirect)</li>
+                        <li>View assessment results with detailed breakdowns (scores by cognitive domain)</li>
+                        <li>See visual representations (charts, graphs) of cognitive strengths and weaknesses</li>
+                        <li>Track progress over time with historical comparison</li>
+                        <li>Receive personalized recommendations for cognitive training</li>
+                        <li>Download assessment reports as PDF</li>
+                    </ul>
+                </div>
+
+                <div class="success-box" style="margin-top: 20px;">
+                    <strong>Doctor-Facing Features:</strong>
+                    <ul>
+                        <li>Assign specific Cognifit assessments to patients</li>
+                        <li>Monitor patient completion status in real-time</li>
+                        <li>View aggregated results dashboard for all assigned patients</li>
+                        <li>Compare patient results against normative data (age/gender matched)</li>
+                        <li>Track longitudinal changes in patient cognitive performance</li>
+                        <li>Generate clinical reports combining Cognifit data with other NeuroSense assessments</li>
+                        <li>Set automated alerts for significant changes in patient scores</li>
+                        <li>Export data for research or compliance purposes</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Admin Features:</strong>
+                    <ul>
+                        <li>Configure Cognifit API credentials (API keys, OAuth tokens)</li>
+                        <li>Sync test catalog from Cognifit (scheduled daily sync)</li>
+                        <li>Map Cognifit tests to NeuroSense assessment categories</li>
+                        <li>Monitor API usage and rate limits</li>
+                        <li>View integration health metrics (API success rate, latency)</li>
+                        <li>Manage webhook endpoints for real-time result notifications</li>
+                    </ul>
+                </div>
+
+                <h3 class="subsection-title">3. Database Storage Requirements</h3>
+                <p><strong>What information do we need to store in our database that will be needed from Cognifit feature?</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table Name</th>
+                            <th>Purpose</th>
+                            <th>Key Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cognifit_config</td>
+                            <td>API credentials and settings</td>
+                            <td>api_key, api_secret, base_url, webhook_secret, enabled</td>
+                        </tr>
+                        <tr>
+                            <td>cognifit_tests</td>
+                            <td>Cached test catalog from Cognifit</td>
+                            <td>cognifit_test_id, name, description, duration_minutes, skills_measured, difficulty_level, last_synced_at</td>
+                        </tr>
+                        <tr>
+                            <td>cognifit_assignments</td>
+                            <td>Doctor assigns tests to patients</td>
+                            <td>patient_id, doctor_id, cognifit_test_id, assigned_at, due_date, status (pending/in_progress/completed), priority</td>
+                        </tr>
+                        <tr>
+                            <td>cognifit_sessions</td>
+                            <td>Tracking patient test sessions</td>
+                            <td>assignment_id, cognifit_session_id, started_at, completed_at, duration_seconds, ip_address, device_info</td>
+                        </tr>
+                        <tr>
+                            <td>cognifit_results</td>
+                            <td>Assessment results from Cognifit</td>
+                            <td>session_id, overall_score, domain_scores_json, raw_data_json, percentile_rank, age_norm, gender_norm, completed_at</td>
+                        </tr>
+                        <tr>
+                            <td>cognifit_sync_logs</td>
+                            <td>API sync history and errors</td>
+                            <td>sync_type, status, tests_synced, errors_json, started_at, completed_at</td>
+                        </tr>
+                        <tr>
+                            <td>cognifit_webhooks</td>
+                            <td>Incoming webhook events log</td>
+                            <td>event_type, payload_json, processed_at, status, error_message</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Estimated Storage</strong></td>
+                            <td><strong>~ 200 MB for 1,000 patients, 10,000 assessments</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>Integration with Existing NeuroSense Schema:</strong>
+                    <ul>
+                        <li>Link cognifit_results to existing patients table via patient_id (foreign key)</li>
+                        <li>Extend assessments table to include assessment_source enum: 'neurosense_internal' | 'cognifit'</li>
+                        <li>Unified results view combining both internal and Cognifit assessments</li>
+                        <li>Cross-reference for clinical reports: Include Cognifit scores alongside NeuroSense scores</li>
+                    </ul>
+                </div>
+
+                <h3 class="subsection-title">4. Cognitive Application Needs</h3>
+                <p><strong>What functions or features do we need/require from the Cognifit application for our own application?</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>API Endpoint</th>
+                            <th>Purpose</th>
+                            <th>Request Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GET /api/v1/assessments</strong></td>
+                            <td>Fetch list of available cognitive tests with metadata</td>
+                            <td>GET (authenticated)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GET /api/v1/assessments/{id}</strong></td>
+                            <td>Get detailed information about specific test</td>
+                            <td>GET (authenticated)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POST /api/v1/users</strong></td>
+                            <td>Create or sync user profile in Cognifit (patient registration)</td>
+                            <td>POST (JSON: name, email, dob, gender)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GET /api/v1/users/{id}</strong></td>
+                            <td>Retrieve user profile and settings</td>
+                            <td>GET (authenticated)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POST /api/v1/sessions</strong></td>
+                            <td>Create new assessment session for patient</td>
+                            <td>POST (JSON: user_id, assessment_id, settings)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GET /api/v1/sessions/{id}</strong></td>
+                            <td>Get session details and launch URL</td>
+                            <td>GET (returns: session_url, token, expiry)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GET /api/v1/sessions/{id}/status</strong></td>
+                            <td>Check if session is in-progress, completed, or abandoned</td>
+                            <td>GET (polling endpoint)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GET /api/v1/sessions/{id}/results</strong></td>
+                            <td>Fetch detailed assessment results after completion</td>
+                            <td>GET (JSON: scores, domains, percentiles, raw_data)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GET /api/v1/users/{id}/history</strong></td>
+                            <td>Retrieve all past assessments for longitudinal analysis</td>
+                            <td>GET (paginated, filters: date_range, assessment_type)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POST /api/v1/webhooks</strong></td>
+                            <td>Register webhook URL for real-time event notifications</td>
+                            <td>POST (webhook_url, events: ['session.completed', 'results.ready'])</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DELETE /api/v1/webhooks/{id}</strong></td>
+                            <td>Unregister webhook</td>
+                            <td>DELETE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GET /api/v1/reports/{session_id}</strong></td>
+                            <td>Generate downloadable PDF report for session</td>
+                            <td>GET (returns: pdf_url or binary data)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>API Requirements:</strong>
+                    <ul>
+                        <li><strong>Authentication:</strong> OAuth 2.0 or API Key (header: X-API-Key)</li>
+                        <li><strong>Data Format:</strong> JSON (UTF-8)</li>
+                        <li><strong>Rate Limit:</strong> Assumed 100 requests/minute (to be confirmed)</li>
+                        <li><strong>Webhook Format:</strong> POST with HMAC signature for verification</li>
+                        <li><strong>Timeout:</strong> Standard HTTP timeout (30 seconds for most endpoints)</li>
+                        <li><strong>Error Handling:</strong> Standard HTTP status codes (400, 401, 429, 500, etc.)</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>⚠ Dependency:</strong> This estimate assumes Cognifit provides a REST API with documentation. If API is not available or documentation is incomplete, estimate may increase by 20-30% for discovery and workaround development.
+                </div>
+
+                <h3 class="subsection-title">5. Overall Workflow</h3>
+                <p><strong>What will the overall workflow be?</strong></p>
+
+                <div class="workflow-diagram">
+<strong>Patient Assessment Workflow:</strong>
+
+1. Doctor assigns Cognifit test to patient
+   → Via NeuroSense doctor portal
+   → Select patient from list
+   → Choose Cognifit test from catalog
+   → Set due date and priority
+   → Click "Assign Test"
+
+2. System creates assignment record
+   → Store in cognifit_assignments table
+   → Send notification to patient (email/SMS)
+   → Assignment appears in patient dashboard
+
+3. Patient logs into NeuroSense portal
+   → Sees assigned Cognifit test in "Pending Assessments"
+   → Clicks "Start Assessment"
+
+4. NeuroSense backend calls Cognifit API
+   → POST /api/v1/sessions (create new session)
+   → Receives: session_id, launch_url, access_token
+   → Stores session_id in cognifit_sessions table
+
+5. Patient redirected to Cognifit platform
+   → Option A: Embedded iframe within NeuroSense (seamless)
+   → Option B: Redirect to Cognifit with return URL
+   → Patient completes assessment on Cognifit interface
+
+6. During assessment:
+   → Optional polling: GET /api/v1/sessions/{id}/status
+   → Shows progress bar in NeuroSense (if supported by Cognifit API)
+
+7. Upon completion:
+   → Cognifit sends webhook to NeuroSense
+   → Event: "session.completed"
+   → Payload: {session_id, user_id, status: 'completed', timestamp}
+
+8. NeuroSense webhook handler:
+   → Verify HMAC signature
+   → Fetch results: GET /api/v1/sessions/{id}/results
+   → Parse and store results in cognifit_results table
+   → Update assignment status to 'completed'
+
+9. Results processing:
+   → Extract domain scores (memory, attention, executive function, etc.)
+   → Calculate percentile ranks
+   → Compare to age/gender norms
+   → Store raw JSON for future reference
+
+10. Notify doctor:
+    → Email: "Patient [Name] completed Cognifit assessment"
+    → Dashboard notification badge (new results available)
+
+11. Doctor reviews results:
+    → View detailed scores by cognitive domain
+    → See visual charts (radar chart, bar graphs)
+    → Compare to previous assessments (if any)
+    → Compare to normative data
+    → Add clinical notes
+
+12. Patient accesses results:
+    → View summary with explanations
+    → Download PDF report
+    → See personalized recommendations
+
+<strong>Daily Sync Workflow (Automated):</strong>
+
+1. Scheduled job runs daily (e.g., 2 AM)
+   → Fetch latest test catalog: GET /api/v1/assessments
+   → Compare with local cache (cognifit_tests table)
+   → Update if changes detected (new tests, updated metadata)
+   → Log sync status in cognifit_sync_logs
+
+<strong>Error Handling Workflow:</strong>
+
+- Cognifit API timeout (30 sec)
+  → Retry with exponential backoff (3 attempts: 5s, 15s, 45s)
+  → If still failing, log error and notify admin
+
+- Authentication failure (401)
+  → Check API credentials in cognifit_config
+  → Attempt re-authentication (OAuth refresh token)
+  → If refresh fails, alert admin (email + Slack)
+
+- Rate limit exceeded (429)
+  → Respect Retry-After header
+  → Queue request for later processing
+  → Notify admin if rate limits consistently hit
+
+- Session launch URL expired
+  → Regenerate session: POST /api/v1/sessions
+  → Provide new launch URL to patient
+
+- Webhook signature verification fails
+  → Log as security incident
+  → Do NOT process webhook payload
+  → Alert admin immediately
+
+- Patient abandons assessment midway
+  → Status remains 'in_progress'
+  → After 24 hours, mark as 'abandoned'
+  → Send reminder to patient to complete
+                </div>
+            </div>
+
+            <!-- Effort Estimate Breakdown -->
+            <div class="section">
+                <h2 class="section-title">Detailed Effort Estimate</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task Category</th>
+                            <th>Sub-Tasks</th>
+                            <th>Hours</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f0fdf4;">
+                            <td colspan="4"><strong>Phase 1: Discovery & API Analysis (12 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Cognifit API Documentation Review</td>
+                            <td>Study API endpoints, authentication, data models</td>
+                            <td>6</td>
+                            <td>Tech Lead</td>
+                        </tr>
+                        <tr>
+                            <td>Sandbox Testing</td>
+                            <td>Test API calls, verify responses, latency check</td>
+                            <td>4</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Data Mapping Design</td>
+                            <td>Map Cognifit data to NeuroSense schema</td>
+                            <td>2</td>
+                            <td>Tech Lead</td>
+                        </tr>
+
+                        <tr style="background: #f0fdf4;">
+                            <td colspan="4"><strong>Phase 2: Backend Integration (40 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>API Client Library</td>
+                            <td>Build wrapper for Cognifit API with retry logic</td>
+                            <td>12</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Authentication Layer</td>
+                            <td>OAuth 2.0 or API key management, token refresh</td>
+                            <td>4</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Database Schema Updates</td>
+                            <td>Create 7 new tables, migrations, indexes</td>
+                            <td>6</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Webhook Handler</td>
+                            <td>Receive, verify, process Cognifit events</td>
+                            <td>8</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Sync Service</td>
+                            <td>Scheduled job for catalog sync, error handling</td>
+                            <td>6</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Caching Layer</td>
+                            <td>Redis cache for test catalog, reduce API calls</td>
+                            <td>4</td>
+                            <td>Backend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0fdf4;">
+                            <td colspan="4"><strong>Phase 3: Frontend Development (32 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Admin Portal (API Config)</td>
+                            <td>Credentials management, sync controls</td>
+                            <td>8</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Doctor Portal (Test Assignment)</td>
+                            <td>Assign tests, view results dashboard</td>
+                            <td>12</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Patient Portal (Take Tests)</td>
+                            <td>Browse tests, instructions, iframe embed, results</td>
+                            <td>12</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0fdf4;">
+                            <td colspan="4"><strong>Phase 4: Data Visualization (12 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Results Charts & Graphs</td>
+                            <td>Radar charts, bar graphs, progress tracking</td>
+                            <td>8</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Comparative Analytics</td>
+                            <td>Historical trends, normative comparisons</td>
+                            <td>4</td>
+                            <td>Frontend Dev</td>
+                        </tr>
+
+                        <tr style="background: #f0fdf4;">
+                            <td colspan="4"><strong>Phase 5: Testing & QA (16 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Unit Testing</td>
+                            <td>Backend API wrapper, webhook handler</td>
+                            <td>6</td>
+                            <td>Backend Dev</td>
+                        </tr>
+                        <tr>
+                            <td>Integration Testing</td>
+                            <td>End-to-end flows with Cognifit sandbox</td>
+                            <td>6</td>
+                            <td>QA Engineer</td>
+                        </tr>
+                        <tr>
+                            <td>Error Scenario Testing</td>
+                            <td>Timeouts, rate limits, authentication failures</td>
+                            <td>4</td>
+                            <td>QA Engineer</td>
+                        </tr>
+
+                        <tr style="background: #f0fdf4;">
+                            <td colspan="4"><strong>Phase 6: Deployment & Documentation (8 hours)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Staging Deployment</td>
+                            <td>Deploy, configure webhooks, UAT</td>
+                            <td>3</td>
+                            <td>DevOps</td>
+                        </tr>
+                        <tr>
+                            <td>Production Deployment</td>
+                            <td>Go-live, monitoring setup</td>
+                            <td>2</td>
+                            <td>DevOps</td>
+                        </tr>
+                        <tr>
+                            <td>Documentation</td>
+                            <td>User guide, API integration docs</td>
+                            <td>3</td>
+                            <td>Tech Writer</td>
+                        </tr>
+
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Subtotal</strong></td>
+                            <td><strong>120 hrs</strong></td>
+                            <td><strong>15 days</strong></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Contingency Buffer (20%)</strong></td>
+                            <td><strong>24 hrs</strong></td>
+                            <td><strong>3 days</strong></td>
+                        </tr>
+                        <tr class="total-row" style="background: #10b981; color: white;">
+                            <td colspan="2"><strong>GRAND TOTAL</strong></td>
+                            <td><strong>144 hrs</strong></td>
+                            <td><strong>18 days</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Timeline -->
+            <div class="section">
+                <h2 class="section-title">Estimated Timeline</h2>
+
+                <div class="timeline-box">
+                    <div class="timeline-item">
+                        <div class="timeline-week">Week 1: Discovery & Backend Setup</div>
+                        <div>API analysis, authentication, database schema, API client wrapper</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-week">Week 2: Backend Integration</div>
+                        <div>Webhook handler, sync service, caching, error handling</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-week">Week 3: Frontend Development</div>
+                        <div>Admin, doctor, and patient portals; data visualization</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-week">Week 4: Testing & Deployment</div>
+                        <div>QA testing, bug fixes, staging/production deployment</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Resource Model:</strong> Shared resources across projects. With dedicated team, timeline compresses to 2.5-3 weeks.
+                </div>
+            </div>
+
+            <!-- Cost Estimate -->
+            <div class="section">
+                <h2 class="section-title">Cost Estimate</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Hours</th>
+                            <th>Rate (INR/hr)</th>
+                            <th>Amount (INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tech Lead / Architect</td>
+                            <td>8</td>
+                            <td>₹1,000</td>
+                            <td>₹8,000</td>
+                        </tr>
+                        <tr>
+                            <td>Backend Development</td>
+                            <td>60</td>
+                            <td>₹750</td>
+                            <td>₹45,000</td>
+                        </tr>
+                        <tr>
+                            <td>Frontend Development</td>
+                            <td>36</td>
+                            <td>₹750</td>
+                            <td>₹27,000</td>
+                        </tr>
+                        <tr>
+                            <td>QA Engineering</td>
+                            <td>10</td>
+                            <td>₹600</td>
+                            <td>₹6,000</td>
+                        </tr>
+                        <tr>
+                            <td>DevOps</td>
+                            <td>5</td>
+                            <td>₹750</td>
+                            <td>₹3,750</td>
+                        </tr>
+                        <tr>
+                            <td>Technical Writing</td>
+                            <td>3</td>
+                            <td>₹500</td>
+                            <td>₹1,500</td>
+                        </tr>
+                        <tr style="background: #f7fafc; font-weight: 600;">
+                            <td colspan="2">Subtotal (120 hrs)</td>
+                            <td></td>
+                            <td>₹91,250</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Contingency Buffer (20% - 24 hrs)</td>
+                            <td></td>
+                            <td>₹58,750</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Total Development Cost</strong></td>
+                            <td></td>
+                            <td><strong>₹1,50,000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="subsection-title">Ongoing Costs (if applicable)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Estimated Cost/Month</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cognifit API Subscription</td>
+                            <td>$XXX - TBD (depends on Cognifit pricing model)</td>
+                        </tr>
+                        <tr>
+                            <td>Additional Database Storage</td>
+                            <td>$10 - $30</td>
+                        </tr>
+                        <tr>
+                            <td>Redis Cache (if not already provisioned)</td>
+                            <td>$20 - $50</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Total Monthly Cost (excluding Cognifit fees)</strong></td>
+                            <td><strong>$30 - $80</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>Note:</strong> Cognifit API subscription cost is unknown and must be obtained from Cognifit directly. This could range from $100/month to $1,000+/month depending on usage tiers and licensing model.
+                </div>
+            </div>
+
+            <!-- Dependencies & Risks -->
+            <div class="section">
+                <h2 class="section-title">Dependencies & Risks</h2>
+
+                <h3 class="subsection-title">External Dependencies</h3>
+                <ul>
+                    <li><strong>Cognifit API Access:</strong> Requires active partnership/license agreement with CogniFit Inc.</li>
+                    <li><strong>API Documentation:</strong> Complete and accurate API documentation from Cognifit</li>
+                    <li><strong>Sandbox Environment:</strong> Test environment for development and QA</li>
+                    <li><strong>API Credentials:</strong> Client ID, API keys, OAuth secrets</li>
+                    <li><strong>Webhook Support:</strong> Cognifit must support webhook callbacks for real-time notifications</li>
+                </ul>
+
+                <h3 class="subsection-title">Technical Risks</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk</th>
+                            <th>Probability</th>
+                            <th>Impact</th>
+                            <th>Mitigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cognifit API documentation incomplete or outdated</td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td><span class="risk-high">High</span></td>
+                            <td>Request sandbox access early; schedule call with Cognifit technical support</td>
+                        </tr>
+                        <tr>
+                            <td>API rate limits too restrictive for our usage</td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td>Implement caching; negotiate higher rate limits with Cognifit</td>
+                        </tr>
+                        <tr>
+                            <td>Webhook delivery failures or delays</td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td>Implement polling as fallback; retry mechanism for failed webhooks</td>
+                        </tr>
+                        <tr>
+                            <td>Data format mismatches between Cognifit and NeuroSense</td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td>Build robust mapping layer; store raw JSON for future reference</td>
+                        </tr>
+                        <tr>
+                            <td>Authentication token expiration issues</td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td>Implement automatic token refresh; monitor auth errors</td>
+                        </tr>
+                        <tr>
+                            <td>Cognifit API breaking changes</td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td><span class="risk-high">High</span></td>
+                            <td>Version pinning; monitor Cognifit changelog; adapter pattern for isolation</td>
+                        </tr>
+                        <tr>
+                            <td>Iframe embedding restrictions (CORS, CSP)</td>
+                            <td><span class="risk-medium">Medium</span></td>
+                            <td><span class="risk-low">Low</span></td>
+                            <td>Test early; fallback to redirect approach if embedding not allowed</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box">
+                    <strong>Critical Dependency:</strong> This entire project depends on Cognifit providing a production-ready REST API. If API is in beta, poorly documented, or has reliability issues, this estimate could increase by 30-50%.
+                </div>
+            </div>
+
+            <!-- Assumptions -->
+            <div class="section">
+                <h2 class="section-title">Assumptions</h2>
+
+                <div class="info-box">
+                    <strong>Technical Assumptions:</strong>
+                    <ul>
+                        <li>Cognifit provides a RESTful API with JSON responses</li>
+                        <li>API documentation is complete, accurate, and up-to-date</li>
+                        <li>Authentication uses OAuth 2.0 or API Key (standard methods)</li>
+                        <li>API rate limits are reasonable (100+ requests/minute)</li>
+                        <li>Webhook support available for real-time event notifications</li>
+                        <li>Assessment results include structured data (not just PDFs)</li>
+                        <li>Sandbox environment available for development and testing</li>
+                        <li>No major breaking changes to API during development</li>
+                        <li>API latency <2 seconds for standard requests</li>
+                        <li>Iframe embedding allowed (or redirect approach acceptable)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Business Assumptions:</strong>
+                    <ul>
+                        <li>Client has active license/partnership agreement with Cognifit</li>
+                        <li>Client approves this estimate within 2 weeks</li>
+                        <li>API credentials provided within 1 week of project kickoff</li>
+                        <li>Current NeuroSense milestone completed before this work begins</li>
+                        <li>Requirements stable; no major scope changes</li>
+                        <li>Client provides timely feedback (SLA: 3 business days)</li>
+                        <li>Cognifit subscription cost covered by client (not in estimate)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Open Questions -->
+            <div class="section">
+                <h2 class="section-title">Open Questions for Client</h2>
+
+                <div class="highlight-box">
+                    <strong>These questions must be answered before work begins:</strong>
+                    <ol>
+                        <li><strong>Cognifit Partnership Status:</strong> Do we have an active agreement with Cognifit? If not, who will negotiate this?</li>
+                        <li><strong>API Access:</strong> Can client provide Cognifit API documentation URL and sandbox credentials?</li>
+                        <li><strong>Pricing Model:</strong> What is Cognifit's pricing (per assessment, per user, subscription)? Who pays?</li>
+                        <li><strong>Test Selection:</strong> Which Cognifit assessments do we want to offer (all 30+, or curated subset)?</li>
+                        <li><strong>User Experience:</strong> Embed assessments in iframe or redirect to Cognifit platform?</li>
+                        <li><strong>Data Ownership:</strong> Who owns the assessment results data? Can we store locally?</li>
+                        <li><strong>Compliance:</strong> Any HIPAA, GDPR, or regulatory requirements for cognitive assessment data?</li>
+                        <li><strong>Integration Scope:</strong> Just assessment results, or also include Cognifit's training modules?</li>
+                        <li><strong>Timeline Priority:</strong> Is this higher priority than DDO integration, or lower?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="section">
+                <h2 class="section-title">Recommendations</h2>
+
+                <div class="success-box">
+                    <strong>Recommended Approach:</strong>
+                    <ol>
+                        <li><strong>Verify Cognifit API Availability First:</strong> Before approving budget, confirm Cognifit has production-ready API with documentation. Schedule technical call with Cognifit.</li>
+                        <li><strong>Start with Pilot:</strong> Integrate 3-5 most popular Cognifit assessments first (MVP). Expand catalog after validating integration.</li>
+                        <li><strong>Phased After Current Milestone:</strong> Complete NeuroSense Phase 1 first, then tackle Cognifit as separate mini-project.</li>
+                        <li><strong>Cache Aggressively:</strong> Reduce Cognifit API calls (and potential subscription costs) by caching test catalog and results.</li>
+                        <li><strong>Monitor API Usage:</strong> Track API calls to avoid unexpected overage charges from Cognifit.</li>
+                    </ol>
+                </div>
+
+                <div class="info-box">
+                    <strong>Alternative: Custom Assessment Development</strong>
+                    <p>If Cognifit API is unavailable, too expensive, or unreliable, consider:</p>
+                    <ul>
+                        <li>Developing custom cognitive assessments in-house (higher upfront cost, full control)</li>
+                        <li>Partnering with academic institutions for validated tests</li>
+                        <li>Licensing individual assessments instead of full Cognifit platform</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="section">
+                <h2 class="section-title">Next Steps</h2>
+
+                <h3 class="subsection-title">Immediate Actions (Before Approval):</h3>
+                <ol>
+                    <li><strong>Client:</strong> Answer open questions listed above</li>
+                    <li><strong>Client:</strong> Provide Cognifit API documentation and sandbox access</li>
+                    <li><strong>Bettroi:</strong> Review Cognifit API docs; validate estimate accuracy</li>
+                    <li><strong>Both:</strong> Schedule technical call with Cognifit support (if available)</li>
+                    <li><strong>Client:</strong> Clarify budget and approve/defer this CR</li>
+                </ol>
+
+                <h3 class="subsection-title">Upon Approval:</h3>
+                <ol>
+                    <li>Sign formal Change Request (CR) document</li>
+                    <li>Finalize project plan and sprint schedule</li>
+                    <li>Allocate development resources</li>
+                    <li>Kickoff meeting within 1 week</li>
+                    <li>Weekly progress updates</li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>Estimate Validity:</strong> Valid for 60 days (27 Dec 2025 - 26 Feb 2026)
+                </div>
+            </div>
+
+            <!-- Approval Section -->
+            <div class="section">
+                <h2 class="section-title">Approval & Sign-Off</h2>
+
+                <table style="margin-top: 20px;">
+                    <tr>
+                        <td style="width: 50%; vertical-align: top; padding: 20px;">
+                            <strong>Client Approval:</strong><br><br>
+                            Name: _________________________________<br><br>
+                            Title: _________________________________<br><br>
+                            Signature: _________________________________<br><br>
+                            Date: _________________________________
+                        </td>
+                        <td style="width: 50%; vertical-align: top; padding: 20px;">
+                            <strong>Bettroi Approval:</strong><br><br>
+                            Name: Dr. Murali B K (BK)<br><br>
+                            Title: Technical Lead<br><br>
+                            Signature: _________________________________<br><br>
+                            Date: 27 December 2025
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <strong>Payment Terms (upon approval):</strong>
+                    <ul>
+                        <li>40% advance upon Change Request approval and project kickoff</li>
+                        <li>60% upon completion, UAT sign-off, and production deployment</li>
+                    </ul>
+                    <p><strong>Payment Schedule:</strong></p>
+                    <ul>
+                        <li>Payment 1: ₹60,000 (40%) - Upon CR approval</li>
+                        <li>Payment 2: ₹90,000 (60%) - Production go-live</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-grid">
+                <div class="footer-contact">
+                    <div><strong>BETTROI - FZE</strong></div>
+                    <div>Building A5, DSO-DDP-A5-D-FLEX-1044</div>
+                    <div>Dubai Silicon Oasis, Dubai, UAE</div>
+                    <div>Email: <a href="mailto:bk@bettroi.com">bk@bettroi.com</a></div>
+                    <div>Tel: +971 54 714 8580</div>
+                </div>
+                <div style="text-align: right;">
+                    <div><strong>Trade License:</strong> 3891</div>
+                    <div><strong>TRN:</strong> 104277403200003</div>
+                    <div style="margin-top: 15px;"><a href="https://bettroi.com">www.bettroi.com</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

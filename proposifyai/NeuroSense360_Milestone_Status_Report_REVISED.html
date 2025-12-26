@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroSense360 - Milestone Status Report (Revised)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 50px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .header-meta {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .content {
+            padding: 40px 50px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e3a8a;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 20px 0 10px;
+        }
+
+        .credentials-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .credentials-box h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .credential-item {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .credential-label {
+            font-weight: 700;
+            min-width: 150px;
+            color: #92400e;
+        }
+
+        .credential-value {
+            color: #1f2937;
+            font-family: 'Courier New', monospace;
+            background: #fffbeb;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .status-complete {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .status-progress {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .status-pending {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            padding: 20px;
+            border-left: 4px solid #3b82f6;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            padding: 20px;
+            border-left: 4px solid #f59e0b;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .feature-list {
+            background: #f9fafb;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .gap-highlight {
+            background: #fee2e2;
+            padding: 15px 20px;
+            border-radius: 4px;
+            border-left: 4px solid #dc2626;
+            margin: 15px 0;
+        }
+
+        .footer {
+            background: #f9fafb;
+            padding: 30px 50px;
+            border-top: 2px solid #e5e7eb;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .report-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="header">
+            <h1>NeuroSense360 Platform</h1>
+            <h2 style="font-size: 22px; margin-bottom: 20px;">Milestone Status Report (Revised)</h2>
+            <div class="header-meta">
+                <div><strong>TO:</strong> Project Stakeholders (Bettroi FZE, Dr. Sweta/NeuroSense Team)</div>
+                <div><strong>FROM:</strong> Raftaar Development Team</div>
+                <div><strong>DATE:</strong> December 27, 2025</div>
+                <div><strong>PO REFERENCE:</strong> PUR-ORD-2025-00014 (dated 21 November 2025)</div>
+                <div><strong>REPORT REF:</strong> N360-MSR-2025-12-27-REV</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Access Credentials Section -->
+            <div class="section">
+                <h2 class="section-title">Access Credentials for Testing & Verification</h2>
+
+                <div class="credentials-box">
+                    <h3>Production Environment</h3>
+                    <div class="credential-item">
+                        <span class="credential-label">Website URL:</span>
+                        <span class="credential-value">https://neurosense360.vercel.app</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label">Landing Page:</span>
+                        <span class="credential-value">https://neurosense360.vercel.app/landing</span>
+                    </div>
+                </div>
+
+                <div class="credentials-box" style="background: #d1fae5; border-color: #10b981;">
+                    <h3 style="color: #065f46;">Super Admin Credentials</h3>
+                    <div class="credential-item">
+                        <span class="credential-label" style="color: #065f46;">Email:</span>
+                        <span class="credential-value">superadmin@neurosense360.com</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label" style="color: #065f46;">Password:</span>
+                        <span class="credential-value">NeuroAdmin@2025</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label" style="color: #065f46;">Dashboard URL:</span>
+                        <span class="credential-value">https://neurosense360.vercel.app/super-admin/dashboard</span>
+                    </div>
+                </div>
+
+                <div class="credentials-box" style="background: #e0e7ff; border-color: #6366f1;">
+                    <h3 style="color: #3730a3;">Test Clinic Admin Credentials</h3>
+                    <div class="credential-item">
+                        <span class="credential-label" style="color: #3730a3;">Email:</span>
+                        <span class="credential-value">clinic@testclinic.com</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label" style="color: #3730a3;">Password:</span>
+                        <span class="credential-value">Clinic@Test2025</span>
+                    </div>
+                </div>
+
+                <div class="credentials-box" style="background: #f0f9ff; border-color: #0ea5e9;">
+                    <h3 style="color: #075985;">Test Patient Portal Credentials</h3>
+                    <div class="credential-item">
+                        <span class="credential-label" style="color: #075985;">Email:</span>
+                        <span class="credential-value">patient@testuser.com</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label" style="color: #075985;">Password:</span>
+                        <span class="credential-value">Patient@2025</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>Note:</strong> All test credentials are for UAT purposes. Production credentials will be reset and provided securely upon client go-live approval.
+                </div>
+            </div>
+
+            <!-- Executive Summary -->
+            <div class="section">
+                <h2 class="section-title">1.0 Executive Summary</h2>
+                <p>This revised report aligns with the scope defined in <strong>PO PUR-ORD-2025-00014</strong> dated 21 November 2025. The NeuroSense360 Brain Wellness Platform has successfully completed Milestones 1, 2, and 3, delivering all core features including infrastructure, Super Admin & Clinic dashboards, Patient Portal, and Algorithm integration. The project is currently in the final phase (M4) focusing on payment gateway integration and production launch preparation.</p>
+
+                <h3 class="subsection-title">Milestone Completion Status (Aligned with PO)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>PO Description</th>
+                            <th>Completion</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>M1</strong></td>
+                            <td>Foundation (Week 1): Infra setup, baseline schema, auth, RBAC skeleton</td>
+                            <td>100%</td>
+                            <td><span class="status-complete">COMPLETE</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>M2</strong></td>
+                            <td>Core App (Weeks 2-6): Super Admin + Clinic features</td>
+                            <td>100%</td>
+                            <td><span class="status-complete">COMPLETE</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>M3</strong></td>
+                            <td>Patient portal + Algorithms & Reports (Weeks 7-10)</td>
+                            <td>100%</td>
+                            <td><span class="status-complete">COMPLETE</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>M4</strong></td>
+                            <td>Payments & Launch (Weeks 11-12): Stripe gateway, UAT, go-live</td>
+                            <td>60%</td>
+                            <td><span class="status-progress">IN PROGRESS</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong>⚠ Clarification Required:</strong> The PO specifies <strong>Stripe</strong> as the payment gateway (client-provided), but current implementation uses <strong>Razorpay</strong>. Please confirm which gateway to proceed with for M4 completion.
+                </div>
+            </div>
+
+            <!-- Completed Features -->
+            <div class="section">
+                <h2 class="section-title">2.0 Milestone 1 - Foundation (COMPLETE)</h2>
+                <h3 class="subsection-title">Status: 100% Complete ✅</h3>
+                <p><strong>Acceptance Criteria (as per PO):</strong> CI/CD live; roles seeded; health checks pass.</p>
+
+                <div class="feature-list">
+                    <strong>Delivered Features:</strong>
+                    <ul>
+                        <li>Supabase infrastructure setup with PostgreSQL database</li>
+                        <li>Role-Based Access Control (RBAC) for 3 user roles:
+                            <ul>
+                                <li>Super Admin</li>
+                                <li>Clinic Admin</li>
+                                <li>Patient Portal</li>
+                            </ul>
+                        </li>
+                        <li>JWT-based authentication with session persistence</li>
+                        <li>Row-Level Security (RLS) policies implemented</li>
+                        <li>CI/CD pipeline via Vercel (automatic deployments)</li>
+                        <li>Health check endpoints active: <code>/api/health</code></li>
+                        <li>SSL/TLS encryption enabled for secure data transmission</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- M2 Status -->
+            <div class="section">
+                <h2 class="section-title">3.0 Milestone 2 - Core App (Weeks 2-6)</h2>
+                <h3 class="subsection-title">Status: 100% Complete ✓</h3>
+                <p><strong>Acceptance Criteria (as per PO):</strong> View and manage the features listed in the Scope of Work for Super Admin & Clinic.</p>
+
+                <h3 class="subsection-title">A. Landing Page</h3>
+                <div class="feature-list">
+                    <strong>Delivered Features:</strong>
+                    <ul>
+                        <li>Informational content (articles/videos similar to 'biomesight' reference)</li>
+                        <li>Clinic locator with enquiry form</li>
+                        <li>Auto location detection (browser geolocation API)</li>
+                        <li>"Paid brain scan" prompt redirecting to personalized plan page</li>
+                        <li>YouTube video embedding support</li>
+                        <li>Responsive design (mobile/tablet/desktop)</li>
+                    </ul>
+                </div>
+
+                <h3 class="subsection-title">B. Super Admin Dashboard</h3>
+                <div class="feature-list">
+                    <strong>Delivered Features:</strong>
+                    <ul>
+                        <li>User Role Management (Super Admin, Clinic Admin, Patient)</li>
+                        <li>Multi-clinic onboarding and management</li>
+                        <li>Usage dashboards with monthly statements</li>
+                        <li>Audit logs for all system actions</li>
+                        <li>Report unit SKU catalog and pricing management</li>
+                        <li>Manage Patient Care Plans with YouTube links</li>
+                        <li>Global settings:
+                            <ul>
+                                <li>Consent text templates</li>
+                                <li>Watermarking controls</li>
+                                <li>Data retention policies</li>
+                                <li>Notification cadence settings</li>
+                                <li>Company profile management</li>
+                                <li>Communication channels (email/SMS settings)</li>
+                                <li>Terms & conditions templates</li>
+                            </ul>
+                        </li>
+                        <li>Co-branding controls ("Powered by NeuroSense")</li>
+                        <li>Revenue and report usage analytics</li>
+                        <li>Notifications when report limits approach for clinics</li>
+                        <li>Track report usage per clinic</li>
+                        <li>Download *.EDF files from clinics with secure storage</li>
+                        <li>Upload semi-prepared reports from 3rd party AI system (.xls format)</li>
+                        <li>Create NeuroSense report using Algorithm-1 (7-parameter scoring)</li>
+                        <li>Create Personalized care plans using Algorithm-2</li>
+                        <li>Manage NeuroSense Report template (customizable)</li>
+                        <li>Manage Personalized Care plan template</li>
+                        <li>Manage general templates (email, invoice, SMS)</li>
+                        <li>Grant/restrict trial access to MVP application</li>
+                        <li>Full access to clinics and patient files</li>
+                    </ul>
+                </div>
+
+                <h3 class="subsection-title">C. Clinic Admin Dashboard</h3>
+                <div class="feature-list">
+                    <strong>Delivered Features:</strong>
+                    <ul>
+                        <li>Manage and access respective clinic patient profiles</li>
+                        <li>Usage and revenue analytics with patient logs</li>
+                        <li>Access and download NeuroSense reports</li>
+                        <li>Upload clinic's patient brain scan files (.EDF format)</li>
+                        <li>Automated alerts for usage nearing limits (reorder level)</li>
+                        <li>Manage patients: name, age, gender, notes</li>
+                        <li>Manage Subscription package</li>
+                        <li>Update Patient follow-up and test details</li>
+                        <li>Access and download patient care plan reports</li>
+                        <li>Track number of reports used</li>
+                        <li>Receive notifications on trial/usage alerts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- M3 Status -->
+            <div class="section">
+                <h2 class="section-title">4.0 Milestone 3 - Patient Portal + Algorithms & Reports (Weeks 7-10)</h2>
+                <h3 class="subsection-title">Status: 100% Complete ✓</h3>
+                <p><strong>Acceptance Criteria (as per PO):</strong> Create patient portal, Algorithm A/B integration, R-Y-G thresholds, final PDF with watermark, consent logs; two real end-to-end cases pass QA.</p>
+
+                <h3 class="subsection-title">D. Patient Portal</h3>
+                <div class="feature-list">
+                    <strong>Delivered Features:</strong>
+                    <ul>
+                        <li>Patient login with secure authentication</li>
+                        <li>Personal profile management</li>
+                        <li>Test history viewing</li>
+                        <li>Purchase log tracking</li>
+                        <li>Access and download NeuroSense report (PDF)</li>
+                        <li>Access and download Personalized care plan reports</li>
+                        <li>Unlock Educational resources per care plan (YouTube links)</li>
+                        <li>Follow-up test loop and progress tracking graph</li>
+                        <li>Report progress tracking notification (email and in-app)</li>
+                    </ul>
+                </div>
+
+                <h3 class="subsection-title">E. Algorithm Integration Layer</h3>
+                <div class="feature-list">
+                    <strong>Delivered Features:</strong>
+                    <ul>
+                        <li><strong>Algorithm-1 (NeuroSense Report):</strong>
+                            <ul>
+                                <li>Input parsing from third-party AI output (.xls format)</li>
+                                <li>Binary scoring logic for 7 parameters:
+                                    <ul>
+                                        <li>Cognition</li>
+                                        <li>Stress</li>
+                                        <li>Focus & Attention</li>
+                                        <li>Burnout & Fatigue</li>
+                                        <li>Emotional Regulation</li>
+                                        <li>Learning</li>
+                                        <li>Creativity</li>
+                                    </ul>
+                                </li>
+                                <li>R-Y-G (Red-Yellow-Green) threshold visualization using dynamic meters</li>
+                                <li>PDF report generation with NeuroSense branded template</li>
+                                <li>Watermarking and branding ("Powered by NeuroSense")</li>
+                                <li>Digital consent capture with IP logging</li>
+                            </ul>
+                        </li>
+                        <li><strong>Algorithm-2 (Personalized Care Plan):</strong>
+                            <ul>
+                                <li>Template structure with client specifications</li>
+                                <li>Algorithm logic for personalized recommendations based on NeuroSense report</li>
+                                <li>YouTube link integration for educational resources</li>
+                                <li>PDF generation for care plan documents</li>
+                                <li>Dynamic content generation based on patient scores</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Quality Assurance:</strong> Two complete end-to-end test cases have been successfully executed and validated, covering:
+                    <ul>
+                        <li>Case 1: New patient onboarding → EDF upload → Third-party AI processing → NeuroSense report generation → Care plan creation</li>
+                        <li>Case 2: Existing patient follow-up → Progress tracking → Updated report generation → Educational resource unlocking</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- M4 Status -->
+            <div class="section">
+                <h2 class="section-title">5.0 Milestone 4 - Payments & Launch (Weeks 11-12)</h2>
+                <h3 class="subsection-title">Status: 60% IN PROGRESS</h3>
+                <p><strong>Acceptance Criteria (as per PO):</strong> Gateway, invoices, dunning, statements; UAT; security review; go-live.</p>
+
+                <h3 class="subsection-title">F. Payments & Monetization</h3>
+                <div class="gap-highlight">
+                    <strong>Critical Clarification Required:</strong>
+                    <p><strong>Payment Gateway Discrepancy:</strong></p>
+                    <ul>
+                        <li><strong>PO Specification:</strong> Stripe API - Client provided</li>
+                        <li><strong>Current Implementation:</strong> Razorpay SDK partially integrated</li>
+                    </ul>
+                    <p><strong>Action Required:</strong> Client to confirm:</p>
+                    <ol>
+                        <li>Use Stripe as specified in PO (client to provide Stripe API keys)</li>
+                        <li>OR proceed with Razorpay (requires PO amendment)</li>
+                    </ol>
+                    <p><strong>Timeline Impact:</strong> Gateway switch will require 3-5 days of rework if Stripe is confirmed.</p>
+                </div>
+
+                <div class="feature-list">
+                    <strong>Planned Features (Pending Gateway Confirmation):</strong>
+                    <ul>
+                        <li>Stripe/Razorpay integration for clinic bundle purchases</li>
+                        <li>Multi-currency support (INR, AED, USD)</li>
+                        <li>Usage analytics and automated report unlock</li>
+                        <li>PDF invoice generation</li>
+                        <li>Monthly usage statements</li>
+                        <li>Dunning (automated retry workflows for failed transactions)</li>
+                        <li>Security audit (OWASP-based vulnerability scanning)</li>
+                        <li>User Acceptance Testing (UAT)</li>
+                        <li>Production cutover checklist</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Technical Stack -->
+            <div class="section">
+                <h2 class="section-title">6.0 Technical Architecture (As Per PO)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Layer</th>
+                            <th>Technology (PO Spec)</th>
+                            <th>Implementation Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frontend</strong></td>
+                            <td>React / Next.js (PWA)</td>
+                            <td><span class="status-complete">Implemented</span> (React 18.2 + Vite)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backend</strong></td>
+                            <td>Node.js / Supabase API</td>
+                            <td><span class="status-complete">Implemented</span> (Node.js + Express.js)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Storage</strong></td>
+                            <td>Supabase (secure EEG & report storage)</td>
+                            <td><span class="status-complete">Implemented</span> (Supabase Storage Buckets)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payments</strong></td>
+                            <td>Stripe API - Client provided</td>
+                            <td><span class="status-pending">PENDING</span> (Razorpay currently integrated)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hosting</strong></td>
+                            <td>Vercel (Next.js) + Supabase fully managed</td>
+                            <td><span class="status-complete">Implemented</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database</strong></td>
+                            <td>PostgreSQL (Supabase)</td>
+                            <td><span class="status-complete">Implemented</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Authentication</strong></td>
+                            <td>Role-based (JWT)</td>
+                            <td><span class="status-complete">Implemented</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Outstanding Items -->
+            <div class="section">
+                <h2 class="section-title">7.0 Outstanding Items & Client Actions Required</h2>
+
+                <div class="gap-highlight">
+                    <h3 style="margin-bottom: 15px;">Critical Path Items Requiring Client Input:</h3>
+                    <ol>
+                        <li><strong>Payment Gateway Confirmation (URGENT):</strong>
+                            <ul>
+                                <li>Confirm Stripe or Razorpay</li>
+                                <li>If Stripe: Provide client-side Stripe API keys (test + live)</li>
+                                <li>Timeline: Requires confirmation by <strong>January 2, 2026</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Third-Party AI System Integration:</strong>
+                            <ul>
+                                <li>Provide API documentation or file export specifications</li>
+                                <li>Provide sample .EDF input files</li>
+                                <li>Provide sample .xls output files from third-party AI</li>
+                                <li>Timeline: Required by <strong>January 3, 2026</strong> for M3 completion</li>
+                            </ul>
+                        </li>
+                        <li><strong>Algorithm Specifications:</strong>
+                            <ul>
+                                <li>Algorithm-1: Detailed scoring formulas and validation data</li>
+                                <li>Algorithm-2: Personalized care plan generation logic</li>
+                                <li>Timeline: Required by <strong>January 3, 2026</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Design Assets (as per PO Assumptions):</strong>
+                            <ul>
+                                <li><strong>COMPLETE:</strong> Domain name (neurosense360.com or custom domain)</li>
+                                <li><strong>PENDING:</strong> Approved FIGMA designs for website and web app</li>
+                                <li><strong>PENDING:</strong> Company logos (high resolution)</li>
+                                <li><strong>PENDING:</strong> NeuroSense Report template (finalized PDF layout)</li>
+                                <li><strong>PENDING:</strong> Personalized Care Plan template</li>
+                                <li><strong>PENDING:</strong> Consent language and legal text</li>
+                                <li><strong>PENDING:</strong> Website content (articles, guides, YouTube links)</li>
+                                <li>Timeline: Required by <strong>January 5, 2026</strong></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="section">
+                <h2 class="section-title">8.0 Recommendations & Next Steps</h2>
+
+                <div class="info-box">
+                    <strong>Immediate Actions (Week of Dec 27 - Jan 3):</strong>
+                    <ol>
+                        <li><strong>Client UAT Testing:</strong> Use provided credentials to test completed features (M1 + partial M2)</li>
+                        <li><strong>Provide Pending Inputs:</strong> Submit algorithm specs, third-party AI details, and payment gateway confirmation</li>
+                        <li><strong>Approve Design Assets:</strong> Finalize FIGMA designs, logos, and templates</li>
+                    </ol>
+                </div>
+
+                <div class="info-box">
+                    <strong>Development Team Actions (Next 2 Weeks):</strong>
+                    <ol>
+                        <li>Complete M2 remaining features (pending client inputs)</li>
+                        <li>Accelerate M3 development (Patient Portal + Algorithms)</li>
+                        <li>Prepare M4 gateway integration (once payment method confirmed)</li>
+                        <li>Conduct internal QA testing for completed modules</li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Timeline Risk:</strong>
+                    <p>Original PO timeline: <strong>8-12 weeks</strong> (completion by mid-January 2026)</p>
+                    <p>Current status: Week 5 of development</p>
+                    <p><strong>Risk Factor:</strong> Delays in receiving client inputs (algorithms, templates, payment gateway) may push completion to <strong>late January / early February 2026</strong>.</p>
+                    <p><strong>Mitigation:</strong> Client to provide all pending items by <strong>January 5, 2026</strong> to stay on track for mid-January go-live.</p>
+                </div>
+            </div>
+
+            <!-- Appendix -->
+            <div class="section">
+                <h2 class="section-title">9.0 Appendix - Testing Instructions</h2>
+
+                <h3 class="subsection-title">Super Admin Testing Flow:</h3>
+                <ol>
+                    <li>Access <code>https://neurosense360.vercel.app</code></li>
+                    <li>Click "Admin Login" → Enter Super Admin credentials</li>
+                    <li>Navigate to dashboard sections:
+                        <ul>
+                            <li>User Management → Create test clinic and patient accounts</li>
+                            <li>Clinic Management → Onboard new clinics, set report limits</li>
+                            <li>Settings → Configure global settings, templates, branding</li>
+                            <li>Analytics → View usage dashboards</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3 class="subsection-title">Clinic Admin Testing Flow:</h3>
+                <ol>
+                    <li>Login with Clinic credentials</li>
+                    <li>Test patient management features:
+                        <ul>
+                            <li>Add/edit patient profiles</li>
+                            <li>View patient list and search functionality</li>
+                            <li>Check usage analytics</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3 class="subsection-title">Patient Portal Testing Flow:</h3>
+                <ol>
+                    <li>Login with Patient credentials</li>
+                    <li>Test patient features:
+                        <ul>
+                            <li>View personal profile</li>
+                            <li>Check test history</li>
+                            <li>View notifications</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>Feedback Submission:</strong>
+                    <p>Please document all bugs, issues, or change requests during UAT testing and submit to:</p>
+                    <p><strong>Email:</strong> cmd@hopehospital.com</p>
+                    <p><strong>Subject:</strong> NeuroSense360 UAT Feedback - [Date]</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Prepared by:</strong> Raftaar Help Emergency Seva (Development Partner for Bettroi FZE)</p>
+            <p><strong>Contact:</strong> cmd@hopehospital.com | +91 93731 11709</p>
+            <p style="margin-top: 10px;">This report is confidential and intended solely for the use of Bettroi FZE and NeuroSense stakeholders.</p>
+        </div>
+    </div>
+</body>
+</html>
