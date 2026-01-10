@@ -12,7 +12,7 @@ Build and ship Proposify AI (proposifyai.com) - an AI-powered proposal generatio
 - **Database**: Supabase PostgreSQL with Row Level Security
 
 ## REPO/ENV
-- **Repo**: `/Users/apple/Music/Poposifyai.com/proposifyai`
+- **Repo**: `/Users/murali/1backup/Poposifyai.com/proposifyai`
 - **Package Manager**: npm
 - **OS**: macOS (Darwin 24.6.0)
 
@@ -27,7 +27,7 @@ Build and ship Proposify AI (proposifyai.com) - an AI-powered proposal generatio
 
 ### Code Quality
 - **Zero TypeScript/ESLint errors**
-- **No emojis in code** - Use Material-UI icons instead
+- **No emojis in code or documents** - Use Material-UI icons in code, text-based indicators in documents
 - No secrets in code. Use env vars.
 - Validate inputs. Rate-limit risky endpoints.
 - Handle all errors gracefully with user-visible messages.
@@ -142,8 +142,26 @@ Build and ship Proposify AI (proposifyai.com) - an AI-powered proposal generatio
 - Admin test credentials (if applicable)
 - Operations note: backups, logs, env rotation
 
+## AVAILABLE SKILLS
+
+### Proposal Generation
+- `generate-business-proposal.md` - Full business proposals with scope, timeline, pricing
+- `generate-effort-estimate-proposal.md` - Technical effort estimates for change requests
+- `generate-aml-compliance-proposal.md` - Regulated industry compliance proposals
+- `generate-ai-ml-proposal.md` - AI/ML project proposals
+- `generate-kitchen-management-proposal.md` - Bettroi Kitchen Management proposals
+
+### Invoicing & Financials
+- `generate-advance-invoice.md` - Advance payment invoices (milestone-based)
+- `generate-final-invoice.md` - Final payment invoices
+- `generate-full-invoice.md` - Full payment invoices (single payment)
+
+### Project Management
+- `generate-milestone-status-report.md` - Progress reports aligned with POs
+- `bettroi-quotation-skill-template.md` - Quotation template for Bettroi projects
+
 ---
 
-**Current Version**: v3.5.0 - 2025-11-01
+**Current Version**: v3.6.0 - 2025-12-27
 **Status**: Active Development - Autonomous Mode Enabled
-**Last Updated**: 2025-11-01
+**Last Updated**: 2025-12-27

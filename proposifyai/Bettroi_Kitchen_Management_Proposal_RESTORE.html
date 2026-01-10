@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Integrated Kitchen Management System - Technical Proposal | Bettroi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .page {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px 50px;
+        }
+
+        /* Letterhead Header */
+        .letterhead-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bettroi-logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        .bettroi-logo.large {
+            width: 80px;
+            height: 80px;
+        }
+
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #003DA5;
+            letter-spacing: 3px;
+        }
+
+        .reference-section {
+            text-align: right;
+            font-size: 12px;
+            line-height: 1.8;
+            color: #4b5563;
+        }
+
+        .reference-section .ref-label {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        /* Proposal Title Section */
+        .proposal-title-section {
+            background: #f8fafc;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid #003DA5;
+        }
+
+        .proposal-main-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #003DA5;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .proposal-erp-ref {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .cover-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #003DA5;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .cover-subtitle {
+            font-size: 24px;
+            color: #6b7280;
+            margin-bottom: 40px;
+        }
+
+        .client-info-box {
+            background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.2);
+        }
+
+        .client-info-box h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .client-info-box p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        /* Table of Contents */
+        .toc {
+            margin: 40px 0;
+        }
+
+        .toc h2 {
+            font-size: 28px;
+            color: #003DA5;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dotted #d1d5db;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toc-item:hover {
+            background: #f8fafc;
+            padding-left: 10px;
+        }
+
+        .toc-item span {
+            color: #6b7280;
+        }
+
+        /* Section Styling */
+        .section {
+            margin: 50px 0;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #003DA5;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #003DA5;
+        }
+
+        .section-subtitle {
+            font-size: 24px;
+            font-weight: 600;
+            color: #374151;
+            margin: 30px 0 15px 0;
+        }
+
+        .section-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #4b5563;
+        }
+
+        /* Feature Boxes */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-box {
+            background: #f8fafc;
+            border-left: 4px solid #003DA5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .feature-box h3 {
+            font-size: 18px;
+            color: #003DA5;
+            margin-bottom: 10px;
+        }
+
+        .feature-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-box li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 14px;
+        }
+
+        thead {
+            background: #003DA5;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+
+        .pricing-header {
+            background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .total-cost {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .pricing-row:last-child {
+            border-bottom: none;
+            background: #f8fafc;
+            font-weight: 600;
+        }
+
+        /* Highlights Box */
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box h3 {
+            color: #b45309;
+            margin-bottom: 10px;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            color: #003DA5;
+            margin-bottom: 10px;
+        }
+
+        /* Team Structure */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .team-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            border-color: #003DA5;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+        }
+
+        .team-card .role {
+            font-weight: 600;
+            color: #003DA5;
+            margin-bottom: 5px;
+        }
+
+        .team-card .count {
+            font-size: 36px;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        /* Footer */
+        .letterhead-footer {
+            position: fixed;
+            bottom: 30px;
+            left: 50px;
+            right: 50px;
+            padding-top: 15px;
+            border-top: 1px solid #d1d5db;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #6b7280;
+        }
+
+        .footer-left {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .footer-center {
+            text-align: center;
+        }
+
+        .footer-right {
+            text-align: right;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        @media print {
+            .letterhead-footer {
+                position: static;
+                margin-top: 60px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* List Styling */
+        ul.checked-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.checked-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        ul.checked-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: #003DA5;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .phase-badge {
+            background: #003DA5;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Cover Page -->
+    <div class="page">
+        <!-- Letterhead Header -->
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo large">
+                <div class="company-name">BETTROI</div>
+            </div>
+            <div class="reference-section">
+                <div><span class="ref-label">Reference:</span> BETTROI K26</div>
+                <div><span class="ref-label">Date:</span> 12 November 2025</div>
+                <div><span class="ref-label">Contact:</span> Murali Krishna</div>
+                <div><span class="ref-label">Email:</span> murali@bettroi.com</div>
+                <div><span class="ref-label">Website:</span> bettroi.com</div>
+            </div>
+        </div>
+
+        <!-- Proposal Title Section -->
+        <div class="proposal-title-section">
+            <div class="proposal-main-title">Commercial Proposal - AI-Integrated Kitchen Management System</div>
+            <div class="proposal-erp-ref">ERP REF: SAL-QTN-2025-00037</div>
+        </div>
+            </div>
+
+            <div class="header-details">
+                <div class="header-item">
+                    <strong>Headquarters</strong>
+                    Dubai, United Arab Emirates
+                </div>
+                <div class="header-item">
+                    <strong>Email</strong>
+                    contact@bettroi.com
+                </div>
+                <div class="header-item">
+                    <strong>Website</strong>
+                    www.bettroi.com
+                </div>
+                <div class="header-item">
+                    <strong>Global Presence</strong>
+                    10+ Countries | 240+ Professionals
+                </div>
+            </div>
+        </div>
+
+        <!-- Cover Page Content -->
+        <div class="cover-page">
+            <div class="cover-title">
+                AI-Integrated Kitchen<br>Management System
+            </div>
+            <div class="cover-subtitle">Technical Proposal</div>
+
+            <div class="client-info-box">
+                <h2>PREPARED FOR</h2>
+                <p style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">SDLC Corp</p>
+                <p>contact@sdlccorp.com</p>
+                <p style="margin-top: 10px;">www.sdlccorp.com</p>
+                <p style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+                    Date: <strong>December 2025</strong>
+                </p>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <div style="font-size: 18px; color: #6b7280; margin-bottom: 10px;">Total Investment</div>
+                <div style="font-size: 48px; font-weight: 700; color: #003DA5;">$33,863 USD</div>
+                <div style="font-size: 16px; color: #6b7280; margin-top: 10px;">6 Months | 12 Sprints | 3 Phases</div>
+            </div>
+        </div>
+
+                <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">1 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 2: Table of Contents -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <div class="toc-item">
+                <div>1. Executive Summary</div>
+                <span>Page 3</span>
+            </div>
+            <div class="toc-item">
+                <div>2. About Bettroi</div>
+                <span>Page 4</span>
+            </div>
+            <div class="toc-item">
+                <div>3. Project Overview</div>
+                <span>Page 5</span>
+            </div>
+            <div class="toc-item">
+                <div>4. Scope of Work</div>
+                <span>Page 6</span>
+            </div>
+            <div class="toc-item">
+                <div>5. Proposed Solution</div>
+                <span>Page 8</span>
+            </div>
+            <div class="toc-item">
+                <div>6. Technology Stack</div>
+                <span>Page 12</span>
+            </div>
+            <div class="toc-item">
+                <div>7. Development Methodology</div>
+                <span>Page 13</span>
+            </div>
+            <div class="toc-item">
+                <div>8. Project Timeline</div>
+                <span>Page 15</span>
+            </div>
+            <div class="toc-item">
+                <div>9. Team Structure</div>
+                <span>Page 17</span>
+            </div>
+            <div class="toc-item">
+                <div>10. Pricing & Payment Terms</div>
+                <span>Page 18</span>
+            </div>
+            <div class="toc-item">
+                <div>11. Support Plan</div>
+                <span>Page 20</span>
+            </div>
+            <div class="toc-item">
+                <div>12. Terms & Conditions</div>
+                <span>Page 21</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">2 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 3: Executive Summary -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">1. Executive Summary</h1>
+
+            <div class="section-content">
+                <p style="font-size: 16px; margin-bottom: 20px;">
+                    Bettroi is pleased to present this comprehensive proposal for developing an <strong>AI-Integrated Kitchen Management System</strong>
+                    that will revolutionize your food service operations through cutting-edge artificial intelligence and automation technologies.
+                </p>
+
+                <div class="info-box">
+                    <h3>Project Vision</h3>
+                    <p>
+                        The AI-Integrated Kitchen Management System is an advanced, AI-powered solution designed to enhance efficiency, reduce costs, and optimize
+                        operations in commercial kitchens. By leveraging AI-driven inventory tracking, automated procurement, real-time cost monitoring, and predictive
+                        financial forecasting, the system streamlines order management, recipe costing, and supplier selection.
+                    </p>
+                </div>
+
+                <h2 class="section-subtitle">Key Benefits</h2>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h3>AI-Driven Automation</h3>
+                        <ul>
+                            <li>Automated inventory tracking with image recognition</li>
+                            <li>Smart reordering when stock falls below thresholds</li>
+                            <li>AI-powered supplier selection and pricing</li>
+                            <li>Predictive demand forecasting</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Cost Optimization</h3>
+                        <ul>
+                            <li>Real-time ingredient cost tracking</li>
+                            <li>Dynamic pricing adjustments</li>
+                            <li>Waste reduction through AI insights</li>
+                            <li>Profit margin maximization</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Operational Excellence</h3>
+                        <ul>
+                            <li>Streamlined order processing</li>
+                            <li>Automated production planning</li>
+                            <li>Resource allocation optimization</li>
+                            <li>Energy and labor cost management</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Compliance & Quality</h3>
+                        <ul>
+                            <li>Automated food label generation</li>
+                            <li>Nutritional facts calculation (FatSecret API)</li>
+                            <li>Regulatory compliance verification</li>
+                            <li>Barcode and QR code generation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Investment Summary</h3>
+                    <p style="margin-bottom: 10px;">
+                        <strong>Total Investment:</strong> $33,863 USD<br>
+                        <strong>Duration:</strong> 6 Months (12 two-week sprints)<br>
+                        <strong>Team Size:</strong> 7 Dedicated FTE<br>
+                        <strong>Methodology:</strong> Agile Development with Continuous Integration
+                    </p>
+                </div>
+
+                <p style="margin-top: 30px;">
+                    This modular architecture allows seamless scalability, integrating features such as smart procurement, waste reduction,
+                    and logistics optimization. With AI-driven analytics and automation, this system empowers kitchen operators to maximize
+                    profitability, minimize waste, and ensure compliance with industry standards, making it a game-changer for the food service industry.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">3 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 4: About Bettroi -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">2. About Bettroi</h1>
+
+            <div class="section-content">
+                <p style="font-size: 16px; margin-bottom: 30px;">
+                    Bettroi is a premier global IT consulting and services firm with a strong presence across North America, Europe, and Asia.
+                    Since our establishment in 2017, we have delivered innovative and cutting-edge technology solutions across various industries,
+                    including retail, e-commerce, blockchain, and web development.
+                </p>
+
+                <h2 class="section-subtitle">Our Expertise</h2>
+                <p>
+                    With a dedicated team of over 240 professionals, Bettroi specializes in driving digital transformation and providing tailored
+                    IT solutions to meet the specific needs of our clients. Our comprehensive expertise spans multiple domains:
+                </p>
+
+                <div class="feature-grid" style="margin-top: 30px;">
+                    <div class="feature-box">
+                        <h3>Custom Development</h3>
+                        <ul>
+                            <li>End-to-End Delivery</li>
+                            <li>Consultation & Conceptualization</li>
+                            <li>Gap Analysis and Solution Design</li>
+                            <li>MVP Development</li>
+                            <li>Product Development (SaaS/Standalone)</li>
+                            <li>Continuous Product Enhancement</li>
+                            <li>L1, L2 & L3 Support</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Core Services</h3>
+                        <ul>
+                            <li>Business Process Management</li>
+                            <li>Intelligent Process Automation</li>
+                            <li>Ecosystem Integration</li>
+                            <li>IoT Integration</li>
+                            <li>Omnichannel Customer Engagement</li>
+                            <li>Intelligent Document Processing</li>
+                            <li>BI Tools Integration</li>
+                            <li>Data Visualization</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>AI & ML Implementation</h3>
+                        <ul>
+                            <li>Machine Learning Models</li>
+                            <li>Natural Language Processing</li>
+                            <li>Computer Vision</li>
+                            <li>Predictive Analytics</li>
+                            <li>AI-Powered Automation</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Enterprise Solutions</h3>
+                        <ul>
+                            <li>ERP/CRM Implementation</li>
+                            <li>SAP Integration</li>
+                            <li>Oracle Solutions</li>
+                            <li>Microsoft Dynamics</li>
+                            <li>Salesforce Implementation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Global Presence</h2>
+                <div style="background: #f8fafc; padding: 30px; border-radius: 12px; margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
+                        <div>
+                            <div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Headquarters</div>
+                            <div style="font-weight: 600; color: #003DA5;">Dubai, UAE</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Team Size</div>
+                            <div style="font-weight: 600; color: #003DA5;">240+</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Global Offices</div>
+                            <div style="font-weight: 600; color: #003DA5;">10+</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Since</div>
+                            <div style="font-weight: 600; color: #003DA5;">2017</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px; font-size: 14px; text-align: center; color: #6b7280;">
+                        <strong>Our Locations:</strong> Dubai (HQ) | San Francisco | Berlin | Delhi | Paris | Dublin | Doha | Coventry | Pune | Austin
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h3>Why Choose Bettroi?</h3>
+                    <ul class="checked-list">
+                        <li>Proven track record with 500+ successful projects delivered globally</li>
+                        <li>Certified partnerships with SAP, Oracle, Microsoft, and Salesforce</li>
+                        <li>Agile methodology ensuring flexibility and rapid delivery</li>
+                        <li>24/7 support with dedicated project management</li>
+                        <li>Competitive pricing with transparent cost structure</li>
+                        <li>Strong focus on security, scalability, and performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">4 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 5: Project Overview -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">3. Project Overview</h1>
+
+            <div class="section-content">
+                <p style="font-size: 16px; margin-bottom: 30px;">
+                    The AI-Integrated Kitchen Management System is a comprehensive, modular platform designed to optimize restaurant and food service
+                    operations using artificial intelligence. The system streamlines core functions such as client order management, inventory tracking,
+                    recipe costing, and supplier monitoring while incorporating advanced AI-driven features for production planning, cost optimization,
+                    and financial forecasting.
+                </p>
+
+                <div class="info-box">
+                    <h3>Project Scope</h3>
+                    <p>
+                        We understand that the client requires an AI-integrated kitchen management system with a modular architecture to streamline
+                        inventory tracking, order processing, recipe costing, and supplier management. The system should leverage AI for real-time
+                        stock monitoring, automated procurement, cost optimization, and production planning. Additionally, advanced modules will enhance
+                        financial forecasting, logistics optimization, energy and labor cost management, and waste reduction.
+                    </p>
+                </div>
+
+                <h2 class="section-subtitle">Key Objectives</h2>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h3>Enhance Inventory & Procurement Efficiency</h3>
+                        <ul>
+                            <li>AI-powered stock tracking</li>
+                            <li>Automated reordering</li>
+                            <li>Smart supplier selection</li>
+                            <li>Real-time price monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Optimize Recipe Management & Cost Control</h3>
+                        <ul>
+                            <li>Recipe standardization</li>
+                            <li>Dynamic ingredient substitution</li>
+                            <li>Real-time cost tracking</li>
+                            <li>Profit margin optimization</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Streamline Order Processing & Production</h3>
+                        <ul>
+                            <li>Automated task assignment</li>
+                            <li>Production forecasting</li>
+                            <li>Resource allocation</li>
+                            <li>Workflow optimization</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Maximize Financial Performance</h3>
+                        <ul>
+                            <li>Predictive forecasting</li>
+                            <li>Smart pricing adjustments</li>
+                            <li>Profitability tracking</li>
+                            <li>Cost control recommendations</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Improve Logistics & Waste Management</h3>
+                        <ul>
+                            <li>Route optimization</li>
+                            <li>Delivery cost reduction</li>
+                            <li>Expiry tracking</li>
+                            <li>Waste reduction strategies</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Ensure Compliance & Quality</h3>
+                        <ul>
+                            <li>Automated label generation</li>
+                            <li>Regulatory compliance</li>
+                            <li>Nutritional fact calculation</li>
+                            <li>Quality assurance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Expected Outcomes</h2>
+                <div class="highlight-box">
+                    <ul class="checked-list">
+                        <li><strong>30-40% reduction</strong> in food waste through AI-powered expiry tracking and demand forecasting</li>
+                        <li><strong>25-35% improvement</strong> in inventory turnover with automated reordering and stock optimization</li>
+                        <li><strong>20-30% cost savings</strong> on procurement through smart supplier selection and price monitoring</li>
+                        <li><strong>40-50% faster</strong> order processing with automated workflows and production planning</li>
+                        <li><strong>15-25% increase</strong> in profit margins through real-time cost monitoring and dynamic pricing</li>
+                        <li><strong>100% compliance</strong> with food labeling regulations through automated label generation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">5 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 6-7: Scope of Work -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0ODRAQDQ4NDg0NDxAODQ8NDRAPDw0OFxEiFhYdFRUYKDQsGSYlGxMXIj0iJyotOi46Ix8/QDMsNzQtLysBCgoKDg0OGhAQGy8fHSUrKy4tLS0wKy0tLS0tKy0tLSstLS0rLS0tLS0tLS0tLS0tLS0tLS0tLTUtLS0tLS0tLf/AABEIAMgAyAMBEQACEQEDEQH/xAAcAAEAAwEAAwEAAAAAAAAAAAAABgcIBQECAwT/xABHEAACAgEDAggJBgoLAAAAAAAAAQIDBBEFBwYSEyExNUF0UCJRYXGBsbKzF1NzkZOhIyUyNEJVlMHS4RUkQ2JygoOjwsPR/8QAGgEBAAIDAQAAAAAAAAAAAAAAAAQFAQMGAf/EACoRAQABAwMDAwQCAwAAAAAAAAABAgMRBBIxBSEyIjNRE0FhcRUUI1KB/9oADAMBAAIRAxEAPwCrzr1SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHLIY3QYkG78mAbvyYDPee8HcAD9MBiZiO0yziZBmn5MAzT8mAZyYkMx3YAAAAAAAAAAAAAAABieZZjlqbgzh0vAxG6q23jUttwj08mjl71c757rGimMOl4DR8zV9nE1/Uq+XrbDxPZ2PJaSopa8jqg/3D6lXybYRbhJu32XmwlxKY4t7XiXUR4uj88FzMk2dddon5h4qtRMKA23su7Cybca9aW0y4r06GtNU15mmmX9m5FyN0IFVM0z3fgN2XlfO5TGrnsludcJPwm1ayim+heUoOoVTF3ESnWIiYWB4FR8zV9nEgb6vlu2w8PBof8AY1fZxG+r5NsORtfgZsvLi1diU6v9OuKrmvRKOhto1V2ie0sTbiVF7weBlmyL48WUrMS7XkbGlqmumMtO1a+svNLqovRj7oV23tRImNIAAAAAAAAAAAAAAPtiWY7Jxhb09rU1V1VvH4lUI1w1p1fFitF2+Yg1dPt1TmW6m9MPv8ru2fLjfYfzPP8AXWfuz/IqdXg1vczZZVVebCiVFs4wnKEHXKvV6Jrn85ov9PpiPQ9UX5yuwp0xSm/vAUMnEyEue6uyqf8AptNfE+4uemV9phD1Md4VUWyKv7cf1Q+82+xHP9R95P0/inG1L5VY11kNOPXVZOOvRxlBtewhURE1RDdM4hRNG93bEZJy8GnHti6dNfWnzF3/AF1qYQovzEro4J7dr2lhVZVa4vKJqcNdXXYnpJa9vOvYU9619KuaUuirdDn7ytkrM2Rkw4qdlUOXqfapw8b2Jr1mzSV7LsPN2nNLM500K8DAAAAAAAAAAAAAAYyyDsBnESPaHSvSvaeZ4kp5a+j0I5FafZVO/wCS8Gwn2q61epwX/hadL8pRtR9lKl2hr+3H9UPvNvuo5/qPvJ+n8U029+ZZPd7vhsh2/OP221cMmnV08QrZxle24i1vZt0W+aGTLTzawRRdSj15TNP3pWLl1KyqcH0ThKD9a0K+icTEt88MiM62niFXPIZYAAAAAAAAAAAAADOGQdgMzmIMYfXHrc7IRitZTnGMUu1t6fvPFfaics05mWu0cl91pCn9/wDlL+o1J8/4e2S8i8WMf+X1Ft0unG6UXUyp8uUNf24/qh95t91HP9R95P0/imm3vzLJ7vd8NkO35x+4bauGTTq44Vk8ry3C9X5Hef8ArRSdS84TNPws1vRFZHdJlkGXS/SddTxCqnl4MsAAAAAAAAAAAAADEz2yzzK3Nlbnar8am551kXdVCxx5CLUeNHXTXjecqLnUqqapjalRYzD9fyJU/rC39nj/ABHj+0q+Gf4v5dLg9ukxMTJrvsyLch0yU4Qdca48ddDlzvXQ13eoV3KcYeqbER90+2hnU41Urb7IVVQWspzfFSIFNM1TiG+ZxDNnD/hH/Sm0J3xTVEEqsdPp5Ndr9LbZ0mks/SoimVfdr3SjZKal/bj+qH3m32I5/qPvJ+n8U029+ZZPd7vhsh2vOP3DbVwyadXHCsnlfu4/DlXsmVkk0sjIsnHXtjFKGv1xZQdQr3XcfCbp49KYcJs2ONgZN0noq6LJf5uLzfe0RLNG6uIbq59LKR1UcKyQywAAAAAAAAAAAAAMTwy1bwX6vxO7U/DRyt7zlZ0eMHCDbmPs/HeRlOUaoyjFuEHJ8aT0XMhatTcqxTyVVRTDg7M3mbGyLY1RyJQnY1GHK1ThFyfQuN0L1m6vRXaYzMPFN6mUoz8KnIrdd9cLa5flQsipRZGpqmmcxy2TGWd95fBNbKzEqtfBchSnj8bVuOmilFt9Omq+tHQ6LUfVp78wg3aMSiBNaF/bj+qH3m32I57qPup9jxT3JpjbXOuevFsjKEtHo+K1o/aQqZmJzDdMZQuvdRsRNN03SS7HkWaP06Ez+fexjLV9CiUyxserHqjXVGNVNUdIxWijCKRDqqmqczy2xGOFQb4OG9N9fgGHYrIOSllWwesHxXrGKf6XPzv0It9Bpaqf8lX/ABFv3c+mFSluiAAAAAAAAAAAAAABieGWreC/V+J3an4aOVvecrOjxhF99PUs/pqfeJPT/ehrvx6WejoZ4mECGsOD2S7sHGsb1dlFUpPyycFr95yl2Ntcws6OEL34YKs2VG3Tnx74P0Rl4j9qJnTqsXcfLTqI9OVBnQ8QhLD4B7yK9lYbx5Yk7nysrOPG5Q/K05tNH5Cs1Whm9XuiUi3e2wkfy20/q+z9pj/CR/6ur/Z7/k/h70768dySng3Ri340o3Qk16mlqeZ6XVHfLMamPhZ+HlV5FMLamp1XQU4PslCS19jK6qmaZwkROVLb5OCFWJOvMxYKuq+ThfXFaQhbpqml2a6P6vOXPT9TNcbKkS/bx3hWBaIoAAAAAAAAAAAAAAYnhlq3gv1fid2p+Gjlb3nKzo8YRffT1LP6en3iT0/3oar/AIM9HRTwg/dqbgT1Vhd2q9w5bUe5Kyt+MOVvainsLL17FS/Wr4m3Re/S83/Bm46RXAAAGWl919nG2HhN9lco+pWyS9hzOsj/ADVLG1Pph8d7OMrNh5Wq561XZHzONq/c2etFVi9Sxej0yzcdIrwMAAAAAAAAAAAAADE8MtW8F+r8Tu1Pw0cre85WdHjCL76epZ/TU+8Sen+9DVf8Gejop4Qfu1VwRqcNmYcX0rGp9xHK35zclZUR6YcDfFeobDyF22TogvTyqk/uizfoYzeh4v8AgzodGrwAADLSm6pfiLD/AMNj/wB6TOa1nvVLCz4w+u81/iTN+iXvoxo/epZveEszHTK4DAAAAAAAAAAAAAAxMdmWreC/V+J3an4aOVvecrOjxhyd5Gw8jaOzZY+MoO12VzXHlxVpF6vnNuku027m6p5uUTVCs9jbns+d0fDJ01UJp2cnPlJyj5Irs9JZXepU4mKUenTzleVcFGKjFaRilFJdiS0RSzMzOUvhVO/nasVTjYkZeNObvsS7IxXFjr6XJ/UWfTLc7t0o2onspgvJ47on2Sng1wC2htLH5fF5Hk1OVf4SzivjJc/Z5yHe1lq1ViW2m1NUOt8kO2fJi/b/AMjV/ZWnr6FT6UbntrSklOWLCLfPLlXLRejQ81dSt4PoVLu2Fs2GFiU41bbjRXGCb6ZNdL9b1KW5XNdU1JkU4pRPfNtCNOxrK9fHyrKqor0TU390PvJXT6JquxPw1X6vSz0dEgAAAAAAAAAAAAAAAmOzLUvBnMpWBiJ21JrGpTTsj08mjl7tFW+eyxpqjbDp+HUfPVfaRNWyr4eomHrPaONFayvpS8rtgl7RFur4N0Qi3CPeTsvChLiXRyr0vFqolxk3/emuZEmzorlf6a6r0QoPb+2b8/Ksych62WPoX5MIpaJR8yRf2bcW6NscIVdU1S5xteV87lMmqGyWp2VxfhNr0lOKfQig19Ezd7Qm2JiKU/8ADqPnqvtIkHZV8N+6Hh5+Oum6n12RH06/g3Q5G1uGey8SLldmU6r9CuStm/RGOpto012viHibkUqJ3gcMJ7XyVJRlXjUpxx65PV8/TKXnenqL3S6WLNP5Q7tzfKKktpAAAAAAAAAAAAAAABjbDOQbY+DINsGQyAYABjEMg2x8GZBtgzIZxBkDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/9k=" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">4. Scope of Work</h1>
+
+            <div class="section-content">
+                <p style="margin-bottom: 30px;">
+                    The project will be delivered in three distinct phases over 6 months, with each phase building upon the previous to create
+                    a comprehensive, enterprise-grade kitchen management solution.
+                </p>
+
+                <div class="phase-badge">PHASE 1: Core System Development (Sprints 1-4)</div>
+
+                <h2 class="section-subtitle">Client Order Management</h2>
+                <div class="feature-box">
+                    <ul>
+                        <li><strong>Custom Recipe Creation:</strong> Allow clients to create and modify recipes with customizable ingredients and instructions</li>
+                        <li><strong>Order Processing:</strong> Track and manage customer orders, associate them with recipes, and update inventory levels accordingly</li>
+                        <li><strong>Order History & Reporting:</strong> Maintain detailed records of past orders for performance analysis</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">Inventory Management</h2>
+                <div class="feature-box">
+                    <ul>
+                        <li><strong>Stock Tracking:</strong> AI-powered tracking using image recognition and barcode scanning</li>
+                        <li><strong>Automatic Reordering:</strong> Trigger procurement suggestions when stock falls below thresholds</li>
+                        <li><strong>Inventory Adjustments:</strong> Manual adjustments for lost, spoiled, or unaccounted inventory</li>
+                        <li><strong>Real-Time Stock Levels:</strong> Display real-time inventory data for efficient decision-making</li>
+                        <li><strong>Expiry Tracking:</strong> Track product shelf life and set expiration notifications</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">Recipe Costing & Batch Management</h2>
+                <div class="feature-box">
+                    <ul>
+                        <li><strong>Ingredient Costing:</strong> Real-time cost tracking based on market price fluctuations</li>
+                        <li><strong>Batch Tracking:</strong> Track ingredients and costs per batch for exact cost per portion</li>
+                        <li><strong>Cost vs. Profit Alerts:</strong> Alerts when recipes become unprofitable due to rising costs</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">Supplier Price Monitoring</h2>
+                <div class="feature-box">
+                    <ul>
+                        <li><strong>Smart Supplier Selection:</strong> AI-driven analysis based on price, delivery time, and quality</li>
+                        <li><strong>Automatic Purchase Orders:</strong> Generate orders based on inventory levels and pricing</li>
+                        <li><strong>Supplier Performance Tracking:</strong> Maintain history for analysis and future selection</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">Production Planning & Scheduling</h2>
+                <div class="feature-box">
+                    <ul>
+                        <li><strong>Automated Task Assignment:</strong> Assign kitchen staff tasks based on orders and recipe requirements</li>
+                        <li><strong>Production Forecasting:</strong> Predict demand based on historical data and seasonal trends</li>
+                        <li><strong>Resource Allocation:</strong> Optimal allocation of kitchen resources including staff and ingredients</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">Profitability Analysis</h2>
+                <div class="feature-box">
+                    <ul>
+                        <li><strong>Real-Time Cost Monitoring:</strong> Track recipe costs and compare with profit margins</li>
+                        <li><strong>Profitability Dashboard:</strong> Visual dashboard showing financial health of recipes and menus</li>
+                        <li><strong>Cost Alerts:</strong> Notify users when recipe costs become unsustainable</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">6 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 8: Phase 2 & 3 Scope -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="phase-badge">PHASE 2: Module Development (Sprints 5-8)</div>
+
+            <h2 class="section-subtitle">Recipe Optimization & Cost Efficiency Module</h2>
+            <div class="feature-box">
+                <ul>
+                    <li><strong>AI-Powered Recipe Standardization:</strong> Ensure consistency with AI suggesting standard ingredient proportions</li>
+                    <li><strong>Dynamic Ingredient Substitution:</strong> Suggest alternatives based on availability, cost, and preferences</li>
+                    <li><strong>Yield Tracking:</strong> Automatically track and adjust recipe yields to reduce waste</li>
+                    <li><strong>Waste Reduction:</strong> AI recommends changes to recipes to minimize waste</li>
+                </ul>
+            </div>
+
+            <h2 class="section-subtitle">Label Making & Nutritional Fact Generation Module</h2>
+            <div class="feature-box">
+                <ul>
+                    <li><strong>FatSecret API Integration:</strong> Auto-generate nutritional facts based on recipe ingredients</li>
+                    <li><strong>Auto-Generated Labels:</strong> Create compliant food labels with ingredient list, allergens, and nutrition facts</li>
+                    <li><strong>Barcode & QR Code Generation:</strong> Generate barcodes and QR codes for product tracking</li>
+                    <li><strong>Compliance Verification:</strong> Automatically check for compliance with food labeling regulations</li>
+                </ul>
+            </div>
+
+            <h2 class="section-subtitle">Smart Procurement & Supplier Cost Optimization Module</h2>
+            <div class="feature-box">
+                <ul>
+                    <li><strong>Live Supplier Price Tracking:</strong> Track real-time prices from multiple suppliers</li>
+                    <li><strong>Purchase Order Automation:</strong> Generate orders based on demand forecasting and price optimization</li>
+                    <li><strong>Cost-Effective Supplier Recommendations:</strong> AI recommends suppliers with best price-quality balance</li>
+                </ul>
+            </div>
+
+            <div class="phase-badge" style="margin-top: 40px;">PHASE 3: Advanced AI & Financial Optimization (Sprints 9-12)</div>
+
+            <h2 class="section-subtitle">AI-Based Financial Optimization Module</h2>
+            <div class="feature-box">
+                <ul>
+                    <li><strong>Real-Time Profitability Tracking:</strong> Continuously track profit margins per recipe and batch</li>
+                    <li><strong>Smart Pricing Adjustments:</strong> Adjust pricing dynamically based on cost fluctuations</li>
+                    <li><strong>Predictive Financial Forecasting:</strong> AI-driven forecasting of future cash flows</li>
+                    <li><strong>Cost Control Recommendations:</strong> AI suggests pricing strategies to improve margins</li>
+                </ul>
+            </div>
+
+            <h2 class="section-subtitle">Delivery & Logistics Optimization Module</h2>
+            <div class="feature-box">
+                <ul>
+                    <li><strong>Route Optimization:</strong> AI-powered route planning to reduce delivery times and costs</li>
+                    <li><strong>Fuel & Transport Cost Monitoring:</strong> Real-time tracking of fuel and transport costs</li>
+                    <li><strong>Packaging Calculation:</strong> AI calculates packaging requirements optimizing material use</li>
+                </ul>
+            </div>
+
+            <h2 class="section-subtitle">Energy & Labor Cost Allocation Module</h2>
+            <div class="feature-box">
+                <ul>
+                    <li><strong>Energy Usage Tracking:</strong> Track energy consumption of kitchen equipment</li>
+                    <li><strong>Labor Cost Optimization:</strong> AI recommends optimal staff schedules</li>
+                    <li><strong>Cost-Cutting Strategies:</strong> Suggest energy-saving and cost-cutting practices</li>
+                </ul>
+            </div>
+
+            <h2 class="section-subtitle">Waste Management & Expiry Tracking Module</h2>
+            <div class="feature-box">
+                <ul>
+                    <li><strong>Spoilage Detection:</strong> AI identifies and notifies of products nearing spoilage</li>
+                    <li><strong>Waste Reduction Suggestions:</strong> AI recommends changes to reduce food waste</li>
+                    <li><strong>Expiry Notifications:</strong> Automated notifications for timely usage or disposal</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">7 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 9: Technology Stack -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">6. Technology Stack</h1>
+
+            <div class="section-content">
+                <p style="margin-bottom: 30px;">
+                    We will leverage industry-leading technologies to build a robust, scalable, and secure kitchen management system.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Layer</th>
+                            <th>Technologies</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frontend</strong></td>
+                            <td>React, Angular, Vue.js, JavaScript, Bootstrap</td>
+                            <td>Modern, responsive user interface</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backend</strong></td>
+                            <td>Node.js, Python, Express.js, Spring, Java</td>
+                            <td>Robust API and business logic</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database</strong></td>
+                            <td>MySQL, Oracle, MongoDB</td>
+                            <td>Relational and NoSQL data storage</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile</strong></td>
+                            <td>Swift, Ionic, Kotlin, Flutter, Xcode</td>
+                            <td>iOS and Android mobile apps</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud Infrastructure</strong></td>
+                            <td>AWS, Google Cloud, Azure</td>
+                            <td>Scalable cloud hosting and services</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Big Data</strong></td>
+                            <td>Kafka, Amazon Kinesis, DynamoDB</td>
+                            <td>Real-time data processing and analytics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Project Management</strong></td>
+                            <td>Jira, Confluence, Asana, Trello</td>
+                            <td>Agile project tracking and collaboration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI/ML</strong></td>
+                            <td>TensorFlow, PyTorch, scikit-learn</td>
+                            <td>Machine learning models and predictions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integration</strong></td>
+                            <td>FatSecret API, RESTful APIs, GraphQL</td>
+                            <td>Third-party integrations and data exchange</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DevOps</strong></td>
+                            <td>Docker, Kubernetes, Jenkins, GitLab CI/CD</td>
+                            <td>Continuous integration and deployment</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h3>Architecture Highlights</h3>
+                    <ul class="checked-list">
+                        <li><strong>Microservices Architecture:</strong> Modular, scalable services for independent deployment</li>
+                        <li><strong>RESTful APIs:</strong> Standard API design for seamless integrations</li>
+                        <li><strong>Cloud-Native:</strong> Built for cloud with auto-scaling and high availability</li>
+                        <li><strong>Real-Time Processing:</strong> WebSockets and message queues for live updates</li>
+                        <li><strong>Security First:</strong> HTTPS, encryption at rest and in transit, OAuth 2.0</li>
+                        <li><strong>Database Optimization:</strong> Indexing, caching (Redis), query optimization</li>
+                        <li><strong>Mobile-First Design:</strong> Responsive UI with native mobile app support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">8 | Page</div>
+        </div>
+    </div>
+
+    <!-- Page 10: Development Methodology -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0ODRAQDQ4NDg0NDxAODQ8NDRAPDw0OFxEiFhYdFRUYKDQsGSYlGxMXIj0iJyotOi46Ix8/QDMsNzQtLysBCgoKDg0OGhAQGy8fHSUrKy4tLS0wKy0tLS0tKy0tLSstLS0rLS0tLS0tLS0tLS0tLS0tLS0tLTUtLS0tLS0tLf/AABEIAMgAyAMBEQACEQEDEQH/xAAcAAEAAwEAAwEAAAAAAAAAAAAABgcIBQECAwT/xABHEAACAgEDAggJBgoLAAAAAAAAAQIDBBEFBwYSEyExNUF0UCJRYXGBsbKzF1NzkZOhIyUyNEJVlMHS4RUkQ2JygoOjwsPR/8QAGgEBAAIDAQAAAAAAAAAAAAAAAAQFAQMGAf/EACoRAQABAwMDAwQCAwAAAAAAAAABAgMRBBIxBSEyIjNRE0FhcRUUI1KB/9oADAMBAAIRAxEAPwCrzr1SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHLIY3QYkG78mAbvyYDPee8HcAD9MBiZiO0yziZBmn5MAzT8mAZyYkMx3YAAAAAAAAAAAAAAABieZZjlqbgzh0vAxG6q23jUttwj08mjl71c757rGimMOl4DR8zV9nE1/Uq+XrbDxPZ2PJaSopa8jqg/3D6lXybYRbhJu32XmwlxKY4t7XiXUR4uj88FzMk2dddon5h4qtRMKA23su7Cybca9aW0y4r06GtNU15mmmX9m5FyN0IFVM0z3fgN2XlfO5TGrnsludcJPwm1ayim+heUoOoVTF3ESnWIiYWB4FR8zV9nEgb6vlu2w8PBof8AY1fZxG+r5NsORtfgZsvLi1diU6v9OuKrmvRKOhto1V2ie0sTbiVF7weBlmyL48WUrMS7XkbGlqmumMtO1a+svNLqovRj7oV23tRImNIAAAAAAAAAAAAAAPtiWY7Jxhb09rU1V1VvH4lUI1w1p1fFitF2+Yg1dPt1TmW6m9MPv8ru2fLjfYfzPP8AXWfuz/IqdXg1vczZZVVebCiVFs4wnKEHXKvV6Jrn85ov9PpiPQ9UX5yuwp0xSm/vAUMnEyEue6uyqf8AptNfE+4uemV9phD1Md4VUWyKv7cf1Q+82+xHP9R95P0/inG1L5VY11kNOPXVZOOvRxlBtewhURE1RDdM4hRNG93bEZJy8GnHti6dNfWnzF3/AF1qYQovzEro4J7dr2lhVZVa4vKJqcNdXXYnpJa9vOvYU9619KuaUuirdDn7ytkrM2Rkw4qdlUOXqfapw8b2Jr1mzSV7LsPN2nNLM500K8DAAAAAAAAAAAAAAYyyDsBnESPaHSvSvaeZ4kp5a+j0I5FafZVO/wCS8Gwn2q61epwX/hadL8pRtR9lKl2hr+3H9UPvNvuo5/qPvJ+n8U029+ZZPd7vhsh2/OP221cMmnV08QrZxle24i1vZt0W+aGTLTzawRRdSj15TNP3pWLl1KyqcH0ThKD9a0K+icTEt88MiM62niFXPIZYAAAAAAAAAAAAADOGQdgMzmIMYfXHrc7IRitZTnGMUu1t6fvPFfaics05mWu0cl91pCn9/wDlL+o1J8/4e2S8i8WMf+X1Ft0unG6UXUyp8uUNf24/qh95t91HP9R95P0/imm3vzLJ7vd8NkO35x+4bauGTTq44Vk8ry3C9X5Hef8ArRSdS84TNPws1vRFZHdJlkGXS/SddTxCqnl4MsAAAAAAAAAAAAADEz2yzzK3Nlbnar8am551kXdVCxx5CLUeNHXTXjecqLnUqqapjalRYzD9fyJU/rC39nj/ABHj+0q+Gf4v5dLg9ukxMTJrvsyLch0yU4Qdca48ddDlzvXQ13eoV3KcYeqbER90+2hnU41Urb7IVVQWspzfFSIFNM1TiG+ZxDNnD/hH/Sm0J3xTVEEqsdPp5Ndr9LbZ0mks/SoimVfdr3SjZKal/bj+qH3m32I5/qPvJ+n8U029+ZZPd7vhsh2vOP3DbVwyadXHCsnlfu4/DlXsmVkk0sjIsnHXtjFKGv1xZQdQr3XcfCbp49KYcJs2ONgZN0noq6LJf5uLzfe0RLNG6uIbq59LKR1UcKyQywAAAAAAAAAAAAAMTwy1bwX6vxO7U/DRyt7zlZ0eMHCDbmPs/HeRlOUaoyjFuEHJ8aT0XMhatTcqxTyVVRTDg7M3mbGyLY1RyJQnY1GHK1ThFyfQuN0L1m6vRXaYzMPFN6mUoz8KnIrdd9cLa5flQsipRZGpqmmcxy2TGWd95fBNbKzEqtfBchSnj8bVuOmilFt9Omq+tHQ6LUfVp78wg3aMSiBNaF/bj+qH3m32I57qPup9jxT3JpjbXOuevFsjKEtHo+K1o/aQqZmJzDdMZQuvdRsRNN03SS7HkWaP06Ez+fexjLV9CiUyxserHqjXVGNVNUdIxWijCKRDqqmqczy2xGOFQb4OG9N9fgGHYrIOSllWwesHxXrGKf6XPzv0It9Bpaqf8lX/ABFv3c+mFSluiAAAAAAAAAAAAAABieGWreC/V+J3an4aOVvecrOjxhF99PUs/pqfeJPT/ehrvx6WejoZ4mECGsOD2S7sHGsb1dlFUpPyycFr95yl2Ntcws6OEL34YKs2VG3Tnx74P0Rl4j9qJnTqsXcfLTqI9OVBnQ8QhLD4B7yK9lYbx5Yk7nysrOPG5Q/K05tNH5Cs1Whm9XuiUi3e2wkfy20/q+z9pj/CR/6ur/Z7/k/h70768dySng3Ri340o3Qk16mlqeZ6XVHfLMamPhZ+HlV5FMLamp1XQU4PslCS19jK6qmaZwkROVLb5OCFWJOvMxYKuq+ThfXFaQhbpqml2a6P6vOXPT9TNcbKkS/bx3hWBaIoAAAAAAAAAAAAAAYnhlq3gv1fid2p+Gjlb3nKzo8YRffT1LP6en3iT0/3oar/AIM9HRTwg/dqbgT1Vhd2q9w5bUe5Kyt+MOVvainsLL17FS/Wr4m3Re/S83/Bm46RXAAAGWl919nG2HhN9lco+pWyS9hzOsj/ADVLG1Pph8d7OMrNh5Wq561XZHzONq/c2etFVi9Sxej0yzcdIrwMAAAAAAAAAAAAADE8MtW8F+r8Tu1Pw0cre85WdHjCL76epZ/TU+8Sen+9DVf8Gejop4Qfu1VwRqcNmYcX0rGp9xHK35zclZUR6YcDfFeobDyF22TogvTyqk/uizfoYzeh4v8AgzodGrwAADLSm6pfiLD/AMNj/wB6TOa1nvVLCz4w+u81/iTN+iXvoxo/epZveEszHTK4DAAAAAAAAAAAAAAxMdmWreC/V+J3an4aOVvecrOjxhyd5Gw8jaOzZY+MoO12VzXHlxVpF6vnNuku027m6p5uUTVCs9jbns+d0fDJ01UJp2cnPlJyj5Irs9JZXepU4mKUenTzleVcFGKjFaRilFJdiS0RSzMzOUvhVO/nasVTjYkZeNObvsS7IxXFjr6XJ/UWfTLc7t0o2onspgvJ47on2Sng1wC2htLH5fF5Hk1OVf4SzivjJc/Z5yHe1lq1ViW2m1NUOt8kO2fJi/b/AMjV/ZWnr6FT6UbntrSklOWLCLfPLlXLRejQ81dSt4PoVLu2Fs2GFiU41bbjRXGCb6ZNdL9b1KW5XNdU1JkU4pRPfNtCNOxrK9fHyrKqor0TU390PvJXT6JquxPw1X6vSz0dEgAAAAAAAAAAAAAAAmOzLUvBnMpWBiJ21JrGpTTsj08mjl7tFW+eyxpqjbDp+HUfPVfaRNWyr4eomHrPaONFayvpS8rtgl7RFur4N0Qi3CPeTsvChLiXRyr0vFqolxk3/emuZEmzorlf6a6r0QoPb+2b8/Ksych62WPoX5MIpaJR8yRf2bcW6NscIVdU1S5xteV87lMmqGyWp2VxfhNr0lOKfQig19Ezd7Qm2JiKU/8ADqPnqvtIkHZV8N+6Hh5+Oum6n12RH06/g3Q5G1uGey8SLldmU6r9CuStm/RGOpto012viHibkUqJ3gcMJ7XyVJRlXjUpxx65PV8/TKXnenqL3S6WLNP5Q7tzfKKktpAAAAAAAAAAAAAAABjbDOQbY+DINsGQyAYABjEMg2x8GZBtgzIZxBkDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/9k=" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">7. Development Methodology</h1>
+
+            <div class="section-content">
+                <p style="margin-bottom: 30px;">
+                    Bettroi will implement an <strong>Agile methodology</strong> to ensure flexibility, collaboration, and efficiency throughout development.
+                    By breaking the project into iterative sprints, we will deliver functional components incrementally while incorporating continuous
+                    stakeholder feedback.
+                </p>
+
+                <div class="info-box">
+                    <h3>Agile Principles</h3>
+                    <ul class="checked-list">
+                        <li><strong>Dedicated Product Owner:</strong> Aligns development with business goals</li>
+                        <li><strong>Sprint Planning & Execution:</strong> Prioritized features delivered incrementally</li>
+                        <li><strong>Daily Stand-Ups:</strong> Ensures clear communication and quick issue resolution</li>
+                        <li><strong>Real-Time Tracking:</strong> Monitored via tools like JIRA for transparency</li>
+                        <li><strong>Continuous Testing & Reviews:</strong> Guarantees security and high-quality performance</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">Sprint Structure (2 Weeks Each)</h2>
+
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h3>1. Project Initiation</h3>
+                        <ul>
+                            <li>Kickoff meeting with stakeholders</li>
+                            <li>Product backlog creation</li>
+                            <li>Sprint planning session</li>
+                            <li>Define roles and responsibilities</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>2. Sprint Execution</h3>
+                        <ul>
+                            <li>Design and development of features</li>
+                            <li>Daily stand-up meetings</li>
+                            <li>Continuous testing and integration</li>
+                            <li>Code reviews and quality checks</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>3. Sprint Review</h3>
+                        <ul>
+                            <li>Demonstrate completed features</li>
+                            <li>Gather stakeholder feedback</li>
+                            <li>Review sprint goals achievement</li>
+                            <li>Plan necessary adjustments</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>4. Sprint Retrospective</h3>
+                        <ul>
+                            <li>Reflect on what worked well</li>
+                            <li>Identify areas for improvement</li>
+                            <li>Update processes and workflows</li>
+                            <li>Prepare for next sprint</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Communication Plan</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Communication</th>
+                            <th>Frequency</th>
+                            <th>Goal</th>
+                            <th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Project Status Report</td>
+                            <td>Weekly</td>
+                            <td>Review project status and discuss potential issues</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Team Standup</td>
+                            <td>Daily</td>
+                            <td>Discuss progress, blockers, and daily tasks</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Task Progress Updates</td>
+                            <td>Daily</td>
+                            <td>Share daily progress on project tasks</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Project Review</td>
+                            <td>At Milestones</td>
+                            <td>Present deliverables and gather feedback</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Post-Mortem Meeting</td>
+                            <td>End of Project</td>
+                            <td>Assess what worked and discuss improvements</td>
+                            <td>Project Manager</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3>Tools & Collaboration</h3>
+                    <p style="margin-bottom: 10px;"><strong>Project Management:</strong> JIRA for sprint tracking and task management</p>
+                    <p style="margin-bottom: 10px;"><strong>Communication:</strong> Slack for real-time team collaboration</p>
+                    <p style="margin-bottom: 10px;"><strong>Code Repository:</strong> GitLab for version control and CI/CD</p>
+                    <p><strong>Documentation:</strong> Confluence for technical documentation and knowledge base</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Page -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">10. Pricing & Payment Terms</h1>
+
+            <div class="pricing-table">
+                <div class="pricing-header">
+                    <h2 style="margin: 0;">Total Project Investment</h2>
+                    <div class="total-cost">$33,863 USD</div>
+                    <p style="margin: 0; opacity: 0.9;">Paid in milestone-based installments</p>
+                </div>
+            </div>
+
+            <h2 class="section-subtitle">Payment Schedule</h2>
+
+            <div style="background: #f8fafc; padding: 30px; border-radius: 12px; margin: 30px 0;">
+                <h3 style="color: #003DA5; margin-bottom: 20px;">Phase 1: Core System Development - $12,931</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Deliverable</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Project Kickoff</td>
+                            <td>Project initiation, requirements finalization</td>
+                            <td>$3,879</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 1 Completion</td>
+                            <td>Kickoff, planning, feature freeze, environment setup</td>
+                            <td>$2,263</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 2 Completion</td>
+                            <td>UI/UX design (Figma) completed and approved</td>
+                            <td>$2,263</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 3 Completion</td>
+                            <td>Frontend development for core features</td>
+                            <td>$2,263</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 4 Completion</td>
+                            <td>Backend API development for core system</td>
+                            <td>$2,263</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: #f8fafc; padding: 30px; border-radius: 12px; margin: 30px 0;">
+                <h3 style="color: #003DA5; margin-bottom: 20px;">Phase 2: Module Development - $12,309</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Deliverable</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Phase 2 Kickoff</td>
+                            <td>Module development planning and setup</td>
+                            <td>$3,693</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 5 Completion</td>
+                            <td>Recipe optimization & cost efficiency module</td>
+                            <td>$2,154</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 6 Completion</td>
+                            <td>Label making & nutritional fact generation module</td>
+                            <td>$2,154</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 7 Completion</td>
+                            <td>Smart procurement & supplier optimization module</td>
+                            <td>$2,154</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 8 Completion</td>
+                            <td>AI-powered profitability analysis</td>
+                            <td>$2,154</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: #f8fafc; padding: 30px; border-radius: 12px; margin: 30px 0;">
+                <h3 style="color: #003DA5; margin-bottom: 20px;">Phase 3: Advanced Features & Deployment - $8,623</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Deliverable</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Phase 3 Kickoff</td>
+                            <td>Advanced features planning and integration setup</td>
+                            <td>$2,587</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 9 Completion</td>
+                            <td>Third-party integrations & AI implementation</td>
+                            <td>$1,509</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 10 Completion</td>
+                            <td>Backend-frontend integration & testing</td>
+                            <td>$1,509</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 11 Completion</td>
+                            <td>Final testing & UAT sign-off</td>
+                            <td>$1,509</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 12 Completion</td>
+                            <td>Production deployment & go-live</td>
+                            <td>$1,509</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box">
+                <h3>Payment Terms</h3>
+                <ul class="checked-list">
+                    <li>Invoices will be sent upon completion of each milestone</li>
+                    <li>Payment due within 15 business days of invoice date</li>
+                    <li>Accepted payment methods: Bank transfer, wire transfer</li>
+                    <li>All prices in USD and exclude applicable taxes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Plan Page -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">11. Support Plan</h1>
+
+            <div class="section-content">
+                <p style="margin-bottom: 30px;">
+                    Bettroi is committed to ensuring the long-term success of your AI-Integrated Kitchen Management System. We offer comprehensive
+                    support services to guarantee smooth operations and rapid resolution of any issues.
+                </p>
+
+                <h2 class="section-subtitle">Hyper-Care Support (60 Days)</h2>
+                <div class="info-box">
+                    <h3>Duration: 60 Days Post Go-Live</h3>
+                    <ul class="checked-list">
+                        <li><strong>24/7 Support Availability:</strong> Round-the-clock support for critical issues</li>
+                        <li><strong>Immediate Issue Resolution:</strong> Priority handling of system health issues</li>
+                        <li><strong>Proactive System Monitoring:</strong> Continuous monitoring of system performance</li>
+                        <li><strong>Bug Fixing & Optimization:</strong> Quick resolution and performance tuning</li>
+                        <li><strong>Escalation Management:</strong> Direct escalation path to senior technical team</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">SLA-Based Support (120 Days)</h2>
+                <div class="info-box">
+                    <h3>Duration: 120 Days Following Hyper-Care</h3>
+                    <p style="margin-bottom: 15px;">Continuous support with defined Service Level Agreements:</p>
+                    <ul class="checked-list">
+                        <li><strong>Critical Issues:</strong> 4-hour response time (system down, data loss, security breach)</li>
+                        <li><strong>Major Issues:</strong> 12-hour response time (significant feature not working, performance degradation)</li>
+                        <li><strong>Minor Issues:</strong> 48-hour response time (cosmetic issues, minor bugs, enhancement requests)</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-subtitle">Support Availability</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Support Type</th>
+                            <th>Hours</th>
+                            <th>Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Regular Support</td>
+                            <td>Monday - Friday, 9:00 AM - 6:00 PM IST</td>
+                            <td>General inquiries, enhancements, training</td>
+                        </tr>
+                        <tr>
+                            <td>Emergency Support</td>
+                            <td>24/7</td>
+                            <td>Critical issues only (system down, security)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="section-subtitle">Post-6-Month Support Package</h2>
+                <div class="highlight-box">
+                    <h3>Extended Support Package</h3>
+                    <p style="margin-bottom: 10px;"><strong>Package:</strong> 500 hours at $25 USD per hour</p>
+                    <p style="margin-bottom: 10px;"><strong>Flexibility:</strong> Use hours at your own pace with no expiration</p>
+                    <p style="margin-bottom: 10px;"><strong>Renewal:</strong> Package can be renewed as needed</p>
+                    <p style="margin-bottom: 10px;"><strong>Payment:</strong> Billed one time at the start</p>
+                    <p><strong>Total Package Cost:</strong> $12,500 USD (500 hours × $25/hour)</p>
+                </div>
+
+                <h2 class="section-subtitle">What's Included in Support</h2>
+                <div class="feature-grid" style="margin-top: 20px;">
+                    <div class="feature-box">
+                        <h3>Bug Fixes</h3>
+                        <ul>
+                            <li>Resolution of software defects</li>
+                            <li>Performance issue fixes</li>
+                            <li>Security vulnerability patches</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Technical Assistance</h3>
+                        <ul>
+                            <li>Configuration support</li>
+                            <li>Integration troubleshooting</li>
+                            <li>Best practices guidance</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Training & Documentation</h3>
+                        <ul>
+                            <li>User training sessions</li>
+                            <li>Documentation updates</li>
+                            <li>Knowledge transfer</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>System Maintenance</h3>
+                        <ul>
+                            <li>Software updates</li>
+                            <li>Database optimization</li>
+                            <li>Backup verification</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Page: Terms & Signature -->
+    <div class="page">
+        <div class="letterhead-header">
+            <div class="logo-section">
+                <img src="data:image/jpeg;base64,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" alt="Bettroi Logo" class="bettroi-logo" style="width: 60px; height: 60px;">
+                <div class="company-name" style="font-size: 24px;">BETTROI</div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">12. Terms & Conditions</h1>
+
+            <div class="section-content" style="font-size: 14px;">
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">1. Scope of Services</h3>
+                <p>This proposal outlines the scope of work for the AI-Integrated Kitchen Management System as described in Sections 4-5. Any additional features or changes requested outside this scope will be subject to separate quotation and agreement.</p>
+
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">2. Project Timeline</h3>
+                <p>The project duration is estimated at 6 months (12 two-week sprints) from the project kickoff date. Timeline may be adjusted based on client feedback cycles and requirement changes.</p>
+
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">3. Payment Terms</h3>
+                <p>Payments are due within 15 business days of invoice date. Late payments may result in project delays. Bettroi reserves the right to suspend work if payments are overdue by more than 30 days.</p>
+
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">4. Intellectual Property</h3>
+                <p>Upon full payment, all custom code and deliverables will become the property of the client. Bettroi retains ownership of any pre-existing code, frameworks, or libraries used in the project.</p>
+
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">5. Confidentiality</h3>
+                <p>Both parties agree to maintain confidentiality of all proprietary information shared during the project. A separate NDA can be executed if required.</p>
+
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">6. Warranty & Support</h3>
+                <p>Bettroi provides comprehensive support as outlined in Section 11. Post-support period, maintenance and enhancements will be charged separately.</p>
+
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">7. Acceptance Criteria</h3>
+                <p>Client will have 7 business days to review and accept deliverables for each milestone. Non-response will be considered acceptance.</p>
+
+                <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid #e5e7eb;">
+                    <h2 style="color: #003DA5; margin-bottom: 30px;">Proposal Acceptance</h2>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+                        <div>
+                            <p style="font-weight: 600; margin-bottom: 40px;">FOR BETTROI:</p>
+                            <div style="border-bottom: 2px solid #333; width: 300px; margin-bottom: 10px;"></div>
+                            <p style="font-size: 12px; color: #6b7280;">Authorized Signature</p>
+                            <p style="margin-top: 20px; font-size: 14px;">Name: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Title: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Date: ___________________________</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 600; margin-bottom: 40px;">FOR CLIENT:</p>
+                            <div style="border-bottom: 2px solid #333; width: 300px; margin-bottom: 10px;"></div>
+                            <p style="font-size: 12px; color: #6b7280;">Authorized Signature</p>
+                            <p style="margin-top: 20px; font-size: 14px;">Name: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Title: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Date: ___________________________</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Footer -->
+        <div class="letterhead-footer">
+            <p style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">Thank you for considering Bettroi for your AI-Integrated Kitchen Management System project!</p>
+            <p>We look forward to partnering with you to transform your kitchen operations through cutting-edge AI technology.</p>
+            <div class="footer-contact" style="margin-top: 20px;">
+                <div>contact@bettroi.com</div>
+                <div>|</div>
+                <div>www.bettroi.com</div>
+                <div>|</div>
+                <div>+971-XX-XXX-XXXX</div>
+            </div>
+            <p style="margin-top: 15px; font-size: 11px; opacity: 0.7;">Bettroi - Transform Digital DMCC | Dubai, UAE</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="letterhead-footer">
+            <div class="footer-left">BETTROI: BETTER BUSINESS</div>
+            <div class="footer-center">11-Nov-25 / SAL-QTN-2025-00037</div>
+            <div class="footer-right">9 | Page</div>
+        </div>
+    </div>
+
+    <script>
+        // Add print functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Optional: Add print button functionality
+            const printButton = document.createElement('button');
+            printButton.textContent = 'Print Proposal';
+            printButton.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 12px 24px; background: #003DA5; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3); z-index: 1000;';
+            printButton.onclick = () => window.print();
+            document.body.appendChild(printButton);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniHawk Classroom & Counselling Platform - Technical Proposal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .page {
+            max-width: 210mm;
+            margin: 10px auto;
+            background: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.08);
+            page-break-after: always;
+        }
+
+        /* Cover Page */
+        .cover {
+            background: linear-gradient(135deg, #003DA5 0%, #0051D5 100%);
+            color: white;
+            padding: 50px 40px;
+            min-height: 297mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cover-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 40px;
+        }
+
+        .logo-section {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .logo-box {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #003DA5;
+        }
+
+        .logo-subtitle {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .doc-info {
+            text-align: right;
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .cover-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cover-title {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .cover-subtitle {
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .cover-description {
+            font-size: 16px;
+            max-width: 700px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .cover-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .highlight-box {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .highlight-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .cover-footer {
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Standard Pages */
+        .standard-page {
+            padding: 40px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #003DA5;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #003DA5;
+        }
+
+        .page-number {
+            font-size: 14px;
+            color: #666;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #003DA5;
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #0051D5;
+        }
+
+        h3 {
+            font-size: 17px;
+            color: #003DA5;
+            margin: 20px 0 12px 0;
+        }
+
+        h4 {
+            font-size: 15px;
+            color: #0051D5;
+            margin: 15px 0 8px 0;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0051D5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .info-box::before {
+            content: "ℹ";
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 30px;
+            height: 30px;
+            background: #0051D5;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .warning-box::before {
+            content: "⚠";
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 30px;
+            height: 30px;
+            background: #f59e0b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .success-box::before {
+            content: "✓";
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 30px;
+            height: 30px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            font-size: 14px;
+        }
+
+        th {
+            background: #003DA5;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f9fafb;
+            padding: 18px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #003DA5 0%, #0051D5 100%);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #003DA5;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #003DA5 0%, #0051D5 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '▸';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #0051D5;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #0051D5;
+            color: white;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content {
+            color: #666;
+        }
+
+        .pricing-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .pricing-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #003DA5;
+            margin-bottom: 12px;
+        }
+
+        .pricing-subtitle {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pricing-card.featured {
+            border-color: #0051D5;
+            transform: scale(1.03);
+        }
+
+        .pricing-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #003DA5;
+            margin-bottom: 12px;
+        }
+
+        .pricing-amount {
+            font-size: 36px;
+            font-weight: 700;
+            color: #0051D5;
+            margin-bottom: 8px;
+        }
+
+        .pricing-period {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cover Page -->
+<div class="page cover">
+    <div class="cover-header">
+        <div class="logo-section">
+            <div class="logo-box">
+                <div class="logo-text">BETTROI</div>
+                <div class="logo-subtitle">Better Business</div>
+            </div>
+        </div>
+        <div class="doc-info">
+            <div><strong>Proposal Reference:</strong> UNI-HAWK-2025-001</div>
+            <div><strong>Date:</strong> 26 December 2025</div>
+            <div><strong>Valid Until:</strong> 26 March 2026</div>
+            <div style="margin-top: 10px;"><strong>Prepared for:</strong> UniHawk</div>
+        </div>
+    </div>
+
+    <div class="cover-main">
+        <div class="cover-title">UniHawk Classroom &<br>Counselling Platform</div>
+        <div class="cover-subtitle">Complete EdTech Platform Development</div>
+        <div class="cover-description">
+            A comprehensive, multi-tenant SaaS platform designed to replace Wise Classroom while
+            extending capabilities across tutoring, test prep, and counselling workflows. Built
+            for scale across multiple countries and branches with future white-label potential.
+        </div>
+
+        <div class="cover-highlights">
+            <div class="highlight-box">
+                <div class="highlight-number">20</div>
+                <div class="highlight-label">Weeks Development<br>Phase 1 Delivery</div>
+            </div>
+            <div class="highlight-box">
+                <div class="highlight-number">9</div>
+                <div class="highlight-label">Core Modules<br>Integrated Platform</div>
+            </div>
+            <div class="highlight-box">
+                <div class="highlight-number">Multi</div>
+                <div class="highlight-label">Tenant Architecture<br>White-Label Ready</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cover-footer">
+        <div>
+            <strong>BETTROI FZE</strong><br>
+            bt.thomas@bettroi.com | +971 54 714 8580<br>
+            www.bettroi.com
+        </div>
+        <div style="text-align: right;">
+            <strong>Confidential</strong><br>
+            This proposal is proprietary to Bettroi<br>
+            and intended solely for UniHawk
+        </div>
+    </div>
+</div>
+
+<!-- Executive Summary -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Executive Summary</div>
+        <div class="page-number">Page 1</div>
+    </div>
+
+    <h2>Project Overview</h2>
+    <p>
+        UniHawk requires a proprietary EdTech platform to replace Wise Classroom and extend capabilities
+        across tutoring, test preparation, and counselling/admissions workflows. The platform must support
+        multi-country, multi-branch operations with strong governance, while maintaining the flexibility
+        to white-label for future commercialization.
+    </p>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">Strategic Objectives</h3>
+        <ul>
+            <li><strong>Operational Independence:</strong> Own the product roadmap, UX, and feature development</li>
+            <li><strong>Unified Platform:</strong> Consolidate tutoring, test prep, and counselling into one system</li>
+            <li><strong>Multi-Tenant Foundation:</strong> Support current operations + future white-label clients</li>
+            <li><strong>Global Scale:</strong> Multi-country, multi-branch governance from day one</li>
+            <li><strong>Future-Ready:</strong> Modular architecture enables SaaS commercialization</li>
+        </ul>
+    </div>
+
+    <h2>Solution Approach</h2>
+    <p>
+        We propose a three-phase delivery model, with Phase 1 focused on achieving feature parity with
+        Wise Classroom while introducing UniHawk-specific requirements (multi-branch governance, credits,
+        parent billing, and counselling basics).
+    </p>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">1</div>
+            <div class="feature-title">Phase 1: Foundation</div>
+            <div class="feature-desc">
+                Wise replacement + UniHawk essentials. Target: 20 weeks development and pilot rollout
+                before July 2026 academic year.
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">2</div>
+            <div class="feature-title">Phase 2: Differentiation</div>
+            <div class="feature-desc">
+                Enhanced counselling workflows, deeper CRM integration, advanced assessments,
+                and AI-powered learning assistance.
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">3</div>
+            <div class="feature-title">Phase 3: SaaS Scale</div>
+            <div class="feature-desc">
+                Tenant self-serve onboarding, multi-currency billing, integration marketplace,
+                and white-label commercialization.
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">▲</div>
+            <div class="feature-title">Analytics & Insights</div>
+            <div class="feature-desc">
+                Lens-style engagement metrics, attendance tracking, session analytics,
+                and family reporting across all programmes.
+            </div>
+        </div>
+    </div>
+
+    <h2>Investment Summary</h2>
+    <div class="info-box">
+        <p><strong>Phase 1 Development:</strong> USD $85,000</p>
+        <p><strong>Timeline:</strong> 20 weeks development and pilot/rollout</p>
+        <p><strong>Ongoing Support:</strong> 15% of development cost annually (post-stabilization)</p>
+        <p style="margin-bottom: 0;"><strong>Infrastructure:</strong> Estimated USD $500-1,000/month (scales with usage)</p>
+    </div>
+
+    <div class="warning-box">
+        <h4 style="margin-top: 0;">Important Notes</h4>
+        <ul style="margin-bottom: 0;">
+            <li>Third-party services (Zoom, payment gateways) billed separately in UniHawk's name</li>
+            <li>AI usage costs (transcription, summaries) tracked per tenant; estimated $200-500/month initially</li>
+            <li>Budget assumes React/Next.js + Supabase stack as discussed</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Understanding Your Needs -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Understanding Your Needs</div>
+        <div class="page-number">Page 2</div>
+    </div>
+
+    <h2>Current Challenges</h2>
+    <p>UniHawk has identified several strategic and operational constraints with the current Wise Classroom setup:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Challenge</th>
+                <th>Impact</th>
+                <th>Our Solution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>No Product Ownership</strong></td>
+                <td>Limited control over roadmap, UX, and feature enablement</td>
+                <td>Full platform ownership with custom development capabilities</td>
+            </tr>
+            <tr>
+                <td><strong>Limited Scope</strong></td>
+                <td>Wise not designed for tutoring + test prep + counselling integration</td>
+                <td>Unified platform across all UniHawk programmes</td>
+            </tr>
+            <tr>
+                <td><strong>Multi-Branch Governance</strong></td>
+                <td>No country/branch hierarchy or governance controls</td>
+                <td>Multi-tenant architecture with country → branch → programme hierarchy</td>
+            </tr>
+            <tr>
+                <td><strong>Student Uploads</strong></td>
+                <td>Workflow limitations for homework/assignment submissions</td>
+                <td>Full student submission pipeline with version tracking</td>
+            </tr>
+            <tr>
+                <td><strong>White-Label Potential</strong></td>
+                <td>Cannot commercialize or white-label Wise</td>
+                <td>Built for multi-tenant SaaS with white-label capabilities</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Success Criteria (Phase 1)</h2>
+    <p>We have aligned our delivery targets with your operational and strategic goals:</p>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">Operational Adoption</h3>
+        <ul>
+            <li>≥90% of active students and tutors using the platform within 6 weeks of rollout</li>
+            <li>&lt;1% session failure rate attributable to platform issues</li>
+        </ul>
+    </div>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">Teaching & Learning Quality</h3>
+        <ul>
+            <li>≥95% sessions produce complete artefacts (recording + attendance + summary/transcript)</li>
+            <li>Reduction in admin time spent compiling weekly/monthly reports</li>
+            <li>Consistent session analytics across all branches and countries</li>
+        </ul>
+    </div>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">Billing Accuracy</h3>
+        <ul>
+            <li>≥99.5% accuracy on credits consumed per completed session</li>
+            <li>≥98% payment success rate (excluding bank/network outages)</li>
+            <li>&lt;0.5% sessions require manual billing correction</li>
+        </ul>
+    </div>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">Integration Reliability</h3>
+        <ul>
+            <li>≥99% webhook delivery success rate (with retry and dead-letter handling)</li>
+            <li>Session completion → artefacts available within agreed SLA for ≥95% of sessions</li>
+            <li>Provider-agnostic integrations (email, WhatsApp, payments) ready for regional adaptation</li>
+        </ul>
+    </div>
+
+    <h2>Constraints & Assumptions</h2>
+    <ul>
+        <li><strong>Timeline:</strong> Phase 1 production-ready before July 2026 academic year (target: 20 weeks build and pilot)</li>
+        <li><strong>Budget:</strong> USD $85,000 for Phase 1 development + first-year infrastructure</li>
+        <li><strong>Involvement:</strong> Frequent feedback loops (multiple touchpoints per week) during Phase 1</li>
+        <li><strong>Tech Stack:</strong> React/Next.js + Supabase (validated during 19-Dec-2025 discussion)</li>
+        <li><strong>Support Model:</strong> Vendor-provided stabilization period + ongoing maintenance at 15% annual fee</li>
+    </ul>
+</div>
+
+<!-- Technical Solution Architecture -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Technical Solution Architecture</div>
+        <div class="page-number">Page 3</div>
+    </div>
+
+    <h2>Technology Stack</h2>
+    <p>We recommend a modern, proven stack optimized for rapid development, scalability, and maintainability:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Layer</th>
+                <th>Technology</th>
+                <th>Rationale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Frontend</strong></td>
+                <td>React + Next.js 14</td>
+                <td>Server-side rendering, excellent performance, SEO-ready, large ecosystem</td>
+            </tr>
+            <tr>
+                <td><strong>Mobile Apps</strong></td>
+                <td>React Native (Hybrid)</td>
+                <td>Code reuse with web, native performance, iOS + Android from single codebase</td>
+            </tr>
+            <tr>
+                <td><strong>Backend</strong></td>
+                <td>Next.js API Routes + Supabase</td>
+                <td>Unified deployment, PostgreSQL with RLS, real-time subscriptions, auth built-in</td>
+            </tr>
+            <tr>
+                <td><strong>Database</strong></td>
+                <td>PostgreSQL (Supabase)</td>
+                <td>Battle-tested, multi-tenant row-level security, JSON support, full-text search</td>
+            </tr>
+            <tr>
+                <td><strong>Authentication</strong></td>
+                <td>Supabase Auth</td>
+                <td>OAuth, magic links, role-based access control, audit trails</td>
+            </tr>
+            <tr>
+                <td><strong>Storage</strong></td>
+                <td>Supabase Storage + S3</td>
+                <td>Scalable object storage for recordings, documents, uploads</td>
+            </tr>
+            <tr>
+                <td><strong>Real-Time</strong></td>
+                <td>Supabase Realtime</td>
+                <td>Live session updates, notifications, collaborative features</td>
+            </tr>
+            <tr>
+                <td><strong>Hosting</strong></td>
+                <td>Vercel (web) + Expo (mobile)</td>
+                <td>Global CDN, auto-scaling, zero-config deployments, excellent DX</td>
+            </tr>
+            <tr>
+                <td><strong>Video</strong></td>
+                <td>Zoom SDK</td>
+                <td>Existing UniHawk relationship, meeting lifecycle, recording retrieval</td>
+            </tr>
+            <tr>
+                <td><strong>AI Services</strong></td>
+                <td>OpenAI + Anthropic</td>
+                <td>Transcription (Whisper), summarization (GPT-4/Claude), future extensibility</td>
+            </tr>
+            <tr>
+                <td><strong>Payments</strong></td>
+                <td>Stripe (initial) + abstraction layer</td>
+                <td>Multi-currency, subscriptions, invoicing; swap to regional gateways later</td>
+            </tr>
+            <tr>
+                <td><strong>Communications</strong></td>
+                <td>SendGrid/Postmark + Twilio/MessageBird</td>
+                <td>Email deliverability + WhatsApp; provider-agnostic adapters</td>
+            </tr>
+            <tr>
+                <td><strong>Monitoring</strong></td>
+                <td>Sentry + LogRocket + Posthog</td>
+                <td>Error tracking, session replay, product analytics</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>System Architecture Principles</h2>
+
+    <h3>1. Multi-Tenant Foundation</h3>
+    <ul>
+        <li><strong>Tenant Isolation:</strong> Strict data segregation with PostgreSQL row-level security</li>
+        <li><strong>Global Identity:</strong> Users can belong to multiple tenants without duplication</li>
+        <li><strong>Org Hierarchy:</strong> Country → Branch → Programme model enforced at database level</li>
+        <li><strong>Role Scoping:</strong> Permissions are tenant + org-scoped (e.g., Branch Admin for Branch A only)</li>
+    </ul>
+
+    <h3>2. Modular Design</h3>
+    <p>Platform delivered as independent, composable modules:</p>
+    <ul>
+        <li><strong>Classroom Module:</strong> Live sessions, recordings, artefacts, analytics</li>
+        <li><strong>Learning Module:</strong> Timeline, content, assignments, submissions, discussions</li>
+        <li><strong>Test Module:</strong> Create, assign, grade, reuse tests across cohorts</li>
+        <li><strong>Counselling Module:</strong> Meetings, notes, milestones, document tracking</li>
+        <li><strong>Billing Module:</strong> Credits, invoices, payments, parent portal</li>
+        <li><strong>Integrations Module:</strong> Zoom, email, WhatsApp, push notifications, CRM/accounting</li>
+    </ul>
+
+    <h3>3. API-First Architecture</h3>
+    <ul>
+        <li><strong>RESTful APIs:</strong> All core operations exposed via documented REST endpoints</li>
+        <li><strong>Webhook System:</strong> Event-driven integrations (meeting lifecycle, billing, user management)</li>
+        <li><strong>Provider Abstraction:</strong> Swap CRM, accounting, WhatsApp, payment providers without refactoring</li>
+        <li><strong>Rate Limiting:</strong> Per-tenant API quotas to prevent abuse</li>
+    </ul>
+
+    <h3>4. Security & Compliance</h3>
+    <ul>
+        <li><strong>Authentication:</strong> OAuth 2.0, magic links, session management, audit trails</li>
+        <li><strong>Authorization:</strong> Role-based access control (RBAC) with least-privilege enforcement</li>
+        <li><strong>Data Encryption:</strong> At-rest (AES-256) and in-transit (TLS 1.3)</li>
+        <li><strong>Privacy Controls:</strong> Recording access restrictions, download gating, parent/student separation</li>
+        <li><strong>Audit Logging:</strong> All admin actions, role changes, sensitive operations logged</li>
+    </ul>
+</div>
+
+<!-- Phase 1 Detailed Scope -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Phase 1: Detailed Scope</div>
+        <div class="page-number">Page 4</div>
+    </div>
+
+    <h2>Module 1: Identity, Tenancy & Governance</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Multi-tenant architecture with strict data isolation</li>
+        <li>Global user identity (one account across multiple tenants)</li>
+        <li>Org hierarchy: Country → Branch → Programme</li>
+        <li>Role-based permissions: Super Admin, Country Admin, Branch Admin, Tutor, Counsellor, Student, Parent, Finance Manager</li>
+        <li>Tutor affiliation model: Home Country/Branch + cross-branch/cross-country assignments</li>
+        <li>Audit trails for admin actions and sensitive operations</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>No cross-tenant data visibility (validated via penetration testing)</li>
+        <li>Country Admin sees only their country; Branch Admin sees only their branch</li>
+        <li>Only Super Admin can create Countries and appoint Country Admins</li>
+        <li>Tutors assigned across branches/countries see only their assigned cohorts</li>
+    </ul>
+
+    <h2>Module 2: Classroom Delivery (Zoom Integration)</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Zoom meeting creation (single + recurring sessions)</li>
+        <li>Meeting lifecycle capture (started, ended, participant join/leave times)</li>
+        <li>Join gating: registered email/unique ID enforcement (time-bound exceptions supported)</li>
+        <li>Recording retrieval (link + metadata) with retry logic</li>
+        <li>Automated transcript generation (time-stamped, Whisper API)</li>
+        <li>AI session summary (key topics, explanations, homework, flags for tutor confirmation)</li>
+        <li>Recording access controls:
+            <ul>
+                <li>Students can stream recordings (no downloads, no parent streaming)</li>
+                <li>Only Country Admin and Super Admin can download recordings + transcripts</li>
+            </ul>
+        </li>
+        <li>Video processing: adaptive streaming, high quality at low file size</li>
+        <li>Post-session tutor wrap-up: topic covered + comments (structured fields)</li>
+        <li>Credit consumption triggers on session completion</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>≥95% sessions produce recording link + artefacts within agreed SLA</li>
+        <li>Join flow p95 ≤ 2 seconds from "Join" click to Zoom link availability</li>
+        <li>Transcript + AI summary available for ≥90% of recorded sessions (where enabled)</li>
+        <li>Download attempts by students are blocked (UI + direct link protection)</li>
+    </ul>
+
+    <h2>Module 3: Courses, Cohorts & Scheduling</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Create/manage courses and cohorts (group tutoring/test prep)</li>
+        <li>Create/manage 1:1 meeting types (tutoring and counselling)</li>
+        <li>Student enrolment and tutor assignment</li>
+        <li>Scheduling: single + recurring sessions with timezone support</li>
+        <li>Staff scheduling: Admins, tutors, counsellors can schedule (role-based permissions)</li>
+        <li>Student scheduling requests:
+            <ul>
+                <li>Submit preferred slots + reason/topic + programme</li>
+                <li>Credit validation before submission</li>
+                <li>Routes to appropriate staff role for approval</li>
+            </ul>
+        </li>
+        <li>Configurable terminology (Class vs Meeting vs Session)</li>
+        <li>Student and tutor calendar views</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>Branch Admin can create cohort, assign tutor, enrol students, schedule recurring sessions</li>
+        <li>Students see upcoming + past sessions for enrolled cohorts</li>
+        <li>Tutors see timetable across all assignments; one-click join</li>
+        <li>Students can submit scheduling requests only with sufficient credits and only for enrolled programmes</li>
+    </ul>
+
+    <h2>Module 4: Learning Feed (Timeline, Content, Submissions)</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Timeline posts: text, file upload, video link, voice note</li>
+        <li>Comment controls per post (enable/disable)</li>
+        <li>Student uploads/submissions for assignments and homework</li>
+        <li>Version tracking for submissions</li>
+        <li>Moderation: hide/delete content (authorised roles)</li>
+        <li>Responsive web + mobile access</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>Tutor can post to cohort timeline; admin can disable comments</li>
+        <li>Students can view timeline content on web and mobile</li>
+        <li>Students can submit homework with timestamp and status visible to tutor</li>
+    </ul>
+
+    <h2>Module 5: Assignments & Assessments</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Create assignments with due dates and submission tracking</li>
+        <li>Create tests/quizzes with multiple question types</li>
+        <li>Assign tests to batches/cohorts</li>
+        <li>Test reuse: within-country by default; cross-country via Global Test Library (Super Admin curated)</li>
+        <li>Basic grading and results publishing</li>
+        <li>Test categorization for smooth retrieval</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>Tutor can create assignment with due date; see submission status per student</li>
+        <li>Tutor can publish test to cohort; students can view and submit</li>
+        <li>Tests can be reused across branches/countries with proper access controls</li>
+    </ul>
+
+    <h2>Module 6: Analytics (Lens-Style Baseline)</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Attendance % computed per student per session (from join/leave times)</li>
+        <li>Engagement metrics framework:
+            <ul>
+                <li>Attentiveness score (definition documented and versioned)</li>
+                <li>Talk-time score (teacher vs student proportions)</li>
+            </ul>
+        </li>
+        <li>Session report view for tutors and admins</li>
+        <li>Rollups by cohort, branch, country, and date range</li>
+        <li>Export capabilities for custom reporting</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>Attendance % visible on session report for all participants</li>
+        <li>Branch and Country Admin dashboards show attendance rollups</li>
+        <li>Engagement metrics versioned to preserve historical reporting accuracy</li>
+    </ul>
+
+    <h2>Module 7: Billing, Credits & Parent Portal</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Credit ledger per student: purchased, consumed, remaining</li>
+        <li>Credit enforcement rules:
+            <ul>
+                <li>Prevent/flag scheduling and joining when insufficient</li>
+                <li>Low-credit alerts to parents</li>
+                <li>Immediate reinstatement post top-up</li>
+            </ul>
+        </li>
+        <li>Payment gateway integration (Stripe first; abstraction for regional gateways)</li>
+        <li>Parent portal: credit balance, top-up, invoice/receipt view</li>
+        <li>Finance separation:
+            <ul>
+                <li>Finance Manager: transaction amounts + reconciliation</li>
+                <li>Admins: credit counts + depletion (no transaction amounts)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>≥99.5% credit consumption accuracy across all pilot sessions</li>
+        <li>≥98% payment success rate (excluding bank/network outages)</li>
+        <li>&lt;0.5% sessions require manual billing correction</li>
+    </ul>
+
+    <h2>Module 8: Notifications & Reporting</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>Email notifications (automatic):
+            <ul>
+                <li>Enrolment welcome/intro</li>
+                <li>Session reminders (24h/1h before, timezone-aware)</li>
+                <li>Low-credit alerts</li>
+                <li>Weekly/monthly family reports</li>
+            </ul>
+        </li>
+        <li>WhatsApp notifications (provider-agnostic, automatic):
+            <ul>
+                <li>Enrolment confirmations</li>
+                <li>Session reminders</li>
+                <li>Low-credit alerts</li>
+            </ul>
+        </li>
+        <li>Push notifications (mobile):
+            <ul>
+                <li>Session reminders</li>
+                <li>Low-credit alerts</li>
+            </ul>
+        </li>
+        <li>Sending domain configuration (SPF/DKIM/DMARC)</li>
+        <li>Automated + manual report triggers</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>Enrolment notifications sent within agreed SLA</li>
+        <li>Session reminders trigger based on configured lead times; respect timezones</li>
+        <li>Weekly/monthly reports delivered on schedule; manual triggers supported</li>
+        <li>Email deliverability passes smoke test (no major provider blocks)</li>
+    </ul>
+
+    <h2>Module 9: Integrations, APIs & Webhooks</h2>
+    <h3>Features</h3>
+    <ul>
+        <li>REST API for core entities: users, courses, sessions, payments</li>
+        <li>API documentation (routes, auth, rate limits)</li>
+        <li>Token-based auth with least-privilege scopes</li>
+        <li>Webhook events:
+            <ul>
+                <li>Meeting started/ended</li>
+                <li>Recording completed</li>
+                <li>Attendance computed</li>
+                <li>Invoice/payment events</li>
+                <li>Student/teacher added/removed</li>
+            </ul>
+        </li>
+        <li>Webhook security: signed payloads, retry + backoff, dead-letter queue</li>
+        <li>Webhook payload versioning and idempotency (event_id + timestamp)</li>
+        <li>Integration adapters: CRM/accounting (Zoho first; vendor-agnostic)</li>
+    </ul>
+
+    <h3>Acceptance Criteria</h3>
+    <ul>
+        <li>API endpoints documented and secured</li>
+        <li>≥99% webhook delivery success rate (with retry)</li>
+        <li>For ≥95% of sessions: meeting ended → recording → attendance → credit update observable end-to-end</li>
+        <li>Providers (CRM, WhatsApp, payments) swappable without core refactoring</li>
+    </ul>
+</div>
+
+<!-- Implementation Roadmap -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Implementation Roadmap</div>
+        <div class="page-number">Page 5</div>
+    </div>
+
+    <h2>Phase 1 Delivery Timeline (20 Weeks)</h2>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-title">Weeks 1-2: Discovery & Planning</div>
+            <div class="timeline-content">
+                <strong>Activities:</strong>
+                <ul>
+                    <li>Requirements validation workshop with UniHawk stakeholders</li>
+                    <li>Workflow mapping (tutoring, test prep, counselling, finance)</li>
+                    <li>UI/UX wireframing and design system creation</li>
+                    <li>Database schema design and multi-tenant model finalization</li>
+                    <li>Tech stack validation and development environment setup</li>
+                    <li>Project kickoff and team onboarding</li>
+                </ul>
+                <strong>Deliverables:</strong> Requirements doc, wireframes, DB schema, project plan
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Weeks 3-6: Core Foundation</div>
+            <div class="timeline-content">
+                <strong>Activities:</strong>
+                <ul>
+                    <li>Multi-tenant architecture implementation</li>
+                    <li>Identity and authentication (Supabase Auth + RBAC)</li>
+                    <li>Org hierarchy (Country → Branch → Programme)</li>
+                    <li>User management and role assignment</li>
+                    <li>Admin dashboards (Super Admin, Country Admin, Branch Admin)</li>
+                    <li>Basic UI components and design system</li>
+                </ul>
+                <strong>Deliverables:</strong> Working multi-tenant foundation, auth flows, admin dashboards
+                <br><strong>Milestone:</strong> Demo of user/org management
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Weeks 7-10: Classroom & Learning Modules</div>
+            <div class="timeline-content">
+                <strong>Activities:</strong>
+                <ul>
+                    <li>Zoom integration (meeting creation, join flows, lifecycle)</li>
+                    <li>Recording retrieval and storage pipeline</li>
+                    <li>Transcript generation (Whisper API)</li>
+                    <li>AI session summary (GPT-4/Claude)</li>
+                    <li>Course/cohort management and scheduling</li>
+                    <li>Timeline/discussions and content uploads</li>
+                    <li>Student submission workflows</li>
+                    <li>Mobile app foundation (React Native)</li>
+                </ul>
+                <strong>Deliverables:</strong> End-to-end classroom delivery, timeline, submissions
+                <br><strong>Milestone:</strong> Complete session lifecycle demo (create → join → recording → artefacts)
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Weeks 11-13: Assignments, Tests & Analytics</div>
+            <div class="timeline-content">
+                <strong>Activities:</strong>
+                <ul>
+                    <li>Assignment creation and submission tracking</li>
+                    <li>Test module (create, assign, reuse, grade)</li>
+                    <li>Attendance calculation from session data</li>
+                    <li>Engagement metrics (attentiveness, talk-time)</li>
+                    <li>Session analytics and reporting dashboards</li>
+                    <li>Rollups by cohort/branch/country</li>
+                </ul>
+                <strong>Deliverables:</strong> Assignments, tests, analytics dashboards
+                <br><strong>Milestone:</strong> Working analytics with real session data
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Weeks 14-16: Billing, Notifications & Integrations</div>
+            <div class="timeline-content">
+                <strong>Activities:</strong>
+                <ul>
+                    <li>Credit ledger and enforcement rules</li>
+                    <li>Payment gateway integration (Stripe)</li>
+                    <li>Parent billing portal</li>
+                    <li>Finance Manager views and reconciliation</li>
+                    <li>Email/WhatsApp/push notification setup</li>
+                    <li>Automated family reports (weekly/monthly)</li>
+                    <li>API documentation and webhook infrastructure</li>
+                    <li>CRM/accounting integration adapters (Zoho)</li>
+                </ul>
+                <strong>Deliverables:</strong> Billing system, notifications, integrations
+                <br><strong>Milestone:</strong> End-to-end payment flow and family report delivery
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Weeks 17-18: Testing, Stabilization & Pilot Prep</div>
+            <div class="timeline-content">
+                <strong>Activities:</strong>
+                <ul>
+                    <li>Comprehensive testing (functional, integration, security)</li>
+                    <li>Role-based testing (all user types)</li>
+                    <li>Branch/country segmentation validation</li>
+                    <li>Performance testing and optimization</li>
+                    <li>Bug fixes and stabilization</li>
+                    <li>Documentation (user guides, admin playbooks, API docs)</li>
+                    <li>Training materials and onboarding flows</li>
+                    <li>Pilot environment setup (1-2 branches, limited cohorts)</li>
+                </ul>
+                <strong>Deliverables:</strong> Production-ready platform, documentation, pilot rollout
+                <br><strong>Milestone:</strong> Pilot launch
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Weeks 19-20: Pilot Rollout & Full Deployment</div>
+            <div class="timeline-content">
+                <strong>Activities:</strong>
+                <ul>
+                    <li>Pilot monitoring and feedback collection</li>
+                    <li>Issue resolution and refinements</li>
+                    <li>User acceptance testing (UAT)</li>
+                    <li>Staged rollout to remaining branches</li>
+                    <li>Wise sunset planning and data migration</li>
+                    <li>Go-live support (24/7 for first 2 weeks)</li>
+                    <li>Performance monitoring and optimization</li>
+                </ul>
+                <strong>Deliverables:</strong> Full production rollout, Wise replacement complete
+                <br><strong>Milestone:</strong> Platform live for July 2026 academic year
+            </div>
+        </div>
+    </div>
+
+    <h2>Post-Launch Support (Stabilization Period)</h2>
+    <div class="info-box">
+        <h4 style="margin-top: 0;">Included Support (First 90 Days)</h4>
+        <ul>
+            <li><strong>Bug Fixes:</strong> All production bugs resolved within agreed SLAs</li>
+            <li><strong>Monitoring:</strong> 24/7 monitoring with incident response</li>
+            <li><strong>Performance Tuning:</strong> Optimization based on real-world usage patterns</li>
+            <li><strong>User Support:</strong> Technical support for UniHawk admins and staff</li>
+            <li><strong>Monthly Reviews:</strong> Performance reports, usage analytics, recommendations</li>
+        </ul>
+
+        <h4>Ongoing Maintenance (Post-Stabilization)</h4>
+        <ul style="margin-bottom: 0;">
+            <li><strong>Annual Fee:</strong> 15% of Phase 1 development cost (USD $12,750/year)</li>
+            <li><strong>Includes:</strong> Bug fixes, security patches, minor enhancements, infrastructure management</li>
+            <li><strong>Excludes:</strong> New features (quoted separately), major refactoring, third-party cost increases</li>
+        </ul>
+    </div>
+
+    <h2>Future Phases (Optional)</h2>
+    <p>Post-Phase 1, UniHawk can choose to extend the platform with additional capabilities:</p>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-title">Phase 2: Differentiation</div>
+            <div class="feature-desc">
+                Enhanced counselling workflows (milestones, document collection), deeper CRM integration,
+                advanced assessments (question bank, adaptive logic), "Ask your lesson" AI chat.
+                <br><br><strong>Estimate:</strong> USD $40,000 - $50,000
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-title">Phase 3: SaaS Scaling</div>
+            <div class="feature-desc">
+                Tenant self-serve onboarding, multi-currency billing, automated workflows,
+                integration marketplace, white-label commercialization.
+                <br><br><strong>Estimate:</strong> USD $50,000 - $70,000
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Investment & Pricing -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Investment & Pricing</div>
+        <div class="page-number">Page 6</div>
+    </div>
+
+    <div class="pricing-section">
+        <div class="pricing-header">
+            <div class="pricing-title">Phase 1 Investment</div>
+            <div class="pricing-subtitle">Complete Platform Development & Deployment</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Description</th>
+                    <th>Cost (USD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Discovery & Planning</strong></td>
+                    <td>Requirements validation, UI/UX design, architecture</td>
+                    <td>$8,000</td>
+                </tr>
+                <tr>
+                    <td><strong>Core Development</strong></td>
+                    <td>9 modules as detailed in Phase 1 scope</td>
+                    <td>$52,000</td>
+                </tr>
+                <tr>
+                    <td><strong>Mobile Apps</strong></td>
+                    <td>iOS + Android (React Native hybrid)</td>
+                    <td>$12,000</td>
+                </tr>
+                <tr>
+                    <td><strong>Testing & QA</strong></td>
+                    <td>Functional, integration, security, performance testing</td>
+                    <td>$6,000</td>
+                </tr>
+                <tr>
+                    <td><strong>Documentation & Training</strong></td>
+                    <td>User guides, admin playbooks, API docs, training materials</td>
+                    <td>$3,000</td>
+                </tr>
+                <tr>
+                    <td><strong>Deployment & Pilot</strong></td>
+                    <td>Infrastructure setup, pilot rollout, go-live support</td>
+                    <td>$4,000</td>
+                </tr>
+                <tr style="background: #f0f9ff; font-weight: 600;">
+                    <td colspan="2"><strong>Phase 1 Total Development</strong></td>
+                    <td><strong>$85,000</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top: 30px;">Infrastructure & Operational Costs (Year 1)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Provider</th>
+                    <th>Estimated Monthly</th>
+                    <th>Annual</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Hosting & Database</strong></td>
+                    <td>Vercel + Supabase</td>
+                    <td>$200 - $400</td>
+                    <td>$2,400 - $4,800</td>
+                </tr>
+                <tr>
+                    <td><strong>Storage & CDN</strong></td>
+                    <td>Supabase Storage + S3</td>
+                    <td>$100 - $200</td>
+                    <td>$1,200 - $2,400</td>
+                </tr>
+                <tr>
+                    <td><strong>AI Services</strong></td>
+                    <td>OpenAI (Whisper + GPT-4)</td>
+                    <td>$200 - $500</td>
+                    <td>$2,400 - $6,000</td>
+                </tr>
+                <tr>
+                    <td><strong>Email Delivery</strong></td>
+                    <td>SendGrid/Postmark</td>
+                    <td>$50 - $100</td>
+                    <td>$600 - $1,200</td>
+                </tr>
+                <tr>
+                    <td><strong>Monitoring & Analytics</strong></td>
+                    <td>Sentry + Posthog</td>
+                    <td>$100 - $150</td>
+                    <td>$1,200 - $1,800</td>
+                </tr>
+                <tr style="background: #f0f9ff; font-weight: 600;">
+                    <td colspan="3"><strong>Estimated Infrastructure Total (Year 1)</strong></td>
+                    <td><strong>$7,800 - $16,200</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning-box" style="margin-top: 20px;">
+            <h4 style="margin-top: 0;">Third-Party Services (Billed Separately)</h4>
+            <p>The following services are billed directly to UniHawk and not included in development costs:</p>
+            <ul>
+                <li><strong>Zoom:</strong> Existing UniHawk account (recording storage, API access)</li>
+                <li><strong>Payment Gateway:</strong> Stripe transaction fees (2.9% + $0.30 per transaction)</li>
+                <li><strong>WhatsApp:</strong> Twilio/MessageBird (conversation-based pricing)</li>
+                <li><strong>SMS (if enabled):</strong> Twilio (per-message pricing)</li>
+            </ul>
+            <p style="margin-bottom: 0;"><strong>Note:</strong> AI usage costs scale with session volume. Estimate assumes ~500 sessions/month with transcription + summary enabled for 70% of sessions.</p>
+        </div>
+    </div>
+
+    <h2>Payment Terms</h2>
+    <div class="info-box">
+        <p><strong>Milestone-Based Payments (Phase 1 Development):</strong></p>
+        <ul>
+            <li><strong>30% upon contract signing:</strong> $25,500 (unlocks discovery and planning)</li>
+            <li><strong>40% upon Phase 1 core completion:</strong> $34,000 (Weeks 1-13 milestone demo)</li>
+            <li><strong>30% upon pilot launch:</strong> $25,500 (Week 18 pilot go-live)</li>
+        </ul>
+        <p><strong>Infrastructure Costs:</strong> Billed monthly in arrears based on actual usage</p>
+        <p style="margin-bottom: 0;"><strong>Payment Method:</strong> Bank transfer to Bettroi account (details provided upon contract signing)</p>
+    </div>
+
+    <h2>Ongoing Support & Maintenance</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Period</th>
+                <th>Coverage</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>First 90 Days</strong><br>(Stabilization)</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Bug fixes and issue resolution</li>
+                        <li>24/7 monitoring and incident response</li>
+                        <li>Performance tuning</li>
+                        <li>Technical support for admins</li>
+                    </ul>
+                </td>
+                <td>Included in Phase 1 cost</td>
+            </tr>
+            <tr>
+                <td><strong>Ongoing</strong><br>(Post-Stabilization)</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Bug fixes and security patches</li>
+                        <li>Infrastructure management</li>
+                        <li>Minor enhancements</li>
+                        <li>Technical support</li>
+                    </ul>
+                </td>
+                <td>15% annually<br>($12,750/year)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Optional Add-Ons</h2>
+    <ul>
+        <li><strong>On-Site Training:</strong> $2,000/day (travel expenses additional)</li>
+        <li><strong>Custom Integrations:</strong> Quoted per integration (typical range: $5,000 - $15,000)</li>
+        <li><strong>White-Label Packaging:</strong> $10,000 (custom branding, tenant-specific theming)</li>
+        <li><strong>Dedicated Support:</strong> $3,000/month (priority response, dedicated Slack channel)</li>
+    </ul>
+</div>
+
+<!-- Risk Management & Success Factors -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Risk Management & Success Factors</div>
+        <div class="page-number">Page 7</div>
+    </div>
+
+    <h2>Project Risks & Mitigation Strategies</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Risk</th>
+                <th>Impact</th>
+                <th>Mitigation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Scope Creep</strong></td>
+                <td>Delays, budget overruns</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Phase 1 scope locked per PRD</li>
+                        <li>Change control process enforced</li>
+                        <li>Weekly scope reviews</li>
+                        <li>New features deferred to Phase 2/3</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Identity & Tenancy Complexity</strong></td>
+                <td>Data leakage, segmentation failures</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Early PoC validation (Week 3-4)</li>
+                        <li>PostgreSQL RLS from day one</li>
+                        <li>Penetration testing before pilot</li>
+                        <li>Audit logs for all cross-tenant operations</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Recording Pipeline Stability</strong></td>
+                <td>Missing artefacts, poor user experience</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Define SLAs early</li>
+                        <li>Retry logic with exponential backoff</li>
+                        <li>Dead-letter queue for failed retrievals</li>
+                        <li>Manual admin override for critical sessions</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Payment Gateway Differences</strong></td>
+                <td>Regional rollout delays</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Gateway abstraction layer</li>
+                        <li>Country-level payment config</li>
+                        <li>Stripe first; regional gateways post-pilot</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Adoption & Training</strong></td>
+                <td>Low usage, resistance to change</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Pilot rollout with 1-2 branches first</li>
+                        <li>In-product guidance and onboarding flows</li>
+                        <li>Admin playbooks and training materials</li>
+                        <li>Dedicated support during first month</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>AI Cost Overruns</strong></td>
+                <td>Budget exceeded, feature throttling</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Tenant-level AI usage tracking</li>
+                        <li>Configurable enable/disable per programme</li>
+                        <li>Cost alerts and quotas</li>
+                        <li>Whisper API batching for cost optimization</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Timeline Pressure</strong></td>
+                <td>Quality compromises, rushed delivery</td>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>Realistic 20 week timeline</li>
+                        <li>Weekly demos and progress reviews</li>
+                        <li>Dedicated QA and testing phase</li>
+                        <li>Buffer time for pilot feedback</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Critical Success Factors</h2>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">1. Stakeholder Engagement</h3>
+        <ul>
+            <li><strong>Weekly touchpoints:</strong> Progress demos, feedback sessions, blocker resolution</li>
+            <li><strong>Decision authority:</strong> Designated UniHawk product owner for rapid decisions</li>
+            <li><strong>User involvement:</strong> Tutors, admins, students participate in UAT</li>
+        </ul>
+    </div>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">2. Scope Discipline</h3>
+        <ul>
+            <li><strong>Phase 1 lockdown:</strong> Only Wise replacement + UniHawk essentials; everything else deferred</li>
+            <li><strong>Change control:</strong> All scope changes require formal approval and timeline/budget adjustment</li>
+            <li><strong>Feature flags:</strong> Optional features can be enabled/disabled without code changes</li>
+        </ul>
+    </div>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">3. Quality Assurance</h3>
+        <ul>
+            <li><strong>Automated testing:</strong> Unit + integration tests for all critical paths</li>
+            <li><strong>Security audits:</strong> Penetration testing before pilot launch</li>
+            <li><strong>Performance benchmarks:</strong> Load testing to validate scalability assumptions</li>
+            <li><strong>User acceptance:</strong> Structured UAT with real users before full rollout</li>
+        </ul>
+    </div>
+
+    <div class="success-box">
+        <h3 style="margin-top: 0;">4. Communication & Transparency</h3>
+        <ul>
+            <li><strong>Weekly status reports:</strong> Progress, blockers, risks, next steps</li>
+            <li><strong>Shared project tracker:</strong> Real-time visibility into development status</li>
+            <li><strong>Open escalation:</strong> Issues surfaced immediately, not hidden</li>
+        </ul>
+    </div>
+
+    <h2>Quality Metrics (Phase 1)</h2>
+    <p>We commit to the following quality bars for Phase 1 delivery:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Target</th>
+                <th>Measurement Method</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Code Coverage</strong></td>
+                <td>≥80% for critical paths</td>
+                <td>Automated test suite (Jest + Playwright)</td>
+            </tr>
+            <tr>
+                <td><strong>Session Success Rate</strong></td>
+                <td>≥99% (create → join → artefacts)</td>
+                <td>Monitoring + error tracking (Sentry)</td>
+            </tr>
+            <tr>
+                <td><strong>Artefact Availability</strong></td>
+                <td>≥95% within agreed SLA</td>
+                <td>Recording retrieval logs + manual validation</td>
+            </tr>
+            <tr>
+                <td><strong>Credit Accuracy</strong></td>
+                <td>≥99.5%</td>
+                <td>Pilot audit (all sessions reconciled)</td>
+            </tr>
+            <tr>
+                <td><strong>Payment Success</strong></td>
+                <td>≥98%</td>
+                <td>Payment gateway logs (excluding bank failures)</td>
+            </tr>
+            <tr>
+                <td><strong>Webhook Delivery</strong></td>
+                <td>≥99%</td>
+                <td>Event logs + dead-letter queue monitoring</td>
+            </tr>
+            <tr>
+                <td><strong>Page Load Time</strong></td>
+                <td>p95 &lt; 2 seconds</td>
+                <td>Real user monitoring (LogRocket)</td>
+            </tr>
+            <tr>
+                <td><strong>Security Vulnerabilities</strong></td>
+                <td>Zero critical/high before launch</td>
+                <td>Penetration testing report</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Governance & Change Management</h2>
+    <div class="info-box">
+        <h4 style="margin-top: 0;">Decision-Making Authority</h4>
+        <ul>
+            <li><strong>UniHawk Product Owner:</strong> Final approval for all scope, design, and priority decisions</li>
+            <li><strong>Technical Lead (Bettroi):</strong> Architecture, tech stack, implementation approach</li>
+            <li><strong>Joint Review Board:</strong> Weekly demos and milestone approvals</li>
+        </ul>
+
+        <h4>Change Request Process</h4>
+        <ol>
+            <li>Requester submits change request with business justification</li>
+            <li>Bettroi assesses impact (timeline, budget, risk)</li>
+            <li>Joint review of trade-offs (add vs defer vs drop existing feature)</li>
+            <li>Product Owner approves/rejects with timeline/budget adjustment</li>
+            <li>Updated project plan distributed to all stakeholders</li>
+        </ol>
+    </div>
+</div>
+
+<!-- Team & Expertise -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Team & Expertise</div>
+        <div class="page-number">Page 8</div>
+    </div>
+
+    <h2>Project Team Structure</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-title">Project Manager</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> Timeline management, stakeholder communication, risk mitigation
+                <br><br>
+                <strong>Responsibilities:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>Weekly status reports</li>
+                    <li>Milestone tracking</li>
+                    <li>Escalation management</li>
+                    <li>Resource coordination</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-title">Tech Lead / Architect</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> Technical architecture, code quality, tech stack decisions
+                <br><br>
+                <strong>Responsibilities:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>Multi-tenant architecture design</li>
+                    <li>Integration strategy</li>
+                    <li>Security and performance</li>
+                    <li>Code reviews</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-title">Full-Stack Developers (3-4)</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> Core platform development (frontend + backend)
+                <br><br>
+                <strong>Skills:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>React + Next.js expert</li>
+                    <li>PostgreSQL + Supabase</li>
+                    <li>API design and integration</li>
+                    <li>Testing and debugging</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-title">Mobile Developer</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> iOS + Android app development
+                <br><br>
+                <strong>Skills:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>React Native expert</li>
+                    <li>Native performance optimization</li>
+                    <li>App store deployment</li>
+                    <li>Push notifications</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-title">UI/UX Designer</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> User experience design, visual design, prototyping
+                <br><br>
+                <strong>Responsibilities:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>Wireframing and prototypes</li>
+                    <li>Design system creation</li>
+                    <li>Usability testing</li>
+                    <li>Responsive design</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-title">QA Engineer</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> Testing, quality assurance, automation
+                <br><br>
+                <strong>Responsibilities:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>Test plan creation</li>
+                    <li>Automated testing</li>
+                    <li>Security testing</li>
+                    <li>UAT coordination</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-title">DevOps Engineer</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> Infrastructure, deployment, monitoring
+                <br><br>
+                <strong>Responsibilities:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>CI/CD pipeline setup</li>
+                    <li>Infrastructure automation</li>
+                    <li>Monitoring and alerting</li>
+                    <li>Performance optimization</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-title">Technical Writer</div>
+            <div class="feature-desc">
+                <strong>Role:</strong> Documentation, training materials
+                <br><br>
+                <strong>Deliverables:</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>API documentation</li>
+                    <li>User guides</li>
+                    <li>Admin playbooks</li>
+                    <li>Training videos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2>Relevant Experience</h2>
+
+    <h3>EdTech Platforms</h3>
+    <ul>
+        <li><strong>Proposify AI:</strong> AI-powered proposal generation SaaS with multi-tenant architecture</li>
+        <li><strong>NeuroSense360:</strong> Brain health analytics platform with compliance-grade architecture</li>
+        <li><strong>Tutoring Management Systems:</strong> Multiple learning management platforms for K-12 and higher education</li>
+    </ul>
+
+    <h3>Multi-Tenant SaaS</h3>
+    <ul>
+        <li><strong>Restaurant Management Platform:</strong> Multi-location, multi-country SaaS for hospitality industry</li>
+        <li><strong>Healthcare Compliance System:</strong> Tenant-isolated platform with strict data governance</li>
+    </ul>
+
+    <h3>Video & Real-Time Collaboration</h3>
+    <ul>
+        <li><strong>Zoom Integration:</strong> Multiple projects with Zoom SDK, recording management, and analytics</li>
+        <li><strong>WebRTC Platforms:</strong> Real-time video/audio communication with session recording</li>
+    </ul>
+
+    <h3>Payment & Billing Systems</h3>
+    <ul>
+        <li><strong>Subscription Platforms:</strong> Credits, invoicing, multi-currency, parent portals</li>
+        <li><strong>Gateway Integration:</strong> Stripe, PayPal, regional payment processors</li>
+    </ul>
+
+    <h2>Technology Certifications</h2>
+    <ul>
+        <li>AWS Solutions Architect (team members)</li>
+        <li>Certified Kubernetes Administrator (DevOps)</li>
+        <li>React Advanced Certification</li>
+        <li>PostgreSQL Database Administration</li>
+    </ul>
+
+    <div class="info-box">
+        <h4 style="margin-top: 0;">Client Testimonials</h4>
+        <p style="font-style: italic;">
+            "Bettroi delivered a complex multi-tenant platform on time and within budget. Their technical
+            expertise and proactive communication made the project a success."
+        </p>
+        <p style="margin-bottom: 0;"><strong>— Previous EdTech Client</strong></p>
+    </div>
+</div>
+
+<!-- Next Steps & Acceptance -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Next Steps & Acceptance</div>
+        <div class="page-number">Page 9</div>
+    </div>
+
+    <h2>How to Proceed</h2>
+    <p>We're excited to partner with UniHawk on this transformative platform. Here's how we can get started:</p>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-title">Step 1: Proposal Review & Questions</div>
+            <div class="timeline-content">
+                Review this proposal with your stakeholders. We're happy to schedule a follow-up call
+                to address any questions, clarify technical details, or adjust scope based on your priorities.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Step 2: Scope Alignment Workshop</div>
+            <div class="timeline-content">
+                If you'd like to proceed, we'll schedule a 2-3 hour workshop to validate Phase 1 scope,
+                walk through key workflows, and ensure complete alignment on requirements and priorities.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Step 3: Contract & Kickoff</div>
+            <div class="timeline-content">
+                Upon agreement, we'll execute a formal contract, process the initial payment (30%),
+                and schedule the project kickoff meeting. Team introductions and project setup begin immediately.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Step 4: Discovery & Planning (Weeks 1-2)</div>
+            <div class="timeline-content">
+                Requirements validation, UI/UX design, database schema, and detailed project plan.
+                Weekly demos keep you informed and engaged throughout.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Step 5: Development & Delivery (Weeks 3-18)</div>
+            <div class="timeline-content">
+                Iterative development with weekly milestone demos. Your feedback shapes the platform
+                at every stage, ensuring it meets UniHawk's exact needs.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">Step 6: Pilot & Go-Live (Weeks 19-20)</div>
+            <div class="timeline-content">
+                Structured pilot with 1-2 branches, UAT, refinements, and staged rollout. Full production
+                launch with 24/7 support for the first month.
+            </div>
+        </div>
+    </div>
+
+    <h2>What We Need from UniHawk</h2>
+    <div class="warning-box">
+        <h4 style="margin-top: 0;">For Successful Delivery</h4>
+        <ul>
+            <li><strong>Designated Product Owner:</strong> Single point of contact with decision authority</li>
+            <li><strong>Stakeholder Availability:</strong> Weekly touchpoints (1-2 hours/week) for demos and feedback</li>
+            <li><strong>User Participation:</strong> Tutors, admins, students available for UAT and pilot</li>
+            <li><strong>Existing Credentials:</strong> Zoom account, payment gateway access, domain DNS access</li>
+            <li><strong>Sample Data:</strong> Anonymized data for testing (courses, sessions, students)</li>
+            <li><strong>Feedback Cadence:</strong> Timely feedback on designs, prototypes, and milestone demos</li>
+        </ul>
+    </div>
+
+    <h2>Proposal Validity & Terms</h2>
+    <div class="info-box">
+        <p><strong>Validity Period:</strong> This proposal is valid until 26 March 2026</p>
+        <p><strong>Pricing Lock:</strong> Pricing guaranteed for contracts signed before 26 March 2026</p>
+        <p><strong>Payment Terms:</strong> 30% / 40% / 30% milestone-based (details on Page 6)</p>
+        <p><strong>Infrastructure Costs:</strong> Billed monthly based on actual usage (estimated range provided)</p>
+        <p style="margin-bottom: 0;"><strong>Contract Duration:</strong> Phase 1 delivery (20 weeks) + 90-day stabilization period</p>
+    </div>
+
+    <h2>Proposal Acceptance</h2>
+    <p>
+        To accept this proposal and begin development, please sign below and return this document via email
+        to <strong>bt.thomas@bettroi.com</strong>. We will then proceed with contract preparation and project kickoff planning.
+    </p>
+
+    <div style="margin-top: 60px;">
+        <table style="border: none;">
+            <tr>
+                <td style="border: none; width: 50%; vertical-align: top;">
+                    <p><strong>For UniHawk:</strong></p>
+                    <p style="margin-top: 40px;">_______________________________</p>
+                    <p style="margin: 0;">Signature</p>
+                    <p style="margin-top: 20px;">_______________________________</p>
+                    <p style="margin: 0;">Name & Title</p>
+                    <p style="margin-top: 20px;">_______________________________</p>
+                    <p style="margin: 0;">Date</p>
+                </td>
+                <td style="border: none; width: 50%; vertical-align: top;">
+                    <p><strong>For BETTROI FZE:</strong></p>
+                    <p style="margin-top: 40px;">_______________________________</p>
+                    <p style="margin: 0;">Signature</p>
+                    <p style="margin-top: 20px;"><strong>Authorized Signatory</strong></p>
+                    <p style="margin: 0;">BETTROI FZE</p>
+                    <p style="margin-top: 20px;">_______________________________</p>
+                    <p style="margin: 0;">Date</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <h2 style="margin-top: 80px;">Contact Information</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
+        <div>
+            <h4>Questions & Clarifications</h4>
+            <p>
+                <strong>B.T. Thomas</strong><br>
+                Chief Executive Officer<br>
+                Email: bt.thomas@bettroi.com<br>
+                Phone: +971 54 714 8580<br>
+                Website: www.bettroi.com
+            </p>
+        </div>
+        <div>
+            <h4>Business Address</h4>
+            <p>
+                <strong>BETTROI FZE</strong><br>
+                Building A5, FLEXDESK DSO-DDP-A5-D-FLEX-1044<br>
+                Dubai Silicon Oasis<br>
+                Dubai, United Arab Emirates
+            </p>
+        </div>
+    </div>
+
+    <div style="margin-top: 60px; padding: 30px; background: #f0f9ff; border-radius: 12px; text-align: center;">
+        <h3 style="color: #003DA5; margin-bottom: 15px;">Ready to Transform UniHawk's EdTech Platform?</h3>
+        <p style="font-size: 18px; color: #666; margin-bottom: 0;">
+            Let's schedule a call to discuss this proposal and answer any questions.<br>
+            We're excited to partner with you on this journey.
+        </p>
+    </div>
+</div>
+
+<!-- Appendix: Technical Specifications -->
+<div class="page standard-page">
+    <div class="page-header">
+        <div class="page-title">Appendix A: Technical Specifications</div>
+        <div class="page-number">Page 10</div>
+    </div>
+
+    <h2>Database Schema (High-Level)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Table</th>
+                <th>Purpose</th>
+                <th>Key Fields</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>tenants</strong></td>
+                <td>Multi-tenant isolation</td>
+                <td>tenant_id, name, settings, created_at</td>
+            </tr>
+            <tr>
+                <td><strong>users</strong></td>
+                <td>Global user identity</td>
+                <td>user_id, email, name, auth_id</td>
+            </tr>
+            <tr>
+                <td><strong>tenant_memberships</strong></td>
+                <td>User → Tenant mapping</td>
+                <td>user_id, tenant_id, role, permissions</td>
+            </tr>
+            <tr>
+                <td><strong>countries</strong></td>
+                <td>Country org units</td>
+                <td>country_id, tenant_id, name, admin_user_id</td>
+            </tr>
+            <tr>
+                <td><strong>branches</strong></td>
+                <td>Branch/centre org units</td>
+                <td>branch_id, country_id, name, admin_user_id</td>
+            </tr>
+            <tr>
+                <td><strong>programmes</strong></td>
+                <td>Tutoring/test prep/counselling</td>
+                <td>programme_id, branch_id, type, name</td>
+            </tr>
+            <tr>
+                <td><strong>courses</strong></td>
+                <td>Courses/cohorts</td>
+                <td>course_id, programme_id, name, tutor_ids</td>
+            </tr>
+            <tr>
+                <td><strong>sessions</strong></td>
+                <td>Live sessions</td>
+                <td>session_id, course_id, zoom_meeting_id, start_time, recording_url</td>
+            </tr>
+            <tr>
+                <td><strong>session_artefacts</strong></td>
+                <td>Recordings, transcripts, summaries</td>
+                <td>artefact_id, session_id, type, url, metadata</td>
+            </tr>
+            <tr>
+                <td><strong>attendance</strong></td>
+                <td>Session participation tracking</td>
+                <td>attendance_id, session_id, user_id, join_time, leave_time, attendance_%</td>
+            </tr>
+            <tr>
+                <td><strong>timeline_posts</strong></td>
+                <td>Course timeline/discussions</td>
+                <td>post_id, course_id, author_id, content, attachments</td>
+            </tr>
+            <tr>
+                <td><strong>assignments</strong></td>
+                <td>Homework/assignments</td>
+                <td>assignment_id, course_id, title, due_date</td>
+            </tr>
+            <tr>
+                <td><strong>submissions</strong></td>
+                <td>Student submissions</td>
+                <td>submission_id, assignment_id, student_id, files, submitted_at</td>
+            </tr>
+            <tr>
+                <td><strong>tests</strong></td>
+                <td>Assessments/quizzes</td>
+                <td>test_id, title, questions, visibility (country/global)</td>
+            </tr>
+            <tr>
+                <td><strong>test_assignments</strong></td>
+                <td>Test → Cohort mapping</td>
+                <td>assignment_id, test_id, course_id, due_date</td>
+            </tr>
+            <tr>
+                <td><strong>test_results</strong></td>
+                <td>Student test scores</td>
+                <td>result_id, test_assignment_id, student_id, score, answers</td>
+            </tr>
+            <tr>
+                <td><strong>credit_ledger</strong></td>
+                <td>Student credit tracking</td>
+                <td>ledger_id, student_id, purchased, consumed, remaining</td>
+            </tr>
+            <tr>
+                <td><strong>transactions</strong></td>
+                <td>Payment history</td>
+                <td>transaction_id, student_id, amount, gateway_ref, status</td>
+            </tr>
+            <tr>
+                <td><strong>webhooks</strong></td>
+                <td>Event log</td>
+                <td>webhook_id, event_type, payload, delivered_at, status</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>API Endpoints (Sample)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Endpoint</th>
+                <th>Method</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>/api/auth/login</strong></td>
+                <td>POST</td>
+                <td>User authentication</td>
+            </tr>
+            <tr>
+                <td><strong>/api/users</strong></td>
+                <td>GET, POST</td>
+                <td>User management</td>
+            </tr>
+            <tr>
+                <td><strong>/api/courses</strong></td>
+                <td>GET, POST, PUT, DELETE</td>
+                <td>Course CRUD operations</td>
+            </tr>
+            <tr>
+                <td><strong>/api/sessions</strong></td>
+                <td>GET, POST, PUT</td>
+                <td>Session scheduling and management</td>
+            </tr>
+            <tr>
+                <td><strong>/api/sessions/:id/join</strong></td>
+                <td>POST</td>
+                <td>Generate Zoom join link</td>
+            </tr>
+            <tr>
+                <td><strong>/api/sessions/:id/artefacts</strong></td>
+                <td>GET</td>
+                <td>Retrieve session recordings/transcripts</td>
+            </tr>
+            <tr>
+                <td><strong>/api/timeline</strong></td>
+                <td>GET, POST, DELETE</td>
+                <td>Timeline posts and discussions</td>
+            </tr>
+            <tr>
+                <td><strong>/api/assignments</strong></td>
+                <td>GET, POST, PUT</td>
+                <td>Assignment creation and management</td>
+            </tr>
+            <tr>
+                <td><strong>/api/submissions</strong></td>
+                <td>GET, POST</td>
+                <td>Student submission uploads</td>
+            </tr>
+            <tr>
+                <td><strong>/api/tests</strong></td>
+                <td>GET, POST, PUT</td>
+                <td>Test creation and reuse</td>
+            </tr>
+            <tr>
+                <td><strong>/api/analytics/attendance</strong></td>
+                <td>GET</td>
+                <td>Attendance reports and rollups</td>
+            </tr>
+            <tr>
+                <td><strong>/api/analytics/engagement</strong></td>
+                <td>GET</td>
+                <td>Engagement metrics (attentiveness, talk-time)</td>
+            </tr>
+            <tr>
+                <td><strong>/api/billing/credits</strong></td>
+                <td>GET</td>
+                <td>Credit balance and ledger</td>
+            </tr>
+            <tr>
+                <td><strong>/api/billing/topup</strong></td>
+                <td>POST</td>
+                <td>Parent credit top-up (payment gateway)</td>
+            </tr>
+            <tr>
+                <td><strong>/api/webhooks</strong></td>
+                <td>POST</td>
+                <td>Webhook event delivery</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Webhook Events</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Trigger</th>
+                <th>Payload</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>session.started</strong></td>
+                <td>Zoom meeting started</td>
+                <td>session_id, start_time, participants</td>
+            </tr>
+            <tr>
+                <td><strong>session.ended</strong></td>
+                <td>Zoom meeting ended</td>
+                <td>session_id, end_time, duration</td>
+            </tr>
+            <tr>
+                <td><strong>recording.completed</strong></td>
+                <td>Recording available</td>
+                <td>session_id, recording_url, transcript_url</td>
+            </tr>
+            <tr>
+                <td><strong>attendance.computed</strong></td>
+                <td>Attendance calculated</td>
+                <td>session_id, attendance_data[]</td>
+            </tr>
+            <tr>
+                <td><strong>invoice.created</strong></td>
+                <td>Invoice generated</td>
+                <td>invoice_id, student_id, amount</td>
+            </tr>
+            <tr>
+                <td><strong>payment.completed</strong></td>
+                <td>Payment successful</td>
+                <td>transaction_id, invoice_id, amount</td>
+            </tr>
+            <tr>
+                <td><strong>user.enrolled</strong></td>
+                <td>Student added to course</td>
+                <td>user_id, course_id, role</td>
+            </tr>
+            <tr>
+                <td><strong>user.removed</strong></td>
+                <td>User removed from course</td>
+                <td>user_id, course_id</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Security Architecture</h2>
+    <ul>
+        <li><strong>Authentication:</strong> Supabase Auth (OAuth 2.0, magic links, session tokens)</li>
+        <li><strong>Authorization:</strong> Role-based access control (RBAC) with PostgreSQL row-level security (RLS)</li>
+        <li><strong>Encryption:</strong>
+            <ul>
+                <li>At-rest: AES-256 encryption for database and file storage</li>
+                <li>In-transit: TLS 1.3 for all API communications</li>
+            </ul>
+        </li>
+        <li><strong>API Security:</strong>
+            <ul>
+                <li>JWT token-based authentication</li>
+                <li>Rate limiting (per-tenant quotas)</li>
+                <li>CORS configuration</li>
+                <li>Input validation and sanitization</li>
+            </ul>
+        </li>
+        <li><strong>Audit Logging:</strong> All admin actions, role changes, sensitive operations logged with timestamps</li>
+        <li><strong>Recording Access:</strong>
+            <ul>
+                <li>Signed URLs with expiration (short-lived tokens)</li>
+                <li>IP-based restrictions for admin downloads</li>
+                <li>Download gating (students cannot download)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Infrastructure & DevOps</h2>
+    <ul>
+        <li><strong>Hosting:</strong> Vercel (web) with global CDN and auto-scaling</li>
+        <li><strong>Database:</strong> Supabase (PostgreSQL) with automatic backups and point-in-time recovery</li>
+        <li><strong>Storage:</strong> Supabase Storage + AWS S3 for recordings and documents</li>
+        <li><strong>CI/CD:</strong> GitHub Actions for automated testing and deployment</li>
+        <li><strong>Monitoring:</strong>
+            <ul>
+                <li>Sentry for error tracking and performance monitoring</li>
+                <li>LogRocket for session replay and user behavior analytics</li>
+                <li>Posthog for product analytics and feature usage</li>
+            </ul>
+        </li>
+        <li><strong>Alerting:</strong> PagerDuty integration for critical incidents (session failures, payment issues)</li>
+        <li><strong>Backups:</strong>
+            <ul>
+                <li>Database: Daily automated backups with 30-day retention</li>
+                <li>Recordings: Redundant storage across multiple regions</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

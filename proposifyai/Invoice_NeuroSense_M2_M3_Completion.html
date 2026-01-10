@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - NeuroSense MVP M2 & M3 Completion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .invoice-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            height: 150px;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .content {
+            padding: 40px 50px 50px;
+        }
+
+        .invoice-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 30px;
+        }
+
+        .parties-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .party-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .party-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e53e3e;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .party-details {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .party-details strong {
+            color: #2d3748;
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .invoice-details {
+            background: #fff5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid #feb2b2;
+        }
+
+        .invoice-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .detail-value {
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e53e3e;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .items-table thead {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            color: white;
+        }
+
+        .items-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .items-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        .items-table tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .amount-cell {
+            text-align: right;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .subtotal-row {
+            background: #f7fafc;
+        }
+
+        .total-row {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            background: #f0fff4;
+        }
+
+        .payment-terms {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .payment-terms h3 {
+            font-size: 16px;
+            color: #e53e3e;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .payment-terms p {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .payment-terms ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .payment-terms li {
+            color: #4a5568;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .bank-details {
+            background: #fff5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 2px solid #feb2b2;
+        }
+
+        .bank-details h3 {
+            font-size: 16px;
+            color: #e53e3e;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .bank-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .bank-item {
+            display: flex;
+        }
+
+        .bank-label {
+            font-weight: 600;
+            color: #4a5568;
+            min-width: 140px;
+        }
+
+        .bank-value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .notes {
+            background: #f7fafc;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4299e1;
+        }
+
+        .notes h3 {
+            font-size: 14px;
+            color: #4299e1;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .notes p {
+            color: #4a5568;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .signature-section {
+            margin-top: 50px;
+            text-align: left;
+        }
+
+        .signature-name {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .signature-title {
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 30px 50px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-contact a {
+            color: #90cdf4;
+            text-decoration: none;
+        }
+
+        .footer-social {
+            font-size: 13px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .invoice-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header-banner">
+            <div class="logo">
+                RAFTAAR
+                <div class="logo-subtitle">@raftaar</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1 class="invoice-title">Milestone Completion Invoice</h1>
+
+            <div class="parties-section">
+                <div class="party-box">
+                    <div class="party-label">Invoice To:</div>
+                    <div class="party-details">
+                        <strong>BETTROI FZE</strong>
+                        A5, Dtech, DSO<br>
+                        Dubai, UAE<br>
+                        PO BOX: 926510<br>
+                        TRN: 104277403200003
+                    </div>
+                </div>
+
+                <div class="party-box">
+                    <div class="party-label">Invoice From:</div>
+                    <div class="party-details">
+                        <strong>Raftaar Help Emergency Seva</strong>
+                        701, Casa Royal Apartment<br>
+                        Mohan Nagar, Nagpur<br>
+                        Maharashtra, India<br>
+                        Email: cmd@hopehospital.com<br>
+                        Mobile: +91 93731 11709
+                    </div>
+                </div>
+            </div>
+
+            <div class="invoice-details">
+                <div class="invoice-details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Invoice No.:</span>
+                        <span class="detail-value">1001026-2</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Invoice Date:</span>
+                        <span class="detail-value">10 Jan 2026</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">PO Reference:</span>
+                        <span class="detail-value">PUR-ORD-2025-00013</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Project Completion:</span>
+                        <span class="detail-value">10 Jan 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="project-title">Project: NeuroSense360 MVP - AML Compliance Platform</h2>
+
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="text-align: right;">Amount (INR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Milestone 2 (M2) Completion - Core Platform Development</strong><br>
+                            <ul style="margin-top: 10px; padding-left: 20px; color: #4a5568;">
+                                <li>Complete backend API infrastructure and authentication system</li>
+                                <li>Database schema implementation with AML-specific data models</li>
+                                <li>Core screening engine integration</li>
+                                <li>User management and role-based access control</li>
+                                <li>API documentation and testing</li>
+                            </ul>
+                        </td>
+                        <td class="amount-cell">₹55,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Milestone 3 (M3) Completion - Frontend & Integration</strong><br>
+                            <ul style="margin-top: 10px; padding-left: 20px; color: #4a5568;">
+                                <li>Complete responsive frontend UI implementation</li>
+                                <li>Dashboard with real-time screening results</li>
+                                <li>Case management interface</li>
+                                <li>Integration with external AML data sources</li>
+                                <li>Reporting and export functionality</li>
+                                <li>End-to-end testing and bug fixes</li>
+                                <li>Production deployment and handover</li>
+                            </ul>
+                        </td>
+                        <td class="amount-cell">₹82,500.00</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td><strong>Subtotal (M2 + M3)</strong></td>
+                        <td class="amount-cell"><strong>₹137,500.00</strong></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Total Amount Due</strong></td>
+                        <td class="amount-cell"><strong>₹137,500.00</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="payment-terms">
+                <h3>Payment Terms:</h3>
+                <p><strong>Milestone-based payment as per PO PUR-ORD-2025-00013:</strong></p>
+                <ul>
+                    <li><strong>Milestone 1 (40%):</strong> ₹110,000 - Paid on 20 Nov 2025</li>
+                    <li><strong>Milestone 2 (20%):</strong> ₹55,000 - Completed on 10 Jan 2026</li>
+                    <li><strong>Milestone 3 (30%):</strong> ₹82,500 - Completed on 10 Jan 2026</li>
+                    <li><strong>Milestone 4 (10%):</strong> ₹27,500 - Upon final acceptance (Pending)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Total PO Value:</strong> ₹275,000.00</p>
+                <p><strong>Amount Paid to Date:</strong> ₹110,000.00 (M1)</p>
+                <p><strong>Current Invoice Amount:</strong> ₹137,500.00 (M2 + M3)</p>
+                <p><strong>Balance Remaining:</strong> ₹27,500.00 (M4 - Final Acceptance)</p>
+            </div>
+
+            <div class="bank-details">
+                <h3>Bank Details:</h3>
+                <div class="bank-info">
+                    <div class="bank-item">
+                        <span class="bank-label">Account Name:</span>
+                        <span class="bank-value">RAFTAAR HELP EMERGENCY SEVA</span>
+                    </div>
+                    <div class="bank-item">
+                        <span class="bank-label">Account Number:</span>
+                        <span class="bank-value">43835697434</span>
+                    </div>
+                    <div class="bank-item">
+                        <span class="bank-label">IFSC Code:</span>
+                        <span class="bank-value">SBIN0064460</span>
+                    </div>
+                    <div class="bank-item">
+                        <span class="bank-label">Bank:</span>
+                        <span class="bank-value">State Bank of India, Ajni (Branch Code: 64460)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notes">
+                <h3>Project Status:</h3>
+                <p><strong>Milestones 2 and 3 successfully completed on 10 January 2026.</strong></p>
+                <p style="margin-top: 10px;">Both milestones have been thoroughly tested and deployed to production. The platform is now feature-complete with core screening functionality, user management, comprehensive dashboard, case management, and reporting capabilities. All acceptance criteria defined in the PO have been met.</p>
+                <p style="margin-top: 10px;"><strong>Next Steps:</strong> Final user acceptance testing and sign-off for Milestone 4 (10% retention, ₹27,500) to be completed as per project timeline.</p>
+            </div>
+
+            <div class="signature-section">
+                <p style="margin-bottom: 40px;">Best Regards,</p>
+                <div class="signature-name">Dr. Murali BK</div>
+                <div class="signature-title">Raftaar Help Emergency Seva</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-contact">
+                <div><strong>@raftaar</strong></div>
+                <div><a href="mailto:cmd@hopehospital.com">cmd@hopehospital.com</a></div>
+            </div>
+            <div class="footer-social">
+                <div><a href="https://www.drmhope.com">www.drmhope.com</a></div>
+                <div>+91 9373111709</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+1. **Payment Terms:** The client, Hope Hospital, shall make an advance payment of 60% of the total project cost upon commencement of the project. The remaining 40% shall be payable upon final delivery and acceptance by the client. All payments are due within 7 business days of invoice date.
+
+2. **Quotation Validity:** This quotation is valid for 30 days from the date of issue. Prices and the specified terms are subject to change post this validity period unless otherwise agreed upon in writing.
+
+3. **Taxes & Levies:** The quoted project budget of $50,000 is exclusive of GST and any other government levies applicable. These taxes will be charged additionally, in accordance with the prevailing rates at the time of billing.
+
+4. **Revisions & Changes:** DRMHOPE Software will accommodate up to three rounds of revisions per development phase without additional charges. Any further revisions or changes requested by Hope Hospital that are outside the scope of the original agreement will be subject to additional charges, based on the complexity and effort required.
+
+5. **Post-Launch Support:** DRMHOPE Software commits to providing three months of post-launch support free of charge, starting from the date of final project delivery. This support will cover bug fixes and errors directly related to the project scope and will not extend to any new features or functionality changes not included in the original project scope.
+
+6. **Intellectual Property:** Full ownership and intellectual property rights of the developed Hospital Management System will be transferred to Hope Hospital upon complete payment of the project fee. Until the final payment is received, all intellectual rights will remain with DRMHOPE Software.
+
+7. **Confidentiality:** DRMHOPE Software assures to maintain the highest level of confidentiality regarding all project-related details, client data, and any proprietary information shared during the course of the project. No sensitive information will be disclosed to third parties without Hope Hospital's explicit consent.
+
+8. **Change Requests:** Any requests for additional features, functionality changes, or modifications outside the agreed project scope will be treated as change requests. These will be assessed separately and will lead to an updated quotation and timeline which will be provided to Hope Hospital for approval.
+
+9. **Testing & Feedback:** Hope Hospital is expected to provide timely feedback within 5 business days of receiving any test versions or deliverables. Any delays in feedback may affect the overall project timeline and the agreed delivery dates.
+
+10. **Deliverables & Documentation:** DRMHOPE Software will deliver the Hospital Management System in a complete source code format, accompanied by detailed technical documentation designed to support future development, maintenance, and user training efforts by Hope Hospital or any third party designated by them.

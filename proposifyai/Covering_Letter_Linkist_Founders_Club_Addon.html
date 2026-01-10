@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covering Letter - Linkist Founders Club Add-On Project Completion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .letter-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            height: 150px;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .content {
+            padding: 40px 50px 50px;
+        }
+
+        .date {
+            text-align: right;
+            color: #4a5568;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .recipient {
+            margin-bottom: 30px;
+        }
+
+        .recipient-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e53e3e;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .recipient-details {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .recipient-details strong {
+            color: #2d3748;
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .subject {
+            background: #fff5f5;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .subject-label {
+            font-weight: 700;
+            color: #e53e3e;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .subject-text {
+            color: #2d3748;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .salutation {
+            font-size: 15px;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .body-text {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .body-text strong {
+            color: #2d3748;
+        }
+
+        .highlight-box {
+            background: #f0fff4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid #48bb78;
+        }
+
+        .highlight-box h3 {
+            color: #48bb78;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .highlight-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .highlight-box li {
+            color: #4a5568;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .info-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid #4299e1;
+        }
+
+        .info-box h3 {
+            color: #4299e1;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #4a5568;
+            min-width: 120px;
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .payment-box {
+            background: #fff5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 2px solid #feb2b2;
+        }
+
+        .payment-box h3 {
+            color: #e53e3e;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .payment-box .amount {
+            font-size: 28px;
+            color: #e53e3e;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .bank-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .bank-item {
+            display: flex;
+        }
+
+        .bank-label {
+            font-weight: 600;
+            color: #4a5568;
+            min-width: 140px;
+        }
+
+        .bank-value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .closing {
+            margin-top: 40px;
+        }
+
+        .closing-text {
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        .signature-section {
+            margin-top: 50px;
+        }
+
+        .signature-name {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .signature-title {
+            color: #4a5568;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .attachment-note {
+            background: #fffbeb;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .attachment-note h4 {
+            color: #f59e0b;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .attachment-note p {
+            color: #4a5568;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 30px 50px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-contact a {
+            color: #90cdf4;
+            text-decoration: none;
+        }
+
+        .footer-social {
+            font-size: 13px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .letter-container {
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 25px;
+            }
+            .info-grid, .bank-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <div class="header-banner">
+            <div class="logo">
+                RAFTAAR
+                <div class="logo-subtitle">@raftaar</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="date">
+                <strong>Date:</strong> 10 January 2026
+            </div>
+
+            <div class="recipient">
+                <div class="recipient-label">To:</div>
+                <div class="recipient-details">
+                    <strong>Mr. Liju Mathew</strong>
+                    RatioX Labs DWC-LLC<br>
+                    Business Center, A3, Business Park<br>
+                    Dubai South, Dubai, UAE<br>
+                    Email: liju@linkist.ai<br>
+                    Mobile: +971 50 443 1709
+                </div>
+            </div>
+
+            <div class="subject">
+                <div class="subject-label">Subject:</div>
+                <div class="subject-text">Project Completion & Invoice Submission - Linkist NFC eCommerce Founders Club Add-On (PO: RXL-PO-2025002)</div>
+            </div>
+
+            <div class="salutation">
+                Dear Mr. Liju,
+            </div>
+
+            <p class="body-text">
+                We are pleased to inform you that we have successfully completed the <strong>"Invite-Only Founders Club Plan"</strong> add-on feature for the Linkist NFC eCommerce platform, as per Purchase Order <strong>RXL-PO-2025002</strong>.
+            </p>
+
+            <p class="body-text">
+                The project was completed on <strong>10 January 2026</strong> and has been handed over for your comprehensive testing and acceptance. We are confident that the implementation meets all technical specifications and requirements outlined in the PO.
+            </p>
+
+            <div class="highlight-box">
+                <h3>✓ Key Deliverables Completed:</h3>
+                <ul>
+                    <li><strong>New User Sign-Up Flow:</strong> Plan-first registration with invite-only access control</li>
+                    <li><strong>Existing User Upgrade:</strong> Seamless upgrade functionality for active Linkist ID users to Founders Club</li>
+                    <li><strong>Admin Dashboard Enhancements:</strong> Complete request management system with approval/reject workflow</li>
+                    <li><strong>User Workflow Integration:</strong> All changes as specified in original PO No. PUR-ORD-2025-00012</li>
+                    <li><strong>Comprehensive Bug Fixes:</strong> Resolution of all issues identified in QA testing report</li>
+                    <li><strong>Database Optimization:</strong> Export compatibility structure for offline-to-online Linkist App migration</li>
+                    <li><strong>Invite Code System:</strong> 6-character alphabetic code generation with 72-hour automatic expiry</li>
+                    <li><strong>Automated Communications:</strong> Email workflows for request acknowledgment, code issuance, and member onboarding</li>
+                    <li><strong>NFC Card Customization:</strong> Exclusive black color option for Founders Club members</li>
+                    <li><strong>Branding Features:</strong> Founding Member badge and optional branding removal functionality</li>
+                    <li><strong>Quality Assurance:</strong> End-to-end testing and successful production deployment</li>
+                    <li><strong>Documentation:</strong> Complete technical knowledge transfer and project documentation</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>Project Information:</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Invoice No.:</span>
+                        <span class="info-value">1001026-1</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Invoice Date:</span>
+                        <span class="info-value">10 January 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">PO Reference:</span>
+                        <span class="info-value">RXL-PO-2025002</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Completion Date:</span>
+                        <span class="info-value">10 January 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Warranty Period:</span>
+                        <span class="info-value">1 Year (Bug fixes & improvements)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Maintenance:</span>
+                        <span class="info-value">₹4,000/year (Post-warranty)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-box">
+                <h3>Payment Details:</h3>
+                <p style="color: #4a5568; font-size: 14px; margin-bottom: 10px;">
+                    As per the payment terms in PO RXL-PO-2025002 (50% advance, 50% upon completion), we request the <strong>final payment</strong> of:
+                </p>
+                <div class="amount">₹40,000.00</div>
+                <p style="color: #4a5568; font-size: 13px; margin-top: 5px;">(Forty Thousand Indian Rupees Only)</p>
+
+                <h4 style="color: #e53e3e; font-size: 14px; margin-top: 20px; margin-bottom: 10px;">Bank Transfer Details:</h4>
+                <div class="bank-info">
+                    <div class="bank-item">
+                        <span class="bank-label">Account Name:</span>
+                        <span class="bank-value">RAFTAAR HELP EMERGENCY SEVA</span>
+                    </div>
+                    <div class="bank-item">
+                        <span class="bank-label">Account Number:</span>
+                        <span class="bank-value">43835697434</span>
+                    </div>
+                    <div class="bank-item">
+                        <span class="bank-label">IFSC Code:</span>
+                        <span class="bank-value">SBIN0064460</span>
+                    </div>
+                    <div class="bank-item">
+                        <span class="bank-label">Bank & Branch:</span>
+                        <span class="bank-value">State Bank of India, Ajni</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="body-text">
+                We have ensured that all features have been thoroughly tested and are functioning as expected in the production environment. The implementation adheres to industry best practices for security, performance, and user experience.
+            </p>
+
+            <p class="body-text">
+                <strong>Warranty & Support:</strong> As outlined in the agreement, we provide a <strong>1-year warranty</strong> from the production release date, covering bug fixes and minor improvements at no additional cost. Post-warranty annual maintenance is available at ₹4,000/year (10% of development cost).
+            </p>
+
+            <div class="closing">
+                <p class="closing-text">
+                    Please review the completed work and share your feedback. We remain available for any clarifications or support you may require during the testing phase.
+                </p>
+                <p class="closing-text">
+                    We look forward to receiving your payment confirmation and continuing our successful partnership with RatioX Labs.
+                </p>
+            </div>
+
+            <div class="signature-section">
+                <p style="margin-bottom: 15px; color: #4a5568; font-size: 14px;">Best Regards,</p>
+                <div class="signature-name">Dr. Murali BK</div>
+                <div class="signature-title">Raftaar Help Emergency Seva</div>
+                <div class="signature-title" style="margin-top: 15px; color: #4a5568;">
+                    Email: cmd@hopehospital.com<br>
+                    Mobile: +91 93731 11709<br>
+                    Website: www.drmhope.com
+                </div>
+            </div>
+
+            <div class="attachment-note">
+                <h4>📎 Attachment:</h4>
+                <p>Invoice No. 1001026-1 dated 10 January 2026 (Amount: ₹40,000.00)</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-contact">
+                <div><strong>@raftaar</strong></div>
+                <div><a href="mailto:cmd@hopehospital.com">cmd@hopehospital.com</a></div>
+            </div>
+            <div class="footer-social">
+                <div><a href="https://www.drmhope.com">www.drmhope.com</a></div>
+                <div>+91 93731 11709</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

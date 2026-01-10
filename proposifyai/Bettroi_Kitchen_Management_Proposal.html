@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kitchen Management System Proposal - Bettroi to SDLC Corp</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; }
+.page { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; padding: 40px 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); page-break-after: always; display: flex; flex-direction: column; }
+@media print { .page { margin: 0; box-shadow: none; } }
+.header { display: flex; justify-content: space-between; padding-bottom: 20px; margin-bottom: 30px; border-bottom: 1px solid #ddd; }
+.logo-box { display: flex; align-items: center; gap: 15px; }
+.logo { width: 60px; height: 60px; object-fit: contain; }
+.logo.big { width: 80px; height: 80px; }
+.name { font-size: 28px; font-weight: bold; color: #003DA5; letter-spacing: 2px; }
+.ref { text-align: right; font-size: 12px; color: #666; line-height: 1.8; }
+.ref b { color: #333; }
+.title-box { background: #f8f8f8; padding: 25px; margin-bottom: 30px; border-left: 4px solid #003DA5; }
+.title { font-size: 18px; font-weight: bold; color: #003DA5; }
+.erp { font-size: 14px; color: #666; margin-top: 8px; }
+.content { font-size: 12px; line-height: 1.8; color: #333; flex: 1; }
+.content h2 { font-size: 16px; color: #003DA5; margin: 20px 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #003DA5; }
+.content h3 { font-size: 14px; color: #003DA5; margin: 15px 0 10px 0; }
+.content ul { margin-left: 25px; margin-bottom: 15px; }
+.content li { margin-bottom: 8px; }
+.content p { margin-bottom: 12px; }
+.content table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 11px; }
+.content table th, .content table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+.content table th { background: #f0f0f0; font-weight: bold; color: #003DA5; }
+.footer { margin-top: auto; padding-top: 15px; border-top: 1px solid #ddd; display: flex; justify-content: space-between; font-size: 10px; color: #666; }
+.footer b { color: #333; }
+</style>
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo big"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="title-box">
+<div class="title">COMMERCIAL PROPOSAL - AI-INTEGRATED KITCHEN MANAGEMENT SYSTEM</div>
+<div class="erp">ERP REF: SAL-QTN-2025-00037</div>
+</div>
+<div class="content">
+<h2>PREPARED FOR</h2>
+<p style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">SDLC Corp</p>
+<p>contact@sdlccorp.com</p>
+<p style="margin-top: 10px;">www.sdlccorp.com</p>
+<p style="margin-top: 30px; font-size: 14px; opacity: 0.8;">Date: <strong>December 2025</strong></p>
+<div style="margin-top: 60px;">
+<div style="font-size: 18px; color: #6b7280; margin-bottom: 10px;">Total Investment</div>
+<div style="font-size: 48px; font-weight: 700; color: #003DA5;">$33,863 USD</div>
+<div style="font-size: 16px; color: #6b7280; margin-top: 10px;">6 Months | 12 Sprints | 3 Phases</div>
+</div>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>1 | Page</b></div>
+</div>
+
+<!-- Page 2: Table of Contents -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Table of Contents</h2>
+<p>1. Key Benefits</p>
+<p>2. About Bettroi</p>
+<p>3. Project Overview</p>
+<p>4. Core Features</p>
+<p>5. Advanced Modules</p>
+<p>6. Implementation Plan</p>
+<p>7. Investment & Payment Terms</p>
+<p>8. Support & Maintenance</p>
+<p>9. Proposal Acceptance</p>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>2 | Page</b></div>
+</div>
+
+<!-- Page 3 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Key Benefits</h2>
+
+                        <h3>AI-Driven Automation</h3>
+                        <ul>
+                            <li>Automated inventory tracking with image recognition</li>
+                            <li>Smart reordering when stock falls below thresholds</li>
+                            <li>AI-powered supplier selection and pricing</li>
+                            <li>Predictive demand forecasting</li>
+                        </ul>
+                        <h3>Cost Optimization</h3>
+                        <ul>
+                            <li>Real-time ingredient cost tracking</li>
+                            <li>Dynamic pricing adjustments</li>
+                            <li>Waste reduction through AI insights</li>
+                            <li>Profit margin maximization</li>
+                        </ul>
+                        <h3>Operational Excellence</h3>
+                        <ul>
+                            <li>Streamlined order processing</li>
+                            <li>Automated production planning</li>
+                            <li>Resource allocation optimization</li>
+                            <li>Energy and labor cost management</li>
+                        </ul>
+                        <h3>Compliance & Quality</h3>
+                        <ul>
+                            <li>Automated food label generation</li>
+                            <li>Nutritional facts calculation (FatSecret API)</li>
+                            <li>Regulatory compliance verification</li>
+                            <li>Barcode and QR code generation</li>
+                        </ul>
+                    <h3>Investment Summary</h3>
+                    <p style="margin-bottom: 10px;">
+                        <strong>Total Investment:</strong> $33,863 USD<br>
+                        <strong>Duration:</strong> 6 Months (12 two-week sprints)<br>
+                        <strong>Team Size:</strong> 7 Dedicated FTE<br>
+                        <strong>Methodology:</strong> Agile Development with Continuous Integration
+                    </p>
+                <p style="margin-top: 30px;">
+                    This modular architecture allows seamless scalability, integrating features such as smart procurement, waste reduction,
+                    and logistics optimization. With AI-driven analytics and automation, this system empowers kitchen operators to maximize
+                    profitability, minimize waste, and ensure compliance with industry standards, making it a game-changer for the food service industry.
+                </p>
+        <!-- Footer -->
+        
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>3 | Page</b></div>
+</div>
+
+<!-- Page 4 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Our Expertise</h2>
+
+                <p>
+                    With a dedicated team of over 240 professionals, Bettroi specializes in driving digital transformation and providing tailored
+                    IT solutions to meet the specific needs of our clients. Our comprehensive expertise spans multiple domains:
+                </p>
+                        <h3>Custom Development</h3>
+                        <ul>
+                            <li>End-to-End Delivery</li>
+                            <li>Consultation & Conceptualization</li>
+                            <li>Gap Analysis and Solution Design</li>
+                            <li>MVP Development</li>
+                            <li>Product Development (SaaS/Standalone)</li>
+                            <li>Continuous Product Enhancement</li>
+                            <li>L1, L2 & L3 Support</li>
+                        </ul>
+                        <h3>Core Services</h3>
+                        <ul>
+                            <li>Business Process Management</li>
+                            <li>Intelligent Process Automation</li>
+                            <li>Ecosystem Integration</li>
+                            <li>IoT Integration</li>
+                            <li>Omnichannel Customer Engagement</li>
+                            <li>Intelligent Document Processing</li>
+                            <li>BI Tools Integration</li>
+                            <li>Data Visualization</li>
+                        </ul>
+                        <h3>AI & ML Implementation</h3>
+                        <ul>
+                            <li>Machine Learning Models</li>
+                            <li>Natural Language Processing</li>
+                            <li>Computer Vision</li>
+                            <li>Predictive Analytics</li>
+                            <li>AI-Powered Automation</li>
+                        </ul>
+                        <h3>Enterprise Solutions</h3>
+                        <ul>
+                            <li>ERP/CRM Implementation</li>
+                            <li>SAP Integration</li>
+                            <li>Oracle Solutions</li>
+                            <li>Microsoft Dynamics</li>
+                            <li>Salesforce Implementation</li>
+                        </ul>
+                
+<h2>Global Presence</h2>
+
+                            Headquarters
+                            Dubai, UAE
+                            Team Size
+                            240+
+                            Global Offices
+                            10+
+                            Since
+                            2017
+                        <strong>Our Locations:</strong> Dubai (HQ) | San Francisco | Berlin | Delhi | Paris | Dublin | Doha | Coventry | Pune | Austin
+                    <h3>Why Choose Bettroi?</h3>
+                    <ul class="checked-list">
+                        <li>Proven track record with 500+ successful projects delivered globally</li>
+                        <li>Certified partnerships with SAP, Oracle, Microsoft, and Salesforce</li>
+                        <li>Agile methodology ensuring flexibility and rapid delivery</li>
+                        <li>24/7 support with dedicated project management</li>
+                        <li>Competitive pricing with transparent cost structure</li>
+                        <li>Strong focus on security, scalability, and performance</li>
+                    </ul>
+        <!-- Footer -->
+        
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>4 | Page</b></div>
+</div>
+
+<!-- Page 5 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Key Objectives</h2>
+
+                        <h3>Enhance Inventory & Procurement Efficiency</h3>
+                        <ul>
+                            <li>AI-powered stock tracking</li>
+                            <li>Automated reordering</li>
+                            <li>Smart supplier selection</li>
+                            <li>Real-time price monitoring</li>
+                        </ul>
+                        <h3>Optimize Recipe Management & Cost Control</h3>
+                        <ul>
+                            <li>Recipe standardization</li>
+                            <li>Dynamic ingredient substitution</li>
+                            <li>Real-time cost tracking</li>
+                            <li>Profit margin optimization</li>
+                        </ul>
+                        <h3>Streamline Order Processing & Production</h3>
+                        <ul>
+                            <li>Automated task assignment</li>
+                            <li>Production forecasting</li>
+                            <li>Resource allocation</li>
+                            <li>Workflow optimization</li>
+                        </ul>
+                        <h3>Maximize Financial Performance</h3>
+                        <ul>
+                            <li>Predictive forecasting</li>
+                            <li>Smart pricing adjustments</li>
+                            <li>Profitability tracking</li>
+                            <li>Cost control recommendations</li>
+                        </ul>
+                        <h3>Improve Logistics & Waste Management</h3>
+                        <ul>
+                            <li>Route optimization</li>
+                            <li>Delivery cost reduction</li>
+                            <li>Expiry tracking</li>
+                            <li>Waste reduction strategies</li>
+                        </ul>
+                        <h3>Ensure Compliance & Quality</h3>
+                        <ul>
+                            <li>Automated label generation</li>
+                            <li>Regulatory compliance</li>
+                            <li>Nutritional fact calculation</li>
+                            <li>Quality assurance</li>
+                        </ul>
+                
+<h2>Expected Outcomes</h2>
+
+                    <ul class="checked-list">
+                        <li><strong>30-40% reduction</strong> in food waste through AI-powered expiry tracking and demand forecasting</li>
+                        <li><strong>25-35% improvement</strong> in inventory turnover with automated reordering and stock optimization</li>
+                        <li><strong>20-30% cost savings</strong> on procurement through smart supplier selection and price monitoring</li>
+                        <li><strong>40-50% faster</strong> order processing with automated workflows and production planning</li>
+                        <li><strong>15-25% increase</strong> in profit margins through real-time cost monitoring and dynamic pricing</li>
+                        <li><strong>100% compliance</strong> with food labeling regulations through automated label generation</li>
+                    </ul>
+        <!-- Footer -->
+        
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>5 | Page</b></div>
+</div>
+
+<!-- Page 6 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Client Order Management</h2>
+
+                    <ul>
+                        <li><strong>Custom Recipe Creation:</strong> Allow clients to create and modify recipes with customizable ingredients and instructions</li>
+                        <li><strong>Order Processing:</strong> Track and manage customer orders, associate them with recipes, and update inventory levels accordingly</li>
+                        <li><strong>Order History & Reporting:</strong> Maintain detailed records of past orders for performance analysis</li>
+                    </ul>
+                
+<h2>Inventory Management</h2>
+
+                    <ul>
+                        <li><strong>Stock Tracking:</strong> AI-powered tracking using image recognition and barcode scanning</li>
+                        <li><strong>Automatic Reordering:</strong> Trigger procurement suggestions when stock falls below thresholds</li>
+                        <li><strong>Inventory Adjustments:</strong> Manual adjustments for lost, spoiled, or unaccounted inventory</li>
+                        <li><strong>Real-Time Stock Levels:</strong> Display real-time inventory data for efficient decision-making</li>
+                        <li><strong>Expiry Tracking:</strong> Track product shelf life and set expiration notifications</li>
+                    </ul>
+                
+<h2>Recipe Costing & Batch Management</h2>
+
+                    <ul>
+                        <li><strong>Ingredient Costing:</strong> Real-time cost tracking based on market price fluctuations</li>
+                        <li><strong>Batch Tracking:</strong> Track ingredients and costs per batch for exact cost per portion</li>
+                        <li><strong>Cost vs. Profit Alerts:</strong> Alerts when recipes become unprofitable due to rising costs</li>
+                    </ul>
+                
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>6 | Page</b></div>
+</div>
+
+<!-- Page 7 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Supplier Price Monitoring</h2>
+
+                    <ul>
+                        <li><strong>Smart Supplier Selection:</strong> AI-driven analysis based on price, delivery time, and quality</li>
+                        <li><strong>Automatic Purchase Orders:</strong> Generate orders based on inventory levels and pricing</li>
+                        <li><strong>Supplier Performance Tracking:</strong> Maintain history for analysis and future selection</li>
+                    </ul>
+                
+<h2>Production Planning & Scheduling</h2>
+
+                    <ul>
+                        <li><strong>Automated Task Assignment:</strong> Assign kitchen staff tasks based on orders and recipe requirements</li>
+                        <li><strong>Production Forecasting:</strong> Predict demand based on historical data and seasonal trends</li>
+                        <li><strong>Resource Allocation:</strong> Optimal allocation of kitchen resources including staff and ingredients</li>
+                    </ul>
+                
+<h2>Profitability Analysis</h2>
+
+                    <ul>
+                        <li><strong>Real-Time Cost Monitoring:</strong> Track recipe costs and compare with profit margins</li>
+                        <li><strong>Profitability Dashboard:</strong> Visual dashboard showing financial health of recipes and menus</li>
+                        <li><strong>Cost Alerts:</strong> Notify users when recipe costs become unsustainable</li>
+                    </ul>
+        <!-- Footer -->
+        
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>7 | Page</b></div>
+</div>
+
+<!-- Page 8 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Recipe Optimization & Cost Efficiency Module</h2>
+
+                <ul>
+                    <li><strong>AI-Powered Recipe Standardization:</strong> Ensure consistency with AI suggesting standard ingredient proportions</li>
+                    <li><strong>Dynamic Ingredient Substitution:</strong> Suggest alternatives based on availability, cost, and preferences</li>
+                    <li><strong>Yield Tracking:</strong> Automatically track and adjust recipe yields to reduce waste</li>
+                    <li><strong>Waste Reduction:</strong> AI recommends changes to recipes to minimize waste</li>
+                </ul>
+            
+<h2>Label Making & Nutritional Fact Generation Module</h2>
+
+                <ul>
+                    <li><strong>FatSecret API Integration:</strong> Auto-generate nutritional facts based on recipe ingredients</li>
+                    <li><strong>Auto-Generated Labels:</strong> Create compliant food labels with ingredient list, allergens, and nutrition facts</li>
+                    <li><strong>Barcode & QR Code Generation:</strong> Generate barcodes and QR codes for product tracking</li>
+                    <li><strong>Compliance Verification:</strong> Automatically check for compliance with food labeling regulations</li>
+                </ul>
+            
+<h2>Smart Procurement & Supplier Cost Optimization Module</h2>
+
+                <ul>
+                    <li><strong>Live Supplier Price Tracking:</strong> Track real-time prices from multiple suppliers</li>
+                    <li><strong>Purchase Order Automation:</strong> Generate orders based on demand forecasting and price optimization</li>
+                    <li><strong>Cost-Effective Supplier Recommendations:</strong> AI recommends suppliers with best price-quality balance</li>
+                </ul>
+            PHASE 3: Advanced AI & Financial Optimization (Sprints 9-12)
+            
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>8 | Page</b></div>
+</div>
+
+<!-- Page 9 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>AI-Based Financial Optimization Module</h2>
+
+                <ul>
+                    <li><strong>Real-Time Profitability Tracking:</strong> Continuously track profit margins per recipe and batch</li>
+                    <li><strong>Smart Pricing Adjustments:</strong> Adjust pricing dynamically based on cost fluctuations</li>
+                    <li><strong>Predictive Financial Forecasting:</strong> AI-driven forecasting of future cash flows</li>
+                    <li><strong>Cost Control Recommendations:</strong> AI suggests pricing strategies to improve margins</li>
+                </ul>
+            
+<h2>Delivery & Logistics Optimization Module</h2>
+
+                <ul>
+                    <li><strong>Route Optimization:</strong> AI-powered route planning to reduce delivery times and costs</li>
+                    <li><strong>Fuel & Transport Cost Monitoring:</strong> Real-time tracking of fuel and transport costs</li>
+                    <li><strong>Packaging Calculation:</strong> AI calculates packaging requirements optimizing material use</li>
+                </ul>
+            
+<h2>Energy & Labor Cost Allocation Module</h2>
+
+                <ul>
+                    <li><strong>Energy Usage Tracking:</strong> Track energy consumption of kitchen equipment</li>
+                    <li><strong>Labor Cost Optimization:</strong> AI recommends optimal staff schedules</li>
+                    <li><strong>Cost-Cutting Strategies:</strong> Suggest energy-saving and cost-cutting practices</li>
+                </ul>
+            
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>9 | Page</b></div>
+</div>
+
+<!-- Page 10 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Waste Management & Expiry Tracking Module</h2>
+
+                <ul>
+                    <li><strong>Spoilage Detection:</strong> AI identifies and notifies of products nearing spoilage</li>
+                    <li><strong>Waste Reduction Suggestions:</strong> AI recommends changes to reduce food waste</li>
+                    <li><strong>Expiry Notifications:</strong> Automated notifications for timely usage or disposal</li>
+                </ul>
+        <!-- Footer -->
+        
+<h2>Sprint Structure (2 Weeks Each)</h2>
+
+                        <h3>1. Project Initiation</h3>
+                        <ul>
+                            <li>Kickoff meeting with stakeholders</li>
+                            <li>Product backlog creation</li>
+                            <li>Sprint planning session</li>
+                            <li>Define roles and responsibilities</li>
+                        </ul>
+                        <h3>2. Sprint Execution</h3>
+                        <ul>
+                            <li>Design and development of features</li>
+                            <li>Daily stand-up meetings</li>
+                            <li>Continuous testing and integration</li>
+                            <li>Code reviews and quality checks</li>
+                        </ul>
+                        <h3>3. Sprint Review</h3>
+                        <ul>
+                            <li>Demonstrate completed features</li>
+                            <li>Gather stakeholder feedback</li>
+                            <li>Review sprint goals achievement</li>
+                            <li>Plan necessary adjustments</li>
+                        </ul>
+                        <h3>4. Sprint Retrospective</h3>
+                        <ul>
+                            <li>Reflect on what worked well</li>
+                            <li>Identify areas for improvement</li>
+                            <li>Update processes and workflows</li>
+                            <li>Prepare for next sprint</li>
+                        </ul>
+                
+<h2>Communication Plan</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Communication</th>
+                            <th>Frequency</th>
+                            <th>Goal</th>
+                            <th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Project Status Report</td>
+                            <td>Weekly</td>
+                            <td>Review project status and discuss potential issues</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Team Standup</td>
+                            <td>Daily</td>
+                            <td>Discuss progress, blockers, and daily tasks</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Task Progress Updates</td>
+                            <td>Daily</td>
+                            <td>Share daily progress on project tasks</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Project Review</td>
+                            <td>At Milestones</td>
+                            <td>Present deliverables and gather feedback</td>
+                            <td>Project Manager</td>
+                        </tr>
+                        <tr>
+                            <td>Post-Mortem Meeting</td>
+                            <td>End of Project</td>
+                            <td>Assess what worked and discuss improvements</td>
+                            <td>Project Manager</td>
+                        </tr>
+                    </tbody>
+                </table>
+                    <h3>Tools & Collaboration</h3>
+                    <p style="margin-bottom: 10px;"><strong>Project Management:</strong> JIRA for sprint tracking and task management</p>
+                    <p style="margin-bottom: 10px;"><strong>Communication:</strong> Slack for real-time team collaboration</p>
+                    <p style="margin-bottom: 10px;"><strong>Code Repository:</strong> GitLab for version control and CI/CD</p>
+                    <p><strong>Documentation:</strong> Confluence for technical documentation and knowledge base</p>
+    <!-- Pricing Page -->
+                BETTROI
+            <h1 class="section-title">10. Pricing & Payment Terms</h1>
+                    
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>10 | Page</b></div>
+</div>
+
+<!-- Page 11 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Total Project Investment</h2>
+
+                    $33,863 USD
+                    <p style="margin: 0; opacity: 0.9;">Paid in milestone-based installments</p>
+            
+<h2>Payment Schedule</h2>
+
+                <h3 style="color: #003DA5; margin-bottom: 20px;">Phase 1: Core System Development - $12,931</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Deliverable</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Project Kickoff</td>
+                            <td>Project initiation, requirements finalization</td>
+                            <td>$3,879</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 1 Completion</td>
+                            <td>Kickoff, planning, feature freeze, environment setup</td>
+                            <td>$2,263</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 2 Completion</td>
+                            <td>UI/UX design (Figma) completed and approved</td>
+                            <td>$2,263</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 3 Completion</td>
+                            <td>Frontend development for core features</td>
+                            <td>$2,263</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 4 Completion</td>
+                            <td>Backend API development for core system</td>
+                            <td>$2,263</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 style="color: #003DA5; margin-bottom: 20px;">Phase 2: Module Development - $12,309</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Deliverable</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Phase 2 Kickoff</td>
+                            <td>Module development planning and setup</td>
+                            <td>$3,693</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 5 Completion</td>
+                            <td>Recipe optimization & cost efficiency module</td>
+                            <td>$2,154</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 6 Completion</td>
+                            <td>Label making & nutritional fact generation module</td>
+                            <td>$2,154</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 7 Completion</td>
+                            <td>Smart procurement & supplier optimization module</td>
+                            <td>$2,154</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 8 Completion</td>
+                            <td>AI-powered profitability analysis</td>
+                            <td>$2,154</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 style="color: #003DA5; margin-bottom: 20px;">Phase 3: Advanced Features & Deployment - $8,623</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Deliverable</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Phase 3 Kickoff</td>
+                            <td>Advanced features planning and integration setup</td>
+                            <td>$2,587</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 9 Completion</td>
+                            <td>Third-party integrations & AI implementation</td>
+                            <td>$1,509</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 10 Completion</td>
+                            <td>Backend-frontend integration & testing</td>
+                            <td>$1,509</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 11 Completion</td>
+                            <td>Final testing & UAT sign-off</td>
+                            <td>$1,509</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 12 Completion</td>
+                            <td>Production deployment & go-live</td>
+                            <td>$1,509</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Payment Terms</h3>
+                <ul class="checked-list">
+                    <li>Invoices will be sent upon completion of each milestone</li>
+                    <li>Payment due within 15 business days of invoice date</li>
+                    <li>Accepted payment methods: Bank transfer, wire transfer</li>
+                    <li>All prices in USD and exclude applicable taxes</li>
+                </ul>
+    <!-- Support Plan Page -->
+                BETTROI
+            <h1 class="section-title">11. Support Plan</h1>
+                <p style="margin-bottom: 30px;">
+                    Bettroi is committed to ensuring the long-term success of your AI-Integrated Kitchen Management System. We offer comprehensive
+                    support services to guarantee smooth operations and rapid resolution of any issues.
+                </p>
+                
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>11 | Page</b></div>
+</div>
+
+<!-- Page 12 -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><img src="Bettroi_Kitchen_Logo.jpg" class="logo"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI K26<br><b>Date:</b> 12 November 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Hyper-Care Support (60 Days)</h2>
+
+                    <h3>Duration: 60 Days Post Go-Live</h3>
+                    <ul class="checked-list">
+                        <li><strong>24/7 Support Availability:</strong> Round-the-clock support for critical issues</li>
+                        <li><strong>Immediate Issue Resolution:</strong> Priority handling of system health issues</li>
+                        <li><strong>Proactive System Monitoring:</strong> Continuous monitoring of system performance</li>
+                        <li><strong>Bug Fixing & Optimization:</strong> Quick resolution and performance tuning</li>
+                        <li><strong>Escalation Management:</strong> Direct escalation path to senior technical team</li>
+                    </ul>
+                
+<h2>SLA-Based Support (120 Days)</h2>
+
+                    <h3>Duration: 120 Days Following Hyper-Care</h3>
+                    <p style="margin-bottom: 15px;">Continuous support with defined Service Level Agreements:</p>
+                    <ul class="checked-list">
+                        <li><strong>Critical Issues:</strong> 4-hour response time (system down, data loss, security breach)</li>
+                        <li><strong>Major Issues:</strong> 12-hour response time (significant feature not working, performance degradation)</li>
+                        <li><strong>Minor Issues:</strong> 48-hour response time (cosmetic issues, minor bugs, enhancement requests)</li>
+                    </ul>
+                
+<h2>Support Availability</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Support Type</th>
+                            <th>Hours</th>
+                            <th>Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Regular Support</td>
+                            <td>Monday - Friday, 9:00 AM - 6:00 PM IST</td>
+                            <td>General inquiries, enhancements, training</td>
+                        </tr>
+                        <tr>
+                            <td>Emergency Support</td>
+                            <td>24/7</td>
+                            <td>Critical issues only (system down, security)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+<h2>Post-6-Month Support Package</h2>
+
+                    <h3>Extended Support Package</h3>
+                    <p style="margin-bottom: 10px;"><strong>Package:</strong> 500 hours at $25 USD per hour</p>
+                    <p style="margin-bottom: 10px;"><strong>Flexibility:</strong> Use hours at your own pace with no expiration</p>
+                    <p style="margin-bottom: 10px;"><strong>Renewal:</strong> Package can be renewed as needed</p>
+                    <p style="margin-bottom: 10px;"><strong>Payment:</strong> Billed one time at the start</p>
+                    <p><strong>Total Package Cost:</strong> $12,500 USD (500 hours × $25/hour)</p>
+                
+<h2>What's Included in Support</h2>
+
+                        <h3>Bug Fixes</h3>
+                        <ul>
+                            <li>Resolution of software defects</li>
+                            <li>Performance issue fixes</li>
+                            <li>Security vulnerability patches</li>
+                        </ul>
+                        <h3>Technical Assistance</h3>
+                        <ul>
+                            <li>Configuration support</li>
+                            <li>Integration troubleshooting</li>
+                            <li>Best practices guidance</li>
+                        </ul>
+                        <h3>Training & Documentation</h3>
+                        <ul>
+                            <li>User training sessions</li>
+                            <li>Documentation updates</li>
+                            <li>Knowledge transfer</li>
+                        </ul>
+                        <h3>System Maintenance</h3>
+                        <ul>
+                            <li>Software updates</li>
+                            <li>Database optimization</li>
+                            <li>Backup verification</li>
+                        </ul>
+    <!-- Final Page: Terms & Signature -->
+                BETTROI
+            <h1 class="section-title">12. Terms & Conditions</h1>
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">1. Scope of Services</h3>
+                <p>This proposal outlines the scope of work for the AI-Integrated Kitchen Management System as described in Sections 4-5. Any additional features or changes requested outside this scope will be subject to separate quotation and agreement.</p>
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">2. Project Timeline</h3>
+                <p>The project duration is estimated at 6 months (12 two-week sprints) from the project kickoff date. Timeline may be adjusted based on client feedback cycles and requirement changes.</p>
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">3. Payment Terms</h3>
+                <p>Payments are due within 15 business days of invoice date. Late payments may result in project delays. Bettroi reserves the right to suspend work if payments are overdue by more than 30 days.</p>
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">4. Intellectual Property</h3>
+                <p>Upon full payment, all custom code and deliverables will become the property of the client. Bettroi retains ownership of any pre-existing code, frameworks, or libraries used in the project.</p>
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">5. Confidentiality</h3>
+                <p>Both parties agree to maintain confidentiality of all proprietary information shared during the project. A separate NDA can be executed if required.</p>
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">6. Warranty & Support</h3>
+                <p>Bettroi provides comprehensive support as outlined in Section 11. Post-support period, maintenance and enhancements will be charged separately.</p>
+                <h3 style="color: #374151; margin: 20px 0 10px 0;">7. Acceptance Criteria</h3>
+                <p>Client will have 7 business days to review and accept deliverables for each milestone. Non-response will be considered acceptance.</p>
+                    
+<h2>Proposal Acceptance</h2>
+
+                            <p style="font-weight: 600; margin-bottom: 40px;">FOR BETTROI:</p>
+                            <p style="font-size: 12px; color: #6b7280;">Authorized Signature</p>
+                            <p style="margin-top: 20px; font-size: 14px;">Name: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Title: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Date: ___________________________</p>
+                            <p style="font-weight: 600; margin-bottom: 40px;">FOR CLIENT:</p>
+                            <p style="font-size: 12px; color: #6b7280;">Authorized Signature</p>
+                            <p style="margin-top: 20px; font-size: 14px;">Name: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Title: ___________________________</p>
+                            <p style="margin-top: 10px; font-size: 14px;">Date: ___________________________</p>
+        <!-- Final Footer -->
+        
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>11-Nov-25 / SAL-QTN-2025-00037</span><b>12 | Page</b></div>
+</div>
+
+</body>
+</html>

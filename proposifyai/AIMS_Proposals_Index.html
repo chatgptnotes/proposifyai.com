@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AIMS Proposals - Bettroi</title>
+<style>
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.header h1 {
+    font-size: 48px;
+    margin: 0 0 10px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.header p {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+.proposals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.proposal-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.proposal-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+.proposal-number {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.proposal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a202c;
+    margin-bottom: 15px;
+}
+
+.proposal-type {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.proposal-description {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.key-features {
+    margin-bottom: 25px;
+}
+
+.key-features h4 {
+    color: #2d3748;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    color: #4a5568;
+    font-size: 14px;
+}
+
+.feature-item::before {
+    content: "✓";
+    color: #48bb78;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.pricing-box {
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1a202c;
+}
+
+.price-note {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 5px;
+}
+
+.view-button {
+    display: block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+
+.view-button:hover {
+    opacity: 0.9;
+}
+
+.comparison-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 50px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.comparison-title {
+    font-size: 32px;
+    color: #1a202c;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparison-table th {
+    background: #f7fafc;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.comparison-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #4a5568;
+}
+
+.check-mark {
+    color: #48bb78;
+    font-weight: bold;
+}
+
+.cross-mark {
+    color: #f56565;
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.footer p {
+    opacity: 0.8;
+}
+
+.contact-info {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.contact-info a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>AIMS Proposal Options</h1>
+        <p>Asset Information Management System - Three Deployment Models</p>
+    </div>
+
+    <div class="proposals-grid">
+        <!-- Proposal 1: SaaS -->
+        <div class="proposal-card">
+            <div class="proposal-number">1</div>
+            <div class="proposal-type">Cloud SaaS</div>
+            <div class="proposal-title">Cloud-Based Platform</div>
+            <div class="proposal-description">
+                Fully managed cloud solution with zero infrastructure requirements. Access from anywhere, automatic updates, and scalable performance.
+            </div>
+
+            <div class="key-features">
+                <h4>Key Features:</h4>
+                <div class="feature-item">Bettroi managed infrastructure</div>
+                <div class="feature-item">Automatic updates & improvements</div>
+                <div class="feature-item">99.9% uptime SLA</div>
+                <div class="feature-item">Pay-as-you-go model</div>
+                <div class="feature-item">Global accessibility</div>
+            </div>
+
+            <div class="pricing-box">
+                <div class="price">AED 278,250</div>
+                <div class="price-note">Year 1 (Setup + Annual Subscription)</div>
+                <div class="price-note" style="margin-top: 10px;">Then AED 15,000/month</div>
+            </div>
+
+            <a href="AIMS_Proposal_SaaS_Model.html" class="view-button">View SaaS Proposal</a>
+        </div>
+
+        <!-- Proposal 2: On-Premise -->
+        <div class="proposal-card">
+            <div class="proposal-number">2</div>
+            <div class="proposal-type">On-Premise</div>
+            <div class="proposal-title">Offline Private Deployment</div>
+            <div class="proposal-description">
+                Complete offline solution with local AI models. Perfect for secure environments with no internet connectivity requirements.
+            </div>
+
+            <div class="key-features">
+                <h4>Key Features:</h4>
+                <div class="feature-item">100% offline operation</div>
+                <div class="feature-item">Local AI processing</div>
+                <div class="feature-item">Complete data sovereignty</div>
+                <div class="feature-item">Perpetual license</div>
+                <div class="feature-item">Air-gap security support</div>
+            </div>
+
+            <div class="pricing-box">
+                <div class="price">AED 588,000</div>
+                <div class="price-note">One-time purchase</div>
+                <div class="price-note" style="margin-top: 10px;">Includes 6-month warranty</div>
+            </div>
+
+            <a href="AIMS_Proposal_OnPremise_Model.html" class="view-button">View On-Premise Proposal</a>
+        </div>
+
+        <!-- Proposal 3: Source Code -->
+        <div class="proposal-card">
+            <div class="proposal-number">3</div>
+            <div class="proposal-type">Enterprise</div>
+            <div class="proposal-title">Source Code Ownership</div>
+            <div class="proposal-description">
+                Complete IP ownership with full source code access. Unlimited modification rights and deployment capabilities.
+            </div>
+
+            <div class="key-features">
+                <h4>Key Features:</h4>
+                <div class="feature-item">100% source code ownership</div>
+                <div class="feature-item">Full IP rights transfer</div>
+                <div class="feature-item">Unlimited modifications</div>
+                <div class="feature-item">Commercial rights included</div>
+                <div class="feature-item">10-day knowledge transfer</div>
+            </div>
+
+            <div class="pricing-box">
+                <div class="price">AED 1,575,000</div>
+                <div class="price-note">Complete ownership</div>
+                <div class="price-note" style="margin-top: 10px;">Includes training & documentation</div>
+            </div>
+
+            <a href="AIMS_Proposal_SourceCode_Model.html" class="view-button">View Source Code Proposal</a>
+        </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="comparison-section">
+        <h2 class="comparison-title">Quick Comparison</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Cloud SaaS</th>
+                    <th>On-Premise</th>
+                    <th>Source Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Deployment Time</strong></td>
+                    <td>8-10 weeks</td>
+                    <td>12-14 weeks</td>
+                    <td>16-20 weeks</td>
+                </tr>
+                <tr>
+                    <td><strong>Internet Required</strong></td>
+                    <td><span class="check-mark">✓</span> Yes</td>
+                    <td><span class="cross-mark">✗</span> No</td>
+                    <td><span class="cross-mark">✗</span> No</td>
+                </tr>
+                <tr>
+                    <td><strong>Maintenance</strong></td>
+                    <td>Bettroi managed</td>
+                    <td>Client managed</td>
+                    <td>Client managed</td>
+                </tr>
+                <tr>
+                    <td><strong>Updates</strong></td>
+                    <td>Automatic</td>
+                    <td>Manual (optional)</td>
+                    <td>Self-developed</td>
+                </tr>
+                <tr>
+                    <td><strong>Scalability</strong></td>
+                    <td>Unlimited</td>
+                    <td>Hardware limited</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td><strong>Source Code Access</strong></td>
+                    <td><span class="cross-mark">✗</span> No</td>
+                    <td><span class="cross-mark">✗</span> No</td>
+                    <td><span class="check-mark">✓</span> Full access</td>
+                </tr>
+                <tr>
+                    <td><strong>Modification Rights</strong></td>
+                    <td>Configuration only</td>
+                    <td>Configuration only</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td><strong>Commercial Rights</strong></td>
+                    <td><span class="cross-mark">✗</span> No</td>
+                    <td><span class="cross-mark">✗</span> No</td>
+                    <td><span class="check-mark">✓</span> Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Data Location</strong></td>
+                    <td>UAE cloud</td>
+                    <td>Your premises</td>
+                    <td>Your control</td>
+                </tr>
+                <tr>
+                    <td><strong>Support Included</strong></td>
+                    <td>24/7 ongoing</td>
+                    <td>6 months</td>
+                    <td>90 days</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p><strong>BETTROI FZE</strong></p>
+        <p>Your Partner in Digital Transformation</p>
+        <div class="contact-info">
+            <p>📧 <a href="mailto:sales@bettroi.com">sales@bettroi.com</a></p>
+            <p>📱 +971 52 819 4040</p>
+            <p>🌐 <a href="https://bettroi.com" target="_blank">www.bettroi.com</a></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

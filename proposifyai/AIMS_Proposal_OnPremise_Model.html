@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AIMS On-Premise Platform - Bettroi to ADNOC</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 10mm auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.legal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #003DA5;
+}
+
+.supplier-details {
+    flex: 1;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.logo.big {
+    width: 80px;
+    height: 80px;
+}
+
+.company-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003DA5;
+}
+
+.legal-info p {
+    margin: 5px 0;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.document-info {
+    text-align: right;
+    min-width: 250px;
+}
+
+.document-type {
+    font-size: 20px;
+    color: #003DA5;
+    margin: 0 0 10px 0;
+}
+
+.ref-details p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.title-box {
+    background: linear-gradient(135deg, #003DA5 0%, #0056D6 100%);
+    color: white;
+    padding: 30px;
+    margin: 20px -20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+}
+
+.bill-to-section {
+    margin: 30px 0;
+}
+
+.bill-to-section h2 {
+    color: #003DA5;
+    border-bottom: 2px solid #003DA5;
+    padding-bottom: 5px;
+}
+
+.client-legal-box {
+    background: #f9fafb;
+    padding: 15px;
+    border-left: 4px solid #003DA5;
+    margin: 15px 0;
+}
+
+.client-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003DA5;
+    margin-bottom: 10px;
+}
+
+.investment-summary {
+    background: #f0f4ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px 0;
+}
+
+.investment-summary h3 {
+    color: #003DA5;
+    margin-top: 0;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.pricing-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.total-row td {
+    border-top: 2px solid #003DA5;
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #003DA5;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003DA5;
+}
+
+.ref {
+    text-align: right;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+h2 {
+    color: #003DA5;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #1f2937;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+ul {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+th {
+    background: #003DA5;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.aml-notice {
+    font-size: 8px;
+    font-style: italic;
+    color: #999;
+}
+
+.compliance-box {
+    background: #F0F4FF;
+    border-left: 4px solid #003DA5;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.warning-box {
+    background: #FEF2F2;
+    border-left: 4px solid #DC2626;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.important-note {
+    background: #FFF3CD;
+    border-left: 4px solid #FFC107;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.bank-details-box {
+    background: #f9fafb;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+.offline-highlight {
+    background: linear-gradient(135deg, #FEF3E2 0%, #FFF8F0 100%);
+    border: 2px solid #F97316;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.offline-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.benefit-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.benefit-card h4 {
+    color: #F97316;
+    margin: 0 0 10px 0;
+}
+
+.hardware-specs {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<div class="page">
+<!-- AML Compliant Legal Header -->
+<div class="legal-header">
+<div class="supplier-details">
+<div class="logo-box">
+<div class="company-name">BETTROI FZE</div>
+</div>
+<div class="legal-info">
+<p><b>Trade License:</b> 14421</p>
+<p><b>TRN:</b> 100406144400003</p>
+<p><b>Address:</b> A5-101, Techno-Hub 1, Dubai Technology Entrepreneur Center (DTEC), Dubai Silicon Oasis, Dubai, UAE</p>
+<p><b>Tel:</b> +971 52 819 4040 | <b>Email:</b> sales@bettroi.com</p>
+<p><b>Website:</b> www.bettroi.com</p>
+</div>
+</div>
+<div class="document-info">
+<h2 class="document-type">TECHNICAL PROPOSAL</h2>
+<div class="ref-details">
+<p><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001</p>
+<p><b>Proposal No:</b> ERP-AIMS-ONPREM-001</p>
+<p><b>Date:</b> November 29, 2025</p>
+<p><b>Valid Until:</b> December 29, 2025</p>
+</div>
+</div>
+</div>
+
+<div class="title-box">
+<div class="title">AIMS On-Premise Platform<br/>Offline AI-Powered P&ID Processing System</div>
+</div>
+
+<div class="content">
+<!-- Client Details Section (Bill To) -->
+<div class="bill-to-section">
+<h2>BILL TO</h2>
+<div class="client-legal-box">
+<p class="client-name">ADNOC GROUP</p>
+<p><b>Trade License:</b> Government Entity (State-Owned)</p>
+<p><b>TRN:</b> 100000000000000</p>
+<p><b>Address:</b> ADNOC HQ, P.O. Box 898, Corniche Road West, Abu Dhabi, UAE</p>
+<p><b>Contact Person:</b> Engineering & Technology Director</p>
+<p><b>Email:</b> info@adnoc.ae</p>
+<p><b>Phone:</b> +971 2 7070000</p>
+</div>
+</div>
+
+<div class="offline-highlight">
+<h3 style="margin-top: 0;">100% Offline On-Premise Solution</h3>
+<p><b>Deployment:</b> Your Infrastructure, Your Control</p>
+<p><b>Internet Required:</b> NEVER - Completely Air-Gapped</p>
+<p><b>AI Processing:</b> Local Models, No External Calls</p>
+<p><b>Data Security:</b> All Data Stays Within Your Network</p>
+</div>
+
+<div style="margin-top: 30px;">
+<div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Implementation Timeline</div>
+<div style="font-size: 16px; font-weight: 600; color: #003DA5;">12-14 Weeks</div>
+</div>
+
+<!-- Investment Summary with VAT -->
+<div class="investment-summary">
+<h3>One-Time Investment</h3>
+<table class="pricing-table">
+<tr>
+<td><b>Software License (Perpetual)</b></td>
+<td align="right"><b>AED 450,000</b></td>
+</tr>
+<tr>
+<td><b>Installation & Configuration</b></td>
+<td align="right"><b>AED 75,000</b></td>
+</tr>
+<tr>
+<td><b>Training (On-Site, 5 Days)</b></td>
+<td align="right"><b>AED 35,000</b></td>
+</tr>
+<tr>
+<td><b>Subtotal (Taxable Amount)</b></td>
+<td align="right"><b>AED 560,000</b></td>
+</tr>
+<tr>
+<td>VAT @ 5%</td>
+<td align="right">AED 28,000</td>
+</tr>
+<tr class="total-row">
+<td><b>TOTAL INVESTMENT</b></td>
+<td align="right"><b>AED 588,000</b></td>
+</tr>
+</table>
+<p style="font-size: 10px; font-style: italic; color: #666; margin-top: 10px;">
+One-time purchase with 6-month warranty. Optional annual maintenance available.
+</p>
+</div>
+</div>
+
+<div class="footer">
+<div><b>BETTROI FZE</b></div>
+<div><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span></div>
+<div><b>Page 1</b></div>
+<div class="aml-notice">Document retention: 5 years as per UAE AML regulations</div>
+</div>
+</div>
+
+<!-- Page 2: Table of Contents -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Table of Contents</h2>
+<ol>
+<li><b>Executive Summary</b> ......................................................... 3</li>
+<li><b>Offline Platform Benefits</b> .................................................. 3</li>
+<li><b>Scope of Work</b> ............................................................... 4</li>
+<li><b>Architecture and Infrastructure</b> ........................................... 5</li>
+<li><b>Hardware Requirements</b> ....................................................... 6</li>
+<li><b>Deliverables</b> .................................................................. 7</li>
+<li><b>Technology Stack</b> ............................................................ 7</li>
+<li><b>Local AI Models</b> .............................................................. 8</li>
+<li><b>Installation Process</b> ........................................................ 8</li>
+<li><b>Project Plan and Milestones</b> ............................................... 9</li>
+<li><b>Commercials - One-Time License</b> ............................................ 10</li>
+<li><b>Training Program</b> ............................................................. 11</li>
+<li><b>Data Security & Isolation</b> .................................................. 11</li>
+<li><b>Client Responsibilities</b> .................................................... 12</li>
+<li><b>Division of Responsibilities</b> .............................................. 12</li>
+<li><b>Acceptance Criteria</b> ......................................................... 13</li>
+<li><b>Important Points</b> ............................................................. 13</li>
+<li><b>Assumptions</b> ................................................................... 14</li>
+<li><b>Warranty & Support Options</b> ................................................. 14</li>
+<li><b>Terms & Conditions</b> ........................................................... 15</li>
+<li><b>Service Order Confirmation – Letter of Intent (LOI)</b> .................... 16</li>
+</ol>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>2 | Page</b></div>
+</div>
+
+<!-- Page 3: Executive Summary & Benefits -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Executive Summary</h2>
+<p>
+BETTROI will deliver AIMS as a completely offline, on-premise solution that operates without any internet connectivity. This air-gapped system uses locally deployed AI models to extract equipment and instrument tags from P&ID drawings, ensuring 100% data sovereignty and security. The system processes P&IDs using embedded AI technology, achieving 98% accuracy while maintaining complete isolation from external networks. Success is defined by autonomous operation, zero external dependencies, and processing capability of 500+ P&IDs per day on local hardware.
+</p>
+<p>
+<b>Success Metrics:</b> 100% offline operation, 98% tag extraction accuracy, <30 seconds per P&ID page, zero network dependencies, complete data isolation.
+</p>
+
+<h2>Offline Platform Benefits</h2>
+
+<div class="offline-benefits">
+<div class="benefit-card">
+<h4>Complete Data Sovereignty</h4>
+<p>All data remains within your physical premises. No cloud exposure, ever.</p>
+</div>
+<div class="benefit-card">
+<h4>Air-Gap Security</h4>
+<p>Immune to external cyber threats. Perfect for classified environments.</p>
+</div>
+<div class="benefit-card">
+<h4>Zero Internet Dependency</h4>
+<p>Operates in remote locations, ships, or secure facilities without connectivity.</p>
+</div>
+<div class="benefit-card">
+<h4>Local AI Processing</h4>
+<p>Embedded AI models run entirely on your hardware. No API calls.</p>
+</div>
+<div class="benefit-card">
+<h4>Unlimited Processing</h4>
+<p>Process infinite P&IDs with no usage fees or subscription costs.</p>
+</div>
+<div class="benefit-card">
+<h4>Regulatory Compliance</h4>
+<p>Meets strictest data residency and security regulations.</p>
+</div>
+</div>
+
+<h3>Why Choose On-Premise AIMS?</h3>
+<ul>
+<li><b>Maximum Security:</b> Perfect for sensitive or classified projects</li>
+<li><b>No Recurring Costs:</b> One-time investment, unlimited usage</li>
+<li><b>Complete Control:</b> Your IT team manages all aspects</li>
+<li><b>Offline Capability:</b> Works in ships, remote sites, secure facilities</li>
+<li><b>Customizable:</b> Can be modified to meet specific requirements</li>
+<li><b>Performance:</b> Dedicated resources ensure consistent speed</li>
+</ul>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>3 | Page</b></div>
+</div>
+
+<!-- Page 4: Scope of Work -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Scope of Work</h2>
+
+<h3>In-scope</h3>
+<ul>
+<li><b>On-Premise Software:</b> Complete AIMS platform for local deployment</li>
+<li><b>Offline AI Models:</b> Pre-trained models for symbol detection and OCR</li>
+<li><b>Local Database:</b> PostgreSQL setup with all required schemas</li>
+<li><b>User Management:</b> Unlimited local users with role-based access</li>
+<li><b>P&ID Processing:</b> Batch processing of unlimited P&ID documents</li>
+<li><b>Tag Extraction:</b> Equipment, instrument, and line tag identification</li>
+<li><b>ISA 5.1 Parser:</b> Industry-standard tag interpretation engine</li>
+<li><b>Excel Export:</b> ADNOC-compliant Tag Creation sheet generation</li>
+<li><b>Installation:</b> On-site installation and configuration (5 days)</li>
+<li><b>Training:</b> On-site training for up to 30 users</li>
+<li><b>Documentation:</b> Complete admin and user manuals</li>
+<li><b>Warranty:</b> 6-month bug fix and technical support warranty</li>
+<li><b>Local Backup:</b> Automated backup scripts and procedures</li>
+</ul>
+
+<h3>Out-of-scope</h3>
+<ul>
+<li><b>Hardware procurement:</b> Client provides servers and workstations</li>
+<li><b>Network infrastructure:</b> Internal network setup not included</li>
+<li><b>Operating system licenses:</b> Windows/Linux licenses by client</li>
+<li><b>Database licenses:</b> If using commercial DB (Oracle/SQL Server)</li>
+<li><b>Internet connectivity:</b> System designed to work without internet</li>
+<li><b>Cloud features:</b> No cloud backup, sync, or remote access</li>
+<li><b>Mobile apps:</b> Web-based access only, no native apps</li>
+<li><b>Third-party integrations:</b> ERP/SAP connectors available separately</li>
+<li><b>Custom AI training:</b> Uses pre-trained models only</li>
+<li><b>Post-warranty support:</b> Available through maintenance contract</li>
+</ul>
+
+<div class="important-note">
+<p style="margin: 0;"><b>Critical Scope Notes:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>This is a perpetual license - you own the software forever</li>
+<li>System operates 100% offline after installation</li>
+<li>All AI processing happens on local servers</li>
+<li>No data ever leaves your network</li>
+</ul>
+</div>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>4 | Page</b></div>
+</div>
+
+<!-- Page 5: Architecture -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Architecture and Infrastructure</h2>
+
+<h3>On-Premise Architecture</h3>
+
+<p><b>Deployment Model:</b> Single-server or distributed installation</p>
+<p><b>Network:</b> Isolated internal network (air-gapped supported)</p>
+<p><b>Access:</b> Web-based interface via internal network</p>
+
+<h3>System Components</h3>
+
+<p><b>1. Application Server</b></p>
+<ul>
+<li>Web application hosting (Node.js/Python)</li>
+<li>User authentication and session management</li>
+<li>API services for frontend communication</li>
+<li>Job queue management</li>
+</ul>
+
+<p><b>2. AI Processing Server</b></p>
+<ul>
+<li>Local AI model runtime (PyTorch/TensorFlow)</li>
+<li>OCR engine (Tesseract 5)</li>
+<li>Symbol detection models (YOLOv8)</li>
+<li>ISA 5.1 parsing engine</li>
+<li>GPU acceleration support (optional)</li>
+</ul>
+
+<p><b>3. Database Server</b></p>
+<ul>
+<li>Supabase (self-hosted PostgreSQL with extensions)</li>
+<li>User management and permissions</li>
+<li>P&ID metadata and extracted tags</li>
+<li>Real-time subscriptions and audit logs</li>
+</ul>
+
+<p><b>4. File Storage</b></p>
+<ul>
+<li>Network attached storage (NAS) or local disk</li>
+<li>P&ID document repository</li>
+<li>Processed images and cache</li>
+<li>Export files and backups</li>
+</ul>
+
+<h3>Network Architecture</h3>
+<ul>
+<li>Internal network only (10.x.x.x or 192.168.x.x)</li>
+<li>HTTPS with self-signed certificates</li>
+<li>Optional: Active Directory integration</li>
+<li>Firewall rules for internal access only</li>
+<li>No external ports or internet routing</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>5 | Page</b></div>
+</div>
+
+<!-- Page 6: Hardware Requirements -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Hardware Requirements</h2>
+
+<div class="hardware-specs">
+<h3>Minimum Requirements (Up to 100 users)</h3>
+<table>
+<tr>
+<th>Component</th>
+<th>Specification</th>
+</tr>
+<tr>
+<td><b>CPU</b></td>
+<td>Intel Xeon or AMD EPYC, 16 cores minimum</td>
+</tr>
+<tr>
+<td><b>RAM</b></td>
+<td>64 GB DDR4 ECC</td>
+</tr>
+<tr>
+<td><b>Storage (OS)</b></td>
+<td>500 GB SSD (RAID 1)</td>
+</tr>
+<tr>
+<td><b>Storage (Data)</b></td>
+<td>4 TB HDD (RAID 5) expandable</td>
+</tr>
+<tr>
+<td><b>GPU (Optional)</b></td>
+<td>NVIDIA RTX 4000 or better for faster processing</td>
+</tr>
+<tr>
+<td><b>Network</b></td>
+<td>1 Gbps Ethernet</td>
+</tr>
+<tr>
+<td><b>OS</b></td>
+<td>Windows Server 2019+ or Ubuntu 20.04 LTS+</td>
+</tr>
+</table>
+</div>
+
+<div class="hardware-specs">
+<h3>Recommended Requirements (100+ users, high volume)</h3>
+<table>
+<tr>
+<th>Component</th>
+<th>Specification</th>
+</tr>
+<tr>
+<td><b>CPU</b></td>
+<td>Dual Intel Xeon Gold, 32+ cores total</td>
+</tr>
+<tr>
+<td><b>RAM</b></td>
+<td>128 GB DDR4 ECC</td>
+</tr>
+<tr>
+<td><b>Storage (OS)</b></td>
+<td>1 TB NVMe SSD (RAID 1)</td>
+</tr>
+<tr>
+<td><b>Storage (Data)</b></td>
+<td>10 TB SAS HDD (RAID 10) + NAS</td>
+</tr>
+<tr>
+<td><b>GPU</b></td>
+<td>NVIDIA A6000 or Tesla T4 (2x for parallel processing)</td>
+</tr>
+<tr>
+<td><b>Network</b></td>
+<td>10 Gbps Ethernet with redundancy</td>
+</tr>
+<tr>
+<td><b>Backup</b></td>
+<td>Separate backup server with tape drive</td>
+</tr>
+</table>
+</div>
+
+<h3>Workstation Requirements</h3>
+<ul>
+<li><b>Browser:</b> Chrome 90+, Edge 90+, Firefox 88+</li>
+<li><b>RAM:</b> 8 GB minimum</li>
+<li><b>Display:</b> 1920x1080 or higher</li>
+<li><b>Network:</b> 100 Mbps LAN connection</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>6 | Page</b></div>
+</div>
+
+<!-- Page 7: Deliverables & Tech Stack -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Deliverables</h2>
+<ul>
+<li><b>AIMS Software Package:</b> Complete installation files and scripts</li>
+<li><b>AI Models:</b> Pre-trained models for P&ID processing</li>
+<li><b>Database Schema:</b> Complete Supabase self-hosted setup</li>
+<li><b>Web Application:</b> Full-featured browser-based interface</li>
+<li><b>Admin Tools:</b> User management, backup, monitoring utilities</li>
+<li><b>Documentation:</b> Installation guide, admin manual, user guide</li>
+<li><b>Training Materials:</b> Slides, exercises, video tutorials</li>
+<li><b>Configuration Files:</b> Templates for all system settings</li>
+<li><b>Backup Scripts:</b> Automated backup and restore procedures</li>
+<li><b>License Key:</b> Perpetual license for unlimited users</li>
+</ul>
+
+<h2>Technology Stack</h2>
+
+<table>
+<tr>
+<th>Component</th>
+<th>Technology</th>
+</tr>
+<tr>
+<td><b>Frontend</b></td>
+<td>React 18, TypeScript, Material-UI, PWA-enabled</td>
+</tr>
+<tr>
+<td><b>Backend</b></td>
+<td>Node.js + Express, Python FastAPI for AI services</td>
+</tr>
+<tr>
+<td><b>Database</b></td>
+<td>Supabase (self-hosted with PostgreSQL, Auth, Storage)</td>
+</tr>
+<tr>
+<td><b>AI/ML</b></td>
+<td>PyTorch, TensorFlow, Tesseract OCR 5, YOLOv8</td>
+</tr>
+<tr>
+<td><b>Message Queue</b></td>
+<td>Supabase Edge Functions for job processing</td>
+</tr>
+<tr>
+<td><b>Cache</b></td>
+<td>Supabase built-in caching and sessions</td>
+</tr>
+<tr>
+<td><b>Web Server</b></td>
+<td>Nginx reverse proxy</td>
+</tr>
+<tr>
+<td><b>Monitoring</b></td>
+<td>Prometheus + Grafana (optional)</td>
+</tr>
+<tr>
+<td><b>Container</b></td>
+<td>Docker support (optional)</td>
+</tr>
+</table>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>7 | Page</b></div>
+</div>
+
+<!-- Page 8: Local AI & Installation -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Local AI Models</h2>
+
+<h3>Included AI Capabilities</h3>
+<ul>
+<li><b>Symbol Detection:</b> Pre-trained YOLOv8 model for P&ID symbols</li>
+<li><b>OCR Engine:</b> Tesseract 5 with engineering drawing optimizations</li>
+<li><b>Text Recognition:</b> Custom models for tag number patterns</li>
+<li><b>ISA Parser:</b> Rule-based engine for ISA 5.1 compliance</li>
+<li><b>Line Detection:</b> Computer vision for pipe and instrument lines</li>
+<li><b>Quality Check:</b> Confidence scoring and validation models</li>
+</ul>
+
+<h3>Model Specifications</h3>
+<ul>
+<li>Total model size: ~2 GB</li>
+<li>Inference time: 5-10 seconds per P&ID page</li>
+<li>Accuracy: 98% on standard ISA symbols</li>
+<li>GPU acceleration: 3x faster with NVIDIA GPU</li>
+<li>CPU-only mode: Fully supported</li>
+</ul>
+
+<h2>Installation Process</h2>
+
+<h3>Phase 1: Pre-Installation (Remote, Week 1)</h3>
+<ul>
+<li>Requirements gathering and environment assessment</li>
+<li>Hardware and software checklist verification</li>
+<li>Network architecture review</li>
+<li>Security policy alignment</li>
+</ul>
+
+<h3>Phase 2: On-Site Installation (5 Days)</h3>
+<p><b>Day 1:</b> Server setup and OS configuration</p>
+<p><b>Day 2:</b> AIMS software installation and database setup</p>
+<p><b>Day 3:</b> AI model deployment and testing</p>
+<p><b>Day 4:</b> User setup and security configuration</p>
+<p><b>Day 5:</b> Testing, optimization, and handover</p>
+
+<h3>Phase 3: Post-Installation (Remote, 1 Week)</h3>
+<ul>
+<li>Remote monitoring and support</li>
+<li>Performance tuning</li>
+<li>Issue resolution</li>
+<li>Final acceptance testing</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>8 | Page</b></div>
+</div>
+
+<!-- Page 9: Project Plan -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Project Plan and Milestones</h2>
+
+<p><b>Total Duration:</b> 12-14 weeks from contract signing</p>
+
+<table>
+<tr>
+<th>Milestone</th>
+<th>Duration</th>
+<th>Deliverables</th>
+</tr>
+<tr>
+<td><b>M1: Planning & Preparation</b></td>
+<td>Week 1-2</td>
+<td>• Requirements finalization<br/>• Infrastructure planning<br/>• Hardware procurement list<br/>• Security assessment</td>
+</tr>
+<tr>
+<td><b>M2: Environment Setup</b></td>
+<td>Week 3-4</td>
+<td>• Server provisioning (by client)<br/>• OS installation<br/>• Network configuration<br/>• Security hardening</td>
+</tr>
+<tr>
+<td><b>M3: Software Deployment</b></td>
+<td>Week 5-6</td>
+<td>• AIMS installation<br/>• Database setup<br/>• AI model deployment<br/>• Initial configuration</td>
+</tr>
+<tr>
+<td><b>M4: Integration & Testing</b></td>
+<td>Week 7-8</td>
+<td>• AD/LDAP integration<br/>• Sample P&ID processing<br/>• Performance testing<br/>• Security validation</td>
+</tr>
+<tr>
+<td><b>M5: Training Program</b></td>
+<td>Week 9-10</td>
+<td>• Admin training (3 days)<br/>• User training (2 days)<br/>• Documentation review<br/>• Hands-on exercises</td>
+</tr>
+<tr>
+<td><b>M6: UAT & Go-Live</b></td>
+<td>Week 11-12</td>
+<td>• User acceptance testing<br/>• Bug fixes and tuning<br/>• Production deployment<br/>• Sign-off</td>
+</tr>
+<tr>
+<td><b>M7: Warranty Support</b></td>
+<td>Week 13-14+</td>
+<td>• Monitoring<br/>• Issue resolution<br/>• Performance optimization<br/>• Knowledge transfer</td>
+</tr>
+</table>
+
+<h3>Critical Success Factors</h3>
+<ul>
+<li>Hardware ready before software installation</li>
+<li>Network and security policies defined</li>
+<li>Test P&IDs available for validation</li>
+<li>Key users identified for training</li>
+<li>Backup procedures established</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>9 | Page</b></div>
+</div>
+
+<!-- Page 10: Commercials -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Commercials - One-Time License</h2>
+
+<h3>Investment Breakdown</h3>
+
+<table>
+<tr>
+<th>Component</th>
+<th>Cost (AED)</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><b>Software License</b></td>
+<td>450,000</td>
+<td>• Perpetual license<br/>• Unlimited users<br/>• Unlimited P&IDs<br/>• All features included</td>
+</tr>
+<tr>
+<td><b>Installation Services</b></td>
+<td>75,000</td>
+<td>• 5-day on-site installation<br/>• Configuration<br/>• Testing & validation<br/>• Go-live support</td>
+</tr>
+<tr>
+<td><b>Training Program</b></td>
+<td>35,000</td>
+<td>• 5-day on-site training<br/>• Up to 30 users<br/>• Admin + user tracks<br/>• Materials included</td>
+</tr>
+<tr>
+<td><b>Subtotal</b></td>
+<td>560,000</td>
+<td>Complete package</td>
+</tr>
+<tr>
+<td><b>VAT (5%)</b></td>
+<td>28,000</td>
+<td>As per UAE regulations</td>
+</tr>
+<tr>
+<td><b>Total Investment</b></td>
+<td><b>588,000</b></td>
+<td>One-time payment</td>
+</tr>
+</table>
+
+<h3>Optional Services</h3>
+<table>
+<tr>
+<th>Service</th>
+<th>Annual Cost</th>
+</tr>
+<tr>
+<td>Maintenance & Support (after 6 months)</td>
+<td>AED 84,000/year</td>
+</tr>
+<tr>
+<td>Model Updates (quarterly)</td>
+<td>AED 25,000/year</td>
+</tr>
+<tr>
+<td>Additional Training (per day)</td>
+<td>AED 7,000</td>
+</tr>
+<tr>
+<td>Custom Symbol Training</td>
+<td>AED 50,000</td>
+</tr>
+<tr>
+<td>ERP Integration Module</td>
+<td>AED 95,000</td>
+</tr>
+</table>
+
+<h3>Payment Terms</h3>
+<ul>
+<li><b>30%</b> on contract signing</li>
+<li><b>40%</b> on software delivery</li>
+<li><b>20%</b> on installation completion</li>
+<li><b>10%</b> on final acceptance</li>
+</ul>
+
+<h3>Warranty Included</h3>
+<ul>
+<li>6 months bug fix support</li>
+<li>Remote assistance included</li>
+<li>Security patches included</li>
+<li>Email/phone support</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>10 | Page</b></div>
+</div>
+
+<!-- Page 11: Training & Security -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Training Program</h2>
+
+<h3>Administrator Training (3 Days)</h3>
+<p><b>Day 1: System Administration</b></p>
+<ul>
+<li>Installation and configuration</li>
+<li>User management and roles</li>
+<li>Backup and restore procedures</li>
+<li>System monitoring</li>
+</ul>
+
+<p><b>Day 2: AI Model Management</b></p>
+<ul>
+<li>Model deployment and updates</li>
+<li>Performance tuning</li>
+<li>Troubleshooting extraction issues</li>
+<li>Quality control settings</li>
+</ul>
+
+<p><b>Day 3: Advanced Topics</b></p>
+<ul>
+<li>Database management</li>
+<li>Log analysis</li>
+<li>Security configuration</li>
+<li>Disaster recovery</li>
+</ul>
+
+<h3>User Training (2 Days)</h3>
+<p><b>Day 1: Core Functions</b></p>
+<ul>
+<li>System overview and login</li>
+<li>Project and process creation</li>
+<li>P&ID upload and processing</li>
+<li>Tag review and verification</li>
+</ul>
+
+<p><b>Day 2: Advanced Features</b></p>
+<ul>
+<li>Batch processing</li>
+<li>Excel export and customization</li>
+<li>Reporting and analytics</li>
+<li>Best practices</li>
+</ul>
+
+<h2>Data Security & Isolation</h2>
+
+<h3>Security Features</h3>
+<ul>
+<li><b>Air-Gap Support:</b> Operates without any internet connection</li>
+<li><b>Encryption:</b> AES-256 for data at rest</li>
+<li><b>Access Control:</b> Role-based with AD/LDAP support</li>
+<li><b>Audit Logs:</b> Complete activity tracking</li>
+<li><b>Data Isolation:</b> No external data transmission</li>
+<li><b>Secure Deployment:</b> Hardened installation scripts</li>
+</ul>
+
+<h3>Compliance</h3>
+<ul>
+<li>Suitable for classified environments</li>
+<li>Meets oil & gas industry security standards</li>
+<li>No cloud dependencies or external calls</li>
+<li>Complete data sovereignty</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>11 | Page</b></div>
+</div>
+
+<!-- Page 12: Responsibilities -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Client Responsibilities</h2>
+<ul>
+<li>Procure and provision hardware per specifications</li>
+<li>Provide Windows/Linux OS licenses</li>
+<li>Ensure network infrastructure is ready</li>
+<li>Grant necessary system permissions for installation</li>
+<li>Provide VPN access for remote support (if allowed)</li>
+<li>Designate system administrators for training</li>
+<li>Provide sample P&IDs for testing (minimum 20)</li>
+<li>Allocate users for training sessions</li>
+<li>Define security policies and access controls</li>
+<li>Establish backup procedures and storage</li>
+</ul>
+
+<h2>Division of Responsibilities</h2>
+
+<table>
+<tr>
+<th>Area</th>
+<th>ADNOC</th>
+<th>BETTROI</th>
+</tr>
+<tr>
+<td><b>Hardware</b></td>
+<td>• Server procurement<br/>• Hardware maintenance<br/>• Storage expansion</td>
+<td>• Specifications<br/>• Sizing recommendations<br/>• Performance validation</td>
+</tr>
+<tr>
+<td><b>Software</b></td>
+<td>• OS licenses<br/>• Antivirus software<br/>• Backup software</td>
+<td>• AIMS application<br/>• AI models<br/>• Database setup</td>
+</tr>
+<tr>
+<td><b>Installation</b></td>
+<td>• Site access<br/>• Server room<br/>• Network config</td>
+<td>• Software deployment<br/>• Configuration<br/>• Testing</td>
+</tr>
+<tr>
+<td><b>Operations</b></td>
+<td>• Daily operations<br/>• User management<br/>• Backups</td>
+<td>• Bug fixes (6 months)<br/>• Remote support<br/>• Updates</td>
+</tr>
+<tr>
+<td><b>Security</b></td>
+<td>• Physical security<br/>• Network security<br/>• Access policies</td>
+<td>• Application security<br/>• Secure configuration<br/>• Security patches</td>
+</tr>
+</table>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>12 | Page</b></div>
+</div>
+
+<!-- Page 13: Acceptance & Important Points -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Acceptance Criteria</h2>
+<ul>
+<li>Successful installation on client infrastructure</li>
+<li>All components operational without internet connection</li>
+<li>Processing of 20 sample P&IDs with 95%+ accuracy</li>
+<li>User authentication and role management working</li>
+<li>Excel export generates correct Tag Creation format</li>
+<li>System performance meets specified benchmarks</li>
+<li>Administrator training completed</li>
+<li>User training completed</li>
+<li>Documentation delivered and accepted</li>
+<li>Warranty support activated</li>
+</ul>
+
+<h2>Important Points</h2>
+
+<div class="important-note">
+<p style="margin: 0;"><b>Key Clarifications:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>This is a perpetual license - one-time payment, use forever</li>
+<li>System operates 100% offline - no internet required ever</li>
+<li>All AI processing happens on your hardware</li>
+<li>Unlimited users and unlimited P&ID processing included</li>
+<li>You own the deployment but not the source code</li>
+</ul>
+</div>
+
+<h3>Operational Considerations</h3>
+<ul>
+<li><b>Updates:</b> Model updates delivered via secure media (USB/DVD)</li>
+<li><b>Scaling:</b> Can add more servers for increased capacity</li>
+<li><b>Customization:</b> Configuration changes supported, code changes not included</li>
+<li><b>Migration:</b> Can move to new hardware with license transfer</li>
+</ul>
+
+<h3>Long-term Benefits</h3>
+<ul>
+<li>No recurring subscription costs</li>
+<li>Complete control over system and data</li>
+<li>Immune to internet outages or connectivity issues</li>
+<li>Can operate in highly secure or remote locations</li>
+<li>Predictable TCO with no usage-based charges</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>13 | Page</b></div>
+</div>
+
+<!-- Page 14: Assumptions & Warranty -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Assumptions</h2>
+<ul>
+<li>Hardware will be procured and ready before installation date</li>
+<li>Servers will have required OS installed (Windows Server or Linux)</li>
+<li>Internal network is configured and operational</li>
+<li>P&IDs are in standard PDF format with readable text</li>
+<li>ISA 5.1 or similar standard is used for tag numbering</li>
+<li>On-site access will be provided for 5 consecutive days</li>
+<li>Client IT team available during installation</li>
+<li>Power backup (UPS) available for servers</li>
+<li>Air conditioning in server room is operational</li>
+<li>Remote access allowed for initial support (optional)</li>
+</ul>
+
+<h2>Warranty & Support Options</h2>
+
+<h3>Included 6-Month Warranty</h3>
+<ul>
+<li><b>Bug Fixes:</b> All software defects resolved at no charge</li>
+<li><b>Security Patches:</b> Critical security updates provided</li>
+<li><b>Remote Support:</b> Email and phone support included</li>
+<li><b>Response Time:</b> 24 hours for critical issues</li>
+<li><b>Documentation Updates:</b> Corrections and clarifications</li>
+</ul>
+
+<h3>Optional Annual Maintenance (After 6 Months)</h3>
+<p><b>Standard Plan - AED 84,000/year</b></p>
+<ul>
+<li>Continued bug fixes and patches</li>
+<li>Quarterly model updates</li>
+<li>Remote support (business hours)</li>
+<li>Performance optimization</li>
+<li>Minor feature enhancements</li>
+</ul>
+
+<p><b>Premium Plan - AED 126,000/year</b></p>
+<ul>
+<li>Everything in Standard Plan</li>
+<li>24/7 support availability</li>
+<li>4-hour response SLA</li>
+<li>2 on-site visits per year</li>
+<li>Priority feature requests</li>
+<li>Custom training sessions</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>14 | Page</b></div>
+</div>
+
+<!-- Page 15: Terms -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Terms & Conditions</h2>
+
+<h3>License Terms</h3>
+<ul>
+<li><b>License Type:</b> Perpetual, non-transferable (except hardware migration)</li>
+<li><b>Deployment:</b> Single organization, multiple sites allowed</li>
+<li><b>Users:</b> Unlimited within licensed organization</li>
+<li><b>Duration:</b> Lifetime with no expiration</li>
+<li><b>Restrictions:</b> No resale, no code modification, no reverse engineering</li>
+</ul>
+
+<h3>Intellectual Property</h3>
+<ul>
+<li>AIMS software remains Bettroi intellectual property</li>
+<li>Client receives perpetual usage rights</li>
+<li>AI models are proprietary to Bettroi</li>
+<li>Client owns all data processed through system</li>
+<li>Configuration and customization belong to client</li>
+</ul>
+
+<h3>Warranty Terms</h3>
+<ul>
+<li><b>Warranty Period:</b> 6 months from acceptance date</li>
+<li><b>Coverage:</b> Software defects and bugs</li>
+<li><b>Exclusions:</b> Hardware failures, user errors, modifications</li>
+<li><b>Remedy:</b> Fix, patch, or workaround at Bettroi's discretion</li>
+</ul>
+
+<h3>Limitation of Liability</h3>
+<ul>
+<li>Limited to total contract value</li>
+<li>No liability for indirect or consequential damages</li>
+<li>No liability for data loss (client responsible for backups)</li>
+<li>Force majeure conditions apply</li>
+</ul>
+
+<h3>Change Control</h3>
+<p>
+Features beyond the defined "In-scope" items require a written change request with additional commercial terms. This includes custom symbol training, additional integrations, or significant modifications.
+</p>
+
+<h3>Confidentiality</h3>
+<ul>
+<li>Mutual NDA required before project start</li>
+<li>All client data treated as confidential</li>
+<li>Bettroi staff sign confidentiality agreements</li>
+<li>No client data used for other purposes</li>
+</ul>
+
+<h3>Governing Law</h3>
+<p>
+This agreement is governed by the laws of the United Arab Emirates. Any disputes shall be resolved through arbitration in Dubai.
+</p>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>15 | Page</b></div>
+</div>
+
+<!-- Page 16: LOI -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/ONPREM/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>SERVICE ORDER CONFIRMATION – LETTER OF INTENT (LOI)</h2>
+
+<div style="margin-top: 30px;">
+<p><b>Ref:</b> ERP-AIMS-ONPREM-001, November 29, 2025</p>
+
+<p style="margin-top: 20px;">
+<b>From,</b><br/>
+ADNOC GROUP<br/>
+Abu Dhabi National Oil Company<br/>
+ADNOC HQ, P.O. Box 898<br/>
+Corniche Road West, Abu Dhabi<br/>
+United Arab Emirates
+</p>
+
+<p style="margin-top: 20px;">
+<b>To,</b><br/>
+BETTROI FZE<br/>
+A5-101, Techno-Hub 1, DTEC<br/>
+Dubai Silicon Oasis, Dubai, UAE
+</p>
+
+<p style="margin-top: 20px;">
+<b>Subject:</b> Letter of Intent – AIMS On-Premise Platform License
+</p>
+
+<p style="margin-top: 20px;">
+Dear Biji Tharakan,
+</p>
+
+<p>
+We are pleased to issue this Letter of Intent, in reference to Bettroi's Proposal (ERP Ref: ERP-AIMS-ONPREM-001), to proceed with the procurement of a perpetual license for the AIMS On-Premise Platform for automated P&ID tag extraction and asset information management.
+</p>
+
+<p>
+We understand that the AIMS On-Premise Platform will provide our organization with a completely offline solution that operates without any internet connectivity, using locally deployed AI models to process P&ID drawings within our secure infrastructure. The system includes a perpetual license for unlimited users and unlimited P&ID processing, with all data remaining within our network.
+</p>
+
+<p>
+We acknowledge our intent to proceed with the one-time investment of AED 588,000 (including VAT), which includes software license, installation services, and training. This LOI serves as formal authorization to initiate the engagement under the terms outlined in the referenced proposal. Bettroi may commence project planning and preparation upon receipt of the advance payment as per the agreed payment terms.
+</p>
+
+<p>
+We look forward to deploying this secure, offline solution to enhance our P&ID management capabilities while maintaining complete data sovereignty.
+</p>
+
+<p style="margin-top: 30px;">
+Sincerely,
+</p>
+
+<div style="margin-top: 40px;">
+<p>
+For ADNOC GROUP,<br/><br/>
+Name: _________________________________<br/><br/>
+Title: _________________________________<br/><br/>
+Signature: _____________________________<br/><br/>
+Date: _________________________________<br/><br/>
+Official Stamp: ________________________
+</p>
+</div>
+
+</div>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-ONPREM-001</span><b>16 | Page</b></div>
+</div>
+
+</body>
+</html>

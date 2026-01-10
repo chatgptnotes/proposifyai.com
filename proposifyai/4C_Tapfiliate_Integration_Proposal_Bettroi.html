@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tapfiliate Affiliate Program Integration - Bettroi FZE Proposal</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --danger-color: #dc2626;
+            --dark-color: #1f2937;
+            --light-bg: #f9fafb;
+            --border-color: #e5e7eb;
+            --text-color: #374151;
+            --heading-color: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #ffffff;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .proposal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        .proposal-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .proposal-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        /* Header Info Boxes */
+        .header-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .info-box {
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+            background: var(--light-bg);
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            color: var(--primary-color);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .info-box strong {
+            color: var(--heading-color);
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        /* Metadata Box */
+        .metadata {
+            background: var(--light-bg);
+            padding: 20px 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .metadata-item {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .metadata-item strong {
+            color: var(--heading-color);
+            margin-right: 8px;
+            min-width: 120px;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 40px;
+            border-radius: 8px;
+            margin: 40px 0;
+            border-left: 6px solid var(--primary-color);
+        }
+
+        .executive-summary h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .highlight-box {
+            background: white;
+            padding: 25px;
+            border-radius: 6px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .highlight-box .price {
+            font-size: 2rem;
+            color: var(--success-color);
+            font-weight: 700;
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+            border: 2px solid var(--border-color);
+            position: sticky;
+            top: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .toc h2 {
+            color: var(--heading-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc ul li {
+            margin: 10px 0;
+        }
+
+        .toc ul li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .toc ul li a:hover {
+            background: var(--light-bg);
+            padding-left: 20px;
+        }
+
+        .toc ul ul {
+            margin-left: 20px;
+        }
+
+        .toc ul ul li a {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        /* Main Content */
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            font-size: 1.8rem;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        h3 {
+            color: var(--heading-color);
+            font-size: 1.4rem;
+            margin: 30px 0 15px 0;
+        }
+
+        h4 {
+            color: var(--heading-color);
+            font-size: 1.2rem;
+            margin: 25px 0 12px 0;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background: var(--light-bg);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Feature Boxes */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-box {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--success-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .feature-box h4 {
+            color: var(--success-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .feature-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-box li::before {
+            content: "✓ ";
+            color: var(--success-color);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #e5e7eb;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: var(--danger-color);
+        }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 20px 25px;
+            border-radius: 6px;
+            margin: 25px 0;
+            border-left: 5px solid;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border-color: var(--primary-color);
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: var(--success-color);
+            color: #065f46;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: var(--warning-color);
+            color: #92400e;
+        }
+
+        .alert-danger {
+            background: #fef2f2;
+            border-color: var(--danger-color);
+            color: #991b1b;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            padding: 25px;
+            margin: 20px 0;
+            background: white;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .timeline-item h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .faq-item h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        .faq-item p {
+            margin-top: 10px;
+            color: var(--text-color);
+        }
+
+        /* Checkboxes */
+        .checkbox-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checkbox-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-list li::before {
+            content: "☐ ";
+            font-size: 1.2rem;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Signature Section */
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 50px 0;
+            padding: 40px;
+            background: var(--light-bg);
+            border-radius: 8px;
+        }
+
+        .signature-box {
+            border: 2px dashed var(--border-color);
+            padding: 30px;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .signature-box h3 {
+            margin-top: 0;
+            color: var(--heading-color);
+        }
+
+        .signature-line {
+            border-bottom: 2px solid var(--border-color);
+            margin: 25px 0 10px 0;
+            padding-bottom: 5px;
+        }
+
+        /* Footer */
+        .proposal-footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px;
+            margin-top: 60px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .proposal-footer p {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+
+        .proposal-footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .proposal-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                font-size: 12pt;
+            }
+
+            .toc, .no-print {
+                display: none;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            table, .timeline-item, .feature-box {
+                page-break-inside: avoid;
+            }
+
+            .proposal-header {
+                background: var(--primary-color);
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-info {
+                grid-template-columns: 1fr;
+            }
+
+            .proposal-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .signature-section {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: static;
+                max-height: none;
+            }
+
+            .content, .proposal-header {
+                padding: 20px;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .mt-40 { margin-top: 40px; }
+        .mb-40 { margin-bottom: 40px; }
+        .font-bold { font-weight: 700; }
+        .text-primary { color: var(--primary-color); }
+        .text-success { color: var(--success-color); }
+        .text-danger { color: var(--danger-color); }
+        .text-muted { color: #6b7280; font-size: 0.875rem; }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <a href="#top" class="back-to-top" id="backToTop">↑</a>
+
+    <div id="top"></div>
+
+    <div class="container">
+        <!-- Proposal Header -->
+        <div class="proposal-header">
+            <h1>Tapfiliate Affiliate Program Integration</h1>
+            <p>Professional Integration Proposal for 4C Secure</p>
+        </div>
+
+        <!-- Header Information -->
+        <div class="header-info">
+            <div class="info-box">
+                <h3>Proposal From</h3>
+                <p><strong>BETTROI FZE</strong></p>
+                <p>A5, Dtech, DSO</p>
+                <p>Dubai, UAE</p>
+                <p>PO BOX: 926510</p>
+                <p>TRN: 104277403200003</p>
+                <p>Email: projects@bettroi.com</p>
+                <p>Phone: +971 [Contact Number]</p>
+            </div>
+            <div class="info-box">
+                <h3>Proposal To</h3>
+                <p><strong>4C SECURE</strong></p>
+                <p>[Client Address]</p>
+                <p>[City, Country]</p>
+                <p><strong>Attention:</strong> Anupama</p>
+                <p><strong>Project Lead:</strong> 4C Secure Document Management Platform</p>
+            </div>
+        </div>
+
+        <!-- Metadata -->
+        <div class="metadata">
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <strong>Proposal No.:</strong>
+                    <span>PROP-4C-TAPFILIATE-2026-001</span>
+                </div>
+                <div class="metadata-item">
+                    <strong>Proposal Date:</strong>
+                    <span>January 10, 2026</span>
+                </div>
+                <div class="metadata-item">
+                    <strong>Valid Until:</strong>
+                    <span>February 10, 2026</span>
+                </div>
+                <div class="metadata-item">
+                    <strong>Reference:</strong>
+                    <span>4C Web Platform Development (Completed Nov 2025)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>Bettroi FZE is pleased to present this proposal for integrating <strong>Tapfiliate</strong>, a professional affiliate marketing platform, into the 4C Secure document management system. This integration will enable 4C Secure to launch a performance-driven affiliate program that rewards partners for generating paid subscriptions while maintaining strict security, privacy, and compliance standards.</p>
+
+            <div class="highlight-box">
+                <strong>Project Investment:</strong>
+                <span class="price">₹150,000</span>
+                <p class="text-muted">(One Hundred Fifty Thousand Indian Rupees)</p>
+            </div>
+
+            <h3>Key Deliverables:</h3>
+            <ul>
+                <li>Complete Tapfiliate platform integration with 4C Secure</li>
+                <li>Automated conversion tracking and commission calculation</li>
+                <li>Custom admin dashboard for commission management</li>
+                <li>Custom affiliate billing and payout pages</li>
+                <li>GDPR-compliant, privacy-first architecture</li>
+                <li>Comprehensive testing and documentation</li>
+                <li>Admin team training and 30-day post-launch support</li>
+            </ul>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc no-print">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#section-1">1. Project Background</a></li>
+                <li><a href="#section-2">2. Scope of Work</a>
+                    <ul>
+                        <li><a href="#section-2-1">2.1 Phase 1: Core Affiliate Tracking</a></li>
+                        <li><a href="#section-2-2">2.2 Phase 2: Custom Admin Tools</a></li>
+                        <li><a href="#section-2-3">2.3 Phase 3: Testing & Training</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section-3">3. What Bettroi WILL Deliver</a></li>
+                <li><a href="#section-4">4. What Bettroi WILL NOT Deliver</a></li>
+                <li><a href="#section-5">5. Technical Architecture</a></li>
+                <li><a href="#section-6">6. Recommended Configuration</a></li>
+                <li><a href="#section-7">7. Tapfiliate Platform Pricing</a></li>
+                <li><a href="#section-8">8. Project Investment & Payment Terms</a></li>
+                <li><a href="#section-9">9. Project Timeline</a></li>
+                <li><a href="#section-10">10. Success Metrics & ROI</a></li>
+                <li><a href="#section-11">11. Risk Mitigation & Fraud Prevention</a></li>
+                <li><a href="#section-12">12. Post-Launch Operations</a></li>
+                <li><a href="#section-13">13. Optional Ongoing Support</a></li>
+                <li><a href="#section-14">14. Assumptions & Dependencies</a></li>
+                <li><a href="#section-15">15. Terms & Conditions</a></li>
+                <li><a href="#section-16">16. Frequently Asked Questions</a></li>
+                <li><a href="#section-17">17. Next Steps to Proceed</a></li>
+                <li><a href="#section-18">18. Why Choose Bettroi</a></li>
+                <li><a href="#section-19">19. Acceptance & Authorization</a></li>
+                <li><a href="#section-20">20. Contact Information</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <section id="section-1">
+                <h2>1. Project Background</h2>
+
+                <h3>1.1 Current Situation</h3>
+                <p>The 4C Secure web platform has been successfully developed and deployed (November 2025). The platform now requires a scalable customer acquisition channel through affiliate marketing to:</p>
+                <ul>
+                    <li>Drive subscription growth with minimal upfront marketing costs</li>
+                    <li>Leverage trusted industry partners and influencers</li>
+                    <li>Implement performance-based marketing (pay only for results)</li>
+                    <li>Build a sustainable, automated referral system</li>
+                    <li>Track and reward affiliates fairly and transparently</li>
+                </ul>
+
+                <h3>1.2 Proposed Solution</h3>
+                <p>Bettroi will integrate <strong>Tapfiliate</strong>, a proven affiliate tracking and commission management platform, into the existing 4C Secure infrastructure. This integration will provide:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>For 4C Secure:</h4>
+                        <ul>
+                            <li>Automated affiliate tracking and attribution</li>
+                            <li>Commission calculation engine</li>
+                            <li>Real-time performance analytics</li>
+                            <li>Secure, privacy-compliant architecture</li>
+                            <li>Reduced operational overhead</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>For Affiliates:</h4>
+                        <ul>
+                            <li>Professional affiliate portal</li>
+                            <li>Real-time earnings tracking</li>
+                            <li>Marketing resources and assets</li>
+                            <li>Transparent payment processing</li>
+                            <li>Self-service dashboard</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-2">
+                <h2>2. Scope of Work</h2>
+
+                <h3 id="section-2-1">2.1 Phase 1: Core Affiliate Tracking (Week 1-2)</h3>
+
+                <h4>Tapfiliate Platform Setup</h4>
+                <ul>
+                    <li>Create and configure Tapfiliate account</li>
+                    <li>Set up custom affiliate signup page (affiliates.4csecure.com)</li>
+                    <li>Configure commission structures (flat, percentage, recurring, tiered)</li>
+                    <li>Build affiliate approval workflow for admin review</li>
+                    <li>Brand affiliate portal with 4C Secure identity</li>
+                    <li>Configure tracking parameters and cookie settings</li>
+                </ul>
+
+                <h4>Frontend Integration</h4>
+                <ul>
+                    <li>Embed Tapfiliate JavaScript tracking pixel on all 4C Secure pages</li>
+                    <li>Implement GDPR-compliant cookie consent integration</li>
+                    <li>Add affiliate program links to website footer and marketing pages</li>
+                    <li>Create dedicated affiliate program landing page</li>
+                    <li>Design call-to-action elements for affiliate recruitment</li>
+                </ul>
+
+                <h4>Backend Integration</h4>
+                <ul>
+                    <li>Install and configure Tapfiliate REST API client in 4C backend</li>
+                    <li>Develop conversion tracking endpoint</li>
+                    <li>Integrate with existing Stripe webhook handler</li>
+                    <li>Implement conversion event triggers on successful payments</li>
+                    <li>Pass transaction metadata (subscription tier, amount, transaction ID)</li>
+                    <li>Build error handling and logging for tracking events</li>
+                </ul>
+
+                <h4>Testing & Validation</h4>
+                <ul>
+                    <li>End-to-end tracking validation with test transactions</li>
+                    <li>Commission calculation accuracy verification</li>
+                    <li>Cookie persistence testing across devices and browsers</li>
+                    <li>Cross-browser compatibility testing</li>
+                    <li>Security audit for PII protection</li>
+                </ul>
+
+                <h3 id="section-2-2">2.2 Phase 2: Custom Admin Tools (Week 3)</h3>
+
+                <h4>Commission Management Dashboard</h4>
+                <p>Build custom admin interface in 4C Secure to display:</p>
+                <ul>
+                    <li>Total affiliate-driven revenue (current month, YTD)</li>
+                    <li>Pending commission liability</li>
+                    <li>Paid commissions history</li>
+                    <li>Top-performing affiliates by revenue and conversions</li>
+                    <li>Conversion rate analytics</li>
+                    <li>Commission expense reports</li>
+                    <li>Date range filtering and custom reporting</li>
+                    <li>Export functionality (CSV, PDF formats)</li>
+                    <li>Integration with Tapfiliate API for real-time data sync</li>
+                </ul>
+
+                <h4>Affiliate Billing & Payout Page</h4>
+                <p>Develop comprehensive payout management system:</p>
+                <ul>
+                    <li>List of affiliates eligible for payout (minimum threshold)</li>
+                    <li>Commission approval workflow</li>
+                    <li>Mark commissions as "paid" with payment reference</li>
+                    <li>Generate payout reports and invoices</li>
+                    <li>Track payment history per affiliate</li>
+                    <li>Notes and communication log</li>
+                    <li>Bulk payout approval for multiple affiliates</li>
+                    <li>Integration with Tapfiliate payout tracking API</li>
+                    <li>Payment method management (bank transfer, PayPal, Wise)</li>
+                </ul>
+
+                <h4>Admin Dashboard Widgets</h4>
+                <p>Add performance summary cards:</p>
+                <ul>
+                    <li>Active affiliates count</li>
+                    <li>Current month affiliate-driven revenue</li>
+                    <li>Total pending commissions</li>
+                    <li>Affiliate conversion rate</li>
+                    <li>Quick links to Tapfiliate dashboard</li>
+                    <li>Recent affiliate activity feed</li>
+                </ul>
+
+                <h3 id="section-2-3">2.3 Phase 3: Testing, Documentation & Training (Week 4)</h3>
+
+                <h4>Quality Assurance</h4>
+                <ul>
+                    <li>Comprehensive testing with multiple affiliate scenarios</li>
+                    <li>Payment flow validation (new subscription, renewal, refund)</li>
+                    <li>Commission accuracy verification across different tiers</li>
+                    <li>Security audit (ensure no PII leaks to affiliates)</li>
+                    <li>Performance testing (API response times, page load impact)</li>
+                    <li>User acceptance testing (UAT) with 4C team</li>
+                </ul>
+
+                <h4>Documentation Deliverables</h4>
+                <ul>
+                    <li><strong>Admin Guide:</strong> How to approve affiliates, review performance, process payouts</li>
+                    <li><strong>Technical Documentation:</strong> API integration details, webhook configuration, troubleshooting</li>
+                    <li><strong>Affiliate Onboarding Guide:</strong> How to join program, get tracking links, monitor earnings</li>
+                    <li><strong>Security & Privacy Policy:</strong> Data handling, GDPR compliance, PII protection</li>
+                    <li><strong>Troubleshooting Guide:</strong> Common issues and resolutions</li>
+                </ul>
+
+                <h4>Training Session</h4>
+                <ul>
+                    <li>2-hour live training for 4C Secure admin team</li>
+                    <li>Walkthrough of affiliate approval process</li>
+                    <li>Commission management demonstration</li>
+                    <li>Payout workflow hands-on training</li>
+                    <li>Dashboard navigation and reporting</li>
+                    <li>Q&A session and best practices</li>
+                    <li>Recorded session for future reference</li>
+                </ul>
+            </section>
+
+            <section id="section-3">
+                <h2>3. What Bettroi WILL Deliver</h2>
+
+                <h3>3.1 Fully Integrated Affiliate System</h3>
+
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Complete Tapfiliate Integration</h4>
+                        <ul>
+                            <li>Turnkey affiliate tracking system</li>
+                            <li>Automated click-to-conversion attribution</li>
+                            <li>Real-time commission calculation</li>
+                            <li>Professional affiliate portal</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Custom Admin Tools</h4>
+                        <ul>
+                            <li>Commission management dashboard</li>
+                            <li>Affiliate billing and payout interface</li>
+                            <li>Performance analytics widgets</li>
+                            <li>Export and reporting tools</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Security & Privacy</h4>
+                        <ul>
+                            <li>GDPR-compliant architecture</li>
+                            <li>No PII shared with affiliates</li>
+                            <li>Secure transaction tracking</li>
+                            <li>Cookie consent integration</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Documentation & Training</h4>
+                        <ul>
+                            <li>Complete technical documentation</li>
+                            <li>Admin user guides</li>
+                            <li>Affiliate onboarding materials</li>
+                            <li>Live training session</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>3.2 Integration Features</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Affiliate Signup</strong></td>
+                            <td>Branded signup page with custom fields and approval workflow</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tracking Links</strong></td>
+                            <td>Unique tracking URLs for each affiliate with 30-day cookie duration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conversion Tracking</strong></td>
+                            <td>Automatic conversion events on successful Stripe payments</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Commission Engine</strong></td>
+                            <td>Support for flat, percentage, recurring, and tiered commissions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Affiliate Dashboard</strong></td>
+                            <td>Self-service portal for affiliates to track clicks, conversions, earnings</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Admin Dashboard</strong></td>
+                            <td>Custom commission management and payout tools integrated in 4C platform</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payment Management</strong></td>
+                            <td>Track payouts, generate invoices, manage payment methods</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reporting & Analytics</strong></td>
+                            <td>Real-time performance data, export capabilities</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Security</strong></td>
+                            <td>Privacy-first design, no document access for affiliates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compliance</strong></td>
+                            <td>GDPR-ready with cookie consent and data protection</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="section-4">
+                <h2>4. What Bettroi WILL NOT Deliver (Out of Scope)</h2>
+
+                <div class="alert alert-warning">
+                    <strong>Important:</strong> The following items are NOT included in this ₹150,000 integration package and would require separate engagements.
+                </div>
+
+                <h3>4.1 Tapfiliate Platform Subscription</h3>
+                <ul>
+                    <li>Tapfiliate monthly/annual subscription fees (estimated ₹11,000-18,000/month)</li>
+                    <li>Platform overage charges for clicks/conversions</li>
+                    <li>Automated payout processing fees (Trolley integration)</li>
+                </ul>
+
+                <h3>4.2 Affiliate Recruitment & Marketing</h3>
+                <ul>
+                    <li>Affiliate outreach campaigns</li>
+                    <li>Recruitment advertising</li>
+                    <li>Affiliate relationship management</li>
+                    <li>Marketing collateral creation (banners, email templates)</li>
+                    <li>Influencer partnerships</li>
+                </ul>
+
+                <h3>4.3 Advanced Features Beyond Scope</h3>
+                <ul>
+                    <li>Multi-tier MLM structures (beyond 2 levels)</li>
+                    <li>Custom fraud detection algorithms</li>
+                    <li>Integration with non-Stripe payment gateways</li>
+                    <li>CRM integration (Salesforce, HubSpot)</li>
+                    <li>Advanced lead nurturing workflows</li>
+                    <li>A/B testing of landing pages</li>
+                    <li>Custom affiliate onboarding LMS courses</li>
+                </ul>
+
+                <h3>4.4 Ongoing Operations</h3>
+                <ul>
+                    <li>Day-to-day affiliate management</li>
+                    <li>Monthly reporting to stakeholders</li>
+                    <li>Affiliate program optimization consulting</li>
+                    <li>Ongoing Tapfiliate account management</li>
+                    <li>Commission dispute resolution</li>
+                </ul>
+
+                <div class="alert alert-info">
+                    <strong>Note:</strong> These items can be provided under a separate retainer or project engagement.
+                </div>
+            </section>
+
+            <section id="section-5">
+                <h2>5. Technical Architecture</h2>
+
+                <h3>5.1 System Integration Flow</h3>
+                <pre>┌────────────────────────────────────────────────────────────┐
+│                  AFFILIATE CONVERSION FLOW                  │
+└────────────────────────────────────────────────────────────┘
+
+1. Affiliate receives unique tracking link from Tapfiliate
+   ↓
+2. Affiliate shares link on their channels (blog, social, email)
+   ↓
+3. Potential customer clicks affiliate link
+   ↓
+4. Tapfiliate sets 30-day tracking cookie
+   ↓
+5. Customer lands on 4C Secure platform
+   ↓
+6. Customer browses, signs up, selects subscription plan
+   ↓
+7. Customer completes payment via Stripe
+   ↓
+8. Stripe sends payment confirmation webhook to 4C backend
+   ↓
+9. 4C backend validates successful payment
+   ↓
+10. 4C backend fires conversion event to Tapfiliate API
+    (includes: transaction ID, subscription tier, amount)
+   ↓
+11. Tapfiliate attributes conversion to affiliate via cookie
+   ↓
+12. Commission calculated and visible in affiliate dashboard
+   ↓
+13. Admin reviews and approves payout via custom billing page
+   ↓
+14. Commission marked as paid in Tapfiliate system</pre>
+
+                <h3>5.2 System Responsibilities</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>System</th>
+                            <th>Responsibilities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>4C Secure Platform</strong></td>
+                            <td>
+                                • Product access and document security<br>
+                                • User authentication and authorization<br>
+                                • Subscription fulfillment<br>
+                                • Payment processing via Stripe<br>
+                                • Conversion event triggering<br>
+                                • Admin commission management
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tapfiliate</strong></td>
+                            <td>
+                                • Affiliate signup and approval workflow<br>
+                                • Tracking link generation<br>
+                                • Cookie-based click attribution<br>
+                                • Commission calculation engine<br>
+                                • Affiliate dashboard and reporting<br>
+                                • Payout tracking
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stripe</strong></td>
+                            <td>
+                                • Secure payment processing<br>
+                                • Webhook notifications<br>
+                                • Transaction data
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>5.3 Security & Privacy Boundaries</h3>
+
+                <div class="alert alert-danger">
+                    <h4>What Tapfiliate CANNOT Access:</h4>
+                    <ul>
+                        <li>❌ 4C Secure documents or files</li>
+                        <li>❌ User credentials (passwords, auth tokens)</li>
+                        <li>❌ Customer PII (names, emails, phone numbers, addresses)</li>
+                        <li>❌ Detailed customer profiles</li>
+                        <li>❌ Document access logs</li>
+                        <li>❌ Payment card details</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-success">
+                    <h4>What Tapfiliate CAN Access:</h4>
+                    <ul>
+                        <li>✅ Anonymous click data (IP addresses for fraud prevention only)</li>
+                        <li>✅ Conversion events (purchase confirmed, yes/no)</li>
+                        <li>✅ Transaction metadata (subscription tier, amount, anonymized transaction ID)</li>
+                        <li>✅ Aggregate performance metrics</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Privacy Compliance:</strong> This architecture is designed for GDPR compliance. Customer personally identifiable information (PII) is never shared with affiliates or Tapfiliate, ensuring regulatory compliance.
+                </div>
+            </section>
+
+            <section id="section-6">
+                <h2>6. Recommended Configuration</h2>
+
+                <h3>6.1 Commission Structure (Bettroi Recommendation)</h3>
+                <p>We recommend starting with a simple, attractive commission model:</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Option A: Flat Rate per Subscription ⭐ RECOMMENDED FOR LAUNCH</h3>
+                        <ul>
+                            <li>₹1,500 per new paid subscription (one-time)</li>
+                            <li><strong>Pros:</strong> Simple for affiliates to understand, predictable cost for 4C Secure</li>
+                            <li><strong>Example:</strong> 10 conversions = ₹15,000 commission expense</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Option B: Percentage of First Month</h3>
+                        <ul>
+                            <li>30% of first month's subscription revenue</li>
+                            <li><strong>Example:</strong> ₹999 plan → ₹300 commission, ₹2,999 plan → ₹900 commission</li>
+                            <li><strong>Pros:</strong> Scales with subscription tier, incentivizes premium plan promotion</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Option C: Recurring Commission (Higher Budget)</h3>
+                        <ul>
+                            <li>10% of subscription revenue for first 12 months</li>
+                            <li><strong>Example:</strong> ₹999/month plan = ₹100/month for 12 months (₹1,200 total per customer)</li>
+                            <li><strong>Pros:</strong> Incentivizes affiliates to refer quality, long-term customers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>Bettroi Recommendation:</strong> Start with <strong>Option A (Flat ₹1,500)</strong> for simplicity and predictability. After 3-6 months of data, optimize based on customer lifetime value (LTV) and conversion rates.
+                </div>
+
+                <h3>6.2 Affiliate Approval Process</h3>
+                <p><strong>Manual Approval (Recommended):</strong></p>
+                <ol>
+                    <li>Affiliates apply via branded signup page</li>
+                    <li>Admin reviews application (name, website, marketing channels, audience)</li>
+                    <li>Admin approves or rejects with feedback</li>
+                    <li>Approved affiliates receive welcome email with:
+                        <ul>
+                            <li>Unique tracking link</li>
+                            <li>Marketing resources</li>
+                            <li>Commission details</li>
+                            <li>Program guidelines</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <p><strong>Approval Criteria:</strong></p>
+                <ul>
+                    <li>Relevant audience (business, tech, security, document management niche)</li>
+                    <li>Established online presence (active website, social media, blog)</li>
+                    <li>No spam or blackhat marketing tactics</li>
+                    <li>Alignment with 4C Secure brand values</li>
+                    <li>Professional communication</li>
+                </ul>
+
+                <h3>6.3 Tracking Configuration</h3>
+                <p><strong>Cookie Duration:</strong> 30 days (industry standard)</p>
+                <ul>
+                    <li>Customer who clicks affiliate link and purchases within 30 days = affiliate gets credit</li>
+                    <li>Longer durations (60-90 days) can be configured if needed</li>
+                </ul>
+
+                <p><strong>Attribution Model:</strong> Last-click attribution</p>
+                <ul>
+                    <li>The last affiliate link clicked before purchase receives the commission</li>
+                    <li>Alternative: First-click attribution (can be configured in Tapfiliate)</li>
+                </ul>
+            </section>
+
+            <section id="section-7">
+                <h2>7. Tapfiliate Platform Pricing (Client Responsibility)</h2>
+
+                <div class="alert alert-warning">
+                    <strong>Important:</strong> Tapfiliate subscription fees are separate from Bettroi's integration cost and will be paid directly by 4C Secure to Tapfiliate.
+                </div>
+
+                <h3>7.1 Recommended Plan: Scale Advantages</h3>
+
+                <div class="highlight-box">
+                    <p><strong>Monthly Subscription:</strong> $149 USD (≈ ₹12,500/month at current exchange rates)</p>
+                    <p><strong>Annual Subscription:</strong> $1,790 USD (≈ ₹150,000/year, saves ~10%)</p>
+                </div>
+
+                <p><strong>Plan Limits:</strong></p>
+                <ul>
+                    <li>Unlimited Affiliate Programs</li>
+                    <li>Unlimited Affiliates</li>
+                    <li>100,000 Clicks per month</li>
+                    <li>10,000 Conversions per month</li>
+                    <li>5 Team Members</li>
+                </ul>
+
+                <p><strong>Why Scale Over Launch Plan:</strong></p>
+                <ul>
+                    <li>Unlimited affiliates (no 50-affiliate cap)</li>
+                    <li>Higher limits provide growth headroom</li>
+                    <li>Advanced commission structures (tiered, bonus, category-based)</li>
+                    <li>Automated payout integration (Trolley)</li>
+                    <li>Multi-team support (5 admin users)</li>
+                    <li>Better overage rates ($1 vs $1.50 per 1,000 clicks)</li>
+                </ul>
+
+                <p><strong>Overage Fees (if limits exceeded):</strong></p>
+                <ul>
+                    <li>$1 per 1,000 clicks over 100,000</li>
+                    <li>$10 per 1,000 conversions over 10,000</li>
+                </ul>
+
+                <h3>7.2 First Year Total Cost Summary (Client Investment)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Cost (INR)</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bettroi Integration</strong></td>
+                            <td>₹150,000</td>
+                            <td>One-time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tapfiliate Subscription</strong> (Scale, Annual)</td>
+                            <td>₹150,000</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr style="background: #f0fdf4; font-weight: bold;">
+                            <td><strong>Total First Year</strong></td>
+                            <td><strong>₹300,000</strong></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Ongoing Annual Cost (Year 2+):</strong> ₹150,000/year (Tapfiliate subscription only)</p>
+
+                <p><strong>Variable Costs (Commission Payouts):</strong><br>
+                Commission costs depend on chosen structure and sales volume.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Example Scenario:</strong> ₹1,500 per subscription, 50 conversions/month</p>
+                    <ul>
+                        <li>Monthly commission expense: ₹75,000</li>
+                        <li>Annual commission payout: ₹900,000</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Important:</strong> Commission costs should be viewed as customer acquisition cost (CAC), not overhead. A well-run affiliate program typically achieves 5:1 to 10:1 return on investment.
+                </div>
+            </section>
+
+            <section id="section-8">
+                <h2>8. Project Investment & Payment Terms</h2>
+
+                <h3>8.1 Bettroi Integration Fee</h3>
+
+                <div class="highlight-box">
+                    <span class="price">₹150,000</span>
+                    <p class="text-muted">(One Hundred Fifty Thousand Indian Rupees)</p>
+                </div>
+
+                <h4>Breakdown:</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Description</th>
+                            <th>Hours</th>
+                            <th>Cost (INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Phase 1</strong></td>
+                            <td>Tapfiliate setup, frontend/backend integration, testing</td>
+                            <td>18 hours</td>
+                            <td>₹54,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 2</strong></td>
+                            <td>Custom commission dashboard & billing pages</td>
+                            <td>24 hours</td>
+                            <td>₹72,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 3</strong></td>
+                            <td>Testing, documentation, training</td>
+                            <td>12 hours</td>
+                            <td>₹36,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Project Management</strong></td>
+                            <td>Coordination, communication, quality assurance</td>
+                            <td>Included</td>
+                            <td>₹0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-Launch Support</strong></td>
+                            <td>30-day bug fixes and adjustments</td>
+                            <td>Included</td>
+                            <td>₹0</td>
+                        </tr>
+                        <tr style="background: #f0fdf4; font-weight: bold;">
+                            <td colspan="2"><strong>TOTAL</strong></td>
+                            <td><strong>54 hours</strong></td>
+                            <td><strong>₹150,000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Effective Rate:</strong> ₹2,778 per hour (competitive professional development rate)</p>
+
+                <h3>8.2 Payment Schedule</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Milestone 1: Project Kickoff (40%)</h3>
+                        <p><strong>₹60,000</strong> upon contract signing and project commencement</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Milestone 2: Phase 1 Completion (30%)</h3>
+                        <p><strong>₹45,000</strong> upon completion of core Tapfiliate integration and successful tracking validation</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Milestone 3: Final Delivery (30%)</h3>
+                        <p><strong>₹45,000</strong> upon completion of custom admin tools, testing, documentation, and training</p>
+                    </div>
+                </div>
+
+                <h3>8.3 Payment Methods</h3>
+                <p><strong>Bank Transfer (Preferred):</strong></p>
+                <pre>Account Name: BETTROI FZE
+Bank: [Bank Name]
+Account Number: [Account Number]
+SWIFT/IBAN: [SWIFT Code]
+Branch: Dubai, UAE
+Currency: INR or USD equivalent</pre>
+
+                <p><strong>Alternative Payment Methods:</strong></p>
+                <ul>
+                    <li>Wire transfer (USD equivalent)</li>
+                    <li>PayPal (business account, 3% processing fee applies)</li>
+                    <li>Wise (TransferWise) international transfer</li>
+                </ul>
+
+                <h3>8.4 Payment Terms</h3>
+                <ul>
+                    <li>Invoices issued upon milestone completion</li>
+                    <li>Payment due within 7 business days of invoice date</li>
+                    <li>Late payment: 2% interest per month on outstanding balance</li>
+                    <li>All amounts exclude applicable taxes (GST/VAT if applicable)</li>
+                </ul>
+            </section>
+
+            <section id="section-9">
+                <h2>9. Project Timeline</h2>
+
+                <div class="alert alert-info">
+                    <strong>Total Duration:</strong> 4 weeks from project kickoff
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Week 1: Setup & Core Integration (Jan 13-19, 2026)</h3>
+                        <ul>
+                            <li><strong>Day 1-2:</strong> Tapfiliate account creation, configuration, commission structure setup</li>
+                            <li><strong>Day 3-4:</strong> Frontend JavaScript pixel integration and GDPR compliance</li>
+                            <li><strong>Day 5:</strong> Backend API client installation and conversion endpoint development</li>
+                            <li><strong>Day 6-7:</strong> Stripe webhook enhancement and initial testing</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Working click tracking and conversion attribution</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Week 2: Backend Integration & Testing (Jan 20-26, 2026)</h3>
+                        <ul>
+                            <li><strong>Day 1-3:</strong> Complete backend integration with error handling and logging</li>
+                            <li><strong>Day 4-5:</strong> End-to-end tracking validation with test transactions</li>
+                            <li><strong>Day 6-7:</strong> Commission calculation accuracy testing, cookie persistence validation</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Fully functional affiliate tracking system</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Week 3: Custom Admin Tools (Jan 27 - Feb 2, 2026)</h3>
+                        <ul>
+                            <li><strong>Day 1-4:</strong> Build custom commission management dashboard</li>
+                            <li><strong>Day 5-7:</strong> Build affiliate billing and payout management pages</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Custom admin interfaces for commission and payout management</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Week 4: Testing, Documentation & Training (Feb 3-9, 2026)</h3>
+                        <ul>
+                            <li><strong>Day 1-3:</strong> Comprehensive QA testing with multiple scenarios</li>
+                            <li><strong>Day 4:</strong> Complete documentation (admin guide, technical docs, affiliate guide)</li>
+                            <li><strong>Day 5:</strong> Live 2-hour training session for 4C admin team</li>
+                            <li><strong>Day 6-7:</strong> Soft launch with 5-10 pilot affiliates, monitoring</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Production-ready system with full documentation and trained team</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Go-Live Date:</strong> February 9, 2026</p>
+                    <p><strong>Post-Launch Support Period:</strong> February 10 - March 11, 2026 (30 days)</p>
+                </div>
+            </section>
+
+            <section id="section-10">
+                <h2>10. Success Metrics & ROI</h2>
+
+                <h3>10.1 Key Performance Indicators (KPIs)</h3>
+                <p>Track these metrics to evaluate affiliate program success:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Affiliate Growth Metrics:</h4>
+                        <ul>
+                            <li>Number of active affiliates (month over month)</li>
+                            <li>Application-to-approval rate</li>
+                            <li>Affiliate retention rate (3-month, 6-month)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Performance Metrics:</h4>
+                        <ul>
+                            <li>Total clicks from affiliate links</li>
+                            <li>Click-to-conversion rate (industry benchmark: 2-5%)</li>
+                            <li>Average order value from affiliate traffic</li>
+                            <li>Revenue from affiliate channel (month over month growth)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Financial Metrics:</h4>
+                        <ul>
+                            <li>Total commissions paid</li>
+                            <li>Customer acquisition cost (CAC) via affiliates vs other channels</li>
+                            <li>Return on investment: Revenue / (Commissions + Platform Cost + Integration Cost)</li>
+                            <li>Payback period: Time to recoup commission cost from customer LTV</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Quality Metrics:</h4>
+                        <ul>
+                            <li>Customer retention rate (affiliate vs non-affiliate customers)</li>
+                            <li>Refund/churn rate from affiliate customers</li>
+                            <li>Average subscription duration by source</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>10.2 Expected ROI (Conservative Projection)</h3>
+                <p><strong>Scenario: 50 Affiliate Conversions in First 6 Months</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Average Subscription</td>
+                            <td>₹999/month</td>
+                        </tr>
+                        <tr>
+                            <td>Customer LTV (12 months)</td>
+                            <td>₹11,988</td>
+                        </tr>
+                        <tr>
+                            <td>Total Revenue (50 customers)</td>
+                            <td>₹599,400</td>
+                        </tr>
+                        <tr>
+                            <td>Commission Expense (₹1,500 × 50)</td>
+                            <td>₹75,000</td>
+                        </tr>
+                        <tr>
+                            <td>Integration Cost (amortized over 6 months)</td>
+                            <td>₹25,000</td>
+                        </tr>
+                        <tr>
+                            <td>Tapfiliate Cost (6 months)</td>
+                            <td>₹75,000</td>
+                        </tr>
+                        <tr style="background: #fffbeb;">
+                            <td><strong>Total Investment</strong></td>
+                            <td><strong>₹175,000</strong></td>
+                        </tr>
+                        <tr style="background: #f0fdf4;">
+                            <td><strong>Net Revenue</strong></td>
+                            <td><strong>₹424,400</strong></td>
+                        </tr>
+                        <tr style="background: #f0f9ff; font-weight: bold; font-size: 1.1rem;">
+                            <td><strong>ROI</strong></td>
+                            <td><strong class="text-success">242%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert alert-success">
+                    <strong>Break-Even:</strong> Approximately 15-20 affiliate conversions (achievable in 2-3 months with active recruitment)
+                </div>
+
+                <h3>10.3 Monthly Reporting</h3>
+                <p>Bettroi will provide a monthly report template (first 3 months) that pulls data from:</p>
+                <ul>
+                    <li>Tapfiliate analytics (clicks, conversions, commissions)</li>
+                    <li>4C Secure database (subscription revenue, customer LTV)</li>
+                    <li>Custom commission dashboard</li>
+                </ul>
+
+                <p><strong>Report Includes:</strong></p>
+                <ul>
+                    <li>Executive summary</li>
+                    <li>Top 10 performing affiliates</li>
+                    <li>Revenue attribution by affiliate</li>
+                    <li>Commission liability and payouts processed</li>
+                    <li>Recommendations for optimization</li>
+                </ul>
+            </section>
+
+            <section id="section-11">
+                <h2>11. Risk Mitigation & Fraud Prevention</h2>
+
+                <h3>11.1 Built-in Tapfiliate Fraud Prevention</h3>
+                <div class="feature-box">
+                    <ul>
+                        <li>Click fraud detection (unusual click patterns flagged)</li>
+                        <li>Conversion validation (requires payment confirmation)</li>
+                        <li>IP-based duplicate detection</li>
+                        <li>Cookie integrity checks</li>
+                        <li>Affiliate blacklist capability</li>
+                    </ul>
+                </div>
+
+                <h3>11.2 Bettroi-Implemented Safeguards</h3>
+
+                <h4>Technical Safeguards:</h4>
+                <ul>
+                    <li>Conversion events fire ONLY after successful Stripe payment confirmation</li>
+                    <li>Transaction ID validation (prevents duplicate commission claims)</li>
+                    <li>Manual review threshold for high-value conversions (e.g., >₹5,000)</li>
+                    <li>Affiliate performance monitoring (flag suspicious patterns)</li>
+                </ul>
+
+                <h4>Admin Controls:</h4>
+                <ul>
+                    <li>Ability to void/reverse commissions</li>
+                    <li>Affiliate suspension and termination workflow</li>
+                    <li>Payout approval required (prevents auto-payment of fraudulent claims)</li>
+                    <li>Detailed audit logs for all commission events</li>
+                </ul>
+
+                <h3>11.3 Legal Protection</h3>
+                <p><strong>Affiliate Terms of Service:</strong></p>
+                <p>Bettroi will configure Tapfiliate's standard TOS template with 4C-specific terms:</p>
+                <ul>
+                    <li>Prohibited marketing tactics (spam, PPC on brand terms, false claims)</li>
+                    <li>Content guidelines (no misleading statements)</li>
+                    <li>Commission reversal policy (refunds, chargebacks)</li>
+                    <li>Termination conditions</li>
+                </ul>
+
+                <div class="alert alert-warning">
+                    <strong>Recommendation:</strong> Have legal counsel review affiliate TOS before launch (not included in this scope).
+                </div>
+            </section>
+
+            <section id="section-12">
+                <h2>12. Post-Launch Operations</h2>
+
+                <h3>12.1 Launch Phase (Months 1-3)</h3>
+
+                <h4>Recruitment Strategy:</h4>
+                <ul>
+                    <li>Identify 10-20 target affiliates in industry network</li>
+                    <li>Send personalized invitations with program benefits</li>
+                    <li>Promote affiliate program on 4C website and social media</li>
+                    <li>Create affiliate recruitment landing page</li>
+                </ul>
+
+                <h4>Optimization:</h4>
+                <ul>
+                    <li>Weekly monitoring of conversion rates by affiliate</li>
+                    <li>Gather feedback from early affiliates</li>
+                    <li>Refine marketing materials based on performance</li>
+                    <li>A/B test commission structures if needed</li>
+                </ul>
+
+                <h4>Support:</h4>
+                <ul>
+                    <li>Weekly check-ins with top-performing affiliates</li>
+                    <li>Prompt technical issue resolution</li>
+                    <li>Share best practices and success stories</li>
+                </ul>
+
+                <h3>12.2 Growth Phase (Months 4-12)</h3>
+
+                <h4>Scale:</h4>
+                <ul>
+                    <li>Open public affiliate applications</li>
+                    <li>Attend industry events to recruit affiliates</li>
+                    <li>Implement tiered commission structure (reward top performers)</li>
+                    <li>Launch affiliate referral program (affiliates recruit affiliates)</li>
+                </ul>
+
+                <h4>Automation:</h4>
+                <ul>
+                    <li>Enable automated payouts via Trolley (optional upgrade)</li>
+                    <li>Set up triggered notifications (new sale, milestone reached)</li>
+                    <li>Integrate with CRM for better tracking (separate project)</li>
+                </ul>
+
+                <h4>Analysis:</h4>
+                <ul>
+                    <li>Quarterly performance review with stakeholders</li>
+                    <li>Identify and double down on top-performing channels</li>
+                    <li>Prune low-performing or inactive affiliates</li>
+                </ul>
+            </section>
+
+            <section id="section-13">
+                <h2>13. Optional Ongoing Support (Not Included)</h2>
+
+                <p>If 4C Secure requires ongoing management and optimization, Bettroi offers an <strong>optional monthly retainer</strong>:</p>
+
+                <div class="highlight-box">
+                    <h3>Monthly Retainer: ₹30,000/month</h3>
+
+                    <p><strong>Includes:</strong></p>
+                    <ul>
+                        <li>Monitoring integration health and performance</li>
+                        <li>Monthly reporting and optimization recommendations</li>
+                        <li>Priority support for issues (24-hour response time)</li>
+                        <li>Minor enhancements and adjustments (up to 5 hours/month)</li>
+                        <li>Quarterly strategy consultation</li>
+                        <li>Affiliate program best practices guidance</li>
+                    </ul>
+
+                    <p><strong>Not Included in Retainer:</strong></p>
+                    <ul>
+                        <li>Day-to-day affiliate recruitment</li>
+                        <li>Creation of marketing collateral</li>
+                        <li>Affiliate relationship management</li>
+                        <li>Major feature development (quoted separately)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="section-14">
+                <h2>14. Assumptions & Dependencies</h2>
+
+                <h3>14.1 Client Responsibilities</h3>
+                <p>For successful project delivery, 4C Secure will:</p>
+
+                <ul class="checkbox-list">
+                    <li>Sign up for Tapfiliate Scale plan (or higher) before Week 1</li>
+                    <li>Provide Tapfiliate API credentials by Day 1</li>
+                    <li>Provide access to 4C Secure staging and production environments</li>
+                    <li>Provide access to Stripe webhook configuration</li>
+                    <li>Assign a technical point of contact for coordination</li>
+                    <li>Review and approve commission structure by Week 1</li>
+                    <li>Participate in UAT testing in Week 4</li>
+                    <li>Attend 2-hour training session in Week 4</li>
+                    <li>Provide timely feedback on deliverables (within 2 business days)</li>
+                </ul>
+
+                <h3>14.2 Technical Prerequisites</h3>
+                <ul>
+                    <li>4C Secure platform is live and stable</li>
+                    <li>Stripe payment gateway is operational</li>
+                    <li>Admin access to 4C codebase and hosting environment</li>
+                    <li>SSL certificate installed for custom domain (affiliates.4csecure.com)</li>
+                    <li>GDPR cookie consent banner implemented (or Bettroi will add)</li>
+                </ul>
+
+                <h3>14.3 Exclusions</h3>
+                <p>The following are NOT included in this proposal:</p>
+                <ul>
+                    <li>Tapfiliate subscription fees (client pays directly)</li>
+                    <li>Custom domain registration/DNS configuration (client responsibility)</li>
+                    <li>Content creation (banners, email templates, copy)</li>
+                    <li>Affiliate recruitment services</li>
+                    <li>Ongoing affiliate program management</li>
+                    <li>Integration with additional payment processors beyond Stripe</li>
+                    <li>Custom fraud detection algorithms beyond Tapfiliate's built-in features</li>
+                </ul>
+            </section>
+
+            <section id="section-15">
+                <h2>15. Terms & Conditions</h2>
+
+                <h3>15.1 Intellectual Property</h3>
+                <ul>
+                    <li>All custom code developed by Bettroi for this integration becomes property of 4C Secure upon final payment</li>
+                    <li>Tapfiliate platform and its features remain property of Tapfiliate Inc.</li>
+                    <li>Bettroi retains the right to reuse generic integration patterns (non-4C-specific code)</li>
+                </ul>
+
+                <h3>15.2 Warranties</h3>
+                <ul>
+                    <li>Bettroi warrants that all custom code will be free from defects for 30 days post-launch</li>
+                    <li>Bettroi will fix bugs related to the integration at no cost during the 30-day support period</li>
+                    <li>Bettroi does not warrant third-party services (Tapfiliate, Stripe)</li>
+                </ul>
+
+                <h3>15.3 Support & Maintenance</h3>
+                <p><strong>Included (30 Days Post-Launch):</strong></p>
+                <ul>
+                    <li>Bug fixes related to integration</li>
+                    <li>Minor configuration adjustments</li>
+                    <li>Troubleshooting tracking issues</li>
+                    <li>Email and phone support (Mon-Fri, 9 AM - 6 PM GST)</li>
+                </ul>
+
+                <p><strong>Not Included:</strong></p>
+                <ul>
+                    <li>Feature enhancements beyond original scope</li>
+                    <li>Issues caused by 4C platform changes or updates</li>
+                    <li>Tapfiliate platform issues (contact Tapfiliate support)</li>
+                    <li>Training for new admin team members</li>
+                </ul>
+
+                <h3>15.4 Confidentiality</h3>
+                <ul>
+                    <li>Bettroi will maintain confidentiality of all 4C Secure proprietary information</li>
+                    <li>Project details, customer data, and business metrics will not be disclosed</li>
+                    <li>Bettroi may reference "4C Secure" as a client in portfolio (with prior approval)</li>
+                </ul>
+
+                <h3>15.5 Limitation of Liability</h3>
+                <ul>
+                    <li>Bettroi's liability is limited to the total project fee (₹150,000)</li>
+                    <li>Bettroi is not liable for lost revenue, indirect damages, or consequential losses</li>
+                    <li>Client is responsible for backup and data protection</li>
+                </ul>
+
+                <h3>15.6 Termination</h3>
+                <ul>
+                    <li>Either party may terminate with 7 days written notice</li>
+                    <li>Upon termination, client pays for work completed to date</li>
+                    <li>Deliverables completed up to termination date will be transferred to client</li>
+                </ul>
+            </section>
+
+            <section id="section-16">
+                <h2>16. Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <h3>Q1: Why Tapfiliate instead of building a custom affiliate system?</h3>
+                    <p><strong>A:</strong> Tapfiliate provides enterprise-grade features (fraud detection, reporting, affiliate portal) that would cost ₹500,000+ and 6+ months to build from scratch. Integration is faster, more reliable, and includes ongoing platform updates.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q2: What if we exceed Tapfiliate's click or conversion limits?</h3>
+                    <p><strong>A:</strong> Tapfiliate charges overage fees (₹80-800 per 1,000 over limit). If you consistently exceed limits, upgrading to the Enterprise plan (unlimited) makes sense. Bettroi will monitor usage and recommend upgrades proactively.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q3: Can affiliates see our customer data?</h3>
+                    <p><strong>A:</strong> No. Affiliates only see anonymous metrics (clicks, conversions, commissions). They do NOT see customer names, emails, phone numbers, or any personally identifiable information (PII). This is a core privacy feature of the integration.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q4: How do affiliates receive their commissions?</h3>
+                    <p><strong>A:</strong> Tapfiliate tracks commissions, but actual payouts are managed by 4C Secure admin using the custom billing page Bettroi will build. You can pay via bank transfer, PayPal, Wise, or integrate Trolley for automated payouts (additional fees apply).</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q5: What happens if a customer refunds their subscription?</h3>
+                    <p><strong>A:</strong> Bettroi will implement logic to reverse the commission if a refund occurs within 30 days. The admin dashboard will show reversed commissions, and you can deduct from future payouts or request repayment.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q6: Can we have different commission rates for different affiliates?</h3>
+                    <p><strong>A:</strong> Yes. Tapfiliate allows custom commission rates per affiliate or per group. You can create tiered structures (e.g., Bronze 10%, Silver 15%, Gold 20%) to reward top performers.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q7: Will this integration slow down our website?</h3>
+                    <p><strong>A:</strong> No. The Tapfiliate tracking pixel is lightweight (<5 KB) and loads asynchronously. Impact on page load time is negligible (<50ms). Bettroi will optimize implementation for performance.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q8: What if we want to cancel Tapfiliate after 6 months?</h3>
+                    <p><strong>A:</strong> Tapfiliate is month-to-month (no long-term contract). You can cancel anytime. The integration code Bettroi builds will remain in your platform and can be disabled if needed. No lock-in.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q9: Can we integrate Tapfiliate with our CRM (HubSpot, Salesforce)?</h3>
+                    <p><strong>A:</strong> Tapfiliate has Zapier integration for most CRMs. However, this is not included in the base integration scope. Bettroi can quote CRM integration as a separate add-on project.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Q10: What happens after the 30-day support period ends?</h3>
+                    <p><strong>A:</strong> You can continue using the integration independently. For ongoing support, enroll in the optional ₹30,000/month retainer. Alternatively, purchase support hours as needed (₹3,500/hour).</p>
+                </div>
+            </section>
+
+            <section id="section-17">
+                <h2>17. Next Steps to Proceed</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Step 1: Review & Approval</h3>
+                        <ul>
+                            <li>Review this proposal with your team</li>
+                            <li>Confirm budget approval (₹150,000 integration + ₹150,000/year Tapfiliate)</li>
+                            <li>Clarify any questions or request modifications</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Step 2: Kick-Off Meeting</h3>
+                        <ul>
+                            <li>Schedule 60-minute kickoff call with Bettroi team</li>
+                            <li>Finalize commission structure and affiliate approval criteria</li>
+                            <li>Confirm timeline and launch date</li>
+                            <li>Introduce technical points of contact</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Step 3: Contract Execution</h3>
+                        <ul>
+                            <li>Sign Bettroi Master Services Agreement (MSA)</li>
+                            <li>Sign Statement of Work (SOW) for this project</li>
+                            <li>Submit Milestone 1 payment (₹60,000)</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Step 4: Tapfiliate Setup (Client Action)</h3>
+                        <ul>
+                            <li>Sign up for Tapfiliate 14-day free trial (if not done)</li>
+                            <li>Upgrade to Scale Advantages plan ($149/month)</li>
+                            <li>Provide Bettroi with API credentials and admin access</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Step 5: Development Begins (Week 1)</h3>
+                        <ul>
+                            <li>Bettroi team commences Phase 1 integration</li>
+                            <li>Daily Slack/email updates on progress</li>
+                            <li>Weekly progress review meetings</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>Step 6: Go-Live (Week 4)</h3>
+                        <ul>
+                            <li>User Acceptance Testing (UAT)</li>
+                            <li>Admin team training</li>
+                            <li>Soft launch with 5-10 pilot affiliates</li>
+                            <li>Transition to 30-day post-launch support</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-18">
+                <h2>18. Why Choose Bettroi for This Integration?</h2>
+
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Proven Track Record</h4>
+                        <ul>
+                            <li>Successfully delivered 4C Secure web platform (November 2025)</li>
+                            <li>Deep understanding of your existing architecture</li>
+                            <li>Expertise in secure, scalable integrations</li>
+                            <li>100% on-time delivery record</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-box">
+                        <h4>Technical Excellence</h4>
+                        <ul>
+                            <li>Senior developers with 8+ years experience</li>
+                            <li>Specialization in SaaS integrations and payment systems</li>
+                            <li>Security-first approach (GDPR, PII protection)</li>
+                            <li>Clean, maintainable code with comprehensive documentation</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-box">
+                        <h4>Client-Centric Approach</h4>
+                        <ul>
+                            <li>Transparent pricing with no hidden costs</li>
+                            <li>Proactive communication and progress updates</li>
+                            <li>Flexible payment terms aligned with milestones</li>
+                            <li>30-day post-launch support included</li>
+                            <li>Long-term partnership mindset</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-box">
+                        <h4>Value Beyond Code</h4>
+                        <ul>
+                            <li>Strategic guidance on commission structures</li>
+                            <li>Best practices from 50+ affiliate integrations</li>
+                            <li>Training and knowledge transfer</li>
+                            <li>Monthly reporting templates and KPI dashboards</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-19">
+                <h2>19. Acceptance & Authorization</h2>
+
+                <p>To accept this proposal and commence work, please sign below and return a scanned copy to <a href="mailto:projects@bettroi.com">projects@bettroi.com</a> along with Milestone 1 payment confirmation.</p>
+
+                <div class="signature-section">
+                    <div class="signature-box">
+                        <h3>Accepted By (4C Secure):</h3>
+                        <div class="signature-line">Signature:</div>
+                        <div class="signature-line">Name:</div>
+                        <div class="signature-line">Title:</div>
+                        <div class="signature-line">Date:</div>
+                    </div>
+
+                    <div class="signature-box">
+                        <h3>Accepted By (Bettroi FZE):</h3>
+                        <div class="signature-line">Signature:</div>
+                        <div class="signature-line">Name:</div>
+                        <p><strong>Title:</strong> Technical Director</p>
+                        <div class="signature-line">Date:</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-20">
+                <h2>20. Contact Information</h2>
+
+                <h3>Bettroi Project Team</h3>
+
+                <div class="feature-grid">
+                    <div class="info-box">
+                        <h3>Project Manager</h3>
+                        <p><strong>Name:</strong> [PM Name]</p>
+                        <p><strong>Email:</strong> pm@bettroi.com</p>
+                        <p><strong>Phone:</strong> +971 [Number]</p>
+                        <p><strong>Availability:</strong> Mon-Fri, 9 AM - 6 PM GST</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Technical Lead</h3>
+                        <p><strong>Name:</strong> [Tech Lead Name]</p>
+                        <p><strong>Email:</strong> tech@bettroi.com</p>
+                        <p><strong>Phone:</strong> +971 [Number]</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Billing & Contracts</h3>
+                        <p><strong>Email:</strong> billing@bettroi.com</p>
+                        <p><strong>Phone:</strong> +971 [Number]</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>General Inquiries</h3>
+                        <p><strong>Email:</strong> projects@bettroi.com</p>
+                        <p><strong>Website:</strong> <a href="http://www.bettroi.com">www.bettroi.com</a></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <div class="proposal-footer">
+            <h3>Thank You</h3>
+            <p>Bettroi FZE looks forward to partnering with 4C Secure to build a world-class affiliate marketing program.</p>
+            <p>We are committed to delivering exceptional results on time and within budget.</p>
+            <p style="margin-top: 30px;">For questions or clarifications, please contact:</p>
+            <p><strong>Email:</strong> <a href="mailto:projects@bettroi.com">projects@bettroi.com</a></p>
+            <p><strong>Phone:</strong> +971 [Contact Number]</p>
+            <p><strong>Website:</strong> <a href="http://www.bettroi.com">www.bettroi.com</a></p>
+
+            <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p><strong>BETTROI FZE</strong></p>
+                <p>A5, Dtech, DSO, Dubai, UAE</p>
+                <p>TRN: 104277403200003</p>
+                <p style="margin-top: 20px; opacity: 0.7; font-size: 0.875rem;">
+                    <strong>Document Version:</strong> 1.0 |
+                    <strong>Last Updated:</strong> January 10, 2026 |
+                    <strong>Valid Until:</strong> February 10, 2026
+                </p>
+                <p style="margin-top: 15px; opacity: 0.7; font-size: 0.875rem; font-style: italic;">
+                    This proposal is confidential and intended solely for 4C Secure. Please do not distribute without written permission from Bettroi FZE.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Back to Top Button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Print functionality
+        function printProposal() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

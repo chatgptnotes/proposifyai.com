@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AIMS Cloud Platform - Bettroi to ADNOC</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 10mm auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.legal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #003DA5;
+}
+
+.supplier-details {
+    flex: 1;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.logo.big {
+    width: 80px;
+    height: 80px;
+}
+
+.company-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003DA5;
+}
+
+.legal-info p {
+    margin: 5px 0;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.document-info {
+    text-align: right;
+    min-width: 250px;
+}
+
+.document-type {
+    font-size: 20px;
+    color: #003DA5;
+    margin: 0 0 10px 0;
+}
+
+.ref-details p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.title-box {
+    background: linear-gradient(135deg, #003DA5 0%, #0056D6 100%);
+    color: white;
+    padding: 30px;
+    margin: 20px -20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+}
+
+.bill-to-section {
+    margin: 30px 0;
+}
+
+.bill-to-section h2 {
+    color: #003DA5;
+    border-bottom: 2px solid #003DA5;
+    padding-bottom: 5px;
+}
+
+.client-legal-box {
+    background: #f9fafb;
+    padding: 15px;
+    border-left: 4px solid #003DA5;
+    margin: 15px 0;
+}
+
+.client-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003DA5;
+    margin-bottom: 10px;
+}
+
+.investment-summary {
+    background: #f0f4ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px 0;
+}
+
+.investment-summary h3 {
+    color: #003DA5;
+    margin-top: 0;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.pricing-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.total-row td {
+    border-top: 2px solid #003DA5;
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #003DA5;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003DA5;
+}
+
+.ref {
+    text-align: right;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+h2 {
+    color: #003DA5;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #1f2937;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+ul {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+th {
+    background: #003DA5;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.aml-notice {
+    font-size: 8px;
+    font-style: italic;
+    color: #999;
+}
+
+.compliance-box {
+    background: #F0F4FF;
+    border-left: 4px solid #003DA5;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.warning-box {
+    background: #FEF2F2;
+    border-left: 4px solid #DC2626;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.important-note {
+    background: #FFF3CD;
+    border-left: 4px solid #FFC107;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.bank-details-box {
+    background: #f9fafb;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+.saas-highlight {
+    background: linear-gradient(135deg, #E6F2FF 0%, #F0F8FF 100%);
+    border: 2px solid #003DA5;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.cloud-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.benefit-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.benefit-card h4 {
+    color: #003DA5;
+    margin: 0 0 10px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<div class="page">
+<!-- AML Compliant Legal Header -->
+<div class="legal-header">
+<div class="supplier-details">
+<div class="logo-box">
+<div class="company-name">BETTROI FZE</div>
+</div>
+<div class="legal-info">
+<p><b>Trade License:</b> 14421</p>
+<p><b>TRN:</b> 100406144400003</p>
+<p><b>Address:</b> A5-101, Techno-Hub 1, Dubai Technology Entrepreneur Center (DTEC), Dubai Silicon Oasis, Dubai, UAE</p>
+<p><b>Tel:</b> +971 52 819 4040 | <b>Email:</b> sales@bettroi.com</p>
+<p><b>Website:</b> www.bettroi.com</p>
+</div>
+</div>
+<div class="document-info">
+<h2 class="document-type">TECHNICAL PROPOSAL</h2>
+<div class="ref-details">
+<p><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001</p>
+<p><b>Proposal No:</b> ERP-AIMS-CLOUD-001</p>
+<p><b>Date:</b> November 29, 2025</p>
+<p><b>Valid Until:</b> December 29, 2025</p>
+</div>
+</div>
+</div>
+
+<div class="title-box">
+<div class="title">AIMS Cloud Platform<br/>AI-Powered P&ID Tag Extraction as a Service</div>
+</div>
+
+<div class="content">
+<!-- Client Details Section (Bill To) -->
+<div class="bill-to-section">
+<h2>BILL TO</h2>
+<div class="client-legal-box">
+<p class="client-name">ADNOC GROUP</p>
+<p><b>Trade License:</b> Government Entity (State-Owned)</p>
+<p><b>TRN:</b> 100000000000000</p>
+<p><b>Address:</b> ADNOC HQ, P.O. Box 898, Corniche Road West, Abu Dhabi, UAE</p>
+<p><b>Contact Person:</b> Engineering & Technology Director</p>
+<p><b>Email:</b> info@adnoc.ae</p>
+<p><b>Phone:</b> +971 2 7070000</p>
+</div>
+</div>
+
+<div class="saas-highlight">
+<h3 style="margin-top: 0;">Cloud-Based SaaS Model</h3>
+<p><b>Deployment:</b> Bettroi Managed Cloud Infrastructure</p>
+<p><b>Access:</b> Web Browser & API</p>
+<p><b>Maintenance:</b> Fully Managed by Bettroi</p>
+<p><b>Updates:</b> Automatic & Continuous</p>
+</div>
+
+<div style="margin-top: 30px;">
+<div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Implementation Timeline</div>
+<div style="font-size: 16px; font-weight: 600; color: #003DA5;">8-10 Weeks</div>
+</div>
+
+<!-- Investment Summary with VAT -->
+<div class="investment-summary">
+<h3>Investment Summary - Year 1</h3>
+<table class="pricing-table">
+<tr>
+<td><b>Initial Setup & Configuration</b></td>
+<td align="right"><b>AED 85,000</b></td>
+</tr>
+<tr>
+<td><b>Monthly Subscription (12 months)</b></td>
+<td align="right"><b>AED 15,000 × 12 = AED 180,000</b></td>
+</tr>
+<tr>
+<td><b>Subtotal (Taxable Amount)</b></td>
+<td align="right"><b>AED 265,000</b></td>
+</tr>
+<tr>
+<td>VAT @ 5%</td>
+<td align="right">AED 13,250</td>
+</tr>
+<tr class="total-row">
+<td><b>TOTAL YEAR 1 INVESTMENT</b></td>
+<td align="right"><b>AED 278,250</b></td>
+</tr>
+</table>
+<p style="font-size: 10px; font-style: italic; color: #666; margin-top: 10px;">
+All amounts are subject to 5% UAE VAT as per Federal Decree-Law No. 8 of 2017
+</p>
+</div>
+</div>
+
+<div class="footer">
+<div><b>BETTROI FZE</b></div>
+<div><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span></div>
+<div><b>Page 1</b></div>
+<div class="aml-notice">Document retention: 5 years as per UAE AML regulations</div>
+</div>
+</div>
+
+<!-- Page 2: Table of Contents -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Table of Contents</h2>
+<ol>
+<li><b>Executive Summary</b> ......................................................... 3</li>
+<li><b>Cloud Platform Benefits</b> .................................................... 3</li>
+<li><b>Scope of Work</b> ............................................................... 4</li>
+<li><b>Architecture and Infrastructure</b> ........................................... 5</li>
+<li><b>Deliverables</b> .................................................................. 6</li>
+<li><b>Technology Stack</b> ............................................................ 6</li>
+<li><b>Performance & Scale</b> ......................................................... 7</li>
+<li><b>Project Plan and Milestones</b> ............................................... 7</li>
+<li><b>Commercials - SaaS Pricing Model</b> ......................................... 8</li>
+<li><b>Service Level Agreement (SLA)</b> ............................................. 9</li>
+<li><b>Data Security & Compliance</b> ................................................. 9</li>
+<li><b>Client Responsibilities</b> .................................................... 10</li>
+<li><b>Division of Responsibilities</b> .............................................. 10</li>
+<li><b>Acceptance Criteria</b> ......................................................... 11</li>
+<li><b>Important Points</b> ............................................................. 11</li>
+<li><b>Assumptions</b> ................................................................... 12</li>
+<li><b>Change Control</b> ................................................................ 12</li>
+<li><b>Terms & Conditions</b> ........................................................... 13</li>
+<li><b>Service Order Confirmation – Letter of Intent (LOI)</b> .................... 14</li>
+</ol>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>2 | Page</b></div>
+</div>
+
+<!-- Page 3: Executive Summary & Cloud Benefits -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Executive Summary</h2>
+<p>
+BETTROI will deliver AIMS (Asset Information Management System) as a fully managed cloud platform that automatically extracts equipment and instrument tags from P&ID drawings using advanced AI technology. The AIMS Cloud Platform eliminates manual tag extraction, reducing processing time from days to minutes while ensuring 99.5% accuracy through AI-powered OCR and ISA 5.1 compliant parsing. Success is defined by automated extraction of 1000+ tags per day, sub-2 second response times, and zero data security incidents.
+</p>
+<p>
+<b>Success Metrics:</b> 99.5% tag extraction accuracy, <2s API response time, 99.9% uptime SLA, zero P1 security incidents, 90% reduction in manual effort.
+</p>
+
+<h2>Cloud Platform Benefits</h2>
+
+<div class="cloud-benefits">
+<div class="benefit-card">
+<h4>Zero Infrastructure</h4>
+<p>No hardware investment, no server maintenance, no IT overhead. Access from any browser.</p>
+</div>
+<div class="benefit-card">
+<h4>Instant Scalability</h4>
+<p>Process 10 or 10,000 P&IDs seamlessly. Auto-scaling handles peak loads automatically.</p>
+</div>
+<div class="benefit-card">
+<h4>Continuous Updates</h4>
+<p>AI models improve monthly. New features deployed without downtime or manual updates.</p>
+</div>
+<div class="benefit-card">
+<h4>Global Access</h4>
+<p>Engineers access from any location. Collaborate across teams and time zones.</p>
+</div>
+<div class="benefit-card">
+<h4>Enterprise Security</h4>
+<p>Bank-grade encryption, SOC2 compliant infrastructure, automated backups.</p>
+</div>
+<div class="benefit-card">
+<h4>Pay-As-You-Grow</h4>
+<p>Monthly subscription scales with usage. No large upfront investment.</p>
+</div>
+</div>
+
+<h3>Why Choose SaaS for AIMS?</h3>
+<ul>
+<li><b>Fastest Time to Value:</b> Live in 8 weeks vs 6+ months for on-premise</li>
+<li><b>Latest AI Models:</b> Access to GPT-4, Claude, and specialized vision models</li>
+<li><b>No Version Management:</b> Always on the latest version automatically</li>
+<li><b>Disaster Recovery:</b> Built-in backup and recovery with 99.9% SLA</li>
+<li><b>Predictable Costs:</b> Fixed monthly fee covers everything</li>
+</ul>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>3 | Page</b></div>
+</div>
+
+<!-- Page 4: Scope of Work -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Scope of Work</h2>
+
+<h3>In-scope</h3>
+<ul>
+<li><b>Cloud Platform Setup:</b> Multi-tenant AIMS platform on Bettroi cloud infrastructure</li>
+<li><b>User Management:</b> Unlimited users with role-based access (SME, Engineer, Supervisor)</li>
+<li><b>P&ID Processing:</b> Automatic extraction of equipment tags, instrument tags, and line tags</li>
+<li><b>AI Engine:</b> Cloud-hosted OCR, symbol detection, ISA 5.1 parsing, and tag mapping</li>
+<li><b>Project Management:</b> Create unlimited projects and processes with document versioning</li>
+<li><b>Tag Verification:</b> SME review interface with visual confirmation and bulk operations</li>
+<li><b>Excel Export:</b> Generate ADNOC-compliant Tag Creation sheets automatically</li>
+<li><b>API Access:</b> RESTful APIs for integration with existing systems</li>
+<li><b>Data Storage:</b> 1TB included storage with automated backups</li>
+<li><b>Training:</b> Virtual training sessions for up to 20 users</li>
+<li><b>Support:</b> 24/7 email support with 4-hour response SLA</li>
+<li><b>Updates:</b> Continuous platform improvements and AI model enhancements</li>
+</ul>
+
+<h3>Out-of-scope</h3>
+<ul>
+<li><b>On-premise deployment:</b> No local server installation or offline capability</li>
+<li><b>Source code access:</b> Platform remains Bettroi IP, no code transfer</li>
+<li><b>Custom AI models:</b> Uses Bettroi standard models, no client-specific training</li>
+<li><b>Legacy system migration:</b> Historical data migration billed separately</li>
+<li><b>Third-party integrations:</b> SAP, Oracle, or other ERP integrations (available as add-on)</li>
+<li><b>Mobile applications:</b> Native iOS/Android apps not included</li>
+<li><b>Dedicated infrastructure:</b> Shared cloud resources (dedicated available as upgrade)</li>
+<li><b>Phone support:</b> Available as premium add-on only</li>
+</ul>
+
+<div class="important-note">
+<p style="margin: 0;"><b>Important Scope Clarification:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>This is a multi-tenant SaaS solution with data isolation</li>
+<li>All data remains in UAE data centers for compliance</li>
+<li>Custom workflows can be configured within platform limits</li>
+<li>API rate limits apply: 1000 requests/hour included</li>
+</ul>
+</div>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>4 | Page</b></div>
+</div>
+
+<!-- Page 5: Architecture -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Architecture and Infrastructure</h2>
+
+<h3>Cloud Architecture</h3>
+
+<p><b>Infrastructure Provider:</b> Vercel (Edge Network) & Render (Backend Services)</p>
+<p><b>Database:</b> Supabase (Hosted PostgreSQL with Real-time capabilities)</p>
+<p><b>Data Residency:</b> Regional data centers with compliance</p>
+<p><b>Architecture Pattern:</b> Serverless functions with auto-scaling</p>
+
+<h3>System Components</h3>
+
+<p><b>1. Web Application Layer</b></p>
+<ul>
+<li>React-based responsive web interface</li>
+<li>Progressive Web App (PWA) capabilities</li>
+<li>CDN-accelerated global delivery</li>
+</ul>
+
+<p><b>2. API Gateway</b></p>
+<ul>
+<li>RESTful API with OpenAPI specification</li>
+<li>OAuth 2.0 authentication</li>
+<li>Rate limiting and DDoS protection</li>
+</ul>
+
+<p><b>3. Processing Engine</b></p>
+<ul>
+<li>Render-hosted background workers</li>
+<li>Queue-based job processing</li>
+<li>Parallel P&ID processing capability</li>
+</ul>
+
+<p><b>4. AI Services</b></p>
+<ul>
+<li>Tesseract OCR for text extraction</li>
+<li>Custom vision models for symbol detection</li>
+<li>GPT-4 for context understanding</li>
+<li>ISA 5.1 parsing engine</li>
+</ul>
+
+<p><b>5. Data Layer</b></p>
+<ul>
+<li>Supabase for all data storage and real-time sync</li>
+<li>Supabase Storage for P&ID files</li>
+<li>Built-in caching and edge functions</li>
+<li>Automated daily backups with point-in-time recovery</li>
+</ul>
+
+<h3>Security Architecture</h3>
+<ul>
+<li>TLS 1.3 encryption for all communications</li>
+<li>AES-256 encryption at rest</li>
+<li>Web Application Firewall (WAF)</li>
+<li>Multi-factor authentication (MFA)</li>
+<li>Role-based access control (RBAC)</li>
+<li>Audit logging with 1-year retention</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>5 | Page</b></div>
+</div>
+
+<!-- Page 6: Deliverables & Tech Stack -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Deliverables</h2>
+<ul>
+<li><b>AIMS Cloud Platform Access:</b> Organization account with unlimited users</li>
+<li><b>Admin Dashboard:</b> User management, usage analytics, and billing portal</li>
+<li><b>P&ID Processing Engine:</b> Upload, process, and extract tags from unlimited P&IDs</li>
+<li><b>Tag Verification Interface:</b> Review, edit, and approve extracted tags</li>
+<li><b>Excel Export Module:</b> ADNOC-compliant Tag Creation sheets</li>
+<li><b>API Documentation:</b> Complete API reference with examples</li>
+<li><b>Training Materials:</b> Video tutorials and user guides</li>
+<li><b>Integration Support:</b> REST APIs for third-party system integration</li>
+<li><b>Monthly Reports:</b> Usage statistics and AI accuracy metrics</li>
+</ul>
+
+<h2>Technology Stack</h2>
+
+<table>
+<tr>
+<th>Component</th>
+<th>Technology</th>
+</tr>
+<tr>
+<td><b>Frontend</b></td>
+<td>React 18, TypeScript, Material-UI, Progressive Web App</td>
+</tr>
+<tr>
+<td><b>Backend</b></td>
+<td>Node.js, Express, Python FastAPI for AI services</td>
+</tr>
+<tr>
+<td><b>Database</b></td>
+<td>Supabase (PostgreSQL with real-time, auth, and storage)</td>
+</tr>
+<tr>
+<td><b>AI/ML</b></td>
+<td>Tesseract OCR, OpenAI GPT-4, Custom YOLOv8 models</td>
+</tr>
+<tr>
+<td><b>Infrastructure</b></td>
+<td>Vercel (Frontend), Render (Backend), Edge Functions</td>
+</tr>
+<tr>
+<td><b>Security</b></td>
+<td>Supabase Auth, OAuth 2.0, Let's Encrypt SSL, WAF</td>
+</tr>
+<tr>
+<td><b>Monitoring</b></td>
+<td>Vercel Analytics, Render Metrics, Supabase Dashboard</td>
+</tr>
+<tr>
+<td><b>CI/CD</b></td>
+<td>GitHub Actions, Vercel Deploy, Automated testing</td>
+</tr>
+</table>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>6 | Page</b></div>
+</div>
+
+<!-- Page 7: Performance & Project Plan -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Performance & Scale</h2>
+
+<h3>Performance Targets</h3>
+<ul>
+<li><b>P&ID Processing Speed:</b> 30-60 seconds per page</li>
+<li><b>Tag Extraction Accuracy:</b> 99.5% for standard ISA symbols</li>
+<li><b>API Response Time:</b> <2 seconds for 95% of requests</li>
+<li><b>Platform Uptime:</b> 99.9% availability SLA</li>
+<li><b>Concurrent Users:</b> Support for 500+ simultaneous users</li>
+<li><b>Storage:</b> 1TB included, expandable to 10TB+</li>
+</ul>
+
+<h3>Scalability</h3>
+<ul>
+<li><b>Auto-scaling:</b> Automatic resource allocation based on demand</li>
+<li><b>Load Balancing:</b> Distributed processing across multiple servers</li>
+<li><b>CDN Integration:</b> Fast global access from any location</li>
+<li><b>Queue Management:</b> Handle 1000+ P&IDs in processing queue</li>
+</ul>
+
+<h2>Project Plan and Milestones</h2>
+
+<p><b>Total Duration:</b> 8-10 weeks from contract signing</p>
+
+<table>
+<tr>
+<th>Milestone</th>
+<th>Duration</th>
+<th>Deliverables</th>
+</tr>
+<tr>
+<td><b>M1: Setup & Configuration</b></td>
+<td>Week 1-2</td>
+<td>• Organization account creation<br/>• User provisioning<br/>• Initial configuration<br/>• API credentials</td>
+</tr>
+<tr>
+<td><b>M2: Data Migration & Integration</b></td>
+<td>Week 3-4</td>
+<td>• Sample P&ID upload<br/>• Custom field mapping<br/>• Excel template configuration<br/>• API integration setup</td>
+</tr>
+<tr>
+<td><b>M3: Training & Testing</b></td>
+<td>Week 5-6</td>
+<td>• User training sessions<br/>• UAT environment<br/>• Test data processing<br/>• Performance validation</td>
+</tr>
+<tr>
+<td><b>M4: Production Rollout</b></td>
+<td>Week 7-8</td>
+<td>• Production go-live<br/>• Final user onboarding<br/>• Documentation delivery<br/>• Support handover</td>
+</tr>
+<tr>
+<td><b>M5: Optimization</b></td>
+<td>Week 9-10</td>
+<td>• Performance tuning<br/>• User feedback incorporation<br/>• Process refinement<br/>• Success metrics review</td>
+</tr>
+</table>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>7 | Page</b></div>
+</div>
+
+<!-- Page 8: Commercial Terms -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Commercials - SaaS Pricing Model</h2>
+
+<h3>Year 1 Investment Breakdown</h3>
+
+<table>
+<tr>
+<th>Component</th>
+<th>Cost (AED)</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><b>Initial Setup</b></td>
+<td>85,000</td>
+<td>• Platform configuration<br/>• User provisioning<br/>• Training (20 users)<br/>• Integration setup</td>
+</tr>
+<tr>
+<td><b>Monthly Subscription</b></td>
+<td>15,000/month</td>
+<td>• Unlimited users<br/>• 1TB storage<br/>• 1000 P&IDs/month<br/>• Standard support</td>
+</tr>
+<tr>
+<td><b>Annual Total (Pre-VAT)</b></td>
+<td>265,000</td>
+<td>Setup + 12 months subscription</td>
+</tr>
+<tr>
+<td><b>VAT (5%)</b></td>
+<td>13,250</td>
+<td>As per UAE regulations</td>
+</tr>
+<tr>
+<td><b>Total Year 1</b></td>
+<td><b>278,250</b></td>
+<td>All-inclusive first year cost</td>
+</tr>
+</table>
+
+<h3>Year 2+ Ongoing Costs</h3>
+<ul>
+<li><b>Monthly Subscription:</b> AED 15,000 + VAT</li>
+<li><b>Annual Total:</b> AED 189,000 (including VAT)</li>
+<li><b>No setup fees from Year 2 onwards</b></li>
+</ul>
+
+<h3>Optional Add-ons</h3>
+<table>
+<tr>
+<th>Add-on Service</th>
+<th>Monthly Cost</th>
+</tr>
+<tr>
+<td>Additional Storage (per TB)</td>
+<td>AED 500</td>
+</tr>
+<tr>
+<td>Priority Support (2-hour SLA)</td>
+<td>AED 3,000</td>
+</tr>
+<tr>
+<td>Dedicated Infrastructure</td>
+<td>AED 8,000</td>
+</tr>
+<tr>
+<td>Custom AI Model Training</td>
+<td>Quote on request</td>
+</tr>
+<tr>
+<td>ERP Integration Module</td>
+<td>AED 5,000</td>
+</tr>
+</table>
+
+<h3>Payment Terms</h3>
+<ul>
+<li><b>Setup Fee:</b> 100% on contract signing</li>
+<li><b>Subscription:</b> Quarterly in advance</li>
+<li><b>Payment Method:</b> Bank transfer or credit card</li>
+<li><b>Currency:</b> AED or USD equivalent</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>8 | Page</b></div>
+</div>
+
+<!-- Page 9: SLA & Security -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Service Level Agreement (SLA)</h2>
+
+<table>
+<tr>
+<th>Service Metric</th>
+<th>Target</th>
+<th>Measurement</th>
+</tr>
+<tr>
+<td>Platform Availability</td>
+<td>99.9%</td>
+<td>Monthly uptime excluding planned maintenance</td>
+</tr>
+<tr>
+<td>P&ID Processing Time</td>
+<td><2 minutes</td>
+<td>Per page for standard complexity</td>
+</tr>
+<tr>
+<td>API Response Time</td>
+<td><2 seconds</td>
+<td>95th percentile of all API calls</td>
+</tr>
+<tr>
+<td>Support Response (Critical)</td>
+<td>4 hours</td>
+<td>Initial response for P1 issues</td>
+</tr>
+<tr>
+<td>Support Response (Normal)</td>
+<td>24 hours</td>
+<td>Initial response for P2/P3 issues</td>
+</tr>
+<tr>
+<td>Data Backup</td>
+<td>Daily</td>
+<td>Automated backups with 30-day retention</td>
+</tr>
+<tr>
+<td>Disaster Recovery</td>
+<td>4 hours</td>
+<td>Maximum recovery time objective (RTO)</td>
+</tr>
+</table>
+
+<h3>SLA Credits</h3>
+<p>If monthly uptime falls below 99.9%, service credits apply:</p>
+<ul>
+<li>99.0% - 99.9%: 10% monthly credit</li>
+<li>95.0% - 99.0%: 25% monthly credit</li>
+<li>Below 95.0%: 50% monthly credit</li>
+</ul>
+
+<h2>Data Security & Compliance</h2>
+
+<h3>Security Measures</h3>
+<ul>
+<li><b>Data Encryption:</b> AES-256 at rest, TLS 1.3 in transit</li>
+<li><b>Access Control:</b> Multi-factor authentication, IP whitelisting available</li>
+<li><b>Security Monitoring:</b> 24/7 threat detection and response</li>
+<li><b>Penetration Testing:</b> Annual third-party security audits</li>
+<li><b>DDoS Protection:</b> Enterprise-grade protection included</li>
+</ul>
+
+<h3>Compliance & Certifications</h3>
+<ul>
+<li><b>ISO 27001:</b> Information Security Management</li>
+<li><b>SOC 2 Type II:</b> Security, Availability, Confidentiality</li>
+<li><b>UAE Data Protection:</b> Compliant with Federal Decree-Law No. 45 of 2021</li>
+<li><b>Data Residency:</b> All data stored in UAE data centers</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>9 | Page</b></div>
+</div>
+
+<!-- Page 10: Responsibilities -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Client Responsibilities</h2>
+<ul>
+<li>Provide authorized user list within 3 business days of contract signing</li>
+<li>Designate primary admin and technical contact persons</li>
+<li>Upload sample P&IDs for initial configuration and testing</li>
+<li>Participate in training sessions as scheduled</li>
+<li>Provide feedback during UAT phase within agreed timelines</li>
+<li>Ensure P&ID files are in supported formats (PDF, max 100MB per file)</li>
+<li>Maintain confidentiality of API keys and access credentials</li>
+<li>Report issues through designated support channels</li>
+<li>Comply with platform usage policies and rate limits</li>
+</ul>
+
+<h2>Division of Responsibilities</h2>
+
+<table>
+<tr>
+<th>Area</th>
+<th>ADNOC</th>
+<th>BETTROI</th>
+</tr>
+<tr>
+<td><b>Infrastructure</b></td>
+<td>• Internet connectivity<br/>• User workstations<br/>• Browser compatibility</td>
+<td>• Cloud infrastructure<br/>• Server management<br/>• Platform hosting</td>
+</tr>
+<tr>
+<td><b>Data Management</b></td>
+<td>• P&ID file quality<br/>• Data accuracy validation<br/>• Export utilization</td>
+<td>• Data security<br/>• Backup & recovery<br/>• Storage management</td>
+</tr>
+<tr>
+<td><b>User Management</b></td>
+<td>• User authorization<br/>• Access requests<br/>• Role assignments</td>
+<td>• Account provisioning<br/>• Authentication system<br/>• Password resets</td>
+</tr>
+<tr>
+<td><b>Processing</b></td>
+<td>• Upload P&IDs<br/>• Review extracted tags<br/>• Approve final output</td>
+<td>• AI processing<br/>• Tag extraction<br/>• Excel generation</td>
+</tr>
+<tr>
+<td><b>Support</b></td>
+<td>• Report issues<br/>• Provide feedback<br/>• User training attendance</td>
+<td>• Technical support<br/>• Bug fixes<br/>• Platform updates</td>
+</tr>
+</table>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>10 | Page</b></div>
+</div>
+
+<!-- Page 11: Acceptance & Important Points -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Acceptance Criteria</h2>
+<ul>
+<li>Platform accessible via web browser with provided credentials</li>
+<li>Successful processing of 10 sample P&IDs with 95%+ accuracy</li>
+<li>All user roles (SME, Engineer, Supervisor) functioning correctly</li>
+<li>Excel export generates ADNOC-compliant Tag Creation format</li>
+<li>API endpoints responding within SLA parameters</li>
+<li>Training completed for designated users</li>
+<li>Documentation and user guides delivered</li>
+<li>Support ticket system operational</li>
+</ul>
+
+<h2>Important Points</h2>
+
+<div class="important-note">
+<p style="margin: 0;"><b>Key Commercial Clarifications:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>This is a subscription service - no ownership of platform code</li>
+<li>AI processing costs are included in the monthly subscription</li>
+<li>Data export is unlimited - client owns all extracted data</li>
+<li>Platform updates are automatic and included at no extra cost</li>
+<li>Subscription is annual with quarterly payment terms</li>
+</ul>
+</div>
+
+<h3>Data Ownership & Portability</h3>
+<ul>
+<li>Client retains full ownership of all uploaded P&IDs and extracted data</li>
+<li>Data can be exported at any time in standard formats (Excel, CSV, JSON)</li>
+<li>Upon contract termination, all data provided within 30 days</li>
+<li>Bettroi may use anonymized metrics for platform improvement</li>
+</ul>
+
+<h3>Service Continuity</h3>
+<ul>
+<li>30-day notice required for subscription cancellation</li>
+<li>No refunds for partial months or unused services</li>
+<li>Price protection: rates locked for first 2 years</li>
+<li>Automatic renewal unless cancelled in writing</li>
+</ul>
+
+<h3>Platform Evolution</h3>
+<p>
+AIMS continuously evolves with new features added monthly. Clients automatically receive all platform improvements, AI model updates, and new capabilities at no additional charge as part of their subscription.
+</p>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>11 | Page</b></div>
+</div>
+
+<!-- Page 12: Assumptions & Change Control -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Assumptions</h2>
+<ul>
+<li>P&ID files are readable PDFs with standard ISA 5.1 symbology</li>
+<li>Internet connectivity of at least 10 Mbps for optimal performance</li>
+<li>Users have modern web browsers (Chrome, Edge, Firefox, Safari)</li>
+<li>Training will be conducted virtually via Microsoft Teams</li>
+<li>Client has existing processes for P&ID management and review</li>
+<li>Tag numbering follows industry standards (ISA 5.1 or similar)</li>
+<li>Maximum file size per P&ID is 100MB</li>
+<li>English language interface is acceptable</li>
+<li>Standard working hours support (Sun-Thu, 9 AM - 6 PM UAE time)</li>
+</ul>
+
+<h2>Change Control</h2>
+
+<p>
+Features beyond the defined "In-scope" items require a written change request with revised commercial terms. Change requests are evaluated for impact on timeline and costs.
+</p>
+
+<h3>Change Request Process</h3>
+<ol>
+<li>Client submits written request via email or support portal</li>
+<li>Bettroi provides impact assessment within 3 business days</li>
+<li>Quote provided for additional costs (if any)</li>
+<li>Written approval required before implementation</li>
+<li>Changes implemented in next release cycle</li>
+</ol>
+
+<h3>Examples of Changes Requiring Approval</h3>
+<ul>
+<li>Custom AI model training for proprietary symbols</li>
+<li>Integration with third-party systems not originally scoped</li>
+<li>Additional language support beyond English</li>
+<li>Custom reporting formats beyond standard exports</li>
+<li>Dedicated infrastructure or private cloud deployment</li>
+</ul>
+
+<h3>No-Cost Changes</h3>
+<p>
+Minor UI improvements, bug fixes, and standard feature enhancements are included in the subscription and do not require change requests.
+</p>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>12 | Page</b></div>
+</div>
+
+<!-- Page 13: Terms & Conditions -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Terms & Conditions</h2>
+
+<h3>Subscription Terms</h3>
+<ul>
+<li><b>Contract Period:</b> Minimum 12 months, auto-renewing</li>
+<li><b>Billing Cycle:</b> Quarterly in advance</li>
+<li><b>Price Validity:</b> This quote is valid for 30 days</li>
+<li><b>Price Protection:</b> Rates locked for first 24 months</li>
+<li><b>Cancellation:</b> 30 days written notice required</li>
+<li><b>Early Termination:</b> No refunds for unused period</li>
+</ul>
+
+<h3>Service Terms</h3>
+<ul>
+<li><b>Service Credits:</b> Applied to next billing cycle</li>
+<li><b>Maintenance Windows:</b> Sundays 2-6 AM UAE time</li>
+<li><b>Force Majeure:</b> Standard force majeure clauses apply</li>
+<li><b>Liability Limit:</b> Limited to 12 months subscription fees</li>
+</ul>
+
+<h3>Intellectual Property</h3>
+<ul>
+<li>AIMS platform remains Bettroi intellectual property</li>
+<li>Client retains ownership of uploaded P&IDs and extracted data</li>
+<li>Bettroi may use anonymized usage data for improvements</li>
+<li>No reverse engineering or code extraction permitted</li>
+</ul>
+
+<h3>Confidentiality</h3>
+<ul>
+<li>Mutual NDA to be signed before data upload</li>
+<li>Bettroi personnel sign confidentiality agreements</li>
+<li>Client data isolated from other tenants</li>
+<li>Data deletion upon contract termination + 90 days</li>
+</ul>
+
+<h3>Warranty & Support</h3>
+<ul>
+<li><b>Platform Warranty:</b> Continuous for subscription duration</li>
+<li><b>Bug Fixes:</b> Included at no charge</li>
+<li><b>Feature Requests:</b> Evaluated for platform roadmap</li>
+<li><b>Support Channels:</b> Email, portal, knowledge base</li>
+</ul>
+
+<h3>Governing Law</h3>
+<p>
+This agreement is governed by the laws of the United Arab Emirates. Any disputes shall be subject to the exclusive jurisdiction of the Dubai Courts.
+</p>
+
+<h3>Taxes</h3>
+<ul>
+<li>All prices exclude VAT (currently 5% in UAE)</li>
+<li>Client responsible for any withholding taxes</li>
+<li>Tax invoices provided for all payments</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>13 | Page</b></div>
+</div>
+
+<!-- Page 14: LOI -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SAAS/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>SERVICE ORDER CONFIRMATION – LETTER OF INTENT (LOI)</h2>
+
+<div style="margin-top: 30px;">
+<p><b>Ref:</b> ERP-AIMS-CLOUD-001, November 29, 2025</p>
+
+<p style="margin-top: 20px;">
+<b>From,</b><br/>
+ADNOC GROUP<br/>
+Abu Dhabi National Oil Company<br/>
+ADNOC HQ, P.O. Box 898<br/>
+Corniche Road West, Abu Dhabi<br/>
+United Arab Emirates
+</p>
+
+<p style="margin-top: 20px;">
+<b>To,</b><br/>
+BETTROI FZE<br/>
+A5-101, Techno-Hub 1, DTEC<br/>
+Dubai Silicon Oasis, Dubai, UAE
+</p>
+
+<p style="margin-top: 20px;">
+<b>Subject:</b> Letter of Intent – AIMS Cloud Platform Subscription
+</p>
+
+<p style="margin-top: 20px;">
+Dear Biji Tharakan,
+</p>
+
+<p>
+We are pleased to issue this Letter of Intent, in reference to Bettroi's Proposal (ERP Ref: ERP-AIMS-CLOUD-001), to proceed with the subscription to the AIMS Cloud Platform for automated P&ID tag extraction and asset information management.
+</p>
+
+<p>
+We understand that the AIMS Cloud Platform will provide our organization with a fully managed SaaS solution for extracting equipment and instrument tags from P&ID drawings, including AI-powered processing, tag verification workflows, and ADNOC-compliant Excel export capabilities. The platform will be accessible via web browser with role-based access for our SME, Engineer, and Supervisor users.
+</p>
+
+<p>
+We acknowledge our intent to proceed with the annual subscription model at AED 278,250 (including VAT) for Year 1, which includes initial setup and configuration, and confirm that this LOI serves as formal authorization to initiate the engagement under the terms outlined in the referenced proposal. Bettroi may commence account provisioning and platform configuration upon receipt of the initial payment.
+</p>
+
+<p>
+We look forward to leveraging the AIMS platform to transform our P&ID management processes and achieve significant efficiency gains.
+</p>
+
+<p style="margin-top: 30px;">
+Sincerely,
+</p>
+
+<div style="margin-top: 40px;">
+<p>
+For ADNOC GROUP,<br/><br/>
+Name: _________________________________<br/><br/>
+Title: _________________________________<br/><br/>
+Signature: _____________________________<br/><br/>
+Date: _________________________________<br/><br/>
+Official Stamp: ________________________
+</p>
+</div>
+
+</div>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-CLOUD-001</span><b>14 | Page</b></div>
+</div>
+
+</body>
+</html>

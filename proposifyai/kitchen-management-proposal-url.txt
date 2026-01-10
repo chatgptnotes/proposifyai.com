@@ -1,0 +1,55 @@
+
+AI-INTEGRATED KITCHEN MANAGEMENT SYSTEM
+Pre-Configured Proposal URL
+Generated: 11/29/2025, 11:06:22 AM
+
+====================================================================================================
+
+PROPOSAL DETAILS:
+- Template: Bettroi Integration Proposal
+- Title: AI-Integrated Kitchen Management System
+- Budget: $70000
+- Duration: 6 months (12 sprints)
+- Team: 7 FTE
+- AI Generation: Enabled
+
+====================================================================================================
+
+COPY THIS URL:
+
+http://localhost:3000/proposals/new?template=2&title=AI-Integrated+Kitchen+Management+System&client=Your+Client+Company+Name&email=client%40example.com&value=70000&context=The+client+requires+a+comprehensive%2C+modular+AI-integrated+kitchen+management+system+to+optimize+restaurant+and+food+service+operations.%0A%0APROJECT+OVERVIEW%3A%0A-+Total+Budget%3A+%2470%2C000+USD%0A-+Duration%3A+6+months+%2812+two-week+sprints+across+3+phases%29%0A-+Team+Size%3A+7+FTE+%281+Project+Manager%2C+1+UI%2FUX+Designer%2C+3+Full+Stack+Developers%2C+1+DevOps+Specialist%2C+1+QA+Specialist%29%0A-+Methodology%3A+Agile+with+continuous+integration+and+deployment%0A%0ACORE+SYSTEM+FEATURES+%28Phase+1+-+Sprints+1-4%29%3A%0A%E2%9C%93+Client+Order+Management+-+Custom+recipe+creation%2C+order+processing%2C+order+history+and+reporting%0A%E2%9C%93+Inventory+Management+-+AI-powered+stock+tracking+with+image+recognition%2C+automatic+reordering%2C+expiry+tracking%2C+real-time+stock+levels%0A%E2%9C%93+Recipe+Costing+%26+Batch+Management+-+Real-time+ingredient+cost+tracking%2C+batch+tracking%2C+cost+vs+profit+alerts%0A%E2%9C%93+Supplier+Price+Monitoring+-+Smart+supplier+selection%2C+automatic+purchase+orders%2C+supplier+performance+tracking%0A%E2%9C%93+Production+Planning+%26+Scheduling+-+Automated+task+assignment%2C+production+forecasting%2C+resource+allocation%0A%E2%9C%93+Profitability+Analysis+-+Real-time+cost+monitoring%2C+profitability+dashboard%2C+cost+alerts%0A%0AMODULE+DEVELOPMENT+%28Phase+2+-+Sprints+5-8%29%3A%0A%E2%9C%93+Recipe+Optimization+%26+Cost+Efficiency+-+AI-powered+recipe+standardization%2C+dynamic+ingredient+substitution%2C+yield+tracking%2C+waste+reduction%0A%E2%9C%93+Label+Making+%26+Nutritional+Fact+Generation+-+Integration+with+FatSecret+API%2C+auto-generated+compliant+food+labels%2C+nutritional+facts+calculation%2C+barcode+%26+QR+code+generation%0A%E2%9C%93+Smart+Procurement+%26+Supplier+Cost+Optimization+-+Live+supplier+price+tracking%2C+purchase+order+automation%2C+cost-effective+supplier+recommendations%0A%0AADVANCED+AI+FEATURES+%28Phase+3+-+Sprints+9-12%29%3A%0A%E2%9C%93+AI-Based+Financial+Optimization+-+Real-time+profitability+tracking%2C+smart+pricing+adjustments%2C+predictive+financial+forecasting%0A%E2%9C%93+Delivery+%26+Logistics+Optimization+-+Route+optimization%2C+fuel+%26+transport+cost+tracking%2C+packaging+calculation%0A%E2%9C%93+Energy+%26+Labor+Cost+Allocation+-+Energy+usage+tracking%2C+labor+cost+optimization%2C+cost-cutting+strategies%0A%E2%9C%93+Waste+Management+%26+Expiry+Tracking+-+Spoilage+detection%2C+waste+reduction+suggestions%2C+expiry+notifications%0A%0ATECHNOLOGY+STACK%3A%0A-+Frontend%3A+React%2C+Angular%2C+Vue.js%2C+Bootstrap%0A-+Backend%3A+Node.js%2C+Python%2C+Express.js%2C+Spring%2C+Java%0A-+Database%3A+MySQL%2C+Oracle%2C+MongoDB%0A-+Mobile%3A+Swift%2C+Ionic%2C+Kotlin%2C+Flutter%2C+Xcode%0A-+Cloud%3A+AWS%2C+Google+Cloud%2C+Azure%0A-+Project+Management%3A+Jira%2C+Confluence%2C+Asana%2C+Trello%0A-+Big+Data%3A+Kafka%2C+Amazon+Kinesis%2C+MongoDB%2C+DynamoDB%0A%0AKEY+OBJECTIVES%3A%0A1.+Enhance+Inventory+%26+Procurement+Efficiency%0A2.+Optimize+Recipe+Management+%26+Cost+Control%0A3.+Streamline+Order+Processing+%26+Production+Planning%0A4.+Maximize+Financial+Performance+%26+Profitability%0A5.+Improve+Logistics%2C+Energy+%26+Waste+Management%0A6.+Ensure+Compliance+%26+Regulatory+Adherence%0A%0APAYMENT+TERMS%3A%0APhase+1%3A+Core+System+Development+-+%2421%2C000%0A-+Project+Kickoff%3A+%246%2C300%0A-+Sprint+1-4+Completion%3A+%243%2C675+each%0A%0APhase+2%3A+Module+Development+-+%2420%2C000%0A-+Phase+2+Kickoff%3A+%246%2C000%0A-+Sprint+5-8+Completion%3A+%243%2C500+each%0A%0APhase+3%3A+Advanced+Features+%26+Deployment+-+%2414%2C000%0A-+Phase+3+Kickoff%3A+%244%2C200%0A-+Sprint+9-12+Completion%3A+%242%2C450+each%0A%0ASUPPORT+PLAN%3A%0A-+Hyper-Care+Support%3A+60+days+with+24%2F7+availability%0A-+SLA-Based+Support%3A+120+days+%28Critical%3A+4h%2C+Major%3A+12h%2C+Minor%3A+48h%29%0A-+Post-6-Month+Package%3A+500+hours+at+%2425%2Fhour%0A%0ADELIVERABLES%3A%0A%E2%9C%93+Fully+functional+modular+kitchen+management+system%0A%E2%9C%93+AI-powered+inventory+tracking+and+procurement+automation%0A%E2%9C%93+Real-time+cost+monitoring+and+profitability+analysis%0A%E2%9C%93+Smart+supplier+selection+and+price+optimization%0A%E2%9C%93+Automated+label+generation+with+nutritional+facts%0A%E2%9C%93+Logistics+and+delivery+optimization%0A%E2%9C%93+Complete+documentation+and+training+materials%0A%E2%9C%93+180+days+of+comprehensive+support&ai=true
+
+====================================================================================================
+
+INSTRUCTIONS:
+
+1. Copy the URL above
+2. Paste it into your browser (Chrome, Firefox, Safari, Edge)
+3. The proposal form will be pre-filled with all project details
+4. Update Step 2:
+   - Replace "Your Client Company Name" with actual client name
+   - Replace "client@example.com" with actual client email
+   - Add client website URL if available (optional)
+5. Review all pre-filled information in Steps 1-3
+6. Click "Generate with AI (Bettroi Professional)" in Step 3
+7. Wait 30-60 seconds while AI generates:
+   ✓ Executive Summary
+   ✓ Comprehensive Scope of Work
+   ✓ Pricing Breakdown ($70,000)
+   ✓ 6-Month Timeline
+   ✓ Professional Terms & Conditions
+8. Review and customize the generated content
+9. Add your logo and customize branding
+10. Share with client via unique link
+
+====================================================================================================
+
+NEED HELP?
+
+If you encounter any issues:
+- Make sure the development server is running (npm run dev)
+- Check http://localhost:3000 is accessible
+- Verify your OpenAI API key is configured in .env.local
+- Check browser console for any errors
+
+====================================================================================================

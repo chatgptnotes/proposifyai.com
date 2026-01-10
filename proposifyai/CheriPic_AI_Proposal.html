@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheriPic AI Relationship Counselor - Technical Proposal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .page {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .logo-box {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+        .drmhope-logo {
+            color: #dc2626;
+        }
+
+        .bettroi-logo {
+            color: #1e40af;
+            background: #1e40af;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            background: white;
+            padding: 30px 40px;
+            border-bottom: 3px solid #e5e7eb;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #6b7280;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1e40af;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .executive-summary {
+            background: #eff6ff;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .executive-summary h3 {
+            color: #1e40af;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .executive-summary p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .timeline-note {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .feature-number {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .feature-timeline {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .feature-description {
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .scope-section {
+            margin-top: 20px;
+        }
+
+        .scope-title {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .scope-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .scope-list li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            color: #4b5563;
+        }
+
+        .scope-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .out-scope-list li:before {
+            content: "⊗";
+            color: #ef4444;
+        }
+
+        .requirements-box {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin-top: 15px;
+        }
+
+        .deliverables-box {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin-top: 15px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .pricing-table thead {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+        }
+
+        .pricing-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .pricing-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .pricing-table .total-row {
+            background: #eff6ff;
+            font-weight: 700;
+            font-size: 16px;
+            color: #1e40af;
+        }
+
+        .pricing-table .grand-total {
+            background: #1e40af;
+            color: white;
+            font-size: 18px;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        .timeline-table th {
+            background: #3b82f6;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .timeline-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .timeline-table .phase-total {
+            background: #dbeafe;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .terms-list {
+            counter-reset: term-counter;
+            list-style: none;
+        }
+
+        .terms-list li {
+            counter-increment: term-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .terms-list li:before {
+            content: counter(term-counter) ".";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #1e40af;
+            font-size: 18px;
+        }
+
+        .terms-list strong {
+            color: #1e40af;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #60a5fa;
+            margin-bottom: 15px;
+        }
+
+        .footer-section p {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #475569;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .signature-box {
+            text-align: center;
+        }
+
+        .signature-box h4 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .signature-line {
+            border-top: 2px solid #1e40af;
+            margin: 60px 0 10px 0;
+        }
+
+        .bank-details {
+            background: #f0fdf4;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #10b981;
+        }
+
+        .bank-details h4 {
+            color: #047857;
+            margin-bottom: 15px;
+        }
+
+        .bank-details p {
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #3b82f6;
+            margin: 20px 0;
+        }
+
+        .circle-decorations {
+            position: absolute;
+            right: 40px;
+            bottom: 40px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .circle-1 {
+            background: #8b5cf6;
+        }
+
+        .circle-2 {
+            background: #06b6d4;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header with Logos -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-box">
+                    <div class="logo-text drmhope-logo">Dr.M</div>
+                    <div class="logo-subtitle">Excellence in Digital Innovation</div>
+                </div>
+                <div class="logo-box">
+                    <div class="logo-text bettroi-logo">Bettroi</div>
+                    <div class="logo-subtitle" style="color: white;">CheriPic Platform</div>
+                </div>
+            </div>
+
+            <h1>Technical Proposal</h1>
+            <h2>CheriPic - AI Relationship Counselor</h2>
+            <p>Mobile App AI Integration for Serious Matchmaking</p>
+
+            <div class="circle-decorations">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+            </div>
+        </div>
+
+        <!-- Meta Information -->
+        <div class="meta-info">
+            <div class="meta-item">
+                <div class="meta-label">Proposal Date</div>
+                <div class="meta-value">November 7, 2025</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Version</div>
+                <div class="meta-value">1.0</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Project Code</div>
+                <div class="meta-value">DRMHOPE-CHERICPIC-1125</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Valid Until</div>
+                <div class="meta-value">December 7, 2025</div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Executive Summary -->
+            <section class="section">
+                <div class="executive-summary">
+                    <h3>Executive Summary</h3>
+                    <p>
+                        This technical proposal outlines the development and integration of an <strong>AI-Powered Relationship Counselor</strong>
+                        module for the CheriPic mobile application. CheriPic is a serious relationship-focused dating platform that prioritizes
+                        meaningful connections, user safety, and female empowerment in the matchmaking process.
+                    </p>
+                    <p>
+                        The AI counselor will revolutionize how users interact on the platform by providing intelligent guidance, compatibility
+                        analysis, and personalized recommendations. Unlike traditional dating apps that focus solely on physical attraction,
+                        CheriPic's AI counselor will facilitate deeper connections by understanding user personalities, values, and relationship
+                        goals through natural conversations using both text and voice interfaces.
+                    </p>
+                    <p>
+                        Key innovations include a <strong>female-first safety approach</strong> where women control interaction flows through a
+                        unique five-question compatibility system, AI-generated conversation summaries that protect privacy while enabling informed
+                        decisions, and behavioral intelligence that learns from user patterns to improve match quality over time. The system will
+                        be culturally sensitive to Middle Eastern values and relationship norms, making it uniquely suited for the UAE market.
+                    </p>
+
+                    <div class="timeline-note">
+                        <strong>Timeline:</strong> 6-8 weeks (parallel development approach)<br>
+                        <strong>Investment:</strong> ₹4,07,000 (Development + Hosting + AMC)<br>
+                        <strong>Note:</strong> All features will be developed in parallel by specialized teams to meet market launch timelines.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Overview -->
+            <section class="section">
+                <h2 class="section-title">Features Overview</h2>
+
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-number">1</div>
+                            <div>
+                                <div class="feature-title">AI Conversational Counselor</div>
+                                <div class="feature-timeline">2-3 weeks</div>
+                            </div>
+                        </div>
+                        <p class="feature-description">
+                            Intelligent conversational AI engine that guides users through meaningful interactions, asks thoughtful questions,
+                            and provides relationship advice. Supports both text and natural voice conversations with context awareness and
+                            emotional intelligence.
+                        </p>
+
+                        <div class="scope-section">
+                            <h4 class="scope-title">In Scope</h4>
+                            <ul class="scope-list">
+                                <li>Natural Language Processing engine with GPT-4/Claude API integration</li>
+                                <li>Context-aware conversation flow with memory of previous interactions</li>
+                                <li>Real-time sentiment analysis to gauge user emotions and engagement</li>
+                                <li>Voice-to-text and text-to-voice conversion using Google Cloud Speech API</li>
+                                <li>Intelligent question generator for compatibility assessment</li>
+                                <li>Personality trait analysis based on conversation patterns</li>
+                                <li>Multi-turn dialogue management with natural transitions</li>
+                                <li>Emoji and emotion detection in text responses</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-number">2</div>
+                            <div>
+                                <div class="feature-title">Compatibility Analysis System</div>
+                                <div class="feature-timeline">2 weeks</div>
+                            </div>
+                        </div>
+                        <p class="feature-description">
+                            Advanced AI-powered system that analyzes conversations, generates compatibility scores, and creates detailed
+                            summaries for female users. Enables informed decision-making while maintaining privacy and safety.
+                        </p>
+
+                        <div class="scope-section">
+                            <h4 class="scope-title">In Scope</h4>
+                            <ul class="scope-list">
+                                <li>AI conversation summarization with key insight extraction</li>
+                                <li>Compatibility scoring algorithm based on values, interests, and communication style</li>
+                                <li>Five-question framework for female-led interaction control</li>
+                                <li>Behavioral pattern matching across multiple dimensions</li>
+                                <li>Red flag detection for inappropriate behavior or intentions</li>
+                                <li>Compatibility report generation with detailed breakdowns</li>
+                                <li>Match recommendation engine with confidence scores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-number">3</div>
+                            <div>
+                                <div class="feature-title">Privacy & Safety Features</div>
+                                <div class="feature-timeline">1-2 weeks</div>
+                            </div>
+                        </div>
+                        <p class="feature-description">
+                            Comprehensive privacy protection system ensuring female users maintain complete control over their identity and
+                            interactions. Industry-leading security measures protect all user data.
+                        </p>
+
+                        <div class="scope-section">
+                            <h4 class="scope-title">In Scope</h4>
+                            <ul class="scope-list">
+                                <li>Identity masking for female users until explicit approval</li>
+                                <li>Granular consent management system with permission controls</li>
+                                <li>End-to-end encryption (AES-256) for all conversations</li>
+                                <li>Secure JWT authentication with refresh token rotation</li>
+                                <li>Automated content moderation for inappropriate messages</li>
+                                <li>Block and report functionality with admin review system</li>
+                                <li>GDPR/DPDP compliant data handling and user rights</li>
+                                <li>Data retention policies with automatic deletion options</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-number">4</div>
+                            <div>
+                                <div class="feature-title">Smart Recommendations Engine</div>
+                                <div class="feature-timeline">1-2 weeks</div>
+                            </div>
+                        </div>
+                        <p class="feature-description">
+                            AI-powered recommendation system that suggests activities, date ideas, and shared experiences based on user
+                            preferences and compatibility analysis. Helps couples build meaningful connections.
+                        </p>
+
+                        <div class="scope-section">
+                            <h4 class="scope-title">In Scope</h4>
+                            <ul class="scope-list">
+                                <li>Activity and experience recommendation based on shared interests</li>
+                                <li>Location-based suggestions for UAE/Middle East region</li>
+                                <li>Conversation starter generator for matched couples</li>
+                                <li>Date idea personalization based on compatibility scores</li>
+                                <li>Seasonal and cultural event recommendations</li>
+                                <li>Progressive disclosure strategy for building intimacy</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-number">5</div>
+                            <div>
+                                <div class="feature-title">Mobile App Integration</div>
+                                <div class="feature-timeline">2-3 weeks</div>
+                            </div>
+                        </div>
+                        <p class="feature-description">
+                            Seamless integration of AI counselor into existing CheriPic React Native mobile application with beautiful UI
+                            components and smooth user experience.
+                        </p>
+
+                        <div class="scope-section">
+                            <h4 class="scope-title">In Scope</h4>
+                            <ul class="scope-list">
+                                <li>React Native component library for AI chat interface</li>
+                                <li>Secure REST API integration with existing app architecture</li>
+                                <li>Real-time WebSocket connections for instant messaging</li>
+                                <li>Offline-first architecture with background data synchronization</li>
+                                <li>Push notification system for AI insights and match updates</li>
+                                <li>Voice recording and playback UI components</li>
+                                <li>Smooth animations and micro-interactions for engagement</li>
+                                <li>iOS and Android platform optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-number">6</div>
+                            <div>
+                                <div class="feature-title">Backend & Cloud Infrastructure</div>
+                                <div class="feature-timeline">2 weeks</div>
+                            </div>
+                        </div>
+                        <p class="feature-description">
+                            Robust backend architecture with Node.js API, Supabase database, cloud voice services, and scalable
+                            infrastructure to handle growing user base.
+                        </p>
+
+                        <div class="scope-section">
+                            <h4 class="scope-title">In Scope</h4>
+                            <ul class="scope-list">
+                                <li>Node.js REST API with Express framework</li>
+                                <li>Supabase PostgreSQL database with optimized schemas</li>
+                                <li>Redis caching layer for high-performance responses</li>
+                                <li>Google Cloud Speech API integration for voice processing</li>
+                                <li>OpenAI/Claude API integration for AI conversations</li>
+                                <li>File storage for voice recordings (Supabase Storage)</li>
+                                <li>Background job queue for async processing (BullMQ)</li>
+                                <li>API rate limiting and DDoS protection</li>
+                                <li>Monitoring and logging (Sentry + LogRocket)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing Breakdown -->
+            <section class="section">
+                <h2 class="section-title">Investment Breakdown</h2>
+
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>DELIVERABLE</th>
+                            <th>DESCRIPTION</th>
+                            <th style="text-align: right;">AMOUNT (INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AI Development</strong></td>
+                            <td>Core AI counselor engine, NLP processing, voice integration, conversation intelligence</td>
+                            <td style="text-align: right;">₹1,50,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile Integration</strong></td>
+                            <td>React Native components, UI/UX design, API integration, real-time features</td>
+                            <td style="text-align: right;">₹75,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backend Services</strong></td>
+                            <td>Node.js API, database setup, cloud infrastructure, security implementation</td>
+                            <td style="text-align: right;">₹50,000</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>TOTAL PROJECT INVESTMENT</strong></td>
+                            <td style="text-align: right;"><strong>₹2,75,000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 30px;">
+                    <h3 style="color: #1e40af; margin-bottom: 15px;">Additional Services</h3>
+                    <table class="pricing-table">
+                        <tbody>
+                            <tr>
+                                <td><strong>Annual Cloud Hosting</strong></td>
+                                <td>Vercel deployment, Supabase database, Voice API usage (estimated)</td>
+                                <td style="text-align: right;">₹72,000/year</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Annual Maintenance Contract (AMC)</strong></td>
+                                <td>Bug fixes, security updates, feature enhancements, 24/7 support</td>
+                                <td style="text-align: right;">₹60,000/year</td>
+                            </tr>
+                            <tr class="grand-total">
+                                <td colspan="2"><strong>GRAND TOTAL (First Year)</strong></td>
+                                <td style="text-align: right;"><strong>₹4,07,000</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h4 style="color: #1e40af; margin-bottom: 15px;">Exclusions (Paid by Client as Usage)</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 5px 0;">⊗ Cloud AI API costs (OpenAI/Claude conversation API - pay-per-use)</li>
+                        <li style="padding: 5px 0;">⊗ Google Cloud Speech API charges (voice processing - ~₹0.006 per 15 seconds)</li>
+                        <li style="padding: 5px 0;">⊗ Apple App Store ($99/year) and Google Play Store ($25 one-time) fees</li>
+                        <li style="padding: 5px 0;">⊗ Third-party SMS/OTP services for authentication (Twilio/AWS SNS)</li>
+                        <li style="padding: 5px 0;">⊗ WhatsApp Business API integration (if required in future)</li>
+                        <li style="padding: 5px 0;">⊗ Marketing, user acquisition, and advertising costs</li>
+                        <li style="padding: 5px 0;">⊗ Advanced analytics and business intelligence modules</li>
+                    </ul>
+                </div>
+
+                <div class="bank-details" style="margin-top: 30px;">
+                    <h4>Payment Terms & Bank Details</h4>
+                    <p><strong>Payment Schedule:</strong></p>
+                    <p>• 40% Advance: ₹1,62,800 (upon order confirmation)</p>
+                    <p>• 60% Balance: ₹2,44,200 (upon completion and deployment)</p>
+                    <br>
+                    <p><strong>Bank Transfer Details:</strong></p>
+                    <p>Account Name: Raftaar Help Emergency Seva</p>
+                    <p>Bank: State Bank of India</p>
+                    <p>Branch: Ajni Branch, Code: 64460</p>
+                    <p>Account Type: Current Account</p>
+                    <p>IFSC Code: SBIN0064460</p>
+                    <p>SWIFT Code: SBININBB104 (for international transfers)</p>
+                </div>
+            </section>
+
+            <!-- Development Timeline -->
+            <section class="section">
+                <h2 class="section-title">Development Timeline</h2>
+
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th>PHASE</th>
+                            <th>DELIVERABLES</th>
+                            <th style="text-align: center;">DURATION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Phase 1</strong></td>
+                            <td>Requirements gathering, API design, database schema, project setup</td>
+                            <td style="text-align: center;">1 Week</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 2</strong></td>
+                            <td>AI counselor engine development, NLP integration, conversation training</td>
+                            <td style="text-align: center;">2 Weeks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 3</strong></td>
+                            <td>Mobile app integration, UI components, real-time chat interface</td>
+                            <td style="text-align: center;">2 Weeks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 4</strong></td>
+                            <td>Voice integration, speech-to-text, text-to-speech implementation</td>
+                            <td style="text-align: center;">1 Week</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 5</strong></td>
+                            <td>Security features, privacy controls, encryption, compliance</td>
+                            <td style="text-align: center;">1 Week</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 6</strong></td>
+                            <td>Integration testing, user acceptance testing (UAT), deployment</td>
+                            <td style="text-align: center;">1 Week</td>
+                        </tr>
+                        <tr class="phase-total">
+                            <td colspan="2"><strong>TOTAL PROJECT TIMELINE</strong></td>
+                            <td style="text-align: center;"><strong>6-8 Weeks</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box">
+                    <h4 style="color: #1e40af; margin-bottom: 10px;">Key Milestones</h4>
+                    <p><strong>Week 2:</strong> AI engine demo with sample conversations and compatibility analysis</p>
+                    <p><strong>Week 4:</strong> Mobile app integration with working chat interface and voice features</p>
+                    <p><strong>Week 6:</strong> Complete system with privacy features, testing, and optimization</p>
+                    <p><strong>Week 8:</strong> Production deployment, handover, and training sessions</p>
+                </div>
+            </section>
+
+            <!-- Client Requirements -->
+            <section class="section">
+                <h2 class="section-title">Client Requirements</h2>
+
+                <div class="requirements-box">
+                    <h4 style="color: #92400e; margin-bottom: 15px;">What Bettroi FZE Needs to Provide</h4>
+
+                    <h5 style="margin-top: 15px; color: #374151;">1. Access & Permissions</h5>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>CheriPic app API documentation and test environment access within 3 business days</li>
+                        <li>Supabase database credentials or approval to create new project</li>
+                        <li>Google Cloud/AWS account for voice API setup (or we can configure)</li>
+                        <li>GitHub repository access for code collaboration</li>
+                    </ul>
+
+                    <h5 style="margin-top: 15px; color: #374151;">2. Design Assets</h5>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>CheriPic brand guidelines, logo files, and color palette</li>
+                        <li>UI/UX preferences for AI chat interface design</li>
+                        <li>Voice selection preference (male/female, accent: Arabic/English)</li>
+                    </ul>
+
+                    <h5 style="margin-top: 15px; color: #374151;">3. Business Requirements</h5>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Final list of compatibility questions (minimum 5, recommend 10-15)</li>
+                        <li>Privacy policy content and legal disclaimers</li>
+                        <li>Definition of inappropriate content for AI moderation</li>
+                        <li>User consent workflow approval</li>
+                    </ul>
+
+                    <h5 style="margin-top: 15px; color: #374151;">4. Project Management</h5>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Designated technical point of contact available for daily communication</li>
+                        <li>Weekly review meeting schedule (recommended: every Monday 10 AM GST)</li>
+                        <li>UAT testing team with 2-3 people for feedback</li>
+                        <li>Target go-live date commitment</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Terms and Conditions -->
+            <section class="section">
+                <h2 class="section-title">Terms & Conditions</h2>
+
+                <ol class="terms-list">
+                    <li>
+                        <strong>Payment Terms:</strong> 40% advance payment (₹1,62,800) required upon project commencement.
+                        Balance 60% (₹2,44,200) payable upon final delivery and successful client acceptance testing (UAT).
+                    </li>
+                    <li>
+                        <strong>Quotation Validity:</strong> This quotation is valid for 30 days from the date of issue
+                        (until December 7, 2025). Prices may be revised after this period.
+                    </li>
+                    <li>
+                        <strong>Taxes:</strong> All amounts are exclusive of Goods and Services Tax (GST). 18% GST will be
+                        applicable as per Indian tax laws and will be billed separately.
+                    </li>
+                    <li>
+                        <strong>Revisions:</strong> Up to 3 rounds of design and functionality revisions per development phase
+                        are included in the quoted price. Additional revisions will be charged separately.
+                    </li>
+                    <li>
+                        <strong>Support & Warranty:</strong> 3 months complimentary bug fixing and technical support included
+                        post-launch. Feature enhancements and ongoing support available under separate AMC agreement.
+                    </li>
+                    <li>
+                        <strong>Intellectual Property:</strong> Complete source code ownership and intellectual property rights
+                        transfer to Bettroi FZE upon receipt of final payment. Third-party libraries remain under their respective licenses.
+                    </li>
+                    <li>
+                        <strong>Confidentiality:</strong> Both parties agree to maintain strict confidentiality of all business,
+                        technical, and user data shared during project execution. NDA to be signed before project commencement.
+                    </li>
+                    <li>
+                        <strong>Change Requests:</strong> Any scope changes beyond the defined features will be documented,
+                        quoted separately, and may affect project timeline and cost. Change requests require written approval.
+                    </li>
+                    <li>
+                        <strong>Testing & Feedback:</strong> Client agrees to provide feedback and approval within 5 business days
+                        during UAT phase. Delays in feedback may extend project timeline accordingly.
+                    </li>
+                    <li>
+                        <strong>Deliverables:</strong> Complete source code, API documentation, deployment guides, database schemas,
+                        training materials, and user manuals will be provided as part of final delivery package.
+                    </li>
+                </ol>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h4 style="color: #1e40af; margin-bottom: 10px;">Additional Clauses</h4>
+                    <p><strong>Force Majeure:</strong> DRMHOPE Software shall not be liable for delays due to circumstances beyond reasonable control including but not limited to API changes by third parties (OpenAI, Google), regulatory restrictions, or client-side dependencies.</p>
+                    <br>
+                    <p><strong>Data Security:</strong> DRMHOPE Software will implement industry-standard security measures (AES-256 encryption, TLS 1.3, secure authentication) but cannot guarantee protection against all potential breaches. Client is responsible for compliance with applicable data protection laws and election commission guidelines.</p>
+                    <br>
+                    <p><strong>Cancellation:</strong> If project is cancelled after commencement, 30% of total contract value will be deducted as cancellation charges to cover work completed and resources allocated.</p>
+                </div>
+            </section>
+
+            <!-- Signature Section -->
+            <div class="signature-section">
+                <div class="signature-box">
+                    <h4>Proposed By:</h4>
+                    <p><strong>DRM Hope Software Solutions</strong></p>
+                    <p>Dr. Murali B K</p>
+                    <p>Chief Technology Officer</p>
+                    <p style="font-size: 13px; color: #666; margin-top: 10px;">
+                        2, Teka Naka, Kamptee Road, Nagpur<br>
+                        Email: murali@drmhope.com<br>
+                        Phone: +91-9373111709
+                    </p>
+                    <div class="signature-line"></div>
+                    <p style="font-size: 12px; color: #999;">Authorized Signature</p>
+                </div>
+
+                <div class="signature-box">
+                    <h4>Accepted By:</h4>
+                    <p><strong>Bettroi FZE</strong></p>
+                    <p>CheriPic Platform</p>
+                    <p>Authorized Signatory</p>
+                    <p style="font-size: 13px; color: #666; margin-top: 10px;">
+                        Date: _______________<br>
+                        Stamp: _______________
+                    </p>
+                    <div class="signature-line"></div>
+                    <p style="font-size: 12px; color: #999;">Client Signature & Stamp</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DRM HOPE SOFTWARE SOLUTIONS</h3>
+                    <p>📍 Address: 2, Teka Naka, Kamptee Road, Nagpur, Maharashtra, India</p>
+                    <p>📧 Email: murali@drmhope.com</p>
+                    <p>📱 Phone: +91-9373111709</p>
+                    <p>🌐 Website: www.drmhope.com</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>DOCUMENT INFORMATION</h3>
+                    <p>Proposal ID: DRMHOPE-CHERICPIC-1125</p>
+                    <p>Prepared: November 7, 2025</p>
+                    <p>Version: 1.0</p>
+                    <p>Valid Until: December 7, 2025</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>This proposal is confidential and proprietary. All rights reserved © 2025 DRM Hope Software Solutions</p>
+                <p style="margin-top: 10px;">ProposifyAI v3.5.0 • Released 2025-11-07</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

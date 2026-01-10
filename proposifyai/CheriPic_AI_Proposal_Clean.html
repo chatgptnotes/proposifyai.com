@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheriPic AI - Project Quotation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .page {
+            max-width: 210mm;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-box {
+            background: white;
+            padding: 15px 35px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .drmhope-logo {
+            color: #dc2626;
+        }
+
+        .bettroi-logo {
+            background: #1e40af;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 6px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header h2 {
+            font-size: 20px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 25px 40px;
+            background: white;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #6b7280;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 3px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1e40af;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .overview-box {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .scope-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .scope-list li {
+            padding: 10px 0 10px 25px;
+            position: relative;
+            color: #4b5563;
+        }
+
+        .scope-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .pricing-table th {
+            background: #1e40af;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pricing-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .pricing-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .pricing-table .total-row {
+            background: #eff6ff;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .info-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #f59e0b;
+            margin: 15px 0;
+        }
+
+        .bank-box {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+            margin: 15px 0;
+        }
+
+        .bank-box p {
+            margin-bottom: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .requirements-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .requirements-list li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+        }
+
+        .requirements-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        .terms-list {
+            list-style: none;
+            counter-reset: term-counter;
+        }
+
+        .terms-list li {
+            counter-increment: term-counter;
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .terms-list li:before {
+            content: counter(term-counter) ".";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            padding: 25px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .signature-box {
+            text-align: center;
+        }
+
+        .signature-box h4 {
+            color: #1e40af;
+            margin-bottom: 15px;
+        }
+
+        .signature-line {
+            border-top: 2px solid #1e40af;
+            margin: 50px 0 8px 0;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 30px 40px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer h4 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .footer p {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid #475569;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        /* Force color printing */
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+            .header {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;
+                color: white !important;
+            }
+            .meta-info {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .section-title {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color: #1e40af !important;
+            }
+            .pricing-table th {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #1e40af !important;
+                color: white !important;
+            }
+            .pricing-table .total-row {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #eff6ff !important;
+            }
+            .overview-box, .info-box, .bank-box {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .footer {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #1e293b !important;
+                color: white !important;
+            }
+            .logo-box {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .bettroi-logo {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #1e40af !important;
+                color: white !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container" style="justify-content: center;">
+                <div class="logo-box">
+                    <div class="logo-text bettroi-logo">Bettroi</div>
+                </div>
+            </div>
+            <h1>PROJECT QUOTATION</h1>
+            <h2>CheriPic AI Relationship Counselor</h2>
+        </div>
+
+        <!-- Meta Information -->
+        <div class="meta-info">
+            <div class="meta-item">
+                <div class="meta-label">Quote Reference</div>
+                <div class="meta-value">BETTROI-CHERICPIC-1125</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Date</div>
+                <div class="meta-value">November 7, 2025</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Prepared By</div>
+                <div class="meta-value">Bettroi FZE</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Valid Until</div>
+                <div class="meta-value">December 7, 2025</div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Issued To -->
+            <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #3b82f6;">
+                <p style="margin-bottom: 5px;"><strong>Issued To:</strong></p>
+                <p style="font-size: 16px; color: #1e40af; font-weight: 600;">Shane Goodgie</p>
+                <p style="color: #666;">Founder, CheriPic</p>
+            </div>
+
+            <!-- Project Overview -->
+            <section class="section">
+                <h3 class="section-title">1. Project Overview</h3>
+                <div class="overview-box">
+                    <p>Development and integration of an <strong>AI Relationship Counselor</strong> module for CheriPic, aimed at supporting secure, serious matchmaking. This module will provide AI-guided interactions, voice and chat support, behavior analysis, and will prioritize privacy for female users.</p>
+                </div>
+            </section>
+
+            <!-- Scope of Work -->
+            <section class="section">
+                <h3 class="section-title">2. Scope of Work</h3>
+                <ul class="scope-list">
+                    <li>Integrate AI Relationship Coach (text + voice)</li>
+                    <li>Chat summary and compatibility feedback for female users</li>
+                    <li>Female-led onboarding and interaction flow</li>
+                    <li>Recommendation engine for activities/experiences</li>
+                    <li>Secure API handshake for AI–DB communications</li>
+                    <li>Admin/user dashboard and backend integration</li>
+                    <li>Data privacy features for user consent</li>
+                </ul>
+            </section>
+
+            <!-- Technology Stack -->
+            <section class="section">
+                <h3 class="section-title">3. Technology Stack</h3>
+                <ul class="scope-list">
+                    <li>React Native for cross-platform mobile development</li>
+                    <li>Node.js API for backend services</li>
+                </ul>
+                <div class="info-box" style="margin-top: 15px;">
+                    <p><strong>To be provided by client for integration:</strong></p>
+                    <ul class="scope-list" style="margin-top: 10px;">
+                        <li>Supabase Database (future ready, scalable)</li>
+                        <li>Vercel for cloud deployment</li>
+                        <li>Cloud Agent SDK for voice processing</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Timeline & Milestones -->
+            <section class="section">
+                <h3 class="section-title">4. Timeline & Milestones</h3>
+                <div class="info-box">
+                    <p><strong>Estimated Project Duration:</strong> 6–8 weeks</p>
+                    <p style="margin-top: 10px;">Detailed milestones will be provided in the project plan upon order confirmation.</p>
+                </div>
+            </section>
+
+            <!-- Cost & Payment Terms -->
+            <section class="section">
+                <h3 class="section-title">5. Cost & Payment Terms</h3>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th style="text-align: right;">Amount (USD)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Base Development</td>
+                            <td style="text-align: right;">$2,750</td>
+                        </tr>
+                        <tr>
+                            <td>Hosting (Annual)</td>
+                            <td style="text-align: right;">$720</td>
+                        </tr>
+                        <tr>
+                            <td>AMC (Annual Maintenance)</td>
+                            <td style="text-align: right;">$600</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>TOTAL (First Year)</strong></td>
+                            <td style="text-align: right;"><strong>$4,070</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px;">
+                    <p><strong>Payment Schedule:</strong></p>
+                    <ul class="scope-list">
+                        <li><strong>Advance:</strong> 40% on order confirmation ($1,628)</li>
+                        <li><strong>Balance:</strong> 60% on milestone completion ($2,442)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Bank Details -->
+            <section class="section">
+                <h3 class="section-title">6. Bank Details</h3>
+                <div class="bank-box">
+                    <p><strong>Account Name:</strong> Raftaar Help Emergency Seva</p>
+                    <p><strong>Bank:</strong> State Bank of India, Ajni Branch 64460</p>
+                    <p><strong>Account Type:</strong> Current Account</p>
+                    <p><strong>IFSC Code:</strong> SBIN0064460</p>
+                    <p><strong>SWIFT Code:</strong> SBININBB104 (for international transfers)</p>
+                </div>
+            </section>
+
+            <!-- Client Responsibilities -->
+            <section class="section">
+                <h3 class="section-title">7. Client Responsibilities</h3>
+                <ul class="requirements-list">
+                    <li>Sign NDA before project commencement</li>
+                    <li>Provide API/DB access within 3 business days</li>
+                    <li>Approve designs within 24 hours of submission</li>
+                    <li>Activate payment gateway (Stripe/Razorpay) for transactions</li>
+                </ul>
+            </section>
+
+            <!-- Legal & Warranty Terms -->
+            <section class="section">
+                <h3 class="section-title">8. Legal & Warranty Terms</h3>
+                <ul class="terms-list">
+                    <li>Quotation valid for 30 days from issue date</li>
+                    <li>3-month complimentary bug support post-launch</li>
+                    <li>30% deduction on cancellation after project initiation</li>
+                    <li>Complete source code ownership transfers to client upon final payment</li>
+                    <li>All amounts exclusive of 18% GST (as per Indian tax laws)</li>
+                </ul>
+            </section>
+
+            <!-- Performance Note -->
+            <section class="section">
+                <h3 class="section-title">9. Performance Note</h3>
+                <div class="info-box">
+                    <p>The system is optimized for up to <strong>100 concurrent users</strong> in the initial deployment. The architecture is designed to be scalable and can be expanded to handle increased traffic as needed.</p>
+                </div>
+            </section>
+
+            <!-- Authorization -->
+            <section class="section">
+                <h3 class="section-title">10. Authorization</h3>
+                <div class="signature-section">
+                    <div class="signature-box">
+                        <h4>Proposed By:</h4>
+                        <p><strong>BT, BIJI Tharakan Thomas</strong></p>
+                        <p>Bettroi FZE</p>
+                        <p style="font-size: 13px; color: #666; margin-top: 10px;">
+                            A5, Techno-Hub, DTEC, Dubai Silicon Oasis<br>
+                            Dubai, United Arab Emirates<br>
+                            hello@bettroi.com | +971 54 7148 580
+                        </p>
+                        <div class="signature-line"></div>
+                        <p style="font-size: 12px; color: #999;">Signature</p>
+                    </div>
+
+                    <div class="signature-box">
+                        <h4>Accepted By:</h4>
+                        <p><strong>Shane Goodgie</strong></p>
+                        <p>Founder, CheriPic</p>
+                        <p style="font-size: 13px; color: #666; margin-top: 10px;">
+                            Date: _______________<br>
+                            Stamp: _______________
+                        </p>
+                        <div class="signature-line"></div>
+                        <p style="font-size: 12px; color: #999;">Signature & Stamp</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Closing Note -->
+            <div style="margin-top: 30px; padding: 20px; background: #f0fdf4; border-radius: 8px; text-align: center;">
+                <p style="color: #047857; font-weight: 600;">For any clarifications or to proceed, please reply to this quotation.</p>
+                <p style="color: #059669; margin-top: 5px;">Thank you for choosing Bettroi FZE.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-grid">
+                <div>
+                    <h4>BETTROI FZE</h4>
+                    <p>📍 A5, Techno-Hub, DTEC, Dubai Silicon Oasis</p>
+                    <p style="margin-left: 20px;">Dubai, United Arab Emirates</p>
+                    <p>📧 hello@bettroi.com</p>
+                    <p>📱 +971 54 7148 580 | +971 50 1988 042</p>
+                    <p>🌐 www.bettroi.com</p>
+                </div>
+                <div>
+                    <h4>DOCUMENT INFORMATION</h4>
+                    <p>Proposal ID: BETTROI-CHERICPIC-1125</p>
+                    <p>Version: 1.0</p>
+                    <p>Prepared: November 7, 2025</p>
+                    <p>Valid Until: December 7, 2025</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>This proposal is confidential and proprietary. All rights reserved © 2025 Bettroi FZE</p>
+                <p style="margin-top: 8px;">Powered by ProposifyAI</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

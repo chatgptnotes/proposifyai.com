@@ -1,0 +1,95 @@
+================================================================================
+AIMS PROPOSAL ACCESS GUIDE
+================================================================================
+
+📁 ALL PROPOSALS INDEX PAGE:
+--------------------------------
+Local URL: file:///Users/murali/1backup/Poposifyai.com/proposifyai/AIMS_Proposals_Index.html
+
+This page provides a beautiful overview of all three AIMS proposal options with:
+- Quick comparison table
+- Key features for each model
+- Pricing information
+- Direct links to each proposal
+
+
+📄 INDIVIDUAL PROPOSALS:
+--------------------------------
+
+1️⃣ CLOUD-BASED SAAS MODEL
+   Investment: AED 278,250 (Year 1)
+   Local URL: file:///Users/murali/1backup/Poposifyai.com/proposifyai/AIMS_Proposal_SaaS_Model.html
+
+   ✅ Best for: Organizations wanting zero infrastructure management
+   ✅ Key benefit: Automatic updates and global accessibility
+   ✅ Deployment: 8-10 weeks
+
+2️⃣ ON-PREMISE OFFLINE SOLUTION
+   Investment: AED 588,000 (One-time)
+   Local URL: file:///Users/murali/1backup/Poposifyai.com/proposifyai/AIMS_Proposal_OnPremise_Model.html
+
+   ✅ Best for: High-security environments or offline locations
+   ✅ Key benefit: Complete data sovereignty, no internet required
+   ✅ Deployment: 12-14 weeks
+
+3️⃣ ENTERPRISE SOURCE CODE LICENSE
+   Investment: AED 1,575,000 (Complete ownership)
+   Local URL: file:///Users/murali/1backup/Poposifyai.com/proposifyai/AIMS_Proposal_SourceCode_Model.html
+
+   ✅ Best for: Organizations wanting full control and customization
+   ✅ Key benefit: Complete IP ownership and modification rights
+   ✅ Deployment: 16-20 weeks
+
+
+📊 QUICK COMPARISON:
+--------------------------------
+                    SaaS        On-Premise    Source Code
+----------------------------------------------------------------
+Internet Required:  Yes         No            No
+Maintenance:        Bettroi     Client        Client
+Updates:           Automatic    Manual        Self-developed
+Source Access:     No          No            Full
+Commercial Rights: No          No            Yes
+Support:           Ongoing     6 months      90 days
+
+
+📧 HOW TO USE THESE PROPOSALS:
+--------------------------------
+1. Open the index page first to see all options
+2. Click on each proposal card to view details
+3. Each proposal is a complete 14-17 page document with:
+   - Executive summary
+   - Detailed scope (In-scope and Out-of-scope)
+   - Technology stack
+   - Commercial terms
+   - Payment schedules
+   - Letter of Intent template
+
+4. Share proposals with clients by:
+   - Converting to PDF (Print > Save as PDF)
+   - Hosting on a web server
+   - Sending as email attachments
+
+
+💡 PROPOSAL CUSTOMIZATION NOTES:
+--------------------------------
+- Client details are placeholders [To be provided]
+- Update ADNOC references with actual client name
+- Modify pricing if needed
+- Add client-specific requirements in scope sections
+- Customize timelines based on resource availability
+
+
+📝 KEY DIFFERENTIATORS:
+--------------------------------
+Each proposal addresses different client priorities:
+
+1. SaaS Model → Speed, convenience, low upfront cost
+2. On-Premise → Security, control, offline operation
+3. Source Code → Ownership, customization, independence
+
+
+================================================================================
+Generated: November 29, 2025
+By: Bettroi FZE
+================================================================================

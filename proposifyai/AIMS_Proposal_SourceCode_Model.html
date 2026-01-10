@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AIMS Enterprise Source Code License - Bettroi to ADNOC</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 10mm auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.legal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #003DA5;
+}
+
+.supplier-details {
+    flex: 1;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.logo.big {
+    width: 80px;
+    height: 80px;
+}
+
+.company-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003DA5;
+}
+
+.legal-info p {
+    margin: 5px 0;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.document-info {
+    text-align: right;
+    min-width: 250px;
+}
+
+.document-type {
+    font-size: 20px;
+    color: #003DA5;
+    margin: 0 0 10px 0;
+}
+
+.ref-details p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.title-box {
+    background: linear-gradient(135deg, #003DA5 0%, #0056D6 100%);
+    color: white;
+    padding: 30px;
+    margin: 20px -20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+}
+
+.bill-to-section {
+    margin: 30px 0;
+}
+
+.bill-to-section h2 {
+    color: #003DA5;
+    border-bottom: 2px solid #003DA5;
+    padding-bottom: 5px;
+}
+
+.client-legal-box {
+    background: #f9fafb;
+    padding: 15px;
+    border-left: 4px solid #003DA5;
+    margin: 15px 0;
+}
+
+.client-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003DA5;
+    margin-bottom: 10px;
+}
+
+.investment-summary {
+    background: #f0f4ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px 0;
+}
+
+.investment-summary h3 {
+    color: #003DA5;
+    margin-top: 0;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.pricing-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.total-row td {
+    border-top: 2px solid #003DA5;
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #003DA5;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003DA5;
+}
+
+.ref {
+    text-align: right;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+h2 {
+    color: #003DA5;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #1f2937;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+ul {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+th {
+    background: #003DA5;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.aml-notice {
+    font-size: 8px;
+    font-style: italic;
+    color: #999;
+}
+
+.compliance-box {
+    background: #F0F4FF;
+    border-left: 4px solid #003DA5;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.warning-box {
+    background: #FEF2F2;
+    border-left: 4px solid #DC2626;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.important-note {
+    background: #FFF3CD;
+    border-left: 4px solid #FFC107;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.bank-details-box {
+    background: #f9fafb;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+.source-highlight {
+    background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.ownership-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.benefit-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.benefit-card h4 {
+    color: #4CAF50;
+    margin: 0 0 10px 0;
+}
+
+.deliverables-table {
+    background: #f9fafb;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<div class="page">
+<!-- AML Compliant Legal Header -->
+<div class="legal-header">
+<div class="supplier-details">
+<div class="logo-box">
+<div class="company-name">BETTROI FZE</div>
+</div>
+<div class="legal-info">
+<p><b>Trade License:</b> 14421</p>
+<p><b>TRN:</b> 100406144400003</p>
+<p><b>Address:</b> A5-101, Techno-Hub 1, Dubai Technology Entrepreneur Center (DTEC), Dubai Silicon Oasis, Dubai, UAE</p>
+<p><b>Tel:</b> +971 52 819 4040 | <b>Email:</b> sales@bettroi.com</p>
+<p><b>Website:</b> www.bettroi.com</p>
+</div>
+</div>
+<div class="document-info">
+<h2 class="document-type">TECHNICAL PROPOSAL</h2>
+<div class="ref-details">
+<p><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001</p>
+<p><b>Proposal No:</b> ERP-AIMS-SOURCE-001</p>
+<p><b>Date:</b> November 29, 2025</p>
+<p><b>Valid Until:</b> December 29, 2025</p>
+</div>
+</div>
+</div>
+
+<div class="title-box">
+<div class="title">AIMS Enterprise Source Code License<br/>Complete Ownership & Technology Transfer</div>
+</div>
+
+<div class="content">
+<!-- Client Details Section (Bill To) -->
+<div class="bill-to-section">
+<h2>BILL TO</h2>
+<div class="client-legal-box">
+<p class="client-name">ADNOC GROUP</p>
+<p><b>Trade License:</b> Government Entity (State-Owned)</p>
+<p><b>TRN:</b> 100000000000000</p>
+<p><b>Address:</b> ADNOC HQ, P.O. Box 898, Corniche Road West, Abu Dhabi, UAE</p>
+<p><b>Contact Person:</b> Engineering & Technology Director</p>
+<p><b>Email:</b> info@adnoc.ae</p>
+<p><b>Phone:</b> +971 2 7070000</p>
+</div>
+</div>
+
+<div class="source-highlight">
+<h3 style="margin-top: 0;">Complete Source Code Ownership</h3>
+<p><b>IP Transfer:</b> Full Intellectual Property Rights</p>
+<p><b>Source Code:</b> 100% Unencrypted & Documented</p>
+<p><b>Deployment:</b> Unlimited Internal & External Use</p>
+<p><b>Modification:</b> Full Rights to Modify & Enhance</p>
+</div>
+
+<div style="margin-top: 30px;">
+<div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Implementation & Transfer Timeline</div>
+<div style="font-size: 16px; font-weight: 600; color: #003DA5;">16-20 Weeks</div>
+</div>
+
+<!-- Investment Summary with VAT -->
+<div class="investment-summary">
+<h3>Enterprise Investment</h3>
+<table class="pricing-table">
+<tr>
+<td><b>Source Code & IP Rights</b></td>
+<td align="right"><b>AED 1,250,000</b></td>
+</tr>
+<tr>
+<td><b>Knowledge Transfer Program</b></td>
+<td align="right"><b>AED 150,000</b></td>
+</tr>
+<tr>
+<td><b>Documentation & Training</b></td>
+<td align="right"><b>AED 100,000</b></td>
+</tr>
+<tr>
+<td><b>Subtotal (Taxable Amount)</b></td>
+<td align="right"><b>AED 1,500,000</b></td>
+</tr>
+<tr>
+<td>VAT @ 5%</td>
+<td align="right">AED 75,000</td>
+</tr>
+<tr class="total-row">
+<td><b>TOTAL INVESTMENT</b></td>
+<td align="right"><b>AED 1,575,000</b></td>
+</tr>
+</table>
+<p style="font-size: 10px; font-style: italic; color: #666; margin-top: 10px;">
+Complete IP ownership transfer. Optional maintenance contract available.
+</p>
+</div>
+</div>
+
+<div class="footer">
+<div><b>BETTROI FZE</b></div>
+<div><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span></div>
+<div><b>Page 1</b></div>
+<div class="aml-notice">Document retention: 5 years as per UAE AML regulations</div>
+</div>
+</div>
+
+<!-- Page 2: Table of Contents -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Table of Contents</h2>
+<ol>
+<li><b>Executive Summary</b> ......................................................... 3</li>
+<li><b>Source Code Ownership Benefits</b> ............................................ 3</li>
+<li><b>Scope of Work</b> ............................................................... 4</li>
+<li><b>Source Code Deliverables</b> ................................................... 5</li>
+<li><b>Technology Stack & Architecture</b> ........................................... 6</li>
+<li><b>AI Models & Algorithms</b> ..................................................... 7</li>
+<li><b>Knowledge Transfer Program</b> ................................................. 8</li>
+<li><b>Documentation Package</b> ....................................................... 9</li>
+<li><b>Training & Capability Building</b> ............................................ 9</li>
+<li><b>Project Plan and Milestones</b> ............................................... 10</li>
+<li><b>Commercials - IP Transfer Model</b> ........................................... 11</li>
+<li><b>Intellectual Property Rights</b> .............................................. 12</li>
+<li><b>Client Responsibilities</b> .................................................... 13</li>
+<li><b>Division of Responsibilities</b> .............................................. 13</li>
+<li><b>Acceptance Criteria</b> ......................................................... 14</li>
+<li><b>Important Points</b> ............................................................. 14</li>
+<li><b>Assumptions</b> ................................................................... 15</li>
+<li><b>Post-Transfer Support Options</b> ............................................. 15</li>
+<li><b>Terms & Conditions</b> ........................................................... 16</li>
+<li><b>Service Order Confirmation – Letter of Intent (LOI)</b> .................... 17</li>
+</ol>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>2 | Page</b></div>
+</div>
+
+<!-- Page 3: Executive Summary & Benefits -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Executive Summary</h2>
+<p>
+BETTROI will transfer complete ownership of the AIMS platform source code, providing ADNOC with full intellectual property rights and unlimited deployment capabilities. This comprehensive package includes all source code, AI models, algorithms, documentation, and knowledge transfer to enable your team to independently maintain, modify, and enhance the system. The solution provides complete autonomy, allowing unlimited deployments, custom modifications, and potential commercialization. Success is defined by complete code transfer, successful internal deployment, team enablement, and autonomous operation capability.
+</p>
+<p>
+<b>Success Metrics:</b> 100% source code transfer, full documentation delivery, team trained on all modules, successful independent deployment, complete IP ownership transfer.
+</p>
+
+<h2>Source Code Ownership Benefits</h2>
+
+<div class="ownership-benefits">
+<div class="benefit-card">
+<h4>Complete Autonomy</h4>
+<p>Full control over development roadmap, features, and deployment strategy.</p>
+</div>
+<div class="benefit-card">
+<h4>Unlimited Deployment</h4>
+<p>Deploy across unlimited sites, subsidiaries, and partner organizations.</p>
+</div>
+<div class="benefit-card">
+<h4>Custom Development</h4>
+<p>Modify, enhance, and extend without restrictions or vendor dependency.</p>
+</div>
+<div class="benefit-card">
+<h4>Commercial Rights</h4>
+<p>Option to commercialize, resell, or license to third parties.</p>
+</div>
+<div class="benefit-card">
+<h4>Technology Asset</h4>
+<p>AIMS becomes your intellectual property and strategic asset.</p>
+</div>
+<div class="benefit-card">
+<h4>No Vendor Lock-in</h4>
+<p>Complete independence from Bettroi for future development.</p>
+</div>
+</div>
+
+<h3>Strategic Advantages</h3>
+<ul>
+<li><b>Innovation Control:</b> Drive innovation at your own pace</li>
+<li><b>Security:</b> Complete code review and security audit capability</li>
+<li><b>Integration:</b> Deep integration with proprietary systems</li>
+<li><b>Competitive Edge:</b> Unique capabilities not available to competitors</li>
+<li><b>Cost Efficiency:</b> No recurring license fees ever</li>
+<li><b>Knowledge Retention:</b> Build internal expertise and capabilities</li>
+</ul>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>3 | Page</b></div>
+</div>
+
+<!-- Page 4: Scope of Work -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Scope of Work</h2>
+
+<h3>In-scope</h3>
+<ul>
+<li><b>Complete Source Code:</b> All application code, scripts, and configurations</li>
+<li><b>AI Models & Algorithms:</b> Pre-trained models and training scripts</li>
+<li><b>Database Schemas:</b> Complete database design and migration scripts</li>
+<li><b>Frontend Source:</b> React components, styles, and assets</li>
+<li><b>Backend Source:</b> API services, business logic, and integrations</li>
+<li><b>DevOps Scripts:</b> CI/CD pipelines, deployment automation</li>
+<li><b>Documentation:</b> Technical docs, API specs, architecture diagrams</li>
+<li><b>Development Environment:</b> Setup scripts and configuration files</li>
+<li><b>Test Suites:</b> Unit tests, integration tests, and test data</li>
+<li><b>Knowledge Transfer:</b> 10-day intensive program for your team</li>
+<li><b>Code Walkthrough:</b> Module-by-module explanation sessions</li>
+<li><b>IP Rights Transfer:</b> Legal documentation and ownership transfer</li>
+<li><b>Initial Deployment:</b> First production deployment assistance</li>
+<li><b>90-Day Transition Support:</b> Q&A and clarification support</li>
+</ul>
+
+<h3>Out-of-scope</h3>
+<ul>
+<li><b>Third-party licenses:</b> Client procures any required commercial licenses</li>
+<li><b>Infrastructure:</b> Hardware and cloud resources not included</li>
+<li><b>Ongoing development:</b> Future enhancements by client team</li>
+<li><b>Long-term support:</b> Post-transfer support available separately</li>
+<li><b>Custom features:</b> New features beyond current AIMS capabilities</li>
+<li><b>External integrations:</b> Third-party system connectors</li>
+<li><b>Production operations:</b> Client manages all deployments</li>
+</ul>
+
+<div class="important-note">
+<p style="margin: 0;"><b>Critical Transfer Notes:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>You receive 100% unencrypted, documented source code</li>
+<li>Full rights to modify, deploy, and commercialize</li>
+<li>No royalties or revenue sharing required</li>
+<li>Bettroi retains right to use base technology separately</li>
+</ul>
+</div>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>4 | Page</b></div>
+</div>
+
+<!-- Page 5: Source Code Deliverables -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Source Code Deliverables</h2>
+
+<div class="deliverables-table">
+<h3>Frontend Application (React/TypeScript)</h3>
+<ul>
+<li>Complete React 18 application source</li>
+<li>TypeScript type definitions</li>
+<li>Material-UI components and themes</li>
+<li>State management (Redux/Context)</li>
+<li>Routing and authentication logic</li>
+<li>API integration services</li>
+<li>Build and deployment scripts</li>
+</ul>
+</div>
+
+<div class="deliverables-table">
+<h3>Backend Services (Node.js/Python)</h3>
+<ul>
+<li>REST API server (Express/FastAPI)</li>
+<li>Authentication & authorization modules</li>
+<li>Business logic and workflows</li>
+<li>Database access layers</li>
+<li>File processing services</li>
+<li>Job queue management</li>
+<li>Logging and monitoring</li>
+</ul>
+</div>
+
+<div class="deliverables-table">
+<h3>AI/ML Components</h3>
+<ul>
+<li>Symbol detection models (YOLOv8)</li>
+<li>OCR optimization scripts</li>
+<li>ISA 5.1 parsing algorithms</li>
+<li>Training data and scripts</li>
+<li>Model evaluation notebooks</li>
+<li>Inference optimization code</li>
+<li>Custom vision models</li>
+</ul>
+</div>
+
+<div class="deliverables-table">
+<h3>Database & Infrastructure</h3>
+<ul>
+<li>Supabase schema definitions and configurations</li>
+<li>Migration scripts and seeders</li>
+<li>Backup and restore procedures</li>
+<li>Docker configurations</li>
+<li>Vercel and Render deployment configs</li>
+<li>Infrastructure as Code templates</li>
+<li>Monitoring configurations</li>
+</ul>
+</div>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>5 | Page</b></div>
+</div>
+
+<!-- Page 6: Technology Stack -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Technology Stack & Architecture</h2>
+
+<h3>Application Architecture</h3>
+
+<table>
+<tr>
+<th>Layer</th>
+<th>Technologies</th>
+<th>Source Files</th>
+</tr>
+<tr>
+<td><b>Frontend</b></td>
+<td>React 18, TypeScript 5<br/>Material-UI 5, Redux Toolkit</td>
+<td>~500 components<br/>~200 utilities</td>
+</tr>
+<tr>
+<td><b>Backend API</b></td>
+<td>Node.js 18, Express 4<br/>Python 3.11, FastAPI</td>
+<td>~100 endpoints<br/>~50 services</td>
+</tr>
+<tr>
+<td><b>AI Services</b></td>
+<td>PyTorch 2.0, TensorFlow 2.13<br/>OpenCV, Tesseract 5</td>
+<td>~30 models<br/>~100 processors</td>
+</tr>
+<tr>
+<td><b>Database</b></td>
+<td>Supabase (PostgreSQL + Auth + Storage)<br/>TypeORM, Prisma</td>
+<td>~50 tables<br/>~20 views</td>
+</tr>
+<tr>
+<td><b>DevOps</b></td>
+<td>Docker, Kubernetes<br/>GitHub Actions, Jest</td>
+<td>~20 workflows<br/>~200 tests</td>
+</tr>
+</table>
+
+<h3>Code Statistics</h3>
+<ul>
+<li><b>Total Lines of Code:</b> ~150,000 lines</li>
+<li><b>Number of Files:</b> ~2,000 files</li>
+<li><b>Test Coverage:</b> >80%</li>
+<li><b>Documentation:</b> ~500 pages</li>
+</ul>
+
+<h3>Architecture Patterns</h3>
+<ul>
+<li><b>Frontend:</b> Component-based architecture with hooks</li>
+<li><b>Backend:</b> Microservices with message queues</li>
+<li><b>Database:</b> Repository pattern with ORM</li>
+<li><b>AI Pipeline:</b> Modular processing pipeline</li>
+<li><b>Security:</b> JWT authentication, RBAC authorization</li>
+</ul>
+
+<h3>Development Tools Included</h3>
+<ul>
+<li>VS Code workspace configurations</li>
+<li>ESLint and Prettier settings</li>
+<li>Git hooks and workflows</li>
+<li>Docker development environment</li>
+<li>Postman/Insomnia collections</li>
+<li>Database management tools</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>6 | Page</b></div>
+</div>
+
+<!-- Page 7: AI Models -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>AI Models & Algorithms</h2>
+
+<h3>Computer Vision Models</h3>
+
+<table>
+<tr>
+<th>Model</th>
+<th>Purpose</th>
+<th>Accuracy</th>
+</tr>
+<tr>
+<td><b>YOLOv8-PID</b></td>
+<td>Equipment symbol detection</td>
+<td>98.5%</td>
+</tr>
+<tr>
+<td><b>ResNet-Instrument</b></td>
+<td>Instrument classification</td>
+<td>97.2%</td>
+</tr>
+<tr>
+<td><b>UNet-Line</b></td>
+<td>Pipeline segmentation</td>
+<td>96.8%</td>
+</tr>
+<tr>
+<td><b>CRAFT-Text</b></td>
+<td>Text region detection</td>
+<td>99.1%</td>
+</tr>
+</table>
+
+<h3>OCR & NLP Components</h3>
+<ul>
+<li><b>Tesseract Configuration:</b> Custom training for engineering fonts</li>
+<li><b>Text Processing:</b> Regular expressions for tag patterns</li>
+<li><b>ISA Parser:</b> Rule engine for ISA 5.1 compliance</li>
+<li><b>Context Analysis:</b> Spatial relationship algorithms</li>
+<li><b>Validation Engine:</b> Cross-reference checking</li>
+</ul>
+
+<h3>Training Resources Included</h3>
+<ul>
+<li><b>Labeled Dataset:</b> 5,000 annotated P&ID images</li>
+<li><b>Training Scripts:</b> End-to-end model training pipeline</li>
+<li><b>Augmentation Tools:</b> Data augmentation utilities</li>
+<li><b>Evaluation Metrics:</b> Performance benchmarking tools</li>
+<li><b>Transfer Learning:</b> Fine-tuning procedures</li>
+</ul>
+
+<h3>Model Management</h3>
+<ul>
+<li>Model versioning system</li>
+<li>A/B testing framework</li>
+<li>Performance monitoring</li>
+<li>Model update procedures</li>
+<li>Rollback mechanisms</li>
+</ul>
+
+<h3>Custom Development Capability</h3>
+<p>
+With full source code access, your team can:
+</p>
+<ul>
+<li>Train models on proprietary P&ID styles</li>
+<li>Add new symbol categories</li>
+<li>Improve accuracy for specific use cases</li>
+<li>Optimize for performance or accuracy</li>
+<li>Integrate new AI technologies</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>7 | Page</b></div>
+</div>
+
+<!-- Page 8: Knowledge Transfer -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Knowledge Transfer Program</h2>
+
+<h3>10-Day Intensive Program</h3>
+
+<div class="deliverables-table">
+<p><b>Days 1-2: Architecture & Overview</b></p>
+<ul>
+<li>System architecture walkthrough</li>
+<li>Technology stack deep dive</li>
+<li>Development environment setup</li>
+<li>Code repository structure</li>
+<li>Build and deployment processes</li>
+</ul>
+</div>
+
+<div class="deliverables-table">
+<p><b>Days 3-4: Frontend Development</b></p>
+<ul>
+<li>React component architecture</li>
+<li>State management patterns</li>
+<li>API integration layer</li>
+<li>UI/UX customization</li>
+<li>Performance optimization</li>
+</ul>
+</div>
+
+<div class="deliverables-table">
+<p><b>Days 5-6: Backend Services</b></p>
+<ul>
+<li>API service architecture</li>
+<li>Database design and optimization</li>
+<li>Authentication and security</li>
+<li>Job processing pipeline</li>
+<li>Integration points</li>
+</ul>
+</div>
+
+<div class="deliverables-table">
+<p><b>Days 7-8: AI/ML Pipeline</b></p>
+<ul>
+<li>Model architecture and training</li>
+<li>Inference optimization</li>
+<li>OCR configuration</li>
+<li>ISA parsing logic</li>
+<li>Custom model development</li>
+</ul>
+</div>
+
+<div class="deliverables-table">
+<p><b>Days 9-10: Operations & Maintenance</b></p>
+<ul>
+<li>Deployment procedures</li>
+<li>Monitoring and logging</li>
+<li>Troubleshooting guide</li>
+<li>Performance tuning</li>
+<li>Future development roadmap</li>
+</ul>
+</div>
+
+<h3>Participant Requirements</h3>
+<ul>
+<li>5-10 technical team members recommended</li>
+<li>Mix of frontend, backend, and DevOps engineers</li>
+<li>Basic knowledge of JavaScript/Python beneficial</li>
+<li>Dedicated time commitment for full program</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>8 | Page</b></div>
+</div>
+
+<!-- Page 9: Documentation & Training -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Documentation Package</h2>
+
+<h3>Technical Documentation</h3>
+<ul>
+<li><b>Architecture Guide:</b> 100+ pages with diagrams</li>
+<li><b>API Reference:</b> Complete endpoint documentation</li>
+<li><b>Database Schema:</b> ER diagrams and data dictionary</li>
+<li><b>Deployment Guide:</b> Step-by-step instructions</li>
+<li><b>Security Guide:</b> Best practices and configurations</li>
+</ul>
+
+<h3>Development Documentation</h3>
+<ul>
+<li><b>Developer Guide:</b> Coding standards and patterns</li>
+<li><b>Component Library:</b> UI component documentation</li>
+<li><b>Testing Guide:</b> Test strategy and procedures</li>
+<li><b>CI/CD Pipeline:</b> Automation documentation</li>
+<li><b>Troubleshooting:</b> Common issues and solutions</li>
+</ul>
+
+<h3>AI/ML Documentation</h3>
+<ul>
+<li><b>Model Documentation:</b> Architecture and parameters</li>
+<li><b>Training Guide:</b> Dataset preparation and training</li>
+<li><b>Evaluation Metrics:</b> Performance measurement</li>
+<li><b>Optimization Guide:</b> Performance tuning</li>
+<li><b>Research Papers:</b> Underlying algorithms</li>
+</ul>
+
+<h2>Training & Capability Building</h2>
+
+<h3>Training Materials</h3>
+<ul>
+<li>Video tutorials (20+ hours)</li>
+<li>Hands-on lab exercises</li>
+<li>Sample projects and datasets</li>
+<li>Quick reference guides</li>
+<li>Troubleshooting playbooks</li>
+</ul>
+
+<h3>Team Enablement</h3>
+<ul>
+<li>Code review sessions with Bettroi architects</li>
+<li>Q&A sessions during transition period</li>
+<li>Best practices workshops</li>
+<li>Performance optimization training</li>
+<li>Security hardening guidance</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>9 | Page</b></div>
+</div>
+
+<!-- Page 10: Project Plan -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Project Plan and Milestones</h2>
+
+<p><b>Total Duration:</b> 16-20 weeks from contract signing</p>
+
+<table>
+<tr>
+<th>Phase</th>
+<th>Duration</th>
+<th>Deliverables</th>
+</tr>
+<tr>
+<td><b>Phase 1: Preparation</b></td>
+<td>Week 1-2</td>
+<td>• Legal agreements<br/>• IP transfer documentation<br/>• NDA execution<br/>• Team identification</td>
+</tr>
+<tr>
+<td><b>Phase 2: Code Preparation</b></td>
+<td>Week 3-6</td>
+<td>• Code cleanup and organization<br/>• Documentation completion<br/>• Security audit<br/>• License review</td>
+</tr>
+<tr>
+<td><b>Phase 3: Initial Transfer</b></td>
+<td>Week 7-8</td>
+<td>• Repository access<br/>• Code delivery<br/>• Environment setup<br/>• Initial deployment</td>
+</tr>
+<tr>
+<td><b>Phase 4: Knowledge Transfer</b></td>
+<td>Week 9-11</td>
+<td>• 10-day training program<br/>• Code walkthroughs<br/>• Q&A sessions<br/>• Hands-on practice</td>
+</tr>
+<tr>
+<td><b>Phase 5: Validation</b></td>
+<td>Week 12-14</td>
+<td>• Independent deployment<br/>• Functionality testing<br/>• Performance validation<br/>• Issue resolution</td>
+</tr>
+<tr>
+<td><b>Phase 6: Transition</b></td>
+<td>Week 15-16</td>
+<td>• Final documentation<br/>• IP transfer completion<br/>• Sign-off<br/>• Support handover</td>
+</tr>
+<tr>
+<td><b>Phase 7: Support</b></td>
+<td>Week 17-20</td>
+<td>• 90-day support period<br/>• Email Q&A<br/>• Issue clarification<br/>• Final handover</td>
+</tr>
+</table>
+
+<h3>Success Criteria</h3>
+<ul>
+<li>Complete source code transferred and accessible</li>
+<li>Successful independent deployment by client team</li>
+<li>All documentation delivered and reviewed</li>
+<li>Team successfully trained and certified</li>
+<li>IP transfer legally completed</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>10 | Page</b></div>
+</div>
+
+<!-- Page 11: Commercials -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Commercials - IP Transfer Model</h2>
+
+<h3>Investment Breakdown</h3>
+
+<table>
+<tr>
+<th>Component</th>
+<th>Cost (AED)</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><b>Source Code & IP</b></td>
+<td>1,250,000</td>
+<td>• Complete source code<br/>• All IP rights<br/>• AI models<br/>• Unlimited use</td>
+</tr>
+<tr>
+<td><b>Knowledge Transfer</b></td>
+<td>150,000</td>
+<td>• 10-day program<br/>• Code walkthroughs<br/>• Team training<br/>• Certification</td>
+</tr>
+<tr>
+<td><b>Documentation</b></td>
+<td>100,000</td>
+<td>• Technical docs<br/>• User manuals<br/>• Video tutorials<br/>• Architecture guides</td>
+</tr>
+<tr>
+<td><b>Subtotal</b></td>
+<td>1,500,000</td>
+<td>Complete package</td>
+</tr>
+<tr>
+<td><b>VAT (5%)</b></td>
+<td>75,000</td>
+<td>As per UAE regulations</td>
+</tr>
+<tr>
+<td><b>Total Investment</b></td>
+<td><b>1,575,000</b></td>
+<td>One-time payment</td>
+</tr>
+</table>
+
+<h3>Payment Schedule</h3>
+<ul>
+<li><b>20%</b> on contract signing (AED 315,000)</li>
+<li><b>30%</b> on code preparation completion (AED 472,500)</li>
+<li><b>30%</b> on code transfer & training start (AED 472,500)</li>
+<li><b>20%</b> on final acceptance & IP transfer (AED 315,000)</li>
+</ul>
+
+<h3>Optional Services</h3>
+<table>
+<tr>
+<th>Service</th>
+<th>Cost</th>
+</tr>
+<tr>
+<td>Extended Support (per year)</td>
+<td>AED 200,000</td>
+</tr>
+<tr>
+<td>Custom Feature Development</td>
+<td>AED 5,000/day</td>
+</tr>
+<tr>
+<td>Additional Training (per week)</td>
+<td>AED 35,000</td>
+</tr>
+<tr>
+<td>Code Review & Optimization</td>
+<td>AED 75,000</td>
+</tr>
+<tr>
+<td>Architecture Consultation</td>
+<td>AED 3,000/day</td>
+</tr>
+</table>
+
+<h3>Value Proposition</h3>
+<ul>
+<li>Own the technology forever</li>
+<li>No licensing fees ever</li>
+<li>Unlimited deployments</li>
+<li>Complete modification rights</li>
+<li>Potential revenue generation</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>11 | Page</b></div>
+</div>
+
+<!-- Page 12: IP Rights -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Intellectual Property Rights</h2>
+
+<h3>Rights Transferred to ADNOC</h3>
+<ul>
+<li><b>Source Code:</b> Complete ownership of all delivered code</li>
+<li><b>Documentation:</b> All technical and user documentation</li>
+<li><b>AI Models:</b> Trained models and training procedures</li>
+<li><b>Algorithms:</b> All custom algorithms and logic</li>
+<li><b>Configurations:</b> All configuration files and settings</li>
+<li><b>Test Suites:</b> All test cases and test data</li>
+<li><b>Deployment Scripts:</b> All automation and deployment code</li>
+</ul>
+
+<h3>Usage Rights</h3>
+<ul>
+<li><b>Internal Use:</b> Unlimited deployments within ADNOC group</li>
+<li><b>Modification:</b> Full rights to modify and enhance</li>
+<li><b>Distribution:</b> Can distribute to subsidiaries and partners</li>
+<li><b>Commercialization:</b> Can license or sell to third parties</li>
+<li><b>Derivative Works:</b> Can create new products based on AIMS</li>
+</ul>
+
+<h3>Bettroi Retained Rights</h3>
+<ul>
+<li>General concepts and methodologies (non-exclusive)</li>
+<li>Pre-existing Bettroi IP and frameworks</li>
+<li>Right to develop similar solutions for other clients</li>
+<li>Open-source components remain under original licenses</li>
+</ul>
+
+<h3>Third-Party Components</h3>
+<p>
+AIMS uses several open-source libraries under MIT, Apache, and BSD licenses:
+</p>
+<ul>
+<li>React (MIT License)</li>
+<li>Node.js (MIT License)</li>
+<li>Supabase (Apache 2.0 License)</li>
+<li>TensorFlow (Apache 2.0)</li>
+<li>All compatible with commercial use</li>
+</ul>
+
+<h3>Legal Documentation</h3>
+<ul>
+<li>IP Assignment Agreement</li>
+<li>Source Code License Agreement</li>
+<li>Warranty and Indemnification</li>
+<li>Non-compete waiver for AIMS</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>12 | Page</b></div>
+</div>
+
+<!-- Page 13: Responsibilities -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Client Responsibilities</h2>
+<ul>
+<li>Identify technical team for knowledge transfer (5-10 members)</li>
+<li>Provide development infrastructure for deployment</li>
+<li>Allocate team time for 10-day training program</li>
+<li>Set up source code repository (GitHub/GitLab/Bitbucket)</li>
+<li>Procure any required third-party commercial licenses</li>
+<li>Sign IP transfer agreements and NDAs</li>
+<li>Provide test environment for validation</li>
+<li>Assign project manager for coordination</li>
+<li>Review and accept documentation</li>
+<li>Complete acceptance testing</li>
+</ul>
+
+<h2>Division of Responsibilities</h2>
+
+<table>
+<tr>
+<th>Area</th>
+<th>ADNOC</th>
+<th>BETTROI</th>
+</tr>
+<tr>
+<td><b>Legal</b></td>
+<td>• Review agreements<br/>• Legal approval<br/>• IP registration</td>
+<td>• Draft agreements<br/>• IP transfer docs<br/>• License clearing</td>
+</tr>
+<tr>
+<td><b>Technical</b></td>
+<td>• Infrastructure<br/>• Dev environment<br/>• Testing</td>
+<td>• Code preparation<br/>• Documentation<br/>• Training delivery</td>
+</tr>
+<tr>
+<td><b>Knowledge</b></td>
+<td>• Team attendance<br/>• Practice exercises<br/>• Questions</td>
+<td>• Training content<br/>• Walkthroughs<br/>• Q&A support</td>
+</tr>
+<tr>
+<td><b>Deployment</b></td>
+<td>• All deployments<br/>• Operations<br/>• Maintenance</td>
+<td>• Initial guidance<br/>• Best practices<br/>• Troubleshooting</td>
+</tr>
+<tr>
+<td><b>Future</b></td>
+<td>• Development<br/>• Enhancement<br/>• Support</td>
+<td>• Optional services<br/>• Consultation<br/>• As requested</td>
+</tr>
+</table>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>13 | Page</b></div>
+</div>
+
+<!-- Page 14: Acceptance & Important Points -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Acceptance Criteria</h2>
+<ul>
+<li>All source code files delivered and accessible</li>
+<li>Code successfully compiles and runs</li>
+<li>Test suite passes with >80% success rate</li>
+<li>Documentation complete and accurate</li>
+<li>Successful deployment by ADNOC team</li>
+<li>P&ID processing functionality verified</li>
+<li>Training program completed</li>
+<li>Knowledge transfer Q&A completed</li>
+<li>IP transfer documents executed</li>
+<li>90-day support period initiated</li>
+</ul>
+
+<h2>Important Points</h2>
+
+<div class="important-note">
+<p style="margin: 0;"><b>Critical Ownership Points:</b></p>
+<ul style="margin: 10px 0 0 20px;">
+<li>You own the source code completely and forever</li>
+<li>No royalties or revenue sharing required</li>
+<li>Can modify, deploy, and sell without restrictions</li>
+<li>Includes all AI models and algorithms</li>
+<li>Bettroi cannot revoke or limit your rights</li>
+</ul>
+</div>
+
+<h3>Strategic Considerations</h3>
+<ul>
+<li><b>Team Readiness:</b> Ensure technical team is prepared for ownership</li>
+<li><b>Infrastructure:</b> Plan for development and production environments</li>
+<li><b>Maintenance:</b> Budget for ongoing development team</li>
+<li><b>Evolution:</b> Consider roadmap for future enhancements</li>
+</ul>
+
+<h3>Long-term Value</h3>
+<ul>
+<li>Build internal IP portfolio</li>
+<li>Customize for specific ADNOC requirements</li>
+<li>Potential to become industry standard</li>
+<li>Revenue generation through licensing</li>
+<li>Complete independence from vendors</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>14 | Page</b></div>
+</div>
+
+<!-- Page 15: Assumptions & Support -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Assumptions</h2>
+<ul>
+<li>ADNOC has experienced development team (5-10 engineers)</li>
+<li>Team has experience with React, Node.js, and Python</li>
+<li>Development infrastructure is available</li>
+<li>Source code repository (Git) is set up</li>
+<li>Team can dedicate time for training program</li>
+<li>Test P&IDs available for validation</li>
+<li>Legal approval process takes 2-3 weeks</li>
+<li>No export control restrictions apply</li>
+<li>English documentation is acceptable</li>
+<li>Virtual training sessions are acceptable</li>
+</ul>
+
+<h2>Post-Transfer Support Options</h2>
+
+<h3>Included 90-Day Transition Support</h3>
+<ul>
+<li>Email Q&A support for clarifications</li>
+<li>Bug reports and workarounds</li>
+<li>Documentation clarifications</li>
+<li>Best practice guidance</li>
+<li>Architecture consultations (up to 10 hours)</li>
+</ul>
+
+<h3>Optional Annual Support Contract</h3>
+<p><b>Standard Support - AED 200,000/year</b></p>
+<ul>
+<li>Quarterly code reviews</li>
+<li>Architecture consultation (40 hours)</li>
+<li>Performance optimization assistance</li>
+<li>Security updates and patches</li>
+<li>Priority email/phone support</li>
+</ul>
+
+<p><b>Premium Support - AED 400,000/year</b></p>
+<ul>
+<li>Everything in Standard Support</li>
+<li>Monthly code reviews</li>
+<li>80 hours consultation</li>
+<li>Custom feature development (up to 20 days)</li>
+<li>On-site visits (2 per year)</li>
+<li>24/7 emergency support</li>
+</ul>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>15 | Page</b></div>
+</div>
+
+<!-- Page 16: Terms -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>Terms & Conditions</h2>
+
+<h3>Ownership Terms</h3>
+<ul>
+<li><b>Transfer:</b> Complete and irrevocable upon final payment</li>
+<li><b>Rights:</b> All IP rights transfer to ADNOC</li>
+<li><b>Usage:</b> Unlimited, unrestricted, perpetual</li>
+<li><b>Geography:</b> Worldwide rights</li>
+<li><b>Exclusivity:</b> Non-exclusive (Bettroi can develop similar solutions)</li>
+</ul>
+
+<h3>Warranties</h3>
+<ul>
+<li><b>Ownership:</b> Bettroi warrants clear title to all code</li>
+<li><b>Functionality:</b> Code performs as demonstrated</li>
+<li><b>Documentation:</b> Accurate and complete</li>
+<li><b>No Infringement:</b> Does not violate third-party rights</li>
+<li><b>Support:</b> 90-day transition support included</li>
+</ul>
+
+<h3>Limitations</h3>
+<ul>
+<li>No warranty on future compatibility</li>
+<li>No liability for client modifications</li>
+<li>No guarantee of specific performance metrics</li>
+<li>Limited to direct damages only</li>
+<li>Maximum liability equals contract value</li>
+</ul>
+
+<h3>Confidentiality</h3>
+<ul>
+<li>Mutual NDA for 5 years</li>
+<li>Source code is ADNOC confidential post-transfer</li>
+<li>Bettroi retains right to general concepts</li>
+<li>No disclosure of ADNOC customizations</li>
+</ul>
+
+<h3>Dispute Resolution</h3>
+<ul>
+<li>Good faith negotiations first</li>
+<li>Mediation in Dubai if needed</li>
+<li>Arbitration under DIAC rules</li>
+<li>Governing law: UAE</li>
+</ul>
+
+<h3>Change Control</h3>
+<p>
+Any modifications to the agreed source code package or additional features require written amendment with revised commercial terms.
+</p>
+
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>16 | Page</b></div>
+</div>
+
+<!-- Page 17: LOI -->
+<div class="page">
+<div class="header">
+<div class="logo-box"><div class="name">BETTROI</div></div>
+<div class="ref"><b>Reference:</b> BETTROI/AIMS/SOURCE/2025/001<br><b>Date:</b> November 29, 2025<br><b>Website:</b> bettroi.com</div>
+</div>
+<div class="content">
+<h2>SERVICE ORDER CONFIRMATION – LETTER OF INTENT (LOI)</h2>
+
+<div style="margin-top: 30px;">
+<p><b>Ref:</b> ERP-AIMS-SOURCE-001, November 29, 2025</p>
+
+<p style="margin-top: 20px;">
+<b>From,</b><br/>
+ADNOC GROUP<br/>
+Abu Dhabi National Oil Company<br/>
+ADNOC HQ, P.O. Box 898<br/>
+Corniche Road West, Abu Dhabi<br/>
+United Arab Emirates
+</p>
+
+<p style="margin-top: 20px;">
+<b>To,</b><br/>
+BETTROI FZE<br/>
+A5-101, Techno-Hub 1, DTEC<br/>
+Dubai Silicon Oasis, Dubai, UAE
+</p>
+
+<p style="margin-top: 20px;">
+<b>Subject:</b> Letter of Intent – AIMS Enterprise Source Code License
+</p>
+
+<p style="margin-top: 20px;">
+Dear Biji Tharakan,
+</p>
+
+<p>
+We are pleased to issue this Letter of Intent, in reference to Bettroi's Proposal (ERP Ref: ERP-AIMS-SOURCE-001), to proceed with the acquisition of the complete source code and intellectual property rights for the AIMS platform.
+</p>
+
+<p>
+We understand that this comprehensive package includes full ownership of all source code, AI models, algorithms, documentation, and associated intellectual property rights. The transfer includes a 10-day knowledge transfer program, complete technical documentation, and 90 days of transition support. Upon completion, ADNOC will have unlimited rights to use, modify, deploy, and commercialize the AIMS platform without restrictions.
+</p>
+
+<p>
+We acknowledge our intent to proceed with the investment of AED 1,575,000 (including VAT) for complete ownership of the AIMS technology. This LOI serves as formal authorization to initiate the engagement under the terms outlined in the referenced proposal. Bettroi may commence code preparation and legal documentation upon receipt of the initial payment.
+</p>
+
+<p>
+We recognize the strategic value of owning this technology and look forward to building our internal capabilities around the AIMS platform.
+</p>
+
+<p style="margin-top: 30px;">
+Sincerely,
+</p>
+
+<div style="margin-top: 40px;">
+<p>
+For ADNOC GROUP,<br/><br/>
+Name: _________________________________<br/><br/>
+Title: _________________________________<br/><br/>
+Signature: _____________________________<br/><br/>
+Date: _________________________________<br/><br/>
+Official Stamp: ________________________
+</p>
+</div>
+
+</div>
+</div>
+<div class="footer"><b>BETTROI: BETTER BUSINESS</b><span>29-Nov-2025 / ERP-AIMS-SOURCE-001</span><b>17 | Page</b></div>
+</div>
+
+</body>
+</html>
